@@ -5,7 +5,7 @@ const authMiddleware = require("../middlewares/authMiddleware");
 
 router.post(
   "/create",
-  authMiddleware(["admin", "creator", "viewer"]),
+  authMiddleware(["admin", "creator"]),
   formController.createForm
 );
 router.get(
