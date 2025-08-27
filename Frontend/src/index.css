@@ -1,9 +1,4 @@
 
-/* :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-=======
 /* =========================
    Header Styles
 ========================= */
@@ -19,6 +14,88 @@
   height: 32px;
 }
 
+.forms-title {
+  font-size: 1.2rem;
+  color: #202124;
+}
+
+/* =========================
+   Search Bar
+========================= */
+.search-bar {
+  height: 38px;
+  width: 50%;
+  background: #f1f3f4;
+  transition: all 0.2s ease-in-out;
+}
+
+.search-bar input {
+  font-size: 0.9rem;
+  padding-left: 10px;
+  background: transparent;
+}
+
+.search-bar input:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.search-bar:focus-within {
+  background: #fff;
+  border: 1px solid #dadce0;
+}
+
+/* =========================
+   Profile Dropdown
+========================= */
+.card {
+  border-radius: 12px !important;
+  width: 400px;
+}
+
+.card-body img {
+  border: 2px solid #dadce0;
+}
+
+.card-footer {
+  background: #f8f9fa;
+}
+
+/* Profile dropdown links */
+.card-footer a {
+  font-size: 0.8rem;
+  text-decoration: none;
+}
+
+/* =========================
+   Sidebar / Offcanvas
+========================= */
+.drive {
+  width: 20px;
+  height: 20px;
+}
+.offcanvas {
+  background: #fff;
+  border-right: 1px solid #e5e5e5;
+  transition: transform 0.3s ease-in-out;
+}
+
+.offcanvas.show {
+  transform: translateX(0) !important;
+}
+
+.offcanvas-header {
+  padding: 1rem;
+}
+
+.offcanvas-title img{
+  width: 30px;
+  height: 30px;
+}
+
+.offcanvas-body {
+  padding: 0.5rem 1rem;
+}
 
 .forms-title {
   font-size: 1.2rem;
