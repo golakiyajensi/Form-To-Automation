@@ -28,4 +28,19 @@ const loginUser = async (email, password) => {
   }
 };
 
-module.exports = { registerUser, loginUser };
+const getAllUsers = async () => {
+    const [rows] = await db.query("SELECT user_id, name, email, role, created_at, updated_at FROM tbl_user ORDER BY user_id");
+    return rows;
+};
+
+const updateUserRole = async (user_id, role) => {
+    const [rows] = await db.query("CALL sp_update_user_role(?,?)", [user_id, role]);
+    return rows[0][0]; // return updated user
+};
+
+const deleteUser = async (user_id) => {
+    await db.query("CALL sp_delete_user(?)", [user_id]);
+    return true;
+};
+
+module.exports = { registerUser, loginUser, getAllUsers, updateUserRole, deleteUser };
