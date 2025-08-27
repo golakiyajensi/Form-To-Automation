@@ -26,7 +26,8 @@ module.exports = {
   },
 
   deleteForm: async (formId) => {
-    await db.query("CALL sp_delete_form(?)", [formId]);
-    return true;
-  }
+  await db.query("CALL sp_delete_form(?, @status)", [formId]);
+  const [[{ status }]] = await db.query("SELECT @status AS status");
+  return status;
+}
 };

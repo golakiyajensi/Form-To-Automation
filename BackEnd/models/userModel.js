@@ -34,13 +34,13 @@ const getAllUsers = async () => {
 };
 
 const updateUserRole = async (user_id, role) => {
-    const [rows] = await db.query("CALL sp_update_user_role(?,?)", [user_id, role]);
-    return rows[0][0]; // return updated user
+  const [results] = await db.query("CALL sp_update_user_role(?,?)", [user_id, role]);
+  return results[0] ? results[0][0] : null;
 };
 
 const deleteUser = async (user_id) => {
-    await db.query("CALL sp_delete_user(?)", [user_id]);
-    return true;
+  const [rows] = await db.query("CALL sp_delete_user(?)", [user_id]);
+  return rows[0][0]; // {status: 'deleted'} or {status: 'not_found'}
 };
 
 module.exports = { registerUser, loginUser, getAllUsers, updateUserRole, deleteUser };

@@ -3,12 +3,13 @@ const response = require("../utils/responseTemplate");
 
 exports.submitResponse = async (req, res) => {
   try {
-    const { form_id, submitted_by, answers } = req.body;
+    const { formId } = req.params;
+    const { submitted_by, answers } = req.body;
     const user_id = req.user ? req.user.userId : null;
 
-    // insert response
+    // Insert response
     const result = await responseModel.createResponse(
-      form_id,
+      formId,
       user_id,
       submitted_by
     );
@@ -26,7 +27,7 @@ exports.submitResponse = async (req, res) => {
       }
     });
 
-    // insert answers as JSON array
+    // Insert answers as JSON array
     for (const field_id in mergedAnswers) {
       await responseModel.addAnswer(
         result.response_id,
@@ -73,6 +74,21 @@ exports.getResponsesByForm = async (req, res) => {
     }
 
     res.json(response.success("Responses fetched successfully", result));
+  } catch (err) {
+    res.status(500).json(response.error(err.message));
+  }
+};
+
+exports.getResponseById = async (req, res) => {
+  try {
+    const { responseId } = req.params;
+    const result = await responseModel.getResponseById(responseId);
+
+    if (!result) {
+      return res.status(404).json(response.notFound("Response not found"));
+    }
+
+    res.json(response.success("Response fetched successfully", result));
   } catch (err) {
     res.status(500).json(response.error(err.message));
   }

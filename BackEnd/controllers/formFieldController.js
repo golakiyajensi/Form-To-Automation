@@ -4,17 +4,11 @@ const response = require("../utils/responseTemplate");
 // Create Form Field
 exports.createFormField = async (req, res) => {
   try {
-    const {
-      form_id,
-      label,
-      field_type,
-      is_required,
-      options,
-      conditional_logic,
-      order_no,
-    } = req.body;
+    const { formId } = req.params;
+    const { label, field_type, is_required, options, conditional_logic, order_no } = req.body;
+
     const result = await formFieldModel.createFormField(
-      form_id,
+      formId,
       label,
       field_type,
       is_required,
@@ -25,7 +19,7 @@ exports.createFormField = async (req, res) => {
 
     const responseData = {
       id: result.field_id,
-      form_id,
+      form_id: formId,
       label,
       field_type,
       is_required,
@@ -133,7 +127,12 @@ exports.updateFormField = async (req, res) => {
 exports.deleteFormField = async (req, res) => {
   try {
     const { id } = req.params;
-    await formFieldModel.deleteFormField(id);
+    const affected = await formFieldModel.deleteFormField(id);
+
+    if (affected === 0) {
+      return res.status(404).json(response.notFound("Field not found or already deleted"));
+    }
+
     res.json(response.success("Field deleted successfully"));
   } catch (err) {
     res.status(500).json(response.error(err.message));

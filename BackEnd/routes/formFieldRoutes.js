@@ -4,7 +4,7 @@ const formFieldController = require("../controllers/formFieldController");
 const authMiddleware = require("../middlewares/authMiddleware");
 
 // Role-based Access Example
-router.post("/", authMiddleware(["admin", "creator"]), formFieldController.createFormField);
+router.post("/form/:formId/field", authMiddleware(["admin", "creator"]), formFieldController.createFormField);
 router.get("/:formId", authMiddleware(["admin", "creator", "viewer"]), formFieldController.getFieldsByFormId);
 router.get("/field/:id", authMiddleware(["admin", "creator", "viewer"]), formFieldController.getFieldById);
 router.put("/:id", authMiddleware(["admin", "creator"]), formFieldController.updateFormField);
