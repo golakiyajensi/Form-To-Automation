@@ -8,6 +8,8 @@ import Signin from "./Components/Signin.jsx";
 import UseAccount from "./Components/UseAccount.jsx";
 import Password from "./Components/Pasword.jsx";
 import ForgotPassword from "./Components/ForgotPassword.jsx";
+import './App.css'
+import Header from './screen/Header'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -22,6 +24,7 @@ function App() {
           <Route path='/forgotpassword' element={<ForgotPassword/>}></Route>
         </Routes>
       </Router>
+      <Header/>
     </>
   )
 }
