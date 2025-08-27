@@ -1,0 +1,349 @@
+/* Signin page start */
+/* Background */
+.account-container {
+  color: #e8eaed;
+  padding-top: 10%;
+  padding-bottom: 10.9%;
+}
+
+.container{
+    max-width: 1140px;
+}
+/* Card */
+.account-card {
+  background-color: #f7f7f7;
+  border-radius: 20px;
+  width: 100%;
+  display: flex;
+  padding: 70px;
+  justify-content: space-between;
+  border: 1px solid #c3c2c2;
+}
+
+/* Logo */
+.logo-card{
+    width: 50%;
+}
+.google-logo {
+  width: 40px;
+}
+.logo-card h4{
+    font-size: 38px;
+}
+
+/* Account items */
+.list-group{
+ width: 50%;   
+}
+
+.account-item {
+  background: transparent;
+  border: none;
+  padding: 15px 20px;
+  transition: background 0.2s;
+  width: 100%;
+  color: #ffffff;
+  /* border-radius: 10px; */
+  border-bottom: 1px solid #525456;
+}
+
+.account-item:hover {
+  background: #f0f0f0;
+  cursor: pointer;
+  border-radius: 10px;
+}
+.account-item p{
+    font-size: 16px;
+    color: #333;
+}
+.account-item h5{
+    font-size: 18px;
+}
+
+/* Avatar */
+.account-icon {
+  font-size: 36px;
+  color: #8ab4f8;
+}
+
+/* Footer */
+.footer {
+  color: #9aa0a6;
+}
+
+.footer-link {
+  margin-left: 15px;
+  color: #333;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.footer-link:hover {
+  text-decoration: underline;
+}
+
+.lang-dropdown {
+  color: #242424;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.lang-menu {
+  color: #1a1a1a;
+}
+
+.lang-menu .dropdown-item {
+  color: #1a1a1a;
+}
+
+.lang-menu .dropdown-item:hover {
+  background-color: #f3f4f5;
+}
+
+
+/* Responsive */ 
+@media (max-width: 1024px) {
+  .account-card, .signin-card, .signin-box, .forgot-card {
+    max-width: 90%;
+    display: flex;
+    flex-direction: column;
+  }
+  .list-group, .logo-card, .txt-column {
+    width: 100% !important;
+  }
+  .list-group {
+    margin-top: 30px;
+  }
+}
+
+@media (max-width: 667px) {
+  .account-card, .signin-card, .signin-box, .forgot-card {
+    max-width: 95%;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px !important;
+  }
+  .account-card h4, .forgot-card h3, .signin-box h4, .signin-card h3 {
+    font-size: 26px !important;
+  }
+  .account-item h5, .txt-box::placeholder, .forgot-email, .txt-des, .forgot-link {
+    font-size: 16px !important;
+  }
+  .account-item p {
+    font-size: 14px;
+  }
+  .google-logo {
+    width: 70px;
+  }
+  .list-group, .logo-card, .txt-column {
+    width: 100% !important;
+  }
+  .list-group {
+    margin-top: 20px;
+  }
+  .list-group-item {
+    padding-left: 0;
+  }
+  .status {
+    display: none;
+  }
+  .footer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+  }
+  .txt-column{
+    padding-top: 20px !important;
+  }
+  .txt-box{
+    padding: 10px !important;
+  }
+}
+
+/* Use Account start */
+/* Background */
+.signin-container {
+  min-height: 100vh;
+  padding-top: 10%;
+  padding-bottom: 10%;
+}
+
+/* Card */
+.signin-card {
+  background-color: #f7f7f7;
+  width: 100%;
+  color: #e8eaed;
+  padding: 50px;
+ border: 1px solid #c3c2c2;
+ display: flex;
+ justify-content: space-between;
+}
+
+.txt-column{
+    padding-top: 40px;
+    width: 45%;
+}
+
+.forgot-email{
+    color: rgb(37, 117, 246);
+    font-size: 18px;
+}
+
+.txt-des{
+    font-size: 18px;
+    color: #333;
+}
+
+.next-button{
+    background-color: rgb(128, 174, 248);
+    font-weight: 500;
+}
+.next-button:hover{
+    background-color: rgb(158, 193, 249);
+    color: #202124;
+}
+.txt-box::placeholder{
+    color: #1a1a1a;
+    font-size: 18px;
+}
+.txt-box{
+    padding: 20px;
+    font-size: 18px;
+    color: #1a1a1a;
+    background: none;
+}
+.txt-box:focus{
+    border: 1px solid rgb(158, 193, 249);
+    /* box-shadow: none; */
+}
+.signin-card h3{
+  font-size: 38px;
+}
+.account-txt{
+  font-size: 18px;
+}
+/* Logo */
+.google-logo {
+  height: 40px;
+}
+
+/* Password page start */
+
+.signin-container {
+  flex-direction: column;
+}
+
+.signin-box {
+  width: 100%;
+  color: white;
+  padding: 50px;
+  background-color: #f7f7f7;
+  border: 1px solid #c3c2c2;
+}
+
+.signin-box h4{
+  font-size: 38px;
+  font-weight: 500;
+}
+
+.signin-box span{
+  font-size: 16px;
+}
+
+.google-logo {
+  width: 40px;
+  height: auto;
+}
+
+.user-pill {
+  border: 1px solid #444;
+  padding: 8px 15px;
+  border-radius: 25px;
+}
+
+.password-input {
+  background: transparent;
+  border: 1px solid #666;
+}
+
+.password-input::placeholder {
+  color: #1a1a1a;
+}
+
+.forgot-link {
+  font-size: 18px;
+  text-decoration: none;
+  color: rgb(55, 130, 250);
+}
+
+.forgot-link:hover {
+  text-decoration: underline;
+}
+
+.btn-primary {
+  background-color: #4285f4;
+  border: none;
+}
+
+.footer-links {
+  width: 100%;
+  max-width: 450px;
+}
+
+.lang-select {
+  background: transparent;
+  border: none;
+}
+
+.footer-small a {
+  color: #ccc;
+  font-size: 0.85rem;
+  text-decoration: none;
+}
+
+.footer-small a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .btn-primary {
+    padding: 6px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .signin-box {
+    padding: 1.5rem;
+  }
+
+  h4 {
+    font-size: 1.2rem;
+  }
+}
+
+
+.forgot-container {
+  background: #f8f9fa;
+  padding-top: 10%;
+  padding-bottom: 10%;
+}
+
+.forgot-card {
+  width: 100%;
+  border-radius: 10px;
+  background-color: #f7f7f7;
+  border: 1px solid #c3c2c2;
+  padding: 50px;
+}
+
+.form-control::placeholder {
+  color: #6c757d; /* gray placeholder */
+  opacity: 1;
+}
+
+.forgot-card h3{
+  font-size: 38px;
+}
