@@ -1,13 +1,16 @@
 const db = require("../config/db");
 
 const createResponse = async (form_id, user_id, submitted_by) => {
-  const [rows] = await db.query(
+  const [resultSets] = await db.query(
     "CALL sp_create_form_response(?,?,?, @response_id, @link); SELECT @response_id AS response_id, @link AS link;",
     [form_id, user_id, submitted_by]
   );
 
-  const result = rows[1][0];
-  return { response_id: result.response_id, link: result.link };
+  const output = resultSets[resultSets.length - 1][0];
+  return {
+    response_id: output.response_id,
+    link: output.link,
+  };
 };
 
 const addAnswer = async (response_id, field_id, value) => {
@@ -54,6 +57,42 @@ const getResponsesByFormId = async (form_id) => {
   return Object.values(responses);
 };
 
+const getResponseById = async (response_id) => {
+  const [rows] = await db.query("CALL sp_get_response_by_id(?)", [response_id]);
+
+  if (!rows[0] || rows[0].length === 0) return null;
+
+  const safeParse = (value) => {
+    try {
+      return JSON.parse(value);
+    } catch {
+      return value;
+    }
+  };
+
+  const rowGroup = rows[0];
+  const response = {
+    response_id: rowGroup[0].response_id,
+    form_id: rowGroup[0].form_id,
+    user_id: rowGroup[0].user_id,
+    submitted_by: rowGroup[0].submitted_by,
+    link: rowGroup[0].link,
+    created_at: rowGroup[0].created_at,
+    answers: [],
+  };
+
+  rowGroup.forEach((row) => {
+    if (row.field_id) {
+      response.answers.push({
+        field_id: row.field_id,
+        value: safeParse(row.answer_value),
+      });
+    }
+  });
+
+  return response;
+};
+
 const getAllResponses = async () => {
   const [rows] = await db.query("CALL sp_get_all_responses()");
 
@@ -94,5 +133,6 @@ module.exports = {
   createResponse,
   addAnswer,
   getResponsesByFormId,
+  getResponseById,
   getAllResponses,
 };
