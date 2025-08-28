@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
-import Logo from "../Images/logo.png";
+import Logo from "../../public/img/logo.png";
 
 export default function Signin() {
   const [language, setLanguage] = useState("English (United States)");
