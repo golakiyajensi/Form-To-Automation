@@ -10,6 +10,8 @@ import Password from "./Components/Pasword.jsx";
 import ForgotPassword from "./Components/ForgotPassword.jsx";
 import './App.css'
 import Header from './screen/Header'
+import SheetGallery from "./Components/SheetGallery.jsx";
+import TemplateGallery from './Components/TemplateGallery.jsx';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -17,14 +19,16 @@ function App() {
   return (
     <>
       <Router>
+        <Header/>
         <Routes>
           <Route path='/signin' element={<Signin/>}></Route>
           <Route path='/useaccount' element={<UseAccount/>}></Route>
           <Route path='/password' element={<Password/>}></Route>
           <Route path='/forgotpassword' element={<ForgotPassword/>}></Route>
+          <Route path='/sheetgallery' element={<SheetGallery/>}></Route>
+          <Route path='/templategallery' element={<TemplateGallery/>}></Route>
         </Routes>
       </Router>
-      <Header/>
     </>
   )
 }

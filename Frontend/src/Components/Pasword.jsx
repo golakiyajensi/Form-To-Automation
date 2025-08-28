@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Logo from "../Images/logo.png";
+import Logo from "../../public/img/logo.png";
 
 const SigninPassword = () => {
   const [showPassword, setShowPassword] = useState(false);

@@ -1,11 +1,14 @@
 import React, { useState, useRef, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const profileRef = useRef(null);
+
+  const navigate = useNavigate();
 
   // Close profile dropdown on outside click
   useEffect(() => {
@@ -89,7 +92,7 @@ const Header = () => {
                         Manage your Google Account
                       </button>
                       <div className="d-flex justify-content-between">
-                        <button className="btn btn-light w-50 me-1">
+                        <button className="btn btn-light w-50 me-1" onClick={() => navigate("/signin")}>
                           Add account
                         </button>
                         <button className="btn btn-light w-50 ms-1">
@@ -143,7 +146,11 @@ const Header = () => {
               />
               Docs
             </li>
-            <li className="d-flex align-items-center mb-1">
+            <li
+              className="d-flex align-items-center mb-1"
+              style={{ cursor: "pointer" }}
+              onClick={() => navigate("/sheetgallery")}
+            >
               <img
                 src="https://ssl.gstatic.com/docs/doclist/images/mediatype/icon_1_spreadsheet_x16.png"
                 alt="Sheets"
