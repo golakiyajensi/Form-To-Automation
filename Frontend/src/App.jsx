@@ -1,32 +1,57 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Template from "./components/Template";
 import FormPage from "./components/FormPage";
 import Gallery from "./components/Gallery";
 import MainBody from "./components/MainBody";
 
+import { useState } from 'react'
+import './App.css'
+import Header from './screen/Header'
+
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js"; // required for dropdown behavior
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import "./CSS/style.css";
+
+import Signin from "./Components/Signin.jsx";
+import UseAccount from "./Components/UseAccount.jsx";
+import Password from "./Components/Pasword.jsx";
+import ForgotPassword from "./Components/ForgotPassword.jsx";
+
+import SheetGallery from "./Components/SheetGallery.jsx";
+import TemplateGallery from './Components/TemplateGallery.jsx';
+
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <>
-              <Template />
-              <MainBody />
-            </>
-          }
-        />
+    <>
 
-        {/* Gallery Page */}
+      <Router>
+        <Header/>
+        <Routes>
+          <Route path='/signin' element={<Signin/>}></Route>
+          <Route path='/useaccount' element={<UseAccount/>}></Route>
+          <Route path='/password' element={<Password/>}></Route>
+          <Route path='/forgotpassword' element={<ForgotPassword/>}></Route>
+          <Route path='/sheetgallery' element={<SheetGallery/>}></Route>
+          <Route path='/templategallery' element={<TemplateGallery/>}></Route>
+          <Route
+                    path="/"
+                    element={
+                      <>
+                        <Template />
+                        <MainBody />
+                      </>
+                    }
+                  />
+                      
+         {/* Gallery Page */}
         <Route path="/gallery" element={<Gallery />} />
 
         {/* Dynamic Form Page */}
         <Route path="/form/:id" element={<FormPage />} />
-      </Routes>
-    </Router>
-  );
+        </Routes>
+      </Router>
+    </>
+  )
 }
 
 export default App;
