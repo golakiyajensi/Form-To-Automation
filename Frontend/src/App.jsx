@@ -1,3 +1,8 @@
+import Template from "./components/Template";
+import FormPage from "./components/FormPage";
+import Gallery from "./components/Gallery";
+import MainBody from "./components/MainBody";
+
 import { useState } from 'react'
 import './App.css'
 import Header from './screen/Header'
@@ -12,15 +17,10 @@ import UseAccount from "./Components/UseAccount.jsx";
 import Password from "./Components/Pasword.jsx";
 import ForgotPassword from "./Components/ForgotPassword.jsx";
 
-import './App.css'
-import Header from './screen/Header'
 import SheetGallery from "./Components/SheetGallery.jsx";
 import TemplateGallery from './Components/TemplateGallery.jsx';
 
-
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
 
@@ -33,6 +33,21 @@ function App() {
           <Route path='/forgotpassword' element={<ForgotPassword/>}></Route>
           <Route path='/sheetgallery' element={<SheetGallery/>}></Route>
           <Route path='/templategallery' element={<TemplateGallery/>}></Route>
+          <Route
+                    path="/"
+                    element={
+                      <>
+                        <Template />
+                        <MainBody />
+                      </>
+                    }
+                  />
+                      
+         {/* Gallery Page */}
+        <Route path="/gallery" element={<Gallery />} />
+
+        {/* Dynamic Form Page */}
+        <Route path="/form/:id" element={<FormPage />} />
         </Routes>
       </Router>
     </>
