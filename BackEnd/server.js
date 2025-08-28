@@ -8,6 +8,9 @@ const formfieldsRoutes = require('./routes/formFieldRoutes');
 const responseRoutes = require('./routes/responseRoutes');
 const reportRoutes = require('./routes/reportRoutes');
 const userRoutes = require('./routes/userRoutes');
+const permissionRoutes = require('./routes/permissionRoutes');
+const integrationRoutes = require('./routes/integrationRoutes');
+const formstyleRoutes = require('./routes/formStyleRoutes');
 
 const app = express();
 
@@ -22,6 +25,9 @@ app.use('/api/forms-fields', formfieldsRoutes);
 app.use('/api/form-responses', responseRoutes);
 app.use('/api/report', reportRoutes);
 app.use('/api/user', userRoutes);
+app.use('/api/permission', permissionRoutes);
+app.use('/api/integration', integrationRoutes);
+app.use('/api/formstyle', formstyleRoutes);
 
 // Server listen
 const PORT = process.env.PORT || 5000;

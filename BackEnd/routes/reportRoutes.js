@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const reportController = require("../controllers/reportController");
-const authMiddleware = require("../middlewares/authMiddleware");
+  const reportController = require("../controllers/reportController");
+  const authMiddleware = require("../middlewares/authMiddleware");
 
 // Create report (admin only)
 router.post("/forms/:id/reports", authMiddleware(["admin"]), reportController.createReport);

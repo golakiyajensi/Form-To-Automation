@@ -60,8 +60,23 @@ exports.updateForm = async (req, res) => {
   try {
     const { id } = req.params;
     const { title, description } = req.body;
-    await formModel.updateForm(id, title, description);
+
+    // Get current form data
+    const currentForm = await formModel.getFormById(id);
+    if (!currentForm) {
+      return res.status(404).json(response.error("Form not found"));
+    }
+
+    // Use new value if provided, otherwise keep old value
+    const updatedTitle = title !== undefined ? title : currentForm.title;
+    const updatedDescription = description !== undefined ? description : currentForm.description;
+
+    // Update form
+    await formModel.updateForm(id, updatedTitle, updatedDescription);
+
+    // Get updated form
     const updatedForm = await formModel.getFormById(id);
+
     const responseData = {
       id: updatedForm.form_id,
       title: updatedForm.title,
@@ -77,8 +92,8 @@ exports.updateForm = async (req, res) => {
 exports.deleteForm = async (req, res) => {
   try {
     const { id } = req.params;
-    await formModel.deleteForm(id);
-    res.json(response.success("Form deleted successfully"));
+    const message = await formModel.deleteForm(id);
+    res.json(response.success(message));
   } catch (err) {
     res.status(500).json(response.error(err.message));
   }
