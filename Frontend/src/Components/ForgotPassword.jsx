@@ -1,5 +1,5 @@
 import { useState } from "react";
-// import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 // import "./ForgotPassword.css";
 import Logo from "../../public/img/logo.png";
 
