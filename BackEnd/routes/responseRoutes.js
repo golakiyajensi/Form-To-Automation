@@ -4,7 +4,7 @@ const responseController = require("../controllers/responseController");
 const authMiddleware = require("../middlewares/authMiddleware");
 
 // Submit new response
-router.post("/:formId", authMiddleware(["admin", "viewer"]), responseController.submitResponse);
+router.post("/:formId", authMiddleware(["admin", "viewer", "creator"]), responseController.submitResponse);
 
 // Get all responses (admin only)
 router.get("/all", authMiddleware(["admin"]), responseController.getAllResponses);

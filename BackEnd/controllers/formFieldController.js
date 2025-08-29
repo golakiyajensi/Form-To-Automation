@@ -5,7 +5,7 @@ const response = require("../utils/responseTemplate");
 exports.createFormField = async (req, res) => {
   try {
     const { formId } = req.params;
-    const { label, field_type, is_required, options, conditional_logic, order_no } = req.body;
+    const { label, field_type, is_required, options, conditional_logic, order_no, field_image } = req.body;
 
     const result = await formFieldModel.createFormField(
       formId,
@@ -14,7 +14,8 @@ exports.createFormField = async (req, res) => {
       is_required,
       options,
       conditional_logic,
-      order_no
+      order_no,
+      field_image
     );
 
     const responseData = {
@@ -26,6 +27,7 @@ exports.createFormField = async (req, res) => {
       options,
       conditional_logic,
       order_no,
+      field_image
     };
 
     res.json(response.success("Field created successfully", responseData));

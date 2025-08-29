@@ -29,4 +29,7 @@ router.delete(
   formController.deleteForm
 );
 
+// formRoutes.js
+router.get("/public/:id", authMiddleware(["admin"]), formController.getFormForPublic);
+
 module.exports = router;

@@ -3,14 +3,25 @@ const response = require("../utils/responseTemplate");
 
 exports.createForm = async (req, res) => {
   try {
-    const { title, description, created_by } = req.body;
-    const result = await formModel.createForm(title, description, created_by);
+    const { title, description, created_by, header_image } = req.body; 
+    // header_image = upload API thi malyu image URL
+
+    const result = await formModel.createForm(
+      title,
+      description,
+      created_by,
+      header_image
+    );
+
     const responseData = {
       id: result.form_id,
       title,
       description,
       created_by,
+      header_image,
+      share_url: result.share_url
     };
+
     res.json(response.success("Form created successfully", responseData));
   } catch (err) {
     res.status(500).json(response.error(err.message));
@@ -94,6 +105,30 @@ exports.deleteForm = async (req, res) => {
     const { id } = req.params;
     const message = await formModel.deleteForm(id);
     res.json(response.success(message));
+  } catch (err) {
+    res.status(500).json(response.error(err.message));
+  }
+};
+
+exports.getFormForPublic = async (req, res) => {
+  try {
+    const formId = req.params.id;
+    const result = await formModel.getFormById(formId);
+
+    if (!result) {
+      return res.status(404).json(response.notFound("Form not found"));
+    }
+
+    // Form saathe slides + fields
+    const slides = await formModel.getSlidesWithFields(formId);
+
+    // slides.fields ma field_image and form ma header_image already aavi jase
+    res.json(
+      response.success("Public form fetched successfully", {
+        form: result,
+        slides: slides
+      })
+    );
   } catch (err) {
     res.status(500).json(response.error(err.message));
   }

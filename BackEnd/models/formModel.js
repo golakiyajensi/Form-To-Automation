@@ -1,14 +1,15 @@
 const db = require('../config/db');
 
 module.exports = {
-  createForm: async (title, description, createdBy) => {
-    const [rows] = await db.query("CALL sp_create_form(?, ?, ?)", [
-      title,
-      description,
-      createdBy
-    ]);
-    return rows[0][0]; // new form_id return
-  },
+ createForm: async (title, description, createdBy) => {
+  const [rows] = await db.query("CALL sp_create_form(?, ?, ?)", [
+    title,
+    description,
+    createdBy
+  ]);
+  return rows[0][0]; // { form_id, share_url }
+},
+
 
   getFormById: async (formId) => {
     const [rows] = await db.query("CALL sp_get_form_by_id(?)", [formId]);
@@ -29,5 +30,13 @@ module.exports = {
   await db.query("CALL sp_delete_form(?, @status)", [formId]);
   const [[{ status }]] = await db.query("SELECT @status AS status");
   return status;
+},
+getSlidesWithFields: async (formId) => {
+  const [rows] = await db.query("CALL sp_get_slides_with_fields(?)", [formId]);
+  return {
+    slides: rows[0],   // slides
+    fields: rows[1]    // fields for those slides
+  };
 }
+
 };
