@@ -11,6 +11,9 @@ const userRoutes = require('./routes/userRoutes');
 const permissionRoutes = require('./routes/permissionRoutes');
 const integrationRoutes = require('./routes/integrationRoutes');
 const formstyleRoutes = require('./routes/formStyleRoutes');
+const systemConfigRoutes = require('./routes/systemConfigRoutes');
+const notificationRoutes = require('./routes/notificationRoutes');
+const slideRoutes = require('./routes/slideRoutes');
 
 const app = express();
 
@@ -28,6 +31,9 @@ app.use('/api/user', userRoutes);
 app.use('/api/permission', permissionRoutes);
 app.use('/api/integration', integrationRoutes);
 app.use('/api/formstyle', formstyleRoutes);
+app.use('/api/systemconfig', systemConfigRoutes);
+app.use('/api/notification', notificationRoutes);
+app.use('/api/slide', slideRoutes);
 
 // Server listen
 const PORT = process.env.PORT || 5000;
