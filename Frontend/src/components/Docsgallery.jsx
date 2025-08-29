@@ -23,14 +23,6 @@ import letter4 from "/img/letter4.png";
 import letter5 from "/img/letter5.png";
 
 
-
-
-
-
-
-
-
-
 const Docsgallery = () => {
     const navigate = useNavigate();
 
