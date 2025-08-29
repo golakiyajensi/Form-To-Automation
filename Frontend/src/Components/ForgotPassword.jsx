@@ -1,7 +1,7 @@
 import { useState } from "react";
 // import "bootstrap/dist/css/bootstrap.min.css";
 // import "./ForgotPassword.css";
-import Logo from "../Images/logo.png"
+import Logo from "../../public/img/logo.png";
 
 export default function ForgotPassword() {
     const [language, setLanguage] = useState("English (United States)");

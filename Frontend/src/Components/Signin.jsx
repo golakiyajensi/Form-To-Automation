@@ -3,7 +3,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle, faUserMinus } from "@fortawesome/free-solid-svg-icons";
 import { faUser } from "@fortawesome/free-regular-svg-icons";
-import Logo from "../Images/logo.png";
+import Logo from "../../public/img/logo.png";
 
 export default function Signin() {
     const [language, setLanguage] = useState("English (United States)");
