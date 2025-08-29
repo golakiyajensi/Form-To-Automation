@@ -1,27 +1,103 @@
 const db = require("../config/db");
 
-const addSlide = async (form_id, title, description, order_no, fields) => {
-  const [rows] = await db.query("CALL sp_add_slide_with_fields(?,?,?,?)", [
-    form_id,
-    title,
-    description,
-    order_no,
-  ]);
-
-  const slide_id = rows[0][0].slide_id;
-
-  // Insert fields
-  for (let f of fields) {
-    await db.query("CALL sp_add_slide_field(?,?,?,?,?)", [
-      slide_id,
-      f.label,
-      f.field_type,
-      f.is_required,
-      JSON.stringify(f.options || null),
-    ]);
-  }
-
-  return { slide_id, form_id, title, description, order_no, fields };
+// ✅ Create Slide
+const createSlide = async (form_id, title, description, order_no) => {
+  const [result] = await db.query(
+    "INSERT INTO tbl_form_slides (form_id, title, description, order_no) VALUES (?,?,?,?)",
+    [form_id, title, description, order_no]
+  );
+  return { id: result.insertId, form_id, title, description, order_no };
 };
 
-module.exports = { addSlide };
+// ✅ Add fields in bulk
+const addFieldsBulk = async (slide_id, fields) => {
+  const created = [];
+  const fieldTypeMap = {
+    text: "short_text",
+    email: "short_text",
+    number: "short_text",
+    dropdown: "dropdown",
+    textarea: "paragraph",
+    checkbox: "checkbox",
+    radio: "multiple_choice",
+    file: "file_upload",
+    date: "date",
+    time: "time",
+    scale: "linear_scale",
+  };
+
+  for (const f of fields) {
+    const fieldType = fieldTypeMap[f.type];
+    if (!fieldType) throw new Error(`Unsupported field type: ${f.type}`);
+
+    const [result] = await db.query(
+      `INSERT INTO tbl_form_fields 
+       (form_id, slide_id, label, field_type, is_required, options, order_no) 
+       VALUES ((SELECT form_id FROM tbl_form_slides WHERE id=?), ?, ?, ?, ?, ?, ?)`,
+      [
+        slide_id,
+        slide_id,
+        f.label,
+        fieldType,
+        f.is_required ? 1 : 0,
+        f.options_json ? JSON.stringify(f.options_json) : null,
+        f.order_no || 0,
+      ]
+    );
+    created.push({
+      field_id: result.insertId,
+      slide_id,
+      ...f,
+      field_type: fieldType,
+    });
+  }
+  return created;
+};
+
+// ✅ Get slides + fields (nested)
+const getSlidesWithFields = async (form_id) => {
+  const [slides] = await db.query(
+    "SELECT * FROM tbl_form_slides WHERE form_id = ? ORDER BY order_no ASC, id ASC",
+    [form_id]
+  );
+
+  const [fields] = await db.query(
+    "SELECT * FROM tbl_form_fields WHERE form_id = ? ORDER BY slide_id ASC, order_no ASC, field_id ASC",
+    [form_id]
+  );
+
+  // parse JSON fields
+  const parsedFields = fields.map((f) => {
+    let options = null;
+    try {
+      options = f.options ? JSON.parse(f.options) : null;
+    } catch (e) {
+      // fallback: જો value JSON ન હોય તો null કે string જ મોકલો
+      options = f.options;
+    }
+
+    return {
+      ...f,
+      options,
+      conditional_logic: (() => {
+        try {
+          return f.conditional_logic ? JSON.parse(f.conditional_logic) : null;
+        } catch (e) {
+          return f.conditional_logic;
+        }
+      })(),
+    };
+  });
+
+  // nest fields inside slides
+  return slides.map((s) => ({
+    ...s,
+    fields: parsedFields.filter((f) => f.slide_id === s.id),
+  }));
+};
+
+module.exports = {
+  createSlide,
+  addFieldsBulk,
+  getSlidesWithFields,
+};
