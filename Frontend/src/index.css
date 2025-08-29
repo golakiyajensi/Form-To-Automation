@@ -113,6 +113,10 @@
   background: #fafafa;
 }
 
+.offcanvas-body .side{
+  width: 30px;
+}
+
 /* =========================
    Responsive Adjustments
 ========================= */
@@ -164,4 +168,49 @@
 
 .btn-link:hover {
   color: #1a73e8;
+}
+
+/* ========================
+   slide css start
+======================== */
+body {
+  background: #f8f9fa;
+}
+
+.nav {
+  background-color: #fff;
+  padding: 20px;
+}
+
+.template-tile {
+  min-width: 140px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.template-tile:hover {
+  border-color: #4285f4;
+  box-shadow: 0 2px 12px rgba(66,133,244,0.09);
+}
+.template-blank {
+  border-width: 2px;
+  border-color: #e6e6e6;
+}
+
+.recent-presentation-card {
+  transition: box-shadow 0.2s, border-color 0.2s;
+}
+.recent-presentation-card:hover {
+  box-shadow: 0 4px 18px 0 #4285f422;
+  border-color: #4285f4;
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+  .template-tile {
+    width: 100%;
+    min-width: unset;
+    height: 100px;
+  }
+  .recent-presentation-card {
+    width: 100%;
+  }
 }
