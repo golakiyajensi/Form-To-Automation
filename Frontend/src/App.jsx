@@ -48,7 +48,7 @@ function AppWrapper() {
         <Route path="/password" element={<Password />} />
         <Route path="/forgotpassword" element={<ForgotPassword />} />
 
-        {/* Extra Routes from main */}
+        {/* Extra Routes */}
         <Route path='/sheetgallery' element={<SheetGallery />} />
         <Route path='/templategallery' element={<TemplateGallery />} />
         <Route path="/formgallery" element={<Template />} />

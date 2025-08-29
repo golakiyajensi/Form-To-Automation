@@ -1,6 +1,6 @@
 // Header.jsx
 import React, { useState, useRef, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 
@@ -9,6 +9,17 @@ const Header = () => {
   const [profileOpen, setProfileOpen] = useState(false);
   const profileRef = useRef(null);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // ✅ Map path → logo + title
+  const headerConfig = {
+    "/docs": { logo: "./img/docs.png", title: "Docs" },
+    "/sheets": { logo: "./img/sheets.png", title: "Sheets" },
+    "/slide": { logo: "./img/slides.png", title: "Slides" },
+    "/forms": { logo: "./img/forms.png", title: "Forms" },
+  };
+  const currentHeader =
+    headerConfig[location.pathname] || headerConfig["/forms"];
 
   // Close profile dropdown on outside click
   useEffect(() => {
@@ -31,27 +42,72 @@ const Header = () => {
             style={{ cursor: "pointer" }}
             onClick={() => setSidebarOpen(!sidebarOpen)}
           ></i>
-          <img
-            src="https://ssl.gstatic.com/docs/doclist/images/mediatype/icon_1_document_x16.png"
-            alt="Logo"
-            className="me-2"
-          />
-          <span className="fw-bold">Google Apps Clone</span>
+          <img src={currentHeader.logo} alt="Logo" className="me-2" />
+          <span className="fw-bold">{currentHeader.title}</span>
         </div>
 
-        <div className="ms-auto d-flex align-items-center">
-          {/* Profile Menu */}
-          <div ref={profileRef} className="position-relative">
+        {/* Search Bar */}
+        <div className="col d-none d-md-block mx-3">
+          <div className="search-bar border rounded-pill px-4 d-flex align-items-center">
+            <i className="bi bi-search text-muted"></i>
+            <input
+              type="text"
+              placeholder={`Search ${currentHeader.title}`}
+              className="form-control border-0"
+            />
+          </div>
+        </div>
+
+        {/* Profile + Apps */}
+        <div className="col-auto d-flex align-items-center position-relative">
+          <button className="btn btn-link text-dark me-2">
+            <i className="bi bi-grid-3x3-gap" style={{ fontSize: "22px" }}></i>
+          </button>
+
+          <div ref={profileRef}>
             <i
-              className="bi bi-person-circle fs-4"
-              style={{ cursor: "pointer" }}
+              className="bi bi-person-circle text-secondary"
+              style={{ fontSize: "32px", cursor: "pointer" }}
               onClick={() => setProfileOpen(!profileOpen)}
             ></i>
+
             {profileOpen && (
-              <div className="dropdown-menu dropdown-menu-end show mt-2 shadow-sm">
-                <button className="dropdown-item">My Account</button>
-                <button className="dropdown-item">Settings</button>
-                <button className="dropdown-item text-danger">Logout</button>
+              <div className="card shadow border-0 position-absolute end-0 mt-3">
+                <div className="card-body text-center">
+                  <img
+                    src="./img/logo.png"
+                    alt="profile"
+                    className="rounded-circle mb-2"
+                    style={{ width: "70px", height: "70px" }}
+                  />
+                  <h6 className="fw-semibold mb-0">Hi, Divyesh!</h6>
+                  <small className="text-muted">divyesh1234@gmail.com</small>
+                  <div className="mt-3">
+                    <button className="btn btn-outline-primary w-100 mb-2">
+                      Manage your Google Account
+                    </button>
+                    <div className="d-flex justify-content-between">
+                      <button
+                        className="btn btn-light w-50 me-1"
+                        onClick={() => navigate("/signin")}
+                      >
+                        Add account
+                      </button>
+                      <button className="btn btn-light w-50 ms-1">
+                        Sign out
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div className="card-footer text-center small">
+                  <a href="#" className="text-muted me-2">
+                    Privacy Policy
+                  </a>
+                  ·
+                  <a href="#" className="text-muted ms-2">
+                    Terms of Service
+                  </a>
+                </div>
               </div>
             )}
           </div>
@@ -67,104 +123,15 @@ const Header = () => {
       >
         <h5 className="mb-4">Menu</h5>
         <ul className="list-unstyled">
-
-          {/* Docs */}
-          <li
-            className="d-flex align-items-center mb-2"
-            style={{ cursor: "pointer" }}
-            onClick={() => navigate("/docs")}
-          >
-            <img src="./img/docs.png" alt="Docs" className="me-2" />
-            Docs
-          </li>
-
-          {/* Docs Template */}
-          <li
-            className="d-flex align-items-center mb-2"
-            style={{ cursor: "pointer" }}
-            onClick={() => navigate("/docstemplate")}
-          >
-            <img
-              src="https://ssl.gstatic.com/docs/doclist/images/mediatype/icon_1_document_x16.png"
-              alt="Docs Template"
-              className="me-2"
-            />
-            Docs Template
-          </li>
-
-          {/* Docs Gallery */}
-          <li
-            className="d-flex align-items-center mb-2"
-            style={{ cursor: "pointer" }}
-            onClick={() => navigate("/docsgallery")}
-          >
-            <i className="bi bi-card-text me-2"></i>
-            Docs Gallery
-          </li>
-
-          {/* Sheets */}
-          <li
-            className="d-flex align-items-center mb-2"
-            style={{ cursor: "pointer" }}
-            onClick={() => navigate("/sheets")}
-          >
-            <img src="./img/sheets.png" alt="Sheets" className="me-2" />
-            Sheets
-          </li>
-
-          {/* Sheet Gallery */}
-          <li
-            className="d-flex align-items-center mb-2"
-            style={{ cursor: "pointer" }}
-            onClick={() => navigate("/sheetgallery")}
-          >
-            <img
-              src="https://ssl.gstatic.com/docs/doclist/images/mediatype/icon_1_spreadsheet_x16.png"
-              alt="Sheets Gallery"
-              className="me-2"
-            />
-            Sheets Gallery
-          </li>
-
-          {/* Slides */}
-          <li
-            className="d-flex align-items-center mb-2"
-            style={{ cursor: "pointer" }}
-            onClick={() => navigate("/slide")}
-          >
-            <img src="./img/slides.png" alt="Slides" className="me-2" />
-            Slides
-          </li>
-
-          {/* Forms */}
-          <li
-            className="d-flex align-items-center mb-2"
-            style={{ cursor: "pointer" }}
-            onClick={() => navigate("/forms")}
-          >
-            <img src="./img/forms.png" alt="Forms" className="me-2" />
-            Forms
-          </li>
-
-          {/* Form Gallery */}
-          <li
-            className="d-flex align-items-center mb-2"
-            style={{ cursor: "pointer" }}
-            onClick={() => navigate("/formgallery")}
-          >
-            <i className="bi bi-ui-radios me-2"></i>
-            Form Gallery
-          </li>
-
-          {/* Gallery */}
-          <li
-            className="d-flex align-items-center mb-2"
-            style={{ cursor: "pointer" }}
-            onClick={() => navigate("/gallery")}
-          >
-            <i className="bi bi-images me-2"></i>
-            Gallery
-          </li>
+          <li onClick={() => navigate("/docs")}>Docs</li>
+          <li onClick={() => navigate("/docstemplate")}>Docs Template</li>
+          <li onClick={() => navigate("/docsgallery")}>Docs Gallery</li>
+          <li onClick={() => navigate("/sheets")}>Sheets</li>
+          <li onClick={() => navigate("/sheetgallery")}>Sheets Gallery</li>
+          <li onClick={() => navigate("/slide")}>Slides</li>
+          <li onClick={() => navigate("/forms")}>Forms</li>
+          <li onClick={() => navigate("/formgallery")}>Form Gallery</li>
+          <li onClick={() => navigate("/gallery")}>Gallery</li>
         </ul>
       </div>
     </>
