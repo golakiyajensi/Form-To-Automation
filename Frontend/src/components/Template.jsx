@@ -9,7 +9,6 @@ import blank2 from "/img/blank2.png";
 import blank4 from "/img/blank4.png";
 import blank3 from "/img/blank3.png";
 import blank5 from "/img/blank5.png";
-import "../css/style.css";
 
 const Templete = () => {
     const navigate = useNavigate();
@@ -19,15 +18,15 @@ const Templete = () => {
     };
 
     return (
-        <div className="container">
-            <div className="template-section">
-                <div className="template-top">
-                    <div className="template-left">
-                        <span className="form-text">Start a new form</span>
+        <div className="tpl-container">
+            <div className="tpl-wrapper">
+                <div className="tpl-header">
+                    <div className="tpl-header-left">
+                        <span className="tpl-heading">Start a new form</span>
                     </div>
-                    <div className="template-right">
+                    <div className="tpl-header-right">
                         <div
-                            className="gallery-button"
+                            className="tpl-gallery-btn"
                             onClick={handleGalleryClick}
                         >
                             Template gallery
@@ -40,34 +39,36 @@ const Templete = () => {
                 </div>
 
                 {/* Cards Section */}
-                <div className="cards-grid">
-                    <Link to="/form/blank" className="card">
-                        <img src={blank} alt="no-img" className="card-img" />
-                        <p className="card-title">Blank</p>
+                <div className="tpl-cards">
+                    <Link to="/form/blank" className="tpl-card">
+                        <img src={blank} alt="no-img" className="tpl-card-img" />
+                        <p className="tpl-card-title">Blank</p>
                     </Link>
-                    <Link to="/form/party" className="card">
-                        <img src={blank8} alt="no-img" className="card-img" />
-                        <p className="card-title">Find a Time</p>
+                    <Link to="/form/party" className="tpl-card">
+                        <img src={blank8} alt="no-img" className="tpl-card-img" />
+                        <p className="tpl-card-title">Find a Time</p>
                     </Link>
-                    <Link to="/form/contact" className="card">
-                        <img src={blank2} alt="no-img" className="card-img" />
-                        <p className="card-title">Contact Information</p>
+                    <Link to="/form/contact" className="tpl-card">
+                        <img src={blank2} alt="no-img" className="tpl-card-img" />
+                        <p className="tpl-card-title">Contact Information</p>
                     </Link>
-                    <Link to="/form/rsvp" className="card">
-                        <img src={blank4} alt="no-img" className="card-img" />
-                        <p className="card-title">Job Application</p>
+                    <Link to="/form/rsvp" className="tpl-card">
+                        <img src={blank4} alt="no-img" className="tpl-card-img" />
+                        <p className="tpl-card-title">Job Application</p>
                     </Link>
-                    <Link to="/form/event" className="card">
-                        <img src={blank3} alt="no-img" className="card-img" />
-                        <p className="card-title">RSVP</p>
+                    <Link to="/form/event" className="tpl-card">
+                        <img src={blank3} alt="no-img" className="tpl-card-img" />
+                        <p className="tpl-card-title">RSVP</p>
                     </Link>
-                    <Link to="/form/rsvp" className="card">
-                        <img src={blank5} alt="no-img" className="card-img" />
-                        <p className="card-title">Party Invite</p>
+                    <Link to="/form/rsvp" className="tpl-card">
+                        <img src={blank5} alt="no-img" className="tpl-card-img" />
+                        <p className="tpl-card-title">Party Invite</p>
                     </Link>
                 </div>
             </div>
         </div>
+
+
     );
 };
 

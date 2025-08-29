@@ -44,7 +44,7 @@ const Header = () => {
           </div>
 
           {/* Middle: search bar */}
-          <div className="col d-none d-md-block" style={{justifyItems:'center'}}>
+          <div className="col d-none d-md-block" style={{ justifyItems: "center" }}>
             <div className="search-bar border rounded-pill px-4 d-flex align-items-center">
               <i className="bi bi-search text-muted"></i>
               <input
@@ -71,9 +71,7 @@ const Header = () => {
 
               {/* Profile Dropdown */}
               {profileOpen && (
-                <div
-                  className="card shadow border-0 position-absolute end-0 mt-3"
-                >
+                <div className="card shadow border-0 position-absolute end-0 mt-3">
                   <div className="card-body text-center">
                     {/* Profile Picture */}
                     <img
@@ -83,16 +81,17 @@ const Header = () => {
                       style={{ width: "70px", height: "70px" }}
                     />
                     <h6 className="fw-semibold mb-0">Hi, Divyesh!</h6>
-                    <small className="text-muted">
-                      divyesh1234@gmail.com
-                    </small>
+                    <small className="text-muted">divyesh1234@gmail.com</small>
 
                     <div className="mt-3">
                       <button className="btn btn-outline-primary w-100 mb-2">
                         Manage your Google Account
                       </button>
                       <div className="d-flex justify-content-between">
-                        <button className="btn btn-light w-50 me-1" onClick={() => navigate("/signin")}>
+                        <button
+                          className="btn btn-light w-50 me-1"
+                          onClick={() => navigate("/signin")}
+                        >
                           Add account
                         </button>
                         <button className="btn btn-light w-50 ms-1">
@@ -138,7 +137,11 @@ const Header = () => {
         <hr />
         <div className="offcanvas-body">
           <ul className="list-unstyled">
-            <li className="d-flex align-items-center mb-1">
+            <li className="d-flex align-items-center mb-1"
+              style={{ cursor: "pointer" }}
+              onClick={() => navigate("/docstemplate")}
+
+            >
               <img
                 src="https://ssl.gstatic.com/docs/doclist/images/mediatype/icon_1_document_x16.png"
                 alt="Docs"
@@ -166,7 +169,13 @@ const Header = () => {
               />
               Slides
             </li>
-            <li className="d-flex align-items-center mb-1">
+
+
+            <li
+              className="d-flex align-items-center mb-1"
+              style={{ cursor: "pointer" }}
+              onClick={() => navigate("/formgallery")}
+            >
               <img
                 src="https://ssl.gstatic.com/docs/doclist/images/mediatype/icon_1_form_x16.png"
                 alt="Forms"
@@ -174,6 +183,7 @@ const Header = () => {
               />
               Forms
             </li>
+
             <hr />
             <li className="mb-1">
               <i className="bi bi-gear me-2"></i> Settings
@@ -183,7 +193,12 @@ const Header = () => {
             </li>
             <hr />
             <li className="mb-1">
-              <img className="drive me-2" src="./img/Google-Drive.png" alt="" /> Drive
+              <img
+                className="drive me-2"
+                src="./img/Google-Drive.png"
+                alt=""
+              />{" "}
+              Drive
             </li>
             <hr />
           </ul>
