@@ -792,8 +792,10 @@
     }
 }
 
-
 /* ALMAS CSS  */
+
+
+/* form template section  */
 
 
 * {
@@ -932,12 +934,12 @@
     }
 }
 
-.main-body {
+.dashboard {
     padding: 20px;
     background-color: #fff;
 }
 
-.mainbody-top {
+.dashboard-header {
     margin-left: 160px;
     margin-right: 160px;
     display: flex;
@@ -947,20 +949,20 @@
     gap: 12px;
 }
 
-.mainbody-top-left {
+.dashboard-header-left {
     font-size: 20px;
     font-weight: 500;
     color: #202124;
 }
 
-.mainbody-top-right {
+.dashboard-header-right {
     display: flex;
     align-items: center;
     gap: 12px;
     flex-wrap: wrap;
 }
 
-.main-top-center {
+.filter-dropdown {
     display: flex;
     align-items: center;
     font-size: 16px;
@@ -972,22 +974,22 @@
     transition: background 0.2s;
 }
 
-.main-top-center:hover {
+.filter-dropdown:hover {
     background: #f1f3f4;
 }
 
-.dropdown-icon {
+.filter-icon {
     margin-left: 4px;
     font-size: 18px;
 }
 
-.mainbody-docs {
+.dashboard-content {
     margin-top: 20px;
     display: flex;
     justify-content: center;
 }
 
-.docs-card {
+.empty-state-card {
     border: 1px solid #dadce0;
     border-radius: 8px;
     padding: 40px;
@@ -997,39 +999,39 @@
     background: #fff;
 }
 
-.docs-card h3 {
+.empty-state-card h3 {
     margin: 0;
     font-size: 20px;
     color: #202124;
 }
 
-.docs-card p {
+.empty-state-card p {
     margin-top: 8px;
     font-size: 16px;
 }
 
 @media screen and (max-width: 768px) {
-    .mainbody-top {
+    .dashboard-header {
         margin-left: 40px;
         margin-right: 40px;
     }
 
-    .mainbody-top-left {
+    .dashboard-header-left {
         font-size: 18px;
     }
 
-    .main-top-center {
+    .filter-dropdown {
         font-size: 15px;
     }
 
-    .docs-card {
+    .empty-state-card {
         width: 90%;
         padding: 30px;
     }
 }
 
 @media screen and (max-width: 480px) {
-    .mainbody-top {
+    .dashboard-header {
         margin-left: 20px;
         margin-right: 20px;
         flex-direction: column;
@@ -1037,31 +1039,32 @@
         gap: 8px;
     }
 
-    .mainbody-top-left {
+    .dashboard-header-left {
         font-size: 16px;
     }
 
-    .main-top-center {
+    .filter-dropdown {
         font-size: 14px;
         margin: 0;
     }
 
-    .docs-card {
+    .empty-state-card {
         width: 95%;
         padding: 20px;
     }
 
-    .docs-card h3 {
+    .empty-state-card h3 {
         font-size: 18px;
     }
 
-    .docs-card p {
+    .empty-state-card p {
         font-size: 14px;
     }
 }
 
 
-/* gallery page */
+
+/* form gallery page */
 
 
 
@@ -1181,7 +1184,7 @@
 
 
 
-/* Docs Template  */
+/* Docs Template section */
 
 
 .tpl2-container {
@@ -1262,7 +1265,6 @@
     align-items: center;
     justify-content: center;
     gap: 6px;
-    /* space between title and font */
     margin-top: 10px;
 }
 
@@ -1274,7 +1276,6 @@
 
 .tp-font {
     font-weight: 300;
-    /* lighter look font-size: 14px; */
     color: #5f6368;
     font-style: italic;
 }
@@ -1329,7 +1330,7 @@
 }
 
 
-/* recent section  */
+/* docs recent section  */
 
 
 .docs-body {
@@ -1491,3 +1492,5 @@
 .tpl2-card-img2:hover {
     border: 1px solid #5290fc;
 }
+
+/* continue...  */

@@ -17,6 +17,7 @@ import SheetGallery from "./Components/SheetGallery.jsx";
 import TemplateGallery from './Components/TemplateGallery.jsx';
 import Docstemplate from "./components/Docstemplate.jsx";
 import Docsgallery from "./components/Docsgallery.jsx";
+import Header from "./screen/Header.jsx";
 
 function App() {
   return (

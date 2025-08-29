@@ -64,7 +64,7 @@ const Docstemplate = () => {
                         <div className="tpl2-card">
                             <img src={docs2} alt="no-img" className="tpl2-card-img" />
                             <div className="tpl2-card-text">
-                                <p className="tpl2-card-title">Find a Time</p>
+                                <p className="tpl2-card-title"></p>
                             </div>
                         </div>
 
