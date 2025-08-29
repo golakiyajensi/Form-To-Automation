@@ -13,13 +13,10 @@ import UseAccount from "./Components/UseAccount.jsx";
 import Password from "./Components/Pasword.jsx";
 import ForgotPassword from "./Components/ForgotPassword.jsx";
 
-import './App.css'
-import Header from './screen/Header'
 import SheetGallery from "./Components/SheetGallery.jsx";
 import TemplateGallery from './Components/TemplateGallery.jsx';
 import Docstemplate from "./components/Docstemplate.jsx";
 import Docsgallery from "./components/Docsgallery.jsx";
-
 
 function App() {
   return (
