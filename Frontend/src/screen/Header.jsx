@@ -1,14 +1,45 @@
+// Header.jsx
 import React, { useState, useRef, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
+
+import { useNavigate, useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
+
 const Header = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
   const profileRef = useRef(null);
 
+  // ✅ Map path → logo + title
+  const headerConfig = {
+    "/docs": {
+      logo: "./img/docs.png",
+      title: "Docs",
+    },
+    "/sheets": {
+      logo: "./img/sheets.png",
+      title: "Sheets",
+    },
+    "/slide": {
+      logo: "./img/slides.png",
+      title: "Slides",
+    },
+    "/forms": {
+      logo: "./img/forms.png",
+      title: "Forms",
+    },
+  };
+
+  // ✅ current header (default = Forms)
+  const currentHeader = headerConfig[location.pathname] || headerConfig["/forms"];
+
   const navigate = useNavigate();
+
 
   // Close profile dropdown on outside click
   useEffect(() => {
@@ -24,9 +55,9 @@ const Header = () => {
   return (
     <>
       {/* HEADER */}
-      <header className="forms-header container-fluid shadow-sm py-2">
+      <header className="forms-header container-fluid shadow-sm py-2 bg-white">
         <div className="row align-items-center w-100">
-          {/* Left: menu + logo + title */}
+          {/* Left: menu + dynamic logo + dynamic title */}
           <div className="col-auto d-flex align-items-center">
             <button
               className="btn btn-link text-dark me-2"
@@ -35,21 +66,25 @@ const Header = () => {
               <i className="bi bi-list" style={{ fontSize: "22px" }}></i>
             </button>
             <img
-              src="https://www.gstatic.com/images/branding/product/1x/forms_48dp.png"
-              alt="Forms Logo"
+              src={currentHeader.logo}
+              alt={`${currentHeader.title} Logo`}
               className="logo me-2"
               style={{ height: "32px" }}
             />
-            <span className="forms-title fw-semibold fs-5">Forms</span>
+            <span className="fw-semibold fs-5">{currentHeader.title}</span>
           </div>
 
           {/* Middle: search bar */}
+
+          <div className="col d-none d-md-block">
+
           <div className="col d-none d-md-block" style={{ justifyItems: "center" }}>
+
             <div className="search-bar border rounded-pill px-4 d-flex align-items-center">
               <i className="bi bi-search text-muted"></i>
               <input
                 type="text"
-                placeholder="Search"
+                placeholder={`Search ${currentHeader.title}`}
                 className="form-control border-0"
               />
             </div>
@@ -73,7 +108,6 @@ const Header = () => {
               {profileOpen && (
                 <div className="card shadow border-0 position-absolute end-0 mt-3">
                   <div className="card-body text-center">
-                    {/* Profile Picture */}
                     <img
                       src="./img/logo.png"
                       alt="profile"
@@ -137,6 +171,14 @@ const Header = () => {
         <hr />
         <div className="offcanvas-body">
           <ul className="list-unstyled">
+
+            <li
+              className="d-flex align-items-center mb-1"
+              style={{ cursor: "pointer" }}
+              onClick={() => navigate("/docs")}
+            >
+              <img src="./img/docs.png" alt="Docs" className="side me-2" />
+
             <li className="d-flex align-items-center mb-1"
               style={{ cursor: "pointer" }}
               onClick={() => navigate("/docstemplate")}
@@ -147,11 +189,17 @@ const Header = () => {
                 alt="Docs"
                 className="me-2"
               />
+
               Docs
             </li>
             <li
               className="d-flex align-items-center mb-1"
               style={{ cursor: "pointer" }}
+
+              onClick={() => navigate("/sheets")}
+            >
+              <img src="./img/sheets.png" alt="Sheets" className="side me-2" />
+
               onClick={() => navigate("/sheetgallery")}
             >
               <img
@@ -159,16 +207,25 @@ const Header = () => {
                 alt="Sheets"
                 className="me-2"
               />
+
               Sheets
             </li>
-            <li className="d-flex align-items-center mb-1">
-              <img
-                src="https://ssl.gstatic.com/docs/doclist/images/mediatype/icon_1_presentation_x16.png"
-                alt="Slides"
-                className="me-2"
-              />
+            <li
+              className="d-flex align-items-center mb-1"
+              style={{ cursor: "pointer" }}
+              onClick={() => navigate("/slide")}
+            >
+              <img src="./img/slides.png" alt="Slides" className="side me-2" />
               Slides
             </li>
+
+            <li
+              className="d-flex align-items-center mb-1"
+              style={{ cursor: "pointer" }}
+              onClick={() => navigate("/forms")}
+            >
+              <img src="./img/forms.png" alt="Forms" className="side me-2" />
+
 
 
             <li
@@ -181,6 +238,7 @@ const Header = () => {
                 alt="Forms"
                 className="me-2"
               />
+
               Forms
             </li>
 
