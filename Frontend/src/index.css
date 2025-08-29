@@ -1,3 +1,4 @@
+
 /* :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -11,6 +12,7 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
 /* =========================
    Header Styles
 ========================= */
@@ -24,89 +26,6 @@
 
 .forms-header .logo {
   height: 32px;
-}
-
-.forms-title {
-  font-size: 1.2rem;
-  color: #202124;
-}
-
-/* =========================
-   Search Bar
-========================= */
-.search-bar {
-  height: 38px;
-  width: 50%;
-  background: #f1f3f4;
-  transition: all 0.2s ease-in-out;
-}
-
-.search-bar input {
-  font-size: 0.9rem;
-  padding-left: 10px;
-  background: transparent;
-}
-
-.search-bar input:focus {
-  outline: none;
-  box-shadow: none;
-}
-
-.search-bar:focus-within {
-  background: #fff;
-  border: 1px solid #dadce0;
-}
-
-/* =========================
-   Profile Dropdown
-========================= */
-.card {
-  border-radius: 12px !important;
-  width: 400px;
-}
-
-.card-body img {
-  border: 2px solid #dadce0;
-}
-
-.card-footer {
-  background: #f8f9fa;
-}
-
-/* Profile dropdown links */
-.card-footer a {
-  font-size: 0.8rem;
-  text-decoration: none;
-}
-
-/* =========================
-   Sidebar / Offcanvas
-========================= */
-.drive {
-  width: 20px;
-  height: 20px;
-}
-.offcanvas {
-  background: #fff;
-  border-right: 1px solid #e5e5e5;
-  transition: transform 0.3s ease-in-out;
-}
-
-.offcanvas.show {
-  transform: translateX(0) !important;
-}
-
-.offcanvas-header {
-  padding: 1rem;
-}
-
-.offcanvas-title img{
-  width: 30px;
-  height: 30px;
-}
-
-.offcanvas-body {
-  padding: 0.5rem 1rem;
 }
 
 .forms-title {
@@ -209,6 +128,10 @@
   background: #fafafa;
 }
 
+.offcanvas-body .side{
+  width: 30px;
+}
+
 /* =========================
    Responsive Adjustments
 ========================= */
@@ -220,8 +143,8 @@
   }
 
   .card {
-  border-radius: 12px !important;
-  width: 300px;
+    border-radius: 12px !important;
+    width: 300px;
   }
 
   .row {
@@ -260,4 +183,49 @@
 
 .btn-link:hover {
   color: #1a73e8;
+}
+
+/* ========================
+   slide css start
+======================== */
+body {
+  background: #f8f9fa;
+}
+
+.nav {
+  background-color: #fff;
+  padding: 20px;
+}
+
+.template-tile {
+  min-width: 140px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.template-tile:hover {
+  border-color: #4285f4;
+  box-shadow: 0 2px 12px rgba(66,133,244,0.09);
+}
+.template-blank {
+  border-width: 2px;
+  border-color: #e6e6e6;
+}
+
+.recent-presentation-card {
+  transition: box-shadow 0.2s, border-color 0.2s;
+}
+.recent-presentation-card:hover {
+  box-shadow: 0 4px 18px 0 #4285f422;
+  border-color: #4285f4;
+}
+
+/* Responsive adjustments */
+@media (max-width: 576px) {
+  .template-tile {
+    width: 100%;
+    min-width: unset;
+    height: 100px;
+  }
+  .recent-presentation-card {
+    width: 100%;
+  }
 }

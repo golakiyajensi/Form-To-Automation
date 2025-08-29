@@ -8,7 +8,18 @@ const db = mysql.createPool({
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,
-  multipleStatements: true
+  multipleStatements: true,
 });
+
+// test connection
+(async () => {
+  try {
+    const connection = await db.getConnection();
+    console.log("✅ Database connected successfully");
+    connection.release(); // release connection back to pool
+  } catch (error) {
+    console.error("❌ Database connection failed:", error.message);
+  }
+})();
 
 module.exports = db;
