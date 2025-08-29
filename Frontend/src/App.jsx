@@ -1,11 +1,10 @@
 import Template from "./components/Template";
 import FormPage from "./components/FormPage";
 import Gallery from "./components/Gallery";
-import MainBody from "./components/MainBody";
 import { useState } from 'react'
 
 import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.bundle.min.js"; // required for dropdown behavior
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import "./CSS/style.css";
 
@@ -18,6 +17,8 @@ import './App.css'
 import Header from './screen/Header'
 import SheetGallery from "./Components/SheetGallery.jsx";
 import TemplateGallery from './Components/TemplateGallery.jsx';
+import Docstemplate from "./components/Docstemplate.jsx";
+import Docsgallery from "./components/Docsgallery.jsx";
 
 
 function App() {
@@ -25,30 +26,20 @@ function App() {
     <>
 
       <Router>
-        <Header/>
+        <Header />
         <Routes>
-          <Route path='/signin' element={<Signin/>}></Route>
-          <Route path='/useaccount' element={<UseAccount/>}></Route>
-          <Route path='/password' element={<Password/>}></Route>
-          <Route path='/forgotpassword' element={<ForgotPassword/>}></Route>
-          <Route path='/sheetgallery' element={<SheetGallery/>}></Route>
-          <Route path='/templategallery' element={<TemplateGallery/>}></Route>
+          <Route path='/signin' element={<Signin />}></Route>
+          <Route path='/useaccount' element={<UseAccount />}></Route>
+          <Route path='/password' element={<Password />}></Route>
+          <Route path='/forgotpassword' element={<ForgotPassword />}></Route>
+          <Route path='/sheetgallery' element={<SheetGallery />}></Route>
+          <Route path='/templategallery' element={<TemplateGallery />}></Route>
+          <Route path="/formgallery" element={<Template />}></Route>
+          <Route path="/gallery" element={<Gallery />}></Route>
+          <Route path="/form/:id" element={<FormPage />}></Route>
+          <Route path="/docstemplate" element={<Docstemplate />}></Route>
+          <Route path="/docsgallery" element={<Docsgallery />}></Route>
 
-          <Route
-          path="/"
-          element={
-            <>
-              <Template />
-              <MainBody />
-            </>
-          }
-        />
-
-        {/* Gallery Page */}
-        <Route path="/gallery" element={<Gallery />} />
-
-        {/* Dynamic Form Page */}
-        <Route path="/form/:id" element={<FormPage />} />
         </Routes>
       </Router>
     </>

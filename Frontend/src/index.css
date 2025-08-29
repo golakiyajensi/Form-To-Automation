@@ -1,19 +1,3 @@
-/* :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-/* =========================
-   Header Styles
-========================= */
 .forms-header {
   background: #fff;
   border-bottom: 1px solid #e5e5e5;
@@ -31,9 +15,6 @@
   color: #202124;
 }
 
-/* =========================
-   Search Bar
-========================= */
 .search-bar {
   height: 38px;
   width: 50%;
@@ -57,9 +38,7 @@
   border: 1px solid #dadce0;
 }
 
-/* =========================
-   Profile Dropdown
-========================= */
+
 .card {
   border-radius: 12px !important;
   width: 400px;
@@ -73,19 +52,16 @@
   background: #f8f9fa;
 }
 
-/* Profile dropdown links */
 .card-footer a {
   font-size: 0.8rem;
   text-decoration: none;
 }
 
-/* =========================
-   Sidebar / Offcanvas
-========================= */
 .drive {
   width: 20px;
   height: 20px;
 }
+
 .offcanvas {
   background: #fff;
   border-right: 1px solid #e5e5e5;
@@ -100,7 +76,7 @@
   padding: 1rem;
 }
 
-.offcanvas-title img{
+.offcanvas-title img {
   width: 30px;
   height: 30px;
 }
@@ -114,9 +90,7 @@
   color: #202124;
 }
 
-/* =========================
-   Search Bar
-========================= */
+
 .search-bar {
   height: 38px;
   width: 50%;
@@ -140,9 +114,7 @@
   border: 1px solid #dadce0;
 }
 
-/* =========================
-   Profile Dropdown
-========================= */
+
 .card {
   border-radius: 12px !important;
   width: 400px;
@@ -156,19 +128,17 @@
   background: #f8f9fa;
 }
 
-/* Profile dropdown links */
 .card-footer a {
   font-size: 0.8rem;
   text-decoration: none;
 }
 
-/* =========================
-   Sidebar / Offcanvas
-========================= */
+
 .drive {
   width: 20px;
   height: 20px;
 }
+
 .offcanvas {
   background: #fff;
   border-right: 1px solid #e5e5e5;
@@ -183,7 +153,7 @@
   padding: 1rem;
 }
 
-.offcanvas-title img{
+.offcanvas-title img {
   width: 30px;
   height: 30px;
 }
@@ -209,19 +179,15 @@
   background: #fafafa;
 }
 
-/* =========================
-   Responsive Adjustments
-========================= */
 
-/* Hide search bar on small screens */
 @media (max-width: 767px) {
   .search-bar {
     display: none !important;
   }
 
   .card {
-  border-radius: 12px !important;
-  width: 300px;
+    border-radius: 12px !important;
+    width: 300px;
   }
 
   .row {
@@ -229,7 +195,7 @@
   }
 }
 
-/* Sidebar width adjusts for smaller screens */
+
 @media (max-width: 992px) {
   .offcanvas {
     max-width: 60% !important;
@@ -250,9 +216,7 @@
   }
 }
 
-/* =========================
-   Utility
-========================= */
+
 .btn-link {
   color: inherit;
   text-decoration: none;
@@ -261,4 +225,3 @@
 .btn-link:hover {
   color: #1a73e8;
 }
-

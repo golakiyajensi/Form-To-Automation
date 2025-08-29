@@ -26,128 +26,131 @@ const Gallery = () => {
 
     return (
         <>
-            <div className="heading-head">
-                <h2 className="gallery-heading">
-                    <ArrowBackIcon className="back-icon" onClick={() => navigate("/")} />
+            <div className="gal-header-wrap">
+                <h2 className="gal-heading">
+                    <ArrowBackIcon
+                        className="gal-back-icon"
+                        onClick={() => navigate("/formgallery")}
+                    />
                     Template gallery
                 </h2>
             </div>
 
-            <div className="gallery-container">
-                {/* recently */}
-                <div className="section">
-                    <h3 className="section-title">Recently used templates</h3>
-                    <div className="card-grid">
-                        <Link to="/form/blank" className="card">
+            <div className="gal-container">
+                {/* Recently */}
+                <div className="gal-section">
+                    <h3 className="gal-section-title">Recently used templates</h3>
+                    <div className="gal-card-grid">
+                        <Link to="/form/blank" className="gal-card">
                             <img src={blank} alt="Blank" />
                             <p>Blank form</p>
                         </Link>
-                        <Link to="/form/job" className="card">
+                        <Link to="/form/job" className="gal-card">
                             <img src={blank8} alt="Job" />
                             <p>Contact Information</p>
                         </Link>
-                        <Link to="/form/contact" className="card">
+                        <Link to="/form/contact" className="gal-card">
                             <img src={blank2} alt="Contact" />
                             <p>Job Application</p>
                         </Link>
-                        <Link to="/form/rsvp" className="card">
+                        <Link to="/form/rsvp" className="gal-card">
                             <img src={blank4} alt="RSVP" />
                             <p>RSVP</p>
                         </Link>
-                        <Link to="/form/party" className="card">
+                        <Link to="/form/party" className="gal-card">
                             <img src={blank3} alt="Party" />
                             <p>Party Invite</p>
                         </Link>
-                        <Link to="/form/tshirt" className="card">
+                        <Link to="/form/tshirt" className="gal-card">
                             <img src={blank5} alt="T-Shirt" />
                             <p>T-Shirt Sign Up</p>
                         </Link>
                     </div>
                 </div>
 
-                {/* personal */}
-                <div className="section">
-                    <h3 className="section-title">Personal</h3>
-                    <div className="card-grid">
-                        <Link to="/form/contact" className="card">
+                {/* Personal */}
+                <div className="gal-section">
+                    <h3 className="gal-section-title">Personal</h3>
+                    <div className="gal-card-grid">
+                        <Link to="/form/contact" className="gal-card">
                             <img src={blank2} alt="Contact" />
                             <p>Contact Information</p>
                         </Link>
-                        <Link to="/form/findtime" className="card">
+                        <Link to="/form/findtime" className="gal-card">
                             <img src={blank8} alt="Find Time" />
                             <p>Find a Time</p>
                         </Link>
-                        <Link to="/form/rsvp" className="card">
+                        <Link to="/form/rsvp" className="gal-card">
                             <img src={blank3} alt="RSVP" />
                             <p>RSVP</p>
                         </Link>
-                        <Link to="/form/party" className="card">
+                        <Link to="/form/party" className="gal-card">
                             <img src={blank5} alt="Party" />
                             <p>Party Invite</p>
                         </Link>
-                        <Link to="/form/tshirt" className="card">
+                        <Link to="/form/tshirt" className="gal-card">
                             <img src={blank6} alt="T-Shirt" />
                             <p>T-Shirt Sign Up</p>
                         </Link>
-                        <Link to="/form/event" className="card">
+                        <Link to="/form/event" className="gal-card">
                             <img src={blank7} alt="Event" />
                             <p>Event registration</p>
                         </Link>
                     </div>
                 </div>
 
-                {/* work */}
-                <div className="section">
-                    <h3 className="section-title">Work</h3>
-                    <div className="card-grid">
-                        <Link to="/form/contact" className="card">
+                {/* Work */}
+                <div className="gal-section">
+                    <h3 className="gal-section-title">Work</h3>
+                    <div className="gal-card-grid">
+                        <Link to="/form/contact" className="gal-card">
                             <img src={blank9} alt="Contact" />
                             <p>Event Feedback</p>
                         </Link>
-                        <Link to="/form/findtime" className="card">
+                        <Link to="/form/findtime" className="gal-card">
                             <img src={blank10} alt="Find Time" />
                             <p>Order Form</p>
                         </Link>
-                        <Link to="/form/rsvp" className="card">
+                        <Link to="/form/rsvp" className="gal-card">
                             <img src={blank4} alt="RSVP" />
                             <p>Job Application</p>
                         </Link>
-                        <Link to="/form/party" className="card">
+                        <Link to="/form/party" className="gal-card">
                             <img src={blank11} alt="Party" />
                             <p>Time Off Request</p>
                         </Link>
-                        <Link to="/form/tshirt" className="card">
+                        <Link to="/form/tshirt" className="gal-card">
                             <img src={blank12} alt="T-Shirt" />
                             <p>Work Request</p>
                         </Link>
-                        <Link to="/form/event" className="card">
+                        <Link to="/form/event" className="gal-card">
                             <img src={blank13} alt="Event" />
                             <p>Customer Feedback</p>
                         </Link>
                     </div>
                 </div>
 
-                {/* education */}
-                <div className="section">
-                    <h3 className="section-title">Education</h3>
-                    <div className="card-grid">
-                        <Link to="/form/contact" className="card">
+                {/* Education */}
+                <div className="gal-section">
+                    <h3 className="gal-section-title">Education</h3>
+                    <div className="gal-card-grid">
+                        <Link to="/form/contact" className="gal-card">
                             <img src={blank14} alt="Contact" />
                             <p>Contact Information</p>
                         </Link>
-                        <Link to="/form/findtime" className="card">
+                        <Link to="/form/findtime" className="gal-card">
                             <img src={blank15} alt="Find Time" />
                             <p>Find a Time</p>
                         </Link>
-                        <Link to="/form/rsvp" className="card">
+                        <Link to="/form/rsvp" className="gal-card">
                             <img src={blank16} alt="RSVP" />
                             <p>RSVP</p>
                         </Link>
-                        <Link to="/form/party" className="card">
+                        <Link to="/form/party" className="gal-card">
                             <img src={blank17} alt="Party" />
                             <p>Party Invite</p>
                         </Link>
-                        <Link to="/form/tshirt" className="card">
+                        <Link to="/form/tshirt" className="gal-card">
                             <img src={blank18} alt="T-Shirt" />
                             <p>T-Shirt Sign Up</p>
                         </Link>
