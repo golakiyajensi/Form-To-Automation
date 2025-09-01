@@ -143,7 +143,7 @@ const Header = () => {
  
             >
               <img
-                src="https://ssl.gstatic.com/docs/doclist/images/mediatype/icon_1_document_x16.png"
+                src="./img/docs.png"
                 alt="Docs"
                 className="me-2"
               />
@@ -155,7 +155,7 @@ const Header = () => {
               onClick={() => navigate("/sheetgallery")}
             >
               <img
-                src="https://ssl.gstatic.com/docs/doclist/images/mediatype/icon_1_spreadsheet_x16.png"
+                src="./img/sheets.png"
                 alt="Sheets"
                 className="me-2"
               />
@@ -163,7 +163,7 @@ const Header = () => {
             </li>
             <li className="d-flex align-items-center mb-1">
               <img
-                src="https://ssl.gstatic.com/docs/doclist/images/mediatype/icon_1_presentation_x16.png"
+                src="./img/slides.png"
                 alt="Slides"
                 className="me-2"
               />
@@ -177,7 +177,7 @@ const Header = () => {
               onClick={() => navigate("/formgallery")}
             >
               <img
-                src="https://ssl.gstatic.com/docs/doclist/images/mediatype/icon_1_form_x16.png"
+                src="./img/forms.png"
                 alt="Forms"
                 className="me-2"
               />
