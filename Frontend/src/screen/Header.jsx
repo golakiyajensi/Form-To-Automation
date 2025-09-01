@@ -35,7 +35,7 @@ const Header = () => {
               <i className="bi bi-list" style={{ fontSize: "22px" }}></i>
             </button>
             <img
-              src="https://www.gstatic.com/images/branding/product/1x/forms_48dp.png"
+              src="./img/forms.png"
               alt="Forms Logo"
               className="logo me-2"
               style={{ height: "32px" }}
@@ -145,7 +145,7 @@ const Header = () => {
               <img
                 src="./img/docs.png"
                 alt="Docs"
-                className="me-2"
+                className="drive me-2"
               />
               Docs
             </li>
@@ -157,7 +157,7 @@ const Header = () => {
               <img
                 src="./img/sheets.png"
                 alt="Sheets"
-                className="me-2"
+                className="drive me-2"
               />
               Sheets
             </li>
@@ -165,7 +165,7 @@ const Header = () => {
               <img
                 src="./img/slides.png"
                 alt="Slides"
-                className="me-2"
+                className="drive me-2"
               />
               Slides
             </li>
@@ -179,7 +179,7 @@ const Header = () => {
               <img
                 src="./img/forms.png"
                 alt="Forms"
-                className="me-2"
+                className="drive me-2"
               />
               Forms
             </li>

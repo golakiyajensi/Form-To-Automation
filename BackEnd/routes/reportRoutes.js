@@ -7,9 +7,9 @@ const router = express.Router();
 router.post("/forms/:id/reports", authMiddleware(["admin"]), reportController.createReport);
 
 // List all reports for a form
-router.get("/forms/:id/reports", authMiddleware(["admin","viewer"]), reportController.getReportsByForm);
+router.get("/forms/:id/reports", authMiddleware(["admin"]), reportController.getReportsByForm);
 
 // Get single report
-router.get("/reports/:id", authMiddleware(["admin","viewer"]), reportController.getReportById);
+router.get("/reports/:id", authMiddleware(["admin"]), reportController.getReportById);
 
 module.exports = router;
