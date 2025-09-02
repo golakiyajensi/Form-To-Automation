@@ -5,9 +5,23 @@ const response = require("../utils/responseTemplate");
 exports.createSlide = async (req, res) => {
   try {
     const { form_id } = req.params;
-    const { title, description, order_no } = req.body;
+    const {
+      title,
+      description,
+      order_no,
+      title_formatted,
+      description_formatted,
+    } = req.body;
 
-    const slide = await slideModel.createSlide(form_id, title, description, order_no);
+    const slide = await slideModel.createSlide(
+      form_id,
+      title,
+      description,
+      order_no,
+      title_formatted,
+      description_formatted
+    );
+
     res.json(response.success("Slide created", slide));
   } catch (err) {
     res.status(500).json(response.error(err.message));
