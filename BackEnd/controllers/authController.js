@@ -1,6 +1,8 @@
-const { registerUser, loginUser } = require('../models/userModel');
+const { registerUser, loginUser, findUserByEmail, saveResetToken, resetUserPassword } = require('../models/userModel');
 const { generateToken } = require('../utils/jwt');
 const response = require('../utils/responseTemplate');
+const bcrypt = require("bcryptjs");
+const crypto = require("crypto");
 
 const register = async (req, res) => {
     const { name, email, password, role } = req.body;
@@ -44,4 +46,46 @@ const login = async (req, res) => {
     }
 };
 
-module.exports = { register, login };
+// Forgot Password
+const forgotPassword = async (req, res) => {
+    const { email } = req.body;
+    try {
+        const user = await findUserByEmail(email);
+        if (!user) {
+            return res.status(404).json(response.error("User not found"));
+        }
+
+        // Generate reset token
+        const resetToken = crypto.randomBytes(32).toString("hex");
+        const expiry = new Date(Date.now() + 3600000); // 1 hour expiry
+
+        await saveResetToken(user.user_id, resetToken, expiry);
+
+        // TODO: send email logic here
+        // For now return token in response
+        res.json(response.success("Password reset token generated", { resetToken }));
+    } catch (err) {
+        console.error(err);
+        res.status(500).json(response.error("Server error"));
+    }
+};
+
+// Reset Password
+const resetPassword = async (req, res) => {
+    const { token, newPassword } = req.body;
+    try {
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+        const result = await resetUserPassword(token, hashedPassword);
+
+        if (!result) {
+            return res.status(400).json(response.error("Invalid or expired token"));
+        }
+
+        res.json(response.success("Password reset successful"));
+    } catch (err) {
+        console.error(err);
+        res.status(500).json(response.error("Server error"));
+    }
+};
+
+module.exports = { register, login, forgotPassword, resetPassword };

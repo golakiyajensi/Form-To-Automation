@@ -1,12 +1,23 @@
 const db = require("../config/db");
 
 // ✅ Create Slide
-const createSlide = async (form_id, title, description, order_no) => {
+const createSlide = async (form_id, title, description, order_no, title_formatted, description_formatted) => {
   const [result] = await db.query(
-    "INSERT INTO tbl_form_slides (form_id, title, description, order_no) VALUES (?,?,?,?)",
-    [form_id, title, description, order_no]
+    `INSERT INTO tbl_form_slides 
+     (form_id, title, description, order_no, title_formatted, description_formatted) 
+     VALUES (?,?,?,?,?,?)`,
+    [form_id, title, description, order_no, JSON.stringify(title_formatted || null), JSON.stringify(description_formatted || null)]
   );
-  return { id: result.insertId, form_id, title, description, order_no };
+
+  return {
+    id: result.insertId,
+    form_id,
+    title,
+    description,
+    order_no,
+    title_formatted,
+    description_formatted
+  };
 };
 
 // ✅ Add fields in bulk
@@ -32,18 +43,21 @@ const addFieldsBulk = async (slide_id, fields) => {
 
     const [result] = await db.query(
       `INSERT INTO tbl_form_fields 
-       (form_id, slide_id, label, field_type, is_required, options, order_no) 
-       VALUES ((SELECT form_id FROM tbl_form_slides WHERE id=?), ?, ?, ?, ?, ?, ?)`,
+       (form_id, slide_id, label, description, field_type, is_required, options, response_validation, order_no) 
+       VALUES ((SELECT form_id FROM tbl_form_slides WHERE id=?), ?, ?, ?, ?, ?, ?, ?, ?)`,
       [
         slide_id,
         slide_id,
         f.label,
+        f.description || null,  // ✅ description
         fieldType,
         f.is_required ? 1 : 0,
         f.options_json ? JSON.stringify(f.options_json) : null,
+        f.response_validation ? JSON.stringify(f.response_validation) : null, // ✅ validation
         f.order_no || 0,
       ]
     );
+
     created.push({
       field_id: result.insertId,
       slide_id,
@@ -66,19 +80,26 @@ const getSlidesWithFields = async (form_id) => {
     [form_id]
   );
 
-  // parse JSON fields
   const parsedFields = fields.map((f) => {
     let options = null;
     try {
       options = f.options ? JSON.parse(f.options) : null;
     } catch (e) {
-      // fallback: જો value JSON ન હોય તો null કે string જ મોકલો
       options = f.options;
+    }
+
+    let validation = null;
+    try {
+      validation = f.response_validation ? JSON.parse(f.response_validation) : null;
+    } catch (e) {
+      validation = f.response_validation;
     }
 
     return {
       ...f,
       options,
+      description: f.description,   // ✅ include
+      response_validation: validation, // ✅ parsed
       conditional_logic: (() => {
         try {
           return f.conditional_logic ? JSON.parse(f.conditional_logic) : null;
@@ -89,7 +110,6 @@ const getSlidesWithFields = async (form_id) => {
     };
   });
 
-  // nest fields inside slides
   return slides.map((s) => ({
     ...s,
     fields: parsedFields.filter((f) => f.slide_id === s.id),
