@@ -40,7 +40,7 @@ export default function Signin() {
               {/* Google logo */}
               <div className="logo-card">
                 <img
-                  src="/img/logo.png"   {/* ✅ fixed */}
+                  src="/img/logo.png"
                   alt="Google logo"
                   className="google-logo mb-3"
                 />

@@ -6,7 +6,7 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "./App.css";
 
 // Components
-import Header from "./components/Header.jsx";
+import Header from "./screen/Header.jsx"
 import SlideGallery from "./components/SlideTemplate.jsx";
 import Signin from "./components/Signin.jsx";
 import UseAccount from "./components/UseAccount.jsx";
@@ -17,7 +17,7 @@ import Template from "./components/Template.jsx";
 import FormPage from "./components/FormPage.jsx";
 import Gallery from "./components/Gallery.jsx";
 import SheetGallery from "./components/SheetGallery.jsx";
-import TemplateGallery from "./components/TemplateGallery.jsx";
+import Template from "./components/TemplateGallery.jsx";
 import Docstemplate from "./components/Docstemplate.jsx";
 import Docsgallery from "./components/Docsgallery.jsx";
 
