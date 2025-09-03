@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 require('dotenv').config();
 
 const seedAdmin = require('./utils/seedAdmin');
@@ -29,6 +30,8 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// ✅ Serve uploads folder
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 // ✅ Seed Default Admin
 seedAdmin();
 

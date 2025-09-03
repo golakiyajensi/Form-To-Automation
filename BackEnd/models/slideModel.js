@@ -68,6 +68,16 @@ const addFieldsBulk = async (slide_id, fields) => {
   return created;
 };
 
+// ✅ Get all slides from database
+const getAllSlides = async () => {
+  const [rows] = await db.query("CALL sp_get_all_slides()");
+  return rows[0].map((slide) => ({
+    ...slide,
+    title_formatted: slide.title_formatted ? JSON.parse(slide.title_formatted) : null,
+    description_formatted: slide.description_formatted ? JSON.parse(slide.description_formatted) : null,
+  }));
+};
+
 // ✅ Get slides + fields (nested)
 const getSlidesWithFields = async (form_id) => {
   const [slides] = await db.query(
@@ -119,5 +129,6 @@ const getSlidesWithFields = async (form_id) => {
 module.exports = {
   createSlide,
   addFieldsBulk,
+  getAllSlides,
   getSlidesWithFields,
 };

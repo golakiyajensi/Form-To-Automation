@@ -45,6 +45,16 @@ exports.addFieldsBulk = async (req, res) => {
   }
 };
 
+// ✅ Get all slides
+exports.getAllSlides = async (req, res) => {
+  try {
+    const slides = await slideModel.getAllSlides();
+    res.json(response.success("All slides fetched", slides));
+  } catch (err) {
+    res.status(500).json(response.error(err.message));
+  }
+};
+
 // ✅ Get slides with fields
 exports.getSlidesWithFields = async (req, res) => {
   try {

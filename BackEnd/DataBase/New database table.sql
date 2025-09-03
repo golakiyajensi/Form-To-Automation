@@ -35,7 +35,7 @@ CREATE TABLE `tbl_forms` (
   PRIMARY KEY (`form_id`),
   KEY `created_by` (`created_by`),
   CONSTRAINT `tbl_forms_ibfk_1` FOREIGN KEY (`created_by`) REFERENCES `tbl_user` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- 3. Default Settings
 CREATE TABLE `tbl_form_defaults_setting` (
@@ -293,4 +293,21 @@ CREATE TABLE `tbl_theme` (
   PRIMARY KEY (`theme_id`),
   KEY `idx_form_id` (`form_id`),
   CONSTRAINT `fk_theme_form` FOREIGN KEY (`form_id`) REFERENCES `tbl_forms` (`form_id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+CREATE TABLE `tbl_form_publish_status` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `form_id` int NOT NULL,
+  `published_by` int NOT NULL,
+  `is_published` tinyint(1) DEFAULT '0',
+  `published_at` datetime DEFAULT NULL,
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `create_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `form_id` (`form_id`),
+  KEY `published_by` (`published_by`),
+  CONSTRAINT `tbl_form_publish_status_ibfk_1` FOREIGN KEY (`form_id`) REFERENCES `tbl_forms` (`form_id`),
+  CONSTRAINT `tbl_form_publish_status_ibfk_2` FOREIGN KEY (`published_by`) REFERENCES `tbl_user` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
