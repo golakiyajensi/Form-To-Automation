@@ -882,3 +882,25 @@ BEGIN
     WHERE id = 1;
 END //
 DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE sp_get_all_slides()
+BEGIN
+    SELECT 
+        s.id AS slide_id,
+        s.form_id,
+        f.title AS form_title,
+        s.title AS slide_title,
+        s.description AS slide_description,
+        s.title_formatted,
+        s.description_formatted,
+        s.header_image,
+        s.order_no,
+        s.is_active,
+        s.created_at,
+        s.updated_at
+    FROM tbl_form_slides s
+    LEFT JOIN tbl_forms f ON f.form_id = s.form_id
+    ORDER BY s.form_id ASC, s.order_no ASC, s.id ASC;
+END$$
+DELIMITER ;
