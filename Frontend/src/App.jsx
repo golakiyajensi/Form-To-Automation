@@ -1,18 +1,20 @@
-// App.jsx
-import React from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "./App.css";
 
 // Components
-import Header from "./screen/Header.jsx"
-import SlideGallery from "./components/SlideTemplate.jsx";
-import Signin from "./components/Signin.jsx";
-import UseAccount from "./components/UseAccount.jsx";
-import Password from "./components/Password.jsx";
-import ForgotPassword from "./components/ForgotPassword.jsx";
-
+import Header from "./screen/Header.jsx";
+import Signin from "./Components/Signin.jsx";
+import UseAccount from "./Components/UseAccount.jsx";
+import Password from "./Components/Pasword.jsx";
+import ForgotPassword from "./Components/ForgotPassword.jsx";
+import SheetGallery from "./Components/SheetGallery.jsx";
+import TemplateGallery from "./Components/TemplateGallery.jsx";
+import BlankForm from "./Components/BlankForm.jsx";
+import Form from "./Components/Forms.jsx";
+import Response from "./Components/Response.jsx";
+import Setting from "./Components/Setting.jsx";
 import Template from "./components/Template.jsx";
 import FormPage from "./components/FormPage.jsx";
 import Gallery from "./components/Gallery.jsx";
@@ -20,27 +22,40 @@ import SheetGallery from "./components/SheetGallery.jsx";
 import TemplateGallery from "./components/TempateGallery.jsx";
 import Docstemplate from "./components/Docstemplate.jsx";
 import Docsgallery from "./components/Docsgallery.jsx";
-
-// Temporary components
-const Docs = () => <h2 className="p-3">Docs Page</h2>;
-const Sheets = () => <h2 className="p-3">Sheets Page</h2>;
-const Forms = () => <h2 className="p-3">Forms Page</h2>;
+import JobApplicationForm from "./components/JobApplication.jsx";
+import SlideGallery from "./components/SlideGallery.jsx";
+import Slidetemplate from "./components/Slidetemplate.jsx";
+import RsvpForm from "./components/RsvpForm.jsx";
 
 function AppWrapper() {
   const location = useLocation();
 
-  // Hide header only on Slide page
-  const hideHeader = location.pathname === "/slide";
+  // Hide header on these routes
+  const hideHeaderPaths = [
+    "/question",
+    "/responses",
+    "/settings",
+    "/templategallery",
+    "/slide",
+  ];
+  const showHeader = !hideHeaderPaths.includes(location.pathname);
 
   return (
     <>
-      {!hideHeader && <Header />}
+      {showHeader && <Header />}
       <Routes>
         {/* Main Routes */}
-        <Route path="/docs" element={<Docs />} />
-        <Route path="/sheets" element={<Sheets />} />
-        <Route path="/slide" element={<SlideGallery />} />
-        <Route path="/forms" element={<Forms />} />
+        <Route path="/forms" element={<Form />} />
+        <Route path="/form/:id" element={<FormPage />} />
+        <Route path="/form/jobapplication" element={<JobApplicationForm />} />
+        <Route path="/form/rsvpform" element={<RsvpForm />} />
+
+        {/* Docs & Sheets */}
+        <Route path="/docstemplate" element={<Docstemplate />} />
+        <Route path="/docsgallery" element={<Docsgallery />} />
+        <Route path="/sheets" element={<SheetGallery />} />
+        <Route path="/slidetemplate" element={<Slidetemplate />} />
+        <Route path="/slidegallery" element={<SlideGallery />} />
 
         {/* Auth Routes */}
         <Route path="/signin" element={<Signin />} />
@@ -53,9 +68,9 @@ function AppWrapper() {
         <Route path="/templategallery" element={<TemplateGallery />} />
         <Route path="/formgallery" element={<Template />} />
         <Route path="/gallery" element={<Gallery />} />
-        <Route path="/form/:id" element={<FormPage />} />
-        <Route path="/docstemplate" element={<Docstemplate />} />
-        <Route path="/docsgallery" element={<Docsgallery />} />
+        <Route path="/blankform" element={<BlankForm />} />
+        <Route path="/response" element={<Response />} />
+        <Route path="/settings" element={<Setting />} />
       </Routes>
     </>
   );

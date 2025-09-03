@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
+import Logo from "../../public/img/logo.png";
 
 export default function Signin() {
   const [language, setLanguage] = useState("English (United States)");
@@ -21,95 +22,92 @@ export default function Signin() {
       <div className="container">
         {/* Center Box */}
         <div className="d-flex justify-content-center align-items-center flex-grow-1">
-          <div className="signin-card shadow-sm rounded-4">
+            <div className="signin-card shadow-sm rounded-4">
             <div>
-              {/* Google Logo */}
-              <div className="text-start mb-4">
-                <img
-                  src="/img/logo.png"
-                  alt="Google logo"
-                  className="google-logo"
-                />
-              </div>
+                {/* Google Logo */}
+                <div className="text-start mb-4">
+                    <img
+                    src={Logo}
+                    className="google-logo"
+                    />
+                </div>
 
-              {/* Heading */}
-              <h3 className="text-dark">Sign in</h3>
-              <p className="mt-3 account-txt text-dark">Use your Google Account</p>
+                {/* Heading */}
+                <h3 className="text-dark">Sign in</h3>
+                <p className="mt-3 account-txt text-dark">Use your Google Account</p>
             </div>
 
             <div className="txt-column">
-              {/* Email / Phone */}
-              <div className="mb-3">
-                <input
-                  type="text"
-                  className="form-control border-secondary txt-box"
-                  placeholder="Email or phone"
-                />
-              </div>
+                {/* Email / Phone */}
+                <div className="mb-3">
+                    <input
+                    type="text"
+                    className="form-control border-secondary txt-box"
+                    placeholder="Email or phone"
+                    />
+                </div>
 
-              {/* Forgot email */}
-              <div className="mb-3">
-                <a href="#" className="small text-decoration-none forgot-email">
-                  Forgot email?
-                </a>
-              </div>
+                {/* Forgot email */}
+                <div className="mb-3">
+                    <a href="#" className="small text-decoration-none forgot-email">
+                    Forgot email?
+                    </a>
+                </div>
 
-              {/* Info Text */}
-              <p className="small mb-4 mt-4 txt-des">
-                Not your computer? Use a private browsing window to sign in.{" "}
-                <a href="#" className="text-decoration-none forgot-email">
-                  Learn more about using Guest mode
-                </a>
-              </p>
+                {/* Info Text */}
+                <p className="small mb-4 mt-4 txt-des">
+                    Not your computer? Use a private browsing window to sign in.{" "}
+                    <a href="#" className="text-decoration-none forgot-email">
+                    Learn more about using Guest mode
+                    </a>
+                </p>
 
-              {/* Bottom Section */}
-              <div className="d-flex justify-content-end align-items-center">
-                <a href="/password" className="btn rounded-pill px-4 next-button">
-                  Next
-                </a>
-              </div>
+                {/* Bottom Section */}
+                <div className="d-flex justify-content-end align-items-center">
+                    <a href="/password" className="btn rounded-pill px-4 next-button">Next</a>
+                </div>
+                </div>
             </div>
-          </div>
         </div>
 
         {/* Footer */}
         <footer className="footer d-flex justify-content-between align-items-center px-4 py-2">
-          {/* Language Dropdown */}
-          <div className="dropdown">
+            {/* Language Dropdown */}
+            <div className="dropdown">
             <button
-              className="btn btn-link lang-dropdown dropdown-toggle small"
-              type="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
+                className="btn btn-link lang-dropdown dropdown-toggle small"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
             >
-              {language}
+                {language}
             </button>
             <ul className="dropdown-menu lang-menu">
-              {languages.map((lang, idx) => (
+                {languages.map((lang, idx) => (
                 <li key={idx}>
-                  <button
+                    <button
                     className="dropdown-item"
                     onClick={() => setLanguage(lang)}
-                  >
+                    >
                     {lang}
-                  </button>
+                    </button>
                 </li>
-              ))}
+                ))}
             </ul>
-          </div>
+            </div>
 
-          {/* Footer Links */}
-          <div>
+            {/* Footer Links */}
+            <div>
             <a href="#" className="footer-link">
-              Help
+                Help
             </a>
             <a href="#" className="footer-link">
-              Privacy
+                Privacy
             </a>
             <a href="#" className="footer-link">
-              Terms
+                Terms
             </a>
-          </div>
+            </div>
         </footer>
       </div>
     </div>
