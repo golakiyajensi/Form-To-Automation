@@ -10,6 +10,7 @@ CREATE PROCEDURE sp_register_user(
 BEGIN
     DECLARE v_count INT;
 
+    -- check duplicate email or name
     SELECT COUNT(*) INTO v_count
     FROM tbl_user
     WHERE name = p_name OR email = p_email;
@@ -18,13 +19,26 @@ BEGIN
         SET p_status = 'NAME_OR_EMAIL_EXISTS';
         SET p_user_id = NULL;
     ELSE
+        -- insert into tbl_user (main auth table)
         INSERT INTO tbl_user(name, email, password, role)
         VALUES (p_name, p_email, p_password, p_role);
+        
         SET p_user_id = LAST_INSERT_ID();
         SET p_status = 'SUCCESS';
+
+        -- if role = creator then insert into tbl_creator
+        IF p_role = 'creator' THEN
+            INSERT INTO tbl_creator(user_id) VALUES (p_user_id);
+        END IF;
+
+        -- if role = viewer then insert into tbl_viewer
+        IF p_role = 'viewer' THEN
+            INSERT INTO tbl_viewer(user_id) VALUES (p_user_id);
+        END IF;
     END IF;
 END$$
 DELIMITER ;
+
 
 DELIMITER $$
 CREATE PROCEDURE sp_login_user(
@@ -161,7 +175,8 @@ CREATE PROCEDURE sp_create_form_field (
     IN p_order_no INT,
     IN p_field_image VARCHAR(255),
     IN p_description TEXT,
-    IN p_response_validation JSON
+    IN p_response_validation JSON,
+    IN p_created_by INT
 )
 BEGIN
     DECLARE new_id INT;
@@ -169,12 +184,12 @@ BEGIN
     INSERT INTO tbl_form_fields (
         form_id, slide_id, label, label_formatted, field_type, is_required, 
         options, conditional_logic, order_no, field_image,
-        description, response_validation
+        description, response_validation, created_by
     )
     VALUES (
         p_form_id, p_slide_id, p_label, p_label_formatted, p_field_type, p_is_required, 
         p_options, p_conditional_logic, p_order_no, p_field_image,
-        p_description, p_response_validation
+        p_description, p_response_validation, p_created_by
     );
 
     SET new_id = LAST_INSERT_ID();
@@ -182,6 +197,8 @@ BEGIN
     SELECT * FROM tbl_form_fields WHERE field_id = new_id;
 END //
 DELIMITER ;
+
+
 
 -- get
 DELIMITER //

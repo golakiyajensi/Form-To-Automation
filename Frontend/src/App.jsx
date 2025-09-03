@@ -17,7 +17,7 @@ import Template from "./components/Template.jsx";
 import FormPage from "./components/FormPage.jsx";
 import Gallery from "./components/Gallery.jsx";
 import SheetGallery from "./components/SheetGallery.jsx";
-import Template from "./components/TemplateGallery.jsx";
+import TemplateGallery from "./components/TempateGallery.jsx";
 import Docstemplate from "./components/Docstemplate.jsx";
 import Docsgallery from "./components/Docsgallery.jsx";
 
