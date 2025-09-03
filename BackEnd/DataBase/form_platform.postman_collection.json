@@ -66,7 +66,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"email\": \"viewer@example.com\",\r\n  \"password\": \"viewer123\"\r\n}",
+									"raw": "{\r\n  \"email\": \"viewer3@example.com\",\r\n  \"password\": \"viewer123\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -89,13 +89,99 @@
 					]
 				},
 				{
-					"name": "Forms",
+					"name": "Response create",
 					"item": [
 						{
-							"name": "Forms Get By Id",
+							"name": "Response",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{viewertoken}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"submitted_by\": \"jenish@gmail.com\",\r\n  \"answers\": [\r\n    { \"field_id\": 33, \"value\": \"jenish@gmail.com\" },\r\n    { \"field_id\": 34, \"value\": \"Jenish\" }\r\n  ]\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/form-responses/3",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"form-responses",
+										"3"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Slide",
+					"item": [
+						{
+							"name": "Get Slide",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
 							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{formAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"logo_url\": \"https://example.com/newlogo.png\",\r\n  \"company_name\": \"My New Company updated\",\r\n  \"theme_color\": \"#FF5733\",\r\n  \"default_font\": \"Poppins\",\r\n  \"password_policy\": \"min:10|max:20|uppercase:true|special:true\"\r\n}\r\n"
+								},
+								"url": {
+									"raw": "{{base_url}}/slide/forms/13/slides",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"slide",
+										"forms",
+										"13",
+										"slides"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Admin All API",
+			"item": [
+				{
+					"name": "Auth",
+					"item": [
+						{
+							"name": "Admin-Register",
 							"request": {
 								"auth": {
 									"type": "bearer",
@@ -107,6 +193,315 @@
 										}
 									]
 								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"admin1\",\r\n    \"email\": \"admin1@example.com\",\r\n    \"password\": \"admin123\",\r\n    \"role\": \"admin\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/auth/register",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"auth",
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Admin-Login",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsIm5hbWUiOiJ2aWV3ZXIiLCJyb2xlIjoidmlld2VyIiwiaWF0IjoxNzU2MTg4OTU3LCJleHAiOjE3NTYxOTI1NTd9.6vdtEVV7IslrUec3bSVtlGZRM7-v4u5meLT6O_A8smA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"email\": \"admin@example.com\",\r\n  \"password\": \"admin1234\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/auth/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Forgot Password",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{formAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"email\": \"admin@example.com\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/auth/forgot-password",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"auth",
+										"forgot-password"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Reset Password",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{formAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"token\": \"031fbe830a04a62bf06b523fc69fcaf57d1ea937ddfc49d22a800c381b611f5c\",\r\n  \"newPassword\": \"admin1234\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/auth/reset-password",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"auth",
+										"reset-password"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Forms",
+					"item": [
+						{
+							"name": "Create Forms",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{formAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "title",
+											"value": "Doctor Details",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "This is List Doctor",
+											"type": "text"
+										},
+										{
+											"key": "header_image",
+											"type": "file",
+											"src": "/C:/Users/ABC/Pictures/2-5/Screenshot 2025-05-02 192305.png"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/forms/create",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"forms",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Forms",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{formAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"description\": \"Ahmedabad City Feedback Form updated\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/forms/3",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"forms",
+										"3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Forms",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{formAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"title\": \"Employee Feedback (Updated)\"\r\n}\r\n\r\n"
+								},
+								"url": {
+									"raw": "{{base_url}}/forms/3",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"forms",
+										"3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Public Forms",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{formAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"title\": \"Ahmedabad City Feedback Form\",\r\n  \"description\": \"Ahmedabad Clean survey \",\r\n  \"created_by\": 1\r\n}\r\n"
+								},
+								"url": {
+									"raw": "{{base_url}}/forms/public/13",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"forms",
+										"public",
+										"13"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Forms Get By Id",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{viewertoken}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "GET",
 								"header": [],
 								"body": {
@@ -114,13 +509,13 @@
 									"raw": "{\r\n  \"title\": \"Employee Feedback\",\r\n  \"description\": \"Monthly employee survey form\",\r\n  \"created_by\": 1\r\n}\r\n"
 								},
 								"url": {
-									"raw": "{{base_url}}/forms/1",
+									"raw": "{{base_url}}/forms/9",
 									"host": [
 										"{{base_url}}"
 									],
 									"path": [
 										"forms",
-										"1"
+										"9"
 									]
 								}
 							},
@@ -164,8 +559,309 @@
 					]
 				},
 				{
+					"name": "Slide",
+					"item": [
+						{
+							"name": "Create Slide",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{formAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"title\": \"Personal Info For Doctor\",\r\n  \"description\": \"Enter your details\",\r\n  \"order_no\": 1\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/slide/forms/13/slides",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"slide",
+										"forms",
+										"13",
+										"slides"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Slide",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{formAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"logo_url\": \"https://example.com/newlogo.png\",\r\n  \"company_name\": \"My New Company updated\",\r\n  \"theme_color\": \"#FF5733\",\r\n  \"default_font\": \"Poppins\",\r\n  \"password_policy\": \"min:10|max:20|uppercase:true|special:true\"\r\n}\r\n"
+								},
+								"url": {
+									"raw": "{{base_url}}/slide/forms/9/slides",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"slide",
+										"forms",
+										"9",
+										"slides"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add Fields",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{formAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n  { \r\n    \"label\": \"Full Name\", \r\n    \"type\": \"text\", \r\n    \"is_required\": true, \r\n    \"order_no\": 1, \r\n    \"placeholder\": \"John Doe\" \r\n  },\r\n  { \r\n    \"label\": \"Email Address\", \r\n    \"type\": \"email\", \r\n    \"is_required\": true, \r\n    \"order_no\": 2, \r\n    \"placeholder\": \"name@example.com\" \r\n  },\r\n  { \r\n    \"label\": \"Age\", \r\n    \"type\": \"number\", \r\n    \"is_required\": false, \r\n    \"order_no\": 3 \r\n  },\r\n  { \r\n    \"label\": \"Gender\", \r\n    \"type\": \"dropdown\", \r\n    \"is_required\": false, \r\n    \"order_no\": 4, \r\n    \"options_json\": [\"Male\",\"Female\",\"Other\"] \r\n  }\r\n]\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/slide/slides/5/fields/bulk",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"slide",
+										"slides",
+										"5",
+										"fields",
+										"bulk"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
 					"name": "Form Field",
 					"item": [
+						{
+							"name": "Create Form Field",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{formAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "slide_id",
+											"value": "8",
+											"type": "text"
+										},
+										{
+											"key": "label",
+											"value": "Doctor Name",
+											"type": "text"
+										},
+										{
+											"key": "field_type",
+											"value": "short_text",
+											"type": "text"
+										},
+										{
+											"key": "is_required",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "options",
+											"value": "Jenish",
+											"type": "text"
+										},
+										{
+											"key": "conditional_logic",
+											"value": "hide",
+											"type": "text"
+										},
+										{
+											"key": "order_no",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "field_image",
+											"type": "file",
+											"src": "/C:/Users/ABC/Pictures/2-5/Screenshot 2025-05-02 192305.png"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/forms-fields/form/13/field",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"forms-fields",
+										"form",
+										"13",
+										"field"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All Fields by Form ID",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{formAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"form_id\": 1,\r\n  \"label\": \"Which programming languages do you know?\",\r\n  \"field_type\": \"checkbox\",\r\n  \"is_required\": true,\r\n  \"options\": [\"JavaScript\", \"Python\", \"Java\", \"C#\"],\r\n  \"conditional_logic\": null,\r\n  \"order_no\": 1\r\n}\r\n"
+								},
+								"url": {
+									"raw": "{{base_url}}/forms-fields/9",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"forms-fields",
+										"9"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Form Field",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{formAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "options",
+											"value": "employee101@gmail.com",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/forms-fields/32",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"forms-fields",
+										"32"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Forms Field",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{formAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"label\": \"About your self updated\"\r\n}\r\n"
+								},
+								"url": {
+									"raw": "{{base_url}}/forms-fields/4",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"forms-fields",
+										"4"
+									]
+								}
+							},
+							"response": []
+						},
 						{
 							"name": "Get All Fields by Form ID",
 							"protocolProfileBehavior": {
@@ -212,7 +908,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsIm5hbWUiOiJhZG1pbiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1NjE5MzMzNiwiZXhwIjoxNzU2MTk2OTM2fQ.FtawmW0GW0JtLrtkzD75_QZiQA3x8C8dkUwbUBm_myg",
+											"value": "{{formAdmin}}",
 											"type": "string"
 										}
 									]
@@ -224,323 +920,14 @@
 									"raw": "{\r\n  \"form_id\": 1,\r\n  \"label\": \"Which programming languages do you know?\",\r\n  \"field_type\": \"checkbox\",\r\n  \"is_required\": true,\r\n  \"options\": [\"JavaScript\", \"Python\", \"Java\", \"C#\"],\r\n  \"conditional_logic\": null,\r\n  \"order_no\": 1\r\n}\r\n"
 								},
 								"url": {
-									"raw": "{{base_url}}/forms-fields/field/1",
+									"raw": "{{base_url}}/forms-fields/field/4",
 									"host": [
 										"{{base_url}}"
 									],
 									"path": [
 										"forms-fields",
 										"field",
-										"1"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Update Form Field",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsIm5hbWUiOiJhZG1pbiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1NjE5MzMzNiwiZXhwIjoxNzU2MTk2OTM2fQ.FtawmW0GW0JtLrtkzD75_QZiQA3x8C8dkUwbUBm_myg",
-											"type": "string"
-										}
-									]
-								},
-								"method": "PUT",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"label\": \"update Which technologies do you know?\"\r\n}\r\n",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{base_url}}/forms-fields/1",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"forms-fields",
-										"1"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				}
-			]
-		},
-		{
-			"name": "Admin All API",
-			"item": [
-				{
-					"name": "Auth",
-					"item": [
-						{
-							"name": "Admin-Register",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsIm5hbWUiOiJ2aWV3ZXIiLCJyb2xlIjoidmlld2VyIiwiaWF0IjoxNzU2MTg4OTU3LCJleHAiOjE3NTYxOTI1NTd9.6vdtEVV7IslrUec3bSVtlGZRM7-v4u5meLT6O_A8smA",
-											"type": "string"
-										}
-									]
-								},
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"name\": \"admin\",\r\n    \"email\": \"admin@example.com\",\r\n    \"password\": \"admin123\",\r\n    \"role\": \"admin\"\r\n}\r\n",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{base_url}}/auth/register",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"auth",
-										"register"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Admin-Login",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsIm5hbWUiOiJ2aWV3ZXIiLCJyb2xlIjoidmlld2VyIiwiaWF0IjoxNzU2MTg4OTU3LCJleHAiOjE3NTYxOTI1NTd9.6vdtEVV7IslrUec3bSVtlGZRM7-v4u5meLT6O_A8smA",
-											"type": "string"
-										}
-									]
-								},
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"email\": \"admin@example.com\",\r\n  \"password\": \"admin123\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{base_url}}/auth/login",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"auth",
-										"login"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "Forms",
-					"item": [
-						{
-							"name": "Delete Forms",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsIm5hbWUiOiJhZG1pbiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1NjE5MDAxMiwiZXhwIjoxNzU2MTkzNjEyfQ.c4YIV2pnDrB1c0VHGu4rKgzSWv6ggQCfMm76ETnYxFc",
-											"type": "string"
-										}
-									]
-								},
-								"method": "DELETE",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"title\": \"Employee Feedback (Updated)\"\r\n}\r\n\r\n"
-								},
-								"url": {
-									"raw": "{{base_url}}/forms/1",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"forms",
-										"1"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Update Forms",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsIm5hbWUiOiJhZG1pbiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1NjE5MDAxMiwiZXhwIjoxNzU2MTkzNjEyfQ.c4YIV2pnDrB1c0VHGu4rKgzSWv6ggQCfMm76ETnYxFc",
-											"type": "string"
-										}
-									]
-								},
-								"method": "PUT",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"title\": \"Employee Feedback (Updated)\"\r\n}\r\n\r\n",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{base_url}}/forms/1",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"forms",
-										"1"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Create Forms",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsIm5hbWUiOiJ2aWV3ZXIiLCJyb2xlIjoidmlld2VyIiwiaWF0IjoxNzU2MTg4OTU3LCJleHAiOjE3NTYxOTI1NTd9.6vdtEVV7IslrUec3bSVtlGZRM7-v4u5meLT6O_A8smA",
-											"type": "string"
-										}
-									]
-								},
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"title\": \"Employee Feedback 1\",\r\n  \"description\": \"Monthly employee survey form\",\r\n  \"created_by\": 1\r\n}\r\n",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{base_url}}/forms/create",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"forms",
-										"create"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "Form Field",
-					"item": [
-						{
-							"name": "Create Form Field",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsIm5hbWUiOiJhZG1pbiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1NjE5MzMzNiwiZXhwIjoxNzU2MTk2OTM2fQ.FtawmW0GW0JtLrtkzD75_QZiQA3x8C8dkUwbUBm_myg",
-											"type": "string"
-										}
-									]
-								},
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"form_id\": 1,\r\n  \"label\": \"Which programming languages do you know?\",\r\n  \"field_type\": \"checkbox\",\r\n  \"is_required\": true,\r\n  \"options\": [\"JavaScript\", \"Python\", \"Java\", \"C#\"],\r\n  \"conditional_logic\": null,\r\n  \"order_no\": 1\r\n}\r\n",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{base_url}}/forms-fields/",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"forms-fields",
-										""
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Get All Fields by Form ID",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsIm5hbWUiOiJhZG1pbiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1NjE5MzMzNiwiZXhwIjoxNzU2MTk2OTM2fQ.FtawmW0GW0JtLrtkzD75_QZiQA3x8C8dkUwbUBm_myg",
-											"type": "string"
-										}
-									]
-								},
-								"method": "GET",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n  \"form_id\": 1,\r\n  \"label\": \"Which programming languages do you know?\",\r\n  \"field_type\": \"checkbox\",\r\n  \"is_required\": true,\r\n  \"options\": [\"JavaScript\", \"Python\", \"Java\", \"C#\"],\r\n  \"conditional_logic\": null,\r\n  \"order_no\": 1\r\n}\r\n"
-								},
-								"url": {
-									"raw": "{{base_url}}/forms-fields/1",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"forms-fields",
-										"1"
+										"4"
 									]
 								}
 							},
@@ -562,7 +949,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsIm5hbWUiOiJhZG1pbiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1NjIwMzcxOCwiZXhwIjoxNzU2MjA3MzE4fQ.Hm2yyAddCFdk74p4M4d-DVdC5tHmZ08LVs8k1iXX_xk",
+											"value": "{{formAdmin}}",
 											"type": "string"
 										}
 									]
@@ -585,6 +972,92 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "Response Get FormId",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{formAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/form-responses/3",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"form-responses",
+										"3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get single Response By Response Id",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{formAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/form-responses/response/7",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"form-responses",
+										"response",
+										"7"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Excel Format",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{formAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/form-responses/excel/1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"form-responses",
+										"excel",
+										"1"
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
@@ -599,7 +1072,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsIm5hbWUiOiJhZG1pbiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1NjIwNDY2MiwiZXhwIjoxNzU2MjA4MjYyfQ.yknznWKUhCATqFMt-O4ujZ7Hv_lZFbB77SmC4kBfZv4",
+											"value": "{{formAdmin}}",
 											"type": "string"
 										}
 									]
@@ -608,7 +1081,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"report_name\": \"Programming Languages Summary\",\r\n    \"report_type\": \"chart\",\r\n    \"config\": {\r\n        \"type\": \"bar_chart\",\r\n        \"fields\": [\"field_1\"],\r\n        \"group_by\": \"field_1\"\r\n    }\r\n}\r\n",
+									"raw": "{\r\n    \"report_name\": \"Monthly Doctor Summary\",\r\n    \"report_type\": \"chart\",\r\n    \"config\": {\r\n        \"type\": \"fields\",\r\n        \"fields\": [\"field_1\"],\r\n        \"group_by\": \"field_1\"\r\n    }\r\n}\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -616,14 +1089,14 @@
 									}
 								},
 								"url": {
-									"raw": "{{base_url}}/report/forms/1/reports",
+									"raw": "{{base_url}}/report/forms/13/reports",
 									"host": [
 										"{{base_url}}"
 									],
 									"path": [
 										"report",
 										"forms",
-										"1",
+										"13",
 										"reports"
 									]
 								}
@@ -641,7 +1114,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsIm5hbWUiOiJhZG1pbiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1NjIwNDY2MiwiZXhwIjoxNzU2MjA4MjYyfQ.yknznWKUhCATqFMt-O4ujZ7Hv_lZFbB77SmC4kBfZv4",
+											"value": "{{formAdmin}}",
 											"type": "string"
 										}
 									]
@@ -653,14 +1126,14 @@
 									"raw": "{\r\n    \"report_name\": \"Programming Languages Summary\",\r\n    \"report_type\": \"chart\",\r\n    \"config\": {\r\n        \"type\": \"bar_chart\",\r\n        \"fields\": [\"field_1\"],\r\n        \"group_by\": \"field_1\"\r\n    }\r\n}\r\n"
 								},
 								"url": {
-									"raw": "{{base_url}}/report/forms/1/reports",
+									"raw": "{{base_url}}/report/forms/2/reports",
 									"host": [
 										"{{base_url}}"
 									],
 									"path": [
 										"report",
 										"forms",
-										"1",
+										"2",
 										"reports"
 									]
 								}
@@ -678,7 +1151,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsIm5hbWUiOiJhZG1pbiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1NjIwNDY2MiwiZXhwIjoxNzU2MjA4MjYyfQ.yknznWKUhCATqFMt-O4ujZ7Hv_lZFbB77SmC4kBfZv4",
+											"value": "{{formAdmin}}",
 											"type": "string"
 										}
 									]
@@ -690,14 +1163,14 @@
 									"raw": "{\r\n    \"report_name\": \"Programming Languages Summary\",\r\n    \"report_type\": \"chart\",\r\n    \"config\": {\r\n        \"type\": \"bar_chart\",\r\n        \"fields\": [\"field_1\"],\r\n        \"group_by\": \"field_1\"\r\n    }\r\n}\r\n"
 								},
 								"url": {
-									"raw": "{{base_url}}/report/reports/1",
+									"raw": "{{base_url}}/report/reports/3",
 									"host": [
 										"{{base_url}}"
 									],
 									"path": [
 										"report",
 										"reports",
-										"1"
+										"3"
 									]
 								}
 							},
@@ -719,7 +1192,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsIm5hbWUiOiJhZG1pbiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1NjIxMDUzNywiZXhwIjoxNzU2MjE0MTM3fQ.PeJYhUG2m0mTUt9iC8j0ZympLe7y5clE8yh7XihA2YU",
+											"value": "{{formAdmin}}",
 											"type": "string"
 										}
 									]
@@ -745,25 +1218,22 @@
 						},
 						{
 							"name": "Update User Role",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
 							"request": {
 								"auth": {
 									"type": "bearer",
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsIm5hbWUiOiJhZG1pbiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1NjIxMDUzNywiZXhwIjoxNzU2MjE0MTM3fQ.PeJYhUG2m0mTUt9iC8j0ZympLe7y5clE8yh7XihA2YU",
+											"value": "{{creatertoken}}",
 											"type": "string"
 										}
 									]
 								},
-								"method": "GET",
+								"method": "PUT",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"role\": \"editor\"\r\n}",
+									"raw": "{\r\n    \"role\": \"creator\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -792,7 +1262,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsIm5hbWUiOiJhZG1pbiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1NjIxMDUzNywiZXhwIjoxNzU2MjE0MTM3fQ.PeJYhUG2m0mTUt9iC8j0ZympLe7y5clE8yh7XihA2YU",
+											"value": "{{formAdmin}}",
 											"type": "string"
 										}
 									]
@@ -817,6 +1287,936 @@
 							"response": []
 						}
 					]
+				},
+				{
+					"name": "Permission And Share",
+					"item": [
+						{
+							"name": "Share Form",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{formAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \"user_id\": 1, \"permission\": \"editor\" }\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/permission/forms/2/share",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"permission",
+										"forms",
+										"2",
+										"share"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List Permission user",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{formAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \"user_id\": 1, \"permission\": \"editor\" }\r\n"
+								},
+								"url": {
+									"raw": "{{base_url}}/permission/forms/2/users",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"permission",
+										"forms",
+										"2",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Permission",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{formAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \"permission\": \"viewer\" }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/permission/permissions/1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"permission",
+										"permissions",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Permission",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{formAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{ \"permission\": \"viewer\" }"
+								},
+								"url": {
+									"raw": "{{base_url}}/permission/permissions/1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"permission",
+										"permissions",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Integration",
+					"item": [
+						{
+							"name": "Add Integration",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{formAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"type\": \"webhook\",\r\n  \"config\": {\r\n    \"url\": \"https://webhook.site/ab12-cd34-ef56\"\r\n  }\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/integration/forms/1/integrations",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"integration",
+										"forms",
+										"1",
+										"integrations"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "List Integrations",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{formAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"type\": \"webhook\",\r\n  \"config\": {\r\n    \"url\": \"https://webhook.site/ab12-cd34-ef56\"\r\n  }\r\n}\r\n"
+								},
+								"url": {
+									"raw": "{{base_url}}/integration/forms/1/integrations",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"integration",
+										"forms",
+										"1",
+										"integrations"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Integrations",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{formAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"type\": \"webhook\",\r\n  \"config\": {\r\n    \"url\": \"https://webhook.site/ab12-cd34-ef56\"\r\n  }\r\n}\r\n"
+								},
+								"url": {
+									"raw": "{{base_url}}/integration/integrations/1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"integration",
+										"integrations",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Font Style",
+					"item": [
+						{
+							"name": "Update Form Style",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{formAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"primary_color\": \"#0088FF\",\r\n  \"background_color\": \"#F0F0F0\",\r\n  \"font_family\": \"Roboto\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/formstyle/forms/3/style",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"formstyle",
+										"forms",
+										"3",
+										"style"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Form Style",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{formAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"primary_color\": \"#0088FF\",\r\n  \"background_color\": \"#F0F0F0\",\r\n  \"font_family\": \"Roboto\"\r\n}\r\n"
+								},
+								"url": {
+									"raw": "{{base_url}}/formstyle/forms/3/style",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"formstyle",
+										"forms",
+										"3",
+										"style"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "System Config",
+					"item": [
+						{
+							"name": "System Config",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{formAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"creater\",\r\n    \"email\": \"creater@example.com\",\r\n    \"password\": \"creater123\",\r\n    \"role\": \"admin\"\r\n}\r\n"
+								},
+								"url": {
+									"raw": "{{base_url}}/systemconfig/config",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"systemconfig",
+										"config"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update System Config",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{formAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"logo_url\": \"https://example.com/newlogo.png\",\r\n  \"company_name\": \"My New Company updated\",\r\n  \"theme_color\": \"#FF5733\",\r\n  \"default_font\": \"robots\",\r\n  \"password_policy\": \"min:10|max:20|uppercase:true|special:true\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/systemconfig/config",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"systemconfig",
+										"config"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Notification",
+					"item": [
+						{
+							"name": "Notification",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{formAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"logo_url\": \"https://example.com/newlogo.png\",\r\n  \"company_name\": \"My New Company updated\",\r\n  \"theme_color\": \"#FF5733\",\r\n  \"default_font\": \"Poppins\",\r\n  \"password_policy\": \"min:10|max:20|uppercase:true|special:true\"\r\n}\r\n"
+								},
+								"url": {
+									"raw": "{{base_url}}/notification/settings",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"notification",
+										"settings"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Notification Settings",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{formAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"email_enabled\": true,\r\n  \"sms_enabled\": true,\r\n  \"in_app_enabled\": false,\r\n  \"frequency\": \"weekly\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/notification/settings",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"notification",
+										"settings"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Response Setting",
+					"item": [
+						{
+							"name": "Response save",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{formAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"form_id\": 1,\r\n  \"collect_email\": true,\r\n  \"send_copy\": \"on_request\",\r\n  \"allow_edit\": true,\r\n  \"limit_one_response\": false,\r\n  \"store_in_sheet\": true,\r\n  \"sheet_url\": \"https://docs.google.com/spreadsheets/d/xyz\",\r\n  \"is_accepting\": true\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/responsesetting/save",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"responsesetting",
+										"save"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Response setting",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{formAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"form_id\": 1,\r\n  \"collect_email\": true,\r\n  \"send_copy\": \"on_request\",\r\n  \"allow_edit\": true,\r\n  \"limit_one_response\": false,\r\n  \"store_in_sheet\": true,\r\n  \"sheet_url\": \"https://docs.google.com/spreadsheets/d/xyz\",\r\n  \"is_accepting\": true\r\n}\r\n"
+								},
+								"url": {
+									"raw": "{{base_url}}/responsesetting/1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"responsesetting",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Presentation Setting",
+					"item": [
+						{
+							"name": "Presentation save",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{formAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"form_id\": 1,\r\n  \"settings\": {\r\n    \"show_progress_bar\": true,\r\n    \"shuffle_questions\": false,\r\n    \"allow_resubmit_link\": true,\r\n    \"confirmation_message\": \"Thanks for submitting!\",\r\n    \"view_results_summary\": true,\r\n    \"share_results_summary\": false,\r\n    \"disable_autosave\": false\r\n  }\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/Presentationsetting/1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"Presentationsetting",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Presentation setting",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{formAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"form_id\": 1,\r\n  \"collect_email\": true,\r\n  \"send_copy\": \"on_request\",\r\n  \"allow_edit\": true,\r\n  \"limit_one_response\": false,\r\n  \"store_in_sheet\": true,\r\n  \"sheet_url\": \"https://docs.google.com/spreadsheets/d/xyz\",\r\n  \"is_accepting\": true\r\n}\r\n"
+								},
+								"url": {
+									"raw": "{{base_url}}/Presentationsetting/1",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"Presentationsetting",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Default Setting",
+					"item": [
+						{
+							"name": "Form default setting",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{formAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"form_id\": 1,\r\n  \"collect_email\": true,\r\n  \"send_copy\": \"on_request\",\r\n  \"allow_edit\": true,\r\n  \"limit_one_response\": false,\r\n  \"store_in_sheet\": true,\r\n  \"sheet_url\": \"https://docs.google.com/spreadsheets/d/xyz\",\r\n  \"is_accepting\": true\r\n}\r\n"
+								},
+								"url": {
+									"raw": "{{base_url}}/defaultsetting/form-defaults",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"defaultsetting",
+										"form-defaults"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update form default setting",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{formAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"collect_email\": true,\r\n  \"make_questions_required\": true,\r\n  \"default_quiz\": false\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/defaultsetting/form-defaults",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"defaultsetting",
+										"form-defaults"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "question default setting",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{formAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"collect_email\": true,\r\n  \"make_questions_required\": true,\r\n  \"default_quiz\": false\r\n}\r\n"
+								},
+								"url": {
+									"raw": "{{base_url}}/defaultsetting/question-defaults",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"defaultsetting",
+										"question-defaults"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update question defaults setting",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{formAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"is_required\": true,\r\n  \"default_question_type\": \"multiple_choice\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/defaultsetting/question-defaults",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"defaultsetting",
+										"question-defaults"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Theme",
+					"item": [
+						{
+							"name": "Update Form Theme",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{formAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "header_font_family",
+											"value": "Roboto",
+											"type": "text"
+										},
+										{
+											"key": "header_font_size",
+											"value": "26px",
+											"type": "text"
+										},
+										{
+											"key": "question_font_family",
+											"value": "open sans",
+											"type": "text"
+										},
+										{
+											"key": "question_font_size",
+											"value": "16px",
+											"type": "text"
+										},
+										{
+											"key": "body_font_family",
+											"value": "Lato",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "body_font_size",
+											"value": "16px",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "header_color",
+											"value": "#4285F4",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "body_color",
+											"value": "#333333",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "background_color",
+											"value": "#f9f9f9",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "header_image",
+											"type": "file",
+											"src": "/C:/Users/ABC/Pictures/2-5/Screenshot 2025-05-02 194003.png",
+											"disabled": true
+										}
+									]
+								},
+								"url": {
+									"raw": "{{base_url}}/theme/form/13/theme",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"theme",
+										"form",
+										"13",
+										"theme"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Form Theme",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{formAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/theme/form/9/theme",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"theme",
+										"form",
+										"9",
+										"theme"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		},
@@ -825,7 +2225,68 @@
 			"item": [
 				{
 					"name": "Auth",
-					"item": []
+					"item": [
+						{
+							"name": "Creater-Register",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"creater\",\r\n    \"email\": \"creater@example.com\",\r\n    \"password\": \"creater123\",\r\n    \"role\": \"admin\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/auth/register",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"auth",
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Creater-Login",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"email\": \"creater@example.com\",\r\n  \"password\": \"creater123\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/auth/login",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				},
 				{
 					"name": "Response create",
@@ -847,7 +2308,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"form_id\": 2,\r\n  \"submitted_by\": \"jenish@gmail.com\",\r\n  \"answers\": [\r\n    { \"field_id\": 1, \"value\": \"JavaScript\" },\r\n     { \"field_id\": 1, \"value\": \"PHP\" },\r\n     { \"field_id\": 1, \"value\": \"React\" },\r\n     { \"field_id\": 1, \"value\": \"Node Js\" }\r\n\r\n  ]\r\n}\r\n",
+									"raw": "{\r\n  \"submitted_by\": \"jenish@gmail.com\",\r\n  \"answers\": [\r\n    { \"field_id\": 2, \"value\": \"JavaScript\" },\r\n    { \"field_id\": 2, \"value\": \"PHP\" },\r\n    { \"field_id\": 3, \"value\": \"A\" }\r\n  ]\r\n}\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -855,40 +2316,13 @@
 									}
 								},
 								"url": {
-									"raw": "{{base_url}}/form-responses",
-									"host": [
-										"{{base_url}}"
-									],
-									"path": [
-										"form-responses"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Response Get FormId",
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsIm5hbWUiOiJhZG1pbiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc1NjIwMTE1MSwiZXhwIjoxNzU2MjA0NzUxfQ.XEfP-S-30nZFzdFQUONIpGjieWKMBVU6pGGXzefGZTk",
-											"type": "string"
-										}
-									]
-								},
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{base_url}}/form-responses/2",
+									"raw": "{{base_url}}/form-responses/3",
 									"host": [
 										"{{base_url}}"
 									],
 									"path": [
 										"form-responses",
-										"2"
+										"3"
 									]
 								}
 							},

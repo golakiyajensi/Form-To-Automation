@@ -16,7 +16,7 @@ import blank4 from "/img/blank4.png";
 import blank3 from "/img/blank3.png";
 import blank5 from "/img/blank5.png";
 
-const Templete = () => {
+const Template = () => {
     const navigate = useNavigate();
 
     const [anchorEl, setAnchorEl] = useState(null);
@@ -129,4 +129,4 @@ const Templete = () => {
     );
 };
 
-export default Templete;
+export default Template;

@@ -1,7 +1,6 @@
 import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
 // import "bootstrap/dist/css/bootstrap.min.css";
-// import "./TemplateGallery.css";
 import Sheet1 from "../../public/img/sheet-1.png";
 import Sheet2 from "../../public/img/sheet-2.png";
 import Sheet3 from "../../public/img/Sheet-3.png";
