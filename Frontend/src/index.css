@@ -35,7 +35,7 @@
 
 /* Account items */
 .list-group {
-    width: 50%;
+    width: 100%;
 }
 
 .account-item {
@@ -1514,250 +1514,488 @@
    Header Styles
 ========================= */
 .forms-header {
-  background: #fff;
-  border-bottom: 1px solid #e5e5e5;
-  position: sticky;
-  top: 0;
-  z-index: 1040;
+    background: #fff;
+    border-bottom: 1px solid #e5e5e5;
+    position: sticky;
+    top: 0;
+    z-index: 1040;
 }
- 
+
 .forms-header .logo {
-  height: 32px;
+    height: 32px;
 }
- 
+
 .forms-title {
-  font-size: 1.2rem;
-  color: #202124;
+    font-size: 1.2rem;
+    color: #202124;
 }
- 
+
 /* =========================
    Search Bar
 ========================= */
 .search-bar {
-  height: 38px;
-  width: 50%;
-  background: #f1f3f4;
-  transition: all 0.2s ease-in-out;
+    height: 38px;
+    width: 50%;
+    background: #f1f3f4;
+    transition: all 0.2s ease-in-out;
 }
- 
+
 .search-bar input {
-  font-size: 0.9rem;
-  padding-left: 10px;
-  background: transparent;
+    font-size: 0.9rem;
+    padding-left: 10px;
+    background: transparent;
 }
- 
+
 .search-bar input:focus {
-  outline: none;
-  box-shadow: none;
+    outline: none;
+    box-shadow: none;
 }
- 
+
 .search-bar:focus-within {
-  background: #fff;
-  border: 1px solid #dadce0;
+    background: #fff;
+    border: 1px solid #dadce0;
 }
- 
+
 /* =========================
    Profile Dropdown
 ========================= */
 .card {
-  border-radius: 12px !important;
-  width: 400px;
+    border-radius: 12px !important;
+    width: 400px;
 }
- 
+
 .card-body img {
-  border: 2px solid #dadce0;
+    border: 2px solid #dadce0;
 }
- 
+
 .card-footer {
-  background: #f8f9fa;
+    background: #f8f9fa;
 }
- 
+
 /* Profile dropdown links */
 .card-footer a {
-  font-size: 0.8rem;
-  text-decoration: none;
+    font-size: 0.8rem;
+    text-decoration: none;
 }
- 
+
 /* =========================
    Sidebar / Offcanvas
 ========================= */
 .drive {
-  width: 20px;
-  height: 20px;
+    width: 20px;
+    height: 20px;
 }
+
+.sidelogo {
+    width: 25px;
+}
+
 .offcanvas {
-  background: #fff;
-  border-right: 1px solid #e5e5e5;
-  transition: transform 0.3s ease-in-out;
+    background: #fff;
+    border-right: 1px solid #e5e5e5;
+    transition: transform 0.3s ease-in-out;
 }
- 
+
 .offcanvas.show {
-  transform: translateX(0) !important;
+    transform: translateX(0) !important;
 }
- 
+
 .offcanvas-header {
-  padding: 1rem;
+    padding: 1rem;
 }
- 
-.offcanvas-title img{
-  width: 30px;
-  height: 30px;
+
+.offcanvas-title img {
+    width: 30px;
+    height: 30px;
 }
- 
+
 .offcanvas-body {
-  padding: 0.5rem 1rem;
+    padding: 0.5rem 1rem;
 }
- 
+
 .forms-title {
-  font-size: 1.2rem;
-  color: #202124;
+    font-size: 1.2rem;
+    color: #202124;
 }
- 
+
 /* =========================
    Search Bar
 ========================= */
 .search-bar {
-  height: 38px;
-  width: 50%;
-  background: #f1f3f4;
-  transition: all 0.2s ease-in-out;
+    height: 38px;
+    width: 50%;
+    background: #f1f3f4;
+    transition: all 0.2s ease-in-out;
 }
- 
+
 .search-bar input {
-  font-size: 0.9rem;
-  padding-left: 10px;
-  background: transparent;
+    font-size: 0.9rem;
+    padding-left: 10px;
+    background: transparent;
 }
- 
+
 .search-bar input:focus {
-  outline: none;
-  box-shadow: none;
+    outline: none;
+    box-shadow: none;
 }
- 
+
 .search-bar:focus-within {
-  background: #fff;
-  border: 1px solid #dadce0;
+    background: #fff;
+    border: 1px solid #dadce0;
 }
- 
+
 /* =========================
    Profile Dropdown
 ========================= */
 .card {
-  border-radius: 12px !important;
-  width: 400px;
+    border-radius: 12px !important;
+    width: 400px;
 }
- 
+
 .card-body img {
-  border: 2px solid #dadce0;
+    border: 2px solid #dadce0;
 }
- 
+
 .card-footer {
-  background: #f8f9fa;
+    background: #f8f9fa;
 }
- 
+
 /* Profile dropdown links */
 .card-footer a {
-  font-size: 0.8rem;
-  text-decoration: none;
+    font-size: 0.8rem;
+    text-decoration: none;
 }
- 
+
 /* =========================
    Sidebar / Offcanvas
 ========================= */
 .drive {
-  width: 20px;
-  height: 20px;
+    width: 20px;
+    height: 20px;
 }
+
 .offcanvas {
-  background: #fff;
-  border-right: 1px solid #e5e5e5;
-  transition: transform 0.3s ease-in-out;
+    background: #fff;
+    border-right: 1px solid #e5e5e5;
+    transition: transform 0.3s ease-in-out;
 }
- 
+
 .offcanvas.show {
-  transform: translateX(0) !important;
+    transform: translateX(0) !important;
 }
- 
+
 .offcanvas-header {
-  padding: 1rem;
+    padding: 1rem;
 }
- 
-.offcanvas-title img{
-  width: 30px;
-  height: 30px;
+
+.offcanvas-title img {
+    width: 30px;
+    height: 30px;
 }
- 
+
 .offcanvas-body {
-  padding: 0.5rem 1rem;
+    padding: 0.5rem 1rem;
 }
- 
+
 .offcanvas-body ul li {
-  font-size: 0.95rem;
-  color: #202124;
-  cursor: pointer;
-  padding: 8px 4px;
-  border-radius: 6px;
-  transition: background 0.2s ease;
+    font-size: 0.95rem;
+    color: #202124;
+    cursor: pointer;
+    padding: 8px 4px;
+    border-radius: 6px;
+    transition: background 0.2s ease;
 }
- 
+
 .offcanvas-body ul li:hover {
-  background: #f1f3f4;
+    background: #f1f3f4;
 }
- 
+
 .offcanvas-footer {
-  background: #fafafa;
+    background: #fafafa;
 }
- 
+
 /* =========================
    Responsive Adjustments
 ========================= */
- 
+
 /* Hide search bar on small screens */
 @media (max-width: 767px) {
-  .search-bar {
-    display: none !important;
-  }
- 
-  .card {
-  border-radius: 12px !important;
-  width: 300px;
-  }
- 
-  .row {
-    justify-content: space-between;
-  }
+    .search-bar {
+        display: none !important;
+    }
+
+    .card {
+        border-radius: 12px !important;
+        width: 300px;
+    }
+
+    .row {
+        justify-content: space-between;
+    }
 }
- 
+
 /* Sidebar width adjusts for smaller screens */
 @media (max-width: 992px) {
-  .offcanvas {
-    max-width: 60% !important;
-  }
+    .offcanvas {
+        max-width: 60% !important;
+    }
 }
- 
+
 @media (max-width: 576px) {
-  .offcanvas {
-    max-width: 75% !important;
-  }
- 
-  .forms-title {
-    font-size: 1rem;
-  }
- 
-  .forms-header .logo {
-    height: 28px;
-  }
+    .offcanvas {
+        max-width: 75% !important;
+    }
+
+    .forms-title {
+        font-size: 1rem;
+    }
+
+    .forms-header .logo {
+        height: 28px;
+    }
 }
- 
+
 /* =========================
    Utility
 ========================= */
 .btn-link {
-  color: inherit;
-  text-decoration: none;
-}
- 
-.btn-link:hover {
-  color: #1a73e8;
+    color: inherit;
+    text-decoration: none;
 }
 
+.btn-link:hover {
+    color: #1a73e8;
+}
+
+
+
+
+
+
+
+
+
+/* job application css */
+
+/* =============================== General Layout =================================*/
+.gform-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 16px;
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  color: #333;
+ 
+  background-color:"#d8eeec;"
+}
+
+/* =============================== Header Banner =================================*/
+.gform-header-banner img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+/* =============================== Header Title & Description =================================*/
+.gform-header {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.gform-title {
+  width: 100%;
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  border: none;
+  outline: none;
+  background: transparent;
+}
+
+.gform-desc {
+  width: 100%;
+  border: none;
+  outline: none;
+  resize: none;
+  font-size: 1rem;
+  color: #555;
+  background: transparent;
+}
+
+/* =============================== Form Cards =================================*/
+.gform-card {
+  background: #fff;
+  padding: 18px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.gform-label {
+  font-weight: 500;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.gform-required {
+  color: red;
+  font-weight: bold;
+}
+
+.gform-sub {
+  font-size: 0.9rem;
+  color: #777;
+  margin-bottom: 8px;
+}
+
+/* =============================== Input & Textarea (Underline Style) =================================*/
+.gform-input,
+.gform-textarea {
+  width: 100%;
+  padding: 8px 0;
+  border: none;
+  border-bottom: 1px solid #ccc; 
+  border-radius: 0; 
+  font-size: 1rem;
+  background: transparent;
+  transition: border-color 0.2s ease;
+}
+
+.gform-input:focus,
+.gform-textarea:focus {
+  border-bottom: 2px solid #4caf50; 
+  outline: none;
+}
+
+.gform-textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* =============================== Checkbox & Radio Options =================================*/
+.gform-checkbox label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  margin-bottom: 6px;
+  font-size: 1rem;
+}
+
+/* =============================== Dynamic Sections =================================*/
+.gform-section {
+  font-size: 1.3rem;
+  font-weight: 600;
+  border-bottom: 2px solid #eee;
+  margin-bottom: 12px;
+  padding-bottom: 6px;
+}
+
+/* =============================== Actions (delete, required toggle) =================================*/
+.gform-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+/* =============================== Submit Button =================================*/
+.gform-submit {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.gform-submit button {
+  background: #4caf50;
+  color: white;
+  font-size: 1.1rem;
+  padding: 12px 28px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.25s ease;
+}
+
+.gform-submit button:hover {
+  background: #43a047;
+}
+
+/* =============================== Floating Toolbar =================================*/
+.gform-toolbar {
+  position: fixed;
+  top: 50%;
+  right: 24px;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: #fff;
+  padding: 12px;
+  border-radius: 16px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+}
+
+.gform-toolbar button {
+  background: #f4f4f4;
+  border: none;
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: all 0.2s ease;
+}
+
+.gform-toolbar button:hover {
+  background: #e0e0e0;
+  transform: scale(1.05);
+}
+
+/* =============================== Responsive Design =================================*/
+@media (max-width: 992px) {
+  .gform-container {
+    padding: 12px;
+  }
+  .gform-title {
+    font-size: 1.6rem;
+  }
+  .gform-desc {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .gform-toolbar {
+    position: fixed;
+    top: auto;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transform: none;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 10px;
+    border-radius: 12px 12px 0 0;
+  }
+  .gform-toolbar button {
+    padding: 12px;
+  }
+}
+
+@media (max-width: 576px) {
+  .gform-title {
+    font-size: 1.4rem;
+  }
+  .gform-desc {
+    font-size: 0.9rem;
+  }
+  .gform-submit button {
+    width: 100%;
+    font-size: 1rem;
+    padding: 12px;
+  }
+}
