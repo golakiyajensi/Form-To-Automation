@@ -5,10 +5,40 @@ import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [profileOpen, setProfileOpen] = useState(false);
-  const profileRef = useRef(null);
 
+  // Profile state
+  const [profileOpen, setProfileOpen] = useState(false);
+  const [profile, setProfile] = useState({
+    name: "Hi, Divyesh!",
+    email: "divyesh1234@gmail.com",
+    photo: "/img/logo.png",
+  });
+
+  // App logo + title state
+  const [appLogo, setAppLogo] = useState("/img/forms.png");
+  const [appTitle, setAppTitle] = useState("Forms");
+
+  const profileRef = useRef(null);
   const navigate = useNavigate();
+
+  // Example accounts
+  const accounts = [
+    {
+      name: "Divyesh",
+      email: "divyesh1234@gmail.com",
+      photo: "/img/logo.png",
+    },
+    {
+      name: "John Doe",
+      email: "john.doe@gmail.com",
+      photo: "/img/form.png",
+    },
+    {
+      name: "Jane Smith",
+      email: "jane.smith@gmail.com",
+      photo: "/img/user.png",
+    },
+  ];
 
   // Close profile dropdown on outside click
   useEffect(() => {
@@ -21,10 +51,18 @@ const Header = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  // Handle sidebar clicks
+  const handleSidebarClick = (logo, title, path) => {
+    setAppLogo(logo);
+    setAppTitle(title);
+    navigate(path);
+    setSidebarOpen(false);
+  };
+
   return (
     <>
       {/* HEADER */}
-      <header className="forms-header container-fluid shadow-sm py-2">
+      <header className="forms-header container-fluid shadow-sm py-2 bg-white">
         <div className="row align-items-center w-100">
           {/* Left: menu + logo + title */}
           <div className="col-auto d-flex align-items-center">
@@ -35,16 +73,16 @@ const Header = () => {
               <i className="bi bi-list" style={{ fontSize: "22px" }}></i>
             </button>
             <img
-              src="/img/forms.png"
-              alt="Forms Logo"
+              src={appLogo}
+              alt="App Logo"
               className="logo me-2"
               style={{ height: "32px" }}
             />
-            <span className="forms-title fw-semibold fs-5">Forms</span>
+            <span className="forms-title fw-semibold fs-5">{appTitle}</span>
           </div>
 
           {/* Middle: search bar */}
-          <div className="col d-none d-md-block" style={{ justifyItems: "center" }}>
+          <div className="col d-none d-md-block">
             <div className="search-bar border rounded-pill px-4 d-flex align-items-center">
               <i className="bi bi-search text-muted"></i>
               <input
@@ -61,45 +99,77 @@ const Header = () => {
               <i className="bi bi-grid-3x3-gap" style={{ fontSize: "22px" }}></i>
             </button>
 
-            {/* Profile Icon */}
+            {/* Profile Section */}
             <div ref={profileRef}>
-              <i
-                className="bi bi-person-circle text-secondary"
-                style={{ fontSize: "32px", cursor: "pointer" }}
+              <img
+                src={profile.photo}
+                alt="Profile"
+                className="rounded-circle"
+                style={{ width: "32px", height: "32px", cursor: "pointer" }}
                 onClick={() => setProfileOpen(!profileOpen)}
-              ></i>
+              />
 
-              {/* Profile Dropdown */}
               {profileOpen && (
-                <div className="card shadow border-0 position-absolute end-0 mt-3">
+                <div
+                  className="card shadow border-0 position-absolute end-0 mt-3"
+                  style={{ width: "400px", zIndex: 1050 }}
+                >
                   <div className="card-body text-center">
-                    {/* Profile Picture */}
                     <img
-                      src="/img/logo.png"
+                      src={profile.photo}
                       alt="profile"
                       className="rounded-circle mb-2"
                       style={{ width: "70px", height: "70px" }}
                     />
-                    <h6 className="fw-semibold mb-0">Hi, Divyesh!</h6>
-                    <small className="text-muted">divyesh1234@gmail.com</small>
+                    <h6 className="fw-semibold mb-0">{profile.name}</h6>
+                    <small className="text-muted">{profile.email}</small>
 
                     <div className="mt-3">
                       <button className="btn btn-outline-primary w-100 mb-2">
                         Manage your Google Account
                       </button>
-                      <div className="d-flex justify-content-between">
-                        <button
-                          className="btn btn-light w-50 me-1"
-                          onClick={() => navigate("/signin")}
-                        >
-                          Add account
-                        </button>
-                        <button className="btn btn-light w-50 ms-1">
-                          Sign out
-                        </button>
-                      </div>
                     </div>
                   </div>
+
+                  {/* Account Switcher */}
+                  <div className="list-group list-group-flush">
+                    {accounts.map((acc, index) => (
+                      <button
+                        key={index}
+                        className="list-group-item list-group-item-action d-flex align-items-center"
+                        onClick={() => {
+                          setProfile(acc);
+                          setProfileOpen(false);
+                        }}
+                      >
+                        <img
+                          src={acc.photo}
+                          alt={acc.name}
+                          className="rounded-circle me-2"
+                          style={{ width: "30px", height: "30px" }}
+                        />
+                        <div>
+                          <div className="fw-semibold">{acc.name}</div>
+                          <small className="text-muted">{acc.email}</small>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+
+                  <div className="card-body">
+                    <div className="d-flex justify-content-between">
+                      <button
+                        className="btn btn-light w-50 me-1"
+                        onClick={() => navigate("/signin")}
+                      >
+                        Add account
+                      </button>
+                      <button className="btn btn-light w-50 ms-1">
+                        Sign out
+                      </button>
+                    </div>
+                  </div>
+
                   <div className="card-footer text-center small">
                     <a href="#" className="text-muted me-2">
                       Privacy Policy
@@ -140,29 +210,41 @@ const Header = () => {
             <li
               className="d-flex align-items-center mb-1"
               style={{ cursor: "pointer" }}
-              onClick={() => navigate("/docstemplate")}
+              onClick={() =>
+                handleSidebarClick("/img/docs.png", "Docs", "/docstemplate")
+              }
             >
-              <img src="/img/docs.png" alt="Docs" className="drive me-2" />
+              <img src="/img/docs.png" alt="Docs" className="sidelogo me-2" />
               Docs
             </li>
             <li
               className="d-flex align-items-center mb-1"
               style={{ cursor: "pointer" }}
-              onClick={() => navigate("/sheetgallery")}
+              onClick={() =>
+                handleSidebarClick("/img/sheets.png", "Sheets", "/sheetgallery")
+              }
             >
-              <img src="/img/sheets.png" alt="Sheets" className="drive me-2" />
+              <img src="/img/sheets.png" alt="Sheets" className="sidelogo me-2" />
               Sheets
             </li>
-            <li className="d-flex align-items-center mb-1">
-              <img src="/img/slides.png" alt="Slides" className="drive me-2" />
+            <li
+              className="d-flex align-items-center mb-1"
+              style={{ cursor: "pointer" }}
+              onClick={() =>
+                handleSidebarClick("/img/slides.png", "Slides", "/slidetemplate")
+              }
+            >
+              <img src="/img/slides.png" alt="Slides" className="sidelogo me-2" />
               Slides
             </li>
             <li
               className="d-flex align-items-center mb-1"
               style={{ cursor: "pointer" }}
-              onClick={() => navigate("/formgallery")}
+              onClick={() =>
+                handleSidebarClick("/img/forms.png", "Forms", "/formgallery")
+              }
             >
-              <img src="/img/forms.png" alt="Forms" className="drive me-2" />
+              <img src="/img/forms.png" alt="Forms" className="sidelogo me-2" />
               Forms
             </li>
 
@@ -175,7 +257,12 @@ const Header = () => {
             </li>
             <hr />
             <li className="mb-1">
-              <img className="drive me-2" src="/img/Google-Drive.png" alt="" /> Drive
+              <img
+                className="drive me-2"
+                src="/img/Google-Drive.png"
+                alt="Drive"
+              />
+              Drive
             </li>
             <hr />
           </ul>

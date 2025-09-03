@@ -19,7 +19,7 @@ import blank5 from "/img/blank5.png";
 const Template = () => {
     const navigate = useNavigate();
 
-    // ✅ Hooks must be at top level
+    //  Hooks must be at top level
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
 
@@ -70,7 +70,7 @@ const Template = () => {
                             <img src={blank2} alt="no-img" className="tpl-card-img" />
                             <p className="tpl-card-title">Contact Information</p>
                         </Link>
-                        <Link to="/form/rsvp" className="tpl-card">
+                        <Link to="/form/jobApplication" className="tpl-card">
                             <img src={blank4} alt="no-img" className="tpl-card-img" />
                             <p className="tpl-card-title">Job Application</p>
                         </Link>
