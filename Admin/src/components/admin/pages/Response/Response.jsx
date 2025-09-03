@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+import { Eye, Edit, Trash2, Search } from "lucide-react";
 import "react-toastify/dist/ReactToastify.css";
 
 const FormResponses = () => {
@@ -9,6 +10,7 @@ const FormResponses = () => {
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedItems, setSelectedItems] = useState([]);
 
   const location = useLocation();
   const pathParts = location.pathname.split("/").filter(Boolean);
@@ -16,6 +18,8 @@ const FormResponses = () => {
   const itemsPerPage = 10;
   const token = localStorage.getItem("admin_token");
   const API_URL = import.meta.env.VITE_FRONTEND_API_URL;
+
+  const navigate = useNavigate();
 
   const fetchResponses = async () => {
     setLoading(true);
@@ -43,7 +47,16 @@ const FormResponses = () => {
     fetchResponses();
   }, []);
 
-  // Filter responses
+  // Selection
+  const handleSelectAll = (checked) => {
+    if (checked) setSelectedItems(currentItems.map((r) => r.response_id));
+    else setSelectedItems([]);
+  };
+  const handleSelectItem = (id, checked) => {
+    if (checked) setSelectedItems((prev) => [...prev, id]);
+    else setSelectedItems((prev) => prev.filter((i) => i !== id));
+  };
+
   const filteredResponses = responses.filter((resp) => {
     const submittedBy = resp.submitted_by || "Anonymous";
     return (
@@ -70,7 +83,6 @@ const FormResponses = () => {
 
     return (
       <div className="flex flex-col sm:flex-row justify-between items-center px-4 py-2 border-t border-gray-200 space-y-2 sm:space-y-0">
-        {/* Info text */}
         <span className="text-sm text-gray-500">
           {window.innerWidth >= 640
             ? `Showing ${startIndex + 1} to ${Math.min(
@@ -79,8 +91,6 @@ const FormResponses = () => {
               )} of ${filteredResponses.length} responses`
             : `Page ${currentPage} / ${totalPages}`}
         </span>
-
-        {/* Buttons */}
         <div className="flex items-center space-x-1">
           <button
             onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
@@ -89,8 +99,6 @@ const FormResponses = () => {
           >
             Prev
           </button>
-
-          {/* Desktop page numbers */}
           <div className="hidden sm:flex items-center space-x-1">
             {pages.map((page) => (
               <button
@@ -106,7 +114,6 @@ const FormResponses = () => {
               </button>
             ))}
           </div>
-
           <button
             onClick={() =>
               setCurrentPage(Math.min(totalPages, currentPage + 1))
@@ -123,19 +130,40 @@ const FormResponses = () => {
 
   const MobileCard = ({ resp }) => (
     <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200 mb-4">
-      <p className="text-gray-900 font-medium text-sm">
-        <strong>Response ID:</strong> {resp.response_id}
-      </p>
-      <p className="text-gray-700 text-xs">
-        <strong>Form ID:</strong> {resp.form_id}
-      </p>
-      <p className="text-gray-700 text-xs">
-        <strong>Submitted By:</strong> {resp.submitted_by || "Anonymous"}
-      </p>
-      <p className="text-gray-700 text-xs">
-        <strong>Submission Date:</strong>{" "}
-        {new Date(resp.created_at).toLocaleString()}
-      </p>
+      <div className="flex justify-between items-start">
+        <div>
+          <p className="text-gray-900 font-medium text-sm">
+            <strong>Response ID:</strong> {resp.response_id}
+          </p>
+          <p className="text-gray-700 text-xs">
+            <strong>Form ID:</strong> {resp.form_id}
+          </p>
+          <p className="text-gray-700 text-xs">
+            <strong>Submitted By:</strong> {resp.submitted_by || "Anonymous"}
+          </p>
+          <p className="text-gray-700 text-xs">
+            <strong>Date:</strong> {new Date(resp.created_at).toLocaleString()}
+          </p>
+        </div>
+        <div className="flex space-x-2 mt-1">
+          <button
+            className="text-blue-500 hover:text-blue-700"
+            onClick={() =>
+              navigate(
+                `/admin/dashboard/form-responses/response/${resp.response_id}`
+              )
+            }
+          >
+            <Eye className="w-4 h-4" />
+          </button>
+          <button className="text-green-500 hover:text-green-700">
+            <Edit className="w-4 h-4" />
+          </button>
+          <button className="text-red-500 hover:text-red-700">
+            <Trash2 className="w-4 h-4" />
+          </button>
+        </div>
+      </div>
       <div className="text-gray-700 text-xs mt-2">
         <strong>Answers:</strong>
         {resp.answers.map((a, idx) => (
@@ -164,44 +192,47 @@ const FormResponses = () => {
         {/* Header */}
         <div className="mb-6 sm:mb-8">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between space-y-2 sm:space-y-0">
-            <h1 className="text-xl sm:text-2xl font-bold text-gray-700">
-              RESPONSE
-            </h1>
+            <div>
+              <h1 className="text-2xl font-bold text-gray-800">Response</h1>
+              <p className="text-gray-500 text-sm">Manage all Response</p>
+            </div>
             <div className="flex items-center text-xs sm:text-sm text-gray-500">
-              {pathParts.map((part, index) => (
-                <span key={index}>
-                  {part.charAt(0).toUpperCase() + part.slice(1)}
-                  {index < pathParts.length - 1 && (
-                    <span className="mx-2">/</span>
-                  )}
-                </span>
-              ))}
+              {pathParts.map((part, index) => {
+                const name = part.charAt(0).toUpperCase() + part.slice(1);
+                return (
+                  <span key={index}>
+                    {name}
+                    {index < pathParts.length - 1 && (
+                      <span className="mx-2">/</span>
+                    )}
+                  </span>
+                );
+              })}
             </div>
           </div>
         </div>
-        <div className="mb-4">
-          <input
-            type="text"
-            placeholder="Search by submitter, form ID or answer..."
-            className="w-full sm:w-72 px-4 py-2 border border-gray-300 rounded-full text-sm"
-            value={searchTerm}
-            onChange={(e) => {
-              setSearchTerm(e.target.value);
-              setCurrentPage(1);
-            }}
-          />
+
+        {/* Search */}
+        <div className="bg-white rounded-lg shadow-sm border border-gray-200 mb-4 p-4 sm:p-6">
+          <div className="relative w-full sm:w-72">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 sm:w-5 sm:h-5" />
+            <input
+              type="text"
+              placeholder="Search by response..."
+              className="pl-8 sm:pl-10 pr-4 py-2 border border-gray-300 rounded-full w-full text-sm"
+              value={searchTerm}
+              onChange={(e) => {
+                setSearchTerm(e.target.value);
+                setCurrentPage(1);
+              }}
+            />
+          </div>
         </div>
 
-        {loading && (
-          <div className="text-center py-12">
-            <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-            <p className="mt-2 text-sm text-gray-600">Loading...</p>
-          </div>
-        )}
-
+        {loading && <div className="text-center py-12">Loading...</div>}
         {error && (
           <div className="text-center py-12 text-red-500">
-            <p>{error}</p>
+            {error}
             <button
               onClick={fetchResponses}
               className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 text-sm"
@@ -218,6 +249,14 @@ const FormResponses = () => {
               <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-gray-50">
                   <tr>
+                    <th className="px-6 py-3">
+                      <input
+                        type="checkbox"
+                        className="rounded border-gray-300"
+                        onChange={(e) => handleSelectAll(e.target.checked)}
+                        checked={selectedItems.length === currentItems.length}
+                      />
+                    </th>
                     <th className="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider">
                       Response ID
                     </th>
@@ -228,29 +267,39 @@ const FormResponses = () => {
                       Submitted By
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider">
-                      Submission Date
+                      Date
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider">
                       Answers
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider">
-                      Link
+                      Actions
                     </th>
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
                   {currentItems.map((resp) => (
                     <tr key={resp.response_id} className="hover:bg-gray-50">
-                      <td className="px-6 py-4 text-sm font-bold text-gray-700">
+                      <td className="px-6 py-4">
+                        <input
+                          type="checkbox"
+                          className="rounded border-gray-300"
+                          checked={selectedItems.includes(resp.response_id)}
+                          onChange={(e) =>
+                            handleSelectItem(resp.response_id, e.target.checked)
+                          }
+                        />
+                      </td>
+                      <td className="px-6 py-4 text-sm font-medium text-gray-900">
                         {resp.response_id}
                       </td>
-                      <td className="px-6 py-4 text-sm text-gray-600">
+                      <td className="px-6 py-4 text-sm text-gray-700">
                         {resp.form_id}
                       </td>
-                      <td className="px-6 py-4 text-sm text-gray-600">
+                      <td className="px-6 py-4 text-sm text-gray-700">
                         {resp.submitted_by || "Anonymous"}
                       </td>
-                      <td className="px-6 py-4 text-sm text-gray-600">
+                      <td className="px-6 py-4 text-sm text-gray-700">
                         {new Date(resp.created_at).toLocaleString()}
                       </td>
                       <td className="px-6 py-4 text-sm text-gray-700">
@@ -263,19 +312,23 @@ const FormResponses = () => {
                           </div>
                         ))}
                       </td>
-                      <td className="px-6 py-4 text-sm text-blue-500">
-                        {resp.link ? (
-                          <a
-                            href={resp.link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="hover:underline"
-                          >
-                            View
-                          </a>
-                        ) : (
-                          "N/A"
-                        )}
+                      <td className="px-6 py-4 flex space-x-2">
+                        <button
+                          className="text-blue-500 hover:text-blue-700"
+                          onClick={() =>
+                            navigate(
+                              `/admin/dashboard/form-responses/response/${resp.response_id}`
+                            )
+                          }
+                        >
+                          <Eye className="w-4 h-4" />
+                        </button>
+                        <button className="text-green-500 hover:text-green-700">
+                          <Edit className="w-4 h-4" />
+                        </button>
+                        <button className="text-red-500 hover:text-red-700">
+                          <Trash2 className="w-4 h-4" />
+                        </button>
                       </td>
                     </tr>
                   ))}
@@ -302,16 +355,7 @@ const FormResponses = () => {
         )}
       </div>
 
-      <ToastContainer
-        position="top-right"
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        pauseOnHover
-        draggable
-        theme="light"
-      />
+      <ToastContainer position="top-right" autoClose={3000} theme="light" />
     </div>
   );
 };

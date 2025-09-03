@@ -18,6 +18,8 @@ import Setting from "./Components/Setting.jsx";
 import Template from "./components/Template.jsx";
 import FormPage from "./components/FormPage.jsx";
 import Gallery from "./components/Gallery.jsx";
+import SheetGallery from "./components/SheetGallery.jsx";
+import TemplateGallery from "./components/TempateGallery.jsx";
 import Docstemplate from "./components/Docstemplate.jsx";
 import Docsgallery from "./components/Docsgallery.jsx";
 import JobApplicationForm from "./components/JobApplication.jsx";
