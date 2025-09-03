@@ -86,6 +86,7 @@
   width: 20px;
   height: 20px;
 }
+
 .offcanvas {
   background: #fff;
   border-right: 1px solid #e5e5e5;
@@ -100,7 +101,7 @@
   padding: 1rem;
 }
 
-.offcanvas-title img{
+.offcanvas-title img {
   width: 30px;
   height: 30px;
 }
@@ -169,6 +170,7 @@
   width: 20px;
   height: 20px;
 }
+
 .offcanvas {
   background: #fff;
   border-right: 1px solid #e5e5e5;
@@ -183,7 +185,7 @@
   padding: 1rem;
 }
 
-.offcanvas-title img{
+.offcanvas-title img {
   width: 30px;
   height: 30px;
 }
@@ -220,8 +222,8 @@
   }
 
   .card {
-  border-radius: 12px !important;
-  width: 300px;
+    border-radius: 12px !important;
+    width: 300px;
   }
 
   .row {
