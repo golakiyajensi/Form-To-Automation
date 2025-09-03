@@ -139,7 +139,7 @@ const Header = () => {
           <ul className="list-unstyled">
             <li className="d-flex align-items-center mb-1"
               style={{ cursor: "pointer" }}
-              onClick={() => navigate("/docstemplate")}
+              onClick={() => navigate("/docsgallery")}
 
             >
               <img

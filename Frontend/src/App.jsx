@@ -18,6 +18,7 @@ import TemplateGallery from './Components/TemplateGallery.jsx';
 import Docstemplate from "./components/Docstemplate.jsx";
 import Docsgallery from "./components/Docsgallery.jsx";
 import Header from "./screen/Header.jsx";
+import RsvpForm from "./components/RsvpForm.jsx";
 
 function App() {
   return (
@@ -37,7 +38,7 @@ function App() {
           <Route path="/form/:id" element={<FormPage />}></Route>
           <Route path="/docstemplate" element={<Docstemplate />}></Route>
           <Route path="/docsgallery" element={<Docsgallery />}></Route>
-
+          <Route path="/form/rsvpform" element={<RsvpForm />} />
         </Routes>
       </Router>
     </>
