@@ -13,11 +13,12 @@ module.exports = {
     conditionalLogic,
     orderNo,
     fieldImage,
-    description, // ✅ new
-    responseValidation // ✅ new
+    description,
+    responseValidation,
+    createdBy // ✅ add this
   ) => {
     const [rows] = await db.query(
-      "CALL sp_create_form_field(?,?,?,?,?,?,?,?,?,?,?,?)",
+      "CALL sp_create_form_field(?,?,?,?,?,?,?,?,?,?,?,?,?)",
       [
         formId,
         slideId,
@@ -31,6 +32,7 @@ module.exports = {
         fieldImage,
         description,
         JSON.stringify(responseValidation),
+        createdBy, // ✅ pass to SP
       ]
     );
     return rows[0][0];

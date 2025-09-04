@@ -19,7 +19,6 @@ import blank5 from "/img/blank5.png";
 const Template = () => {
     const navigate = useNavigate();
 
-    //  Hooks must be at top level
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
 
@@ -58,11 +57,13 @@ const Template = () => {
 
                     {/* Cards Section */}
                     <div className="tpl-cards">
+
                         <Link to="/question" className="tpl-card">
+
                             <img src={blank} alt="no-img" className="tpl-card-img" />
                             <p className="tpl-card-title">Blank</p>
                         </Link>
-                        <Link to="/form/party" className="tpl-card">
+                        <Link to="#" className="tpl-card">
                             <img src={blank8} alt="no-img" className="tpl-card-img" />
                             <p className="tpl-card-title">Find a Time</p>
                         </Link>
@@ -70,15 +71,15 @@ const Template = () => {
                             <img src={blank2} alt="no-img" className="tpl-card-img" />
                             <p className="tpl-card-title">Contact Information</p>
                         </Link>
-                        <Link to="/form/jobApplication" className="tpl-card">
+                        <Link to="#" className="tpl-card">
                             <img src={blank4} alt="no-img" className="tpl-card-img" />
                             <p className="tpl-card-title">Job Application</p>
                         </Link>
-                        <Link to="/form/event" className="tpl-card">
+                        <Link to="/form/rsvpform" className="tpl-card">
                             <img src={blank3} alt="no-img" className="tpl-card-img" />
                             <p className="tpl-card-title">RSVP</p>
                         </Link>
-                        <Link to="/form/rsvp" className="tpl-card">
+                        <Link to="#" className="tpl-card">
                             <img src={blank5} alt="no-img" className="tpl-card-img" />
                             <p className="tpl-card-title">Party Invite</p>
                         </Link>

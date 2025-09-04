@@ -28,17 +28,18 @@ exports.createSlide = async (req, res) => {
   }
 };
 
-// ✅ Add multiple fields
+// ✅ Add multiple fields (bulk)
 exports.addFieldsBulk = async (req, res) => {
   try {
     const { slide_id } = req.params;
     const fields = req.body; // array
+    const userId = req.user?.user_id;
 
     if (!Array.isArray(fields) || fields.length === 0) {
       return res.json(response.error("Fields array is required"));
     }
 
-    const created = await slideModel.addFieldsBulk(slide_id, fields);
+    const created = await slideModel.addFieldsBulk(slide_id, fields, userId);
     res.json(response.success("Fields created (bulk)", created));
   } catch (err) {
     res.status(500).json(response.error(err.message));
