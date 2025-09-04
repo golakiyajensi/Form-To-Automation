@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Search, ChevronLeft, ChevronRight } from "lucide-react";
-import { useLocation } from "react-router-dom";
+import {
+  Search,
+  ChevronLeft,
+  ChevronRight,
+  Eye,
+  Edit,
+  Trash2,
+} from "lucide-react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -10,6 +17,7 @@ const Slides = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [selectedItems, setSelectedItems] = useState([]);
   const [modalImage, setModalImage] = useState(null);
 
   const itemsPerPage = 10;
@@ -17,6 +25,7 @@ const Slides = () => {
   const API_URL = import.meta.env.VITE_FRONTEND_API_URL;
 
   const location = useLocation();
+  const navigate = useNavigate();
   const pathParts = location.pathname.split("/").filter(Boolean);
 
   const openImageModal = (url) => setModalImage(url);
@@ -42,7 +51,18 @@ const Slides = () => {
     setError(null);
     try {
       const response = await apiRequest(`${API_URL}/api/slide/slides`);
-      setSlides(Array.isArray(response.data) ? response.data : []);
+      let data = Array.isArray(response.data) ? response.data : [];
+
+      // ✅ Role-based filtering
+      const role = localStorage.getItem("admin_role");
+      const userId = localStorage.getItem("admin_id");
+      if (role === "creator") {
+        data = data.filter(
+          (form) => String(form.created_by) === String(userId)
+        );
+      }
+
+      setSlides(data);
     } catch (err) {
       setError("Failed to fetch slides");
       toast.error("Failed to fetch slides");
@@ -56,11 +76,20 @@ const Slides = () => {
     fetchSlides();
   }, []);
 
+  const handleSelectAll = (checked) => {
+    if (checked) setSelectedItems(currentItems.map((item) => item.slide_id));
+    else setSelectedItems([]);
+  };
+
+  const handleSelectItem = (id, checked) => {
+    if (checked) setSelectedItems((prev) => [...prev, id]);
+    else setSelectedItems((prev) => prev.filter((i) => i !== id));
+  };
+
   const filteredItems = slides.filter((slide) => {
     const formTitle = slide?.form_title || "";
     const slideTitle = slide?.slide_title || "";
     const slideDesc = slide?.slide_description || "";
-
     return (
       formTitle.toLowerCase().includes(searchTerm.toLowerCase()) ||
       slideTitle.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -75,20 +104,18 @@ const Slides = () => {
     startIndex + itemsPerPage
   );
 
-  const Pagination = () => {
+  const PaginationComponent = () => {
     const getVisiblePages = () => {
       const delta = 2;
       const pages = [];
       const start = Math.max(2, currentPage - delta);
       const end = Math.min(totalPages - 1, currentPage + delta);
-
       pages.push(1);
       if (start > 2) pages.push("...");
       for (let i = start; i <= end; i++)
         if (i !== 1 && i !== totalPages) pages.push(i);
       if (end < totalPages - 1) pages.push("...");
       if (totalPages > 1) pages.push(totalPages);
-
       return pages;
     };
 
@@ -103,7 +130,7 @@ const Slides = () => {
           <button
             onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
             disabled={currentPage === 1}
-            className="p-2 text-gray-400 hover:text-gray-600 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="p-2 text-gray-400 hover:text-gray-600 disabled:opacity-50"
           >
             <ChevronLeft className="w-4 h-4" />
           </button>
@@ -133,7 +160,7 @@ const Slides = () => {
               setCurrentPage(Math.min(totalPages, currentPage + 1))
             }
             disabled={currentPage === totalPages}
-            className="p-2 text-gray-400 hover:text-gray-600 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="p-2 text-gray-400 hover:text-gray-600 disabled:opacity-50"
           >
             <ChevronRight className="w-4 h-4" />
           </button>
@@ -144,19 +171,46 @@ const Slides = () => {
 
   const MobileCard = ({ slide }) => (
     <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200 mb-4">
-      <h3 className="text-gray-900 font-medium text-sm">{slide.slide_title}</h3>
-      <p className="text-gray-500 text-xs line-clamp-2">{slide.slide_description}</p>
-      <p className="text-gray-500 text-xs mt-1">
-        <span className="font-semibold">Form:</span> {slide.form_title || "N/A"}
-      </p>
-      {slide.header_image && (
-        <img
-          src={`${API_URL}/uploads/${slide.header_image}`}
-          alt="Header"
-          className="w-20 h-12 object-cover rounded mt-2 cursor-pointer"
-          onClick={() => openImageModal(`${API_URL}/uploads/${slide.header_image}`)}
-        />
-      )}
+      <div className="flex justify-between items-start mb-2">
+        <div>
+          <h3 className="text-gray-900 font-medium text-sm">
+            {slide.slide_title}
+          </h3>
+          <p className="text-gray-500 text-xs line-clamp-2">
+            {slide.slide_description}
+          </p>
+          <p className="text-gray-500 text-xs mt-1">
+            <span className="font-semibold">Form:</span>{" "}
+            {slide.form_title || "N/A"}
+          </p>
+        </div>
+        {slide.header_image && (
+          <img
+            src={`${API_URL}/uploads/${slide.header_image}`}
+            alt="Header"
+            className="w-16 h-10 object-cover rounded cursor-pointer"
+            onClick={() =>
+              openImageModal(`${API_URL}/uploads/${slide.header_image}`)
+            }
+          />
+        )}
+      </div>
+      <div className="mt-2 flex space-x-3 text-sm">
+        <button
+          className="flex items-center space-x-1 text-blue-500 hover:underline"
+          onClick={() =>
+            navigate(`/admin/dashboard/slides/view/${slide.slide_id}`)
+          }
+        >
+          <Eye className="w-4 h-4" /> <span>View</span>
+        </button>
+        <button className="flex items-center space-x-1 text-green-500 hover:underline">
+          <Edit className="w-4 h-4" /> <span>Edit</span>
+        </button>
+        <button className="flex items-center space-x-1 text-red-500 hover:underline">
+          <Trash2 className="w-4 h-4" /> <span>Delete</span>
+        </button>
+      </div>
     </div>
   );
 
@@ -164,15 +218,25 @@ const Slides = () => {
     <div className="min-h-screen bg-gray-50 p-4 sm:p-6">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="mb-6 sm:mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between space-y-2 sm:space-y-0">
-          <h1 className="text-xl sm:text-2xl font-bold text-gray-700">SLIDES</h1>
-          <div className="flex items-center text-xs sm:text-sm text-gray-500">
-            {pathParts.map((part, idx) => (
-              <span key={idx}>
-                {part.charAt(0).toUpperCase() + part.slice(1)}
-                {idx < pathParts.length - 1 && <span className="mx-2">/</span>}
-              </span>
-            ))}
+        <div className="mb-6 sm:mb-8">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between space-y-2 sm:space-y-0">
+            <div>
+              <h1 className="text-2xl font-bold text-gray-800">Slides</h1>
+              <p className="text-gray-500 text-sm">Manage all Slides</p>
+            </div>
+            <div className="flex items-center text-xs sm:text-sm text-gray-500">
+              {pathParts.map((part, index) => {
+                const name = part.charAt(0).toUpperCase() + part.slice(1);
+                return (
+                  <span key={index}>
+                    {name}
+                    {index < pathParts.length - 1 && (
+                      <span className="mx-2">/</span>
+                    )}
+                  </span>
+                );
+              })}
+            </div>
           </div>
         </div>
 
@@ -193,68 +257,106 @@ const Slides = () => {
           </div>
         </div>
 
-        {/* Loading */}
-        {loading && (
-          <div className="text-center py-12">
-            <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
-            <p className="mt-2 text-sm text-gray-600">Loading...</p>
-          </div>
-        )}
-
-        {/* Error */}
-        {error && (
-          <div className="text-center py-12">
-            <p className="text-red-500 mb-4">{error}</p>
-            <button
-              onClick={fetchSlides}
-              className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 text-sm"
-            >
-              Retry
-            </button>
-          </div>
-        )}
-
-        {/* Content */}
+        {/* Loading/Error/Empty */}
+        {loading && <div className="text-center py-12">Loading...</div>}
+        {error && <div className="text-center py-12">{error}</div>}
         {!loading && !error && filteredItems.length === 0 && (
-          <div className="text-center py-12">
-            <p className="text-gray-500">No slides found</p>
-          </div>
+          <div className="text-center py-12">No slides found</div>
         )}
 
+        {/* Desktop Table */}
         {!loading && !error && filteredItems.length > 0 && (
           <>
-            {/* Desktop Table */}
             <div className="hidden lg:block overflow-x-auto bg-white rounded-lg shadow-sm border border-gray-200 mb-4">
-              <table className="w-full">
+              <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-gray-50">
                   <tr>
-                    <th className="px-6 py-3 text-left text-xs font-bold text-black uppercase tracking-wider">Slide ID</th>
-                    <th className="px-6 py-3 text-left text-xs font-bold text-black uppercase tracking-wider">Form ID</th>
-                    <th className="px-6 py-3 text-left text-xs font-bold text-black uppercase tracking-wider">Form Title</th>
-                    <th className="px-6 py-3 text-left text-xs font-bold text-black uppercase tracking-wider">Slide Title</th>
-                    <th className="px-6 py-3 text-left text-xs font-bold text-black uppercase tracking-wider">Slide Description</th>
-                    <th className="px-6 py-3 text-left text-xs font-bold text-black uppercase tracking-wider">Header Image</th>
+                    <th className="px-6 py-3">
+                      <input
+                        type="checkbox"
+                        className="rounded border-gray-300"
+                        onChange={(e) => handleSelectAll(e.target.checked)}
+                        checked={selectedItems.length === currentItems.length}
+                      />
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">
+                      Slide ID
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">
+                      Form Title
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">
+                      Slide Title
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">
+                      Slide Description
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">
+                      Header Image
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">
+                      Actions
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
                   {currentItems.map((slide) => (
                     <tr key={slide.slide_id} className="hover:bg-gray-50">
-                      <td className="px-6 py-4 text-sm font-bold text-gray-700">{slide.slide_id}</td>
-                      <td className="px-6 py-4 text-sm font-medium text-gray-600">{slide.form_id}</td>
-                      <td className="px-6 py-4 text-sm font-medium text-gray-600">{slide.form_title}</td>
-                      <td className="px-6 py-4">{slide.slide_title}</td>
-                      <td className="px-6 py-4">{slide.slide_description}</td>
+                      <td className="px-6 py-4">
+                        <input
+                          type="checkbox"
+                          className="rounded border-gray-300"
+                          checked={selectedItems.includes(slide.slide_id)}
+                          onChange={(e) =>
+                            handleSelectItem(slide.slide_id, e.target.checked)
+                          }
+                        />
+                      </td>
+                      <td className="px-6 py-4 text-sm font-medium text-gray-900">
+                        {slide.slide_id}
+                      </td>
+                      <td className="px-6 py-4 text-sm text-gray-700">
+                        {slide.form_title}
+                      </td>
+                      <td className="px-6 py-4 text-sm text-gray-700">
+                        {slide.slide_title}
+                      </td>
+                      <td className="px-6 py-4 text-sm text-gray-700">
+                        {slide.slide_description}
+                      </td>
                       <td className="px-6 py-4">
                         {slide.header_image ? (
                           <img
                             src={`${API_URL}/uploads/${slide.header_image}`}
                             alt="Header"
                             className="w-16 h-10 object-cover rounded cursor-pointer"
-                            onClick={() => openImageModal(`${API_URL}/uploads/${slide.header_image}`)}
+                            onClick={() =>
+                              openImageModal(
+                                `${API_URL}/uploads/${slide.header_image}`
+                              )
+                            }
                           />
                         ) : (
                           "N/A"
                         )}
+                      </td>
+                      <td className="px-6 py-4 flex space-x-2">
+                        <button
+                          className="text-blue-500 hover:text-blue-700"
+                          onClick={() =>
+                            navigate(
+                              `/admin/dashboard/slides/view/${slide.slide_id}`
+                            )
+                          }
+                        >
+                          <Eye className="w-4 h-4" />
+                        </button>
+                        <button className="text-green-500 hover:text-green-700">
+                          <Edit className="w-4 h-4" />
+                        </button>
+                        <button className="text-red-500 hover:text-red-700">
+                          <Trash2 className="w-4 h-4" />
+                        </button>
                       </td>
                     </tr>
                   ))}
@@ -270,7 +372,7 @@ const Slides = () => {
             </div>
 
             {/* Pagination */}
-            <Pagination />
+            <PaginationComponent />
           </>
         )}
 
@@ -297,17 +399,7 @@ const Slides = () => {
           </div>
         )}
 
-        <ToastContainer
-          position="top-right"
-          autoClose={3000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          pauseOnHover
-          draggable
-          theme="light"
-          className="mt-16 sm:mt-0"
-        />
+        <ToastContainer position="top-right" autoClose={3000} theme="light" />
       </div>
     </div>
   );

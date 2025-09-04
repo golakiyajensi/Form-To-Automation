@@ -7,15 +7,15 @@ const authMiddleware = require("../middlewares/authMiddleware");
 router.post("/:formId", authMiddleware(["admin", "viewer", "creator"]), responseController.submitResponse);
 
 // Get all responses (admin only)
-router.get("/all", authMiddleware(["admin"]), responseController.getAllResponses);
+router.get("/all", authMiddleware(["admin","creator"]), responseController.getAllResponses);
 
 // Get all responses for a form
-router.get("/:formId", authMiddleware(["admin"]), responseController.getResponsesByForm);
+router.get("/:formId", authMiddleware(["admin","creator"]), responseController.getResponsesByForm);
 
 // ✅ Get single response by responseId
-router.get("/response/:responseId", authMiddleware(["admin"]), responseController.getResponseById);
+router.get("/response/:responseId", authMiddleware(["admin","creator"]), responseController.getResponseById);
 
 // GET Excel-compatible data
-router.get("/excel/:id", authMiddleware(["admin"]), responseController.getResponseForExcel);
+router.get("/excel/:id", authMiddleware(["admin","creator"]), responseController.getResponseForExcel);
 
 module.exports = router;
