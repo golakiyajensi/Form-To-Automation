@@ -98,6 +98,7 @@ CREATE TABLE `tbl_form_fields` (
   `response_validation` json DEFAULT NULL,
   `conditional_logic` json DEFAULT NULL,
   `order_no` int DEFAULT '0',
+  `created_by` int DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `create_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
@@ -108,7 +109,7 @@ CREATE TABLE `tbl_form_fields` (
   KEY `fk_field_slide` (`slide_id`),
   CONSTRAINT `fk_field_slide` FOREIGN KEY (`slide_id`) REFERENCES `tbl_form_slides` (`id`) ON DELETE CASCADE,
   CONSTRAINT `tbl_form_fields_ibfk_1` FOREIGN KEY (`form_id`) REFERENCES `tbl_forms` (`form_id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 CREATE TABLE `tbl_slide_fields` (
   `field_id` INT NOT NULL AUTO_INCREMENT,
@@ -295,6 +296,7 @@ CREATE TABLE `tbl_theme` (
   CONSTRAINT `fk_theme_form` FOREIGN KEY (`form_id`) REFERENCES `tbl_forms` (`form_id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+-- 16. Form Publish Status
 CREATE TABLE `tbl_form_publish_status` (
   `id` int NOT NULL AUTO_INCREMENT,
   `form_id` int NOT NULL,
@@ -311,3 +313,14 @@ CREATE TABLE `tbl_form_publish_status` (
   CONSTRAINT `tbl_form_publish_status_ibfk_1` FOREIGN KEY (`form_id`) REFERENCES `tbl_forms` (`form_id`),
   CONSTRAINT `tbl_form_publish_status_ibfk_2` FOREIGN KEY (`published_by`) REFERENCES `tbl_user` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- 17. Creator (extra from main)
+CREATE TABLE tbl_creator (
+  creator_id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT NOT NULL,
+  organization VARCHAR(100),
+  portfolio_link VARCHAR(255),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  create_date timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  update_date timestamp

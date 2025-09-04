@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown, faChevronUp } from '@fortawesome/free-solid-svg-icons';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { FormCheck, FormSelect } from 'react-bootstrap';
+import { Form, FormCheck, FormSelect } from 'react-bootstrap';
 
 function App() {
   const [isQuizEnabled, setIsQuizEnabled] = useState(false);
@@ -14,13 +14,21 @@ function App() {
   const [allowEdit, setAllowEdit] = useState(false);
   const [limitOne, setLimitOne] = useState(false);
 
+  // const [isQuizEnabled, setIsQuizEnabled] = useState(false);
+const [releaseType, setReleaseType] = useState("immediate");
+const [showMissed, setShowMissed] = useState(true);
+const [showCorrect, setShowCorrect] = useState(true);
+const [showPoints, setShowPoints] = useState(true);
+const [defaultPoints, setDefaultPoints] = useState(0);
+
+
   const toggleSection = (sectionName) => {
     setOpenSection(openSection === sectionName ? null : sectionName);
   };
 
   const renderSection = (title, description, sectionName, content, withBorder = true) => (
     <div
-      className={`section-container mb-4 p-3 ${
+      className={`section-container w-100 text-left mb-4 p-3 ${
         withBorder
           ? openSection !== sectionName
             ? "border-bottom border-muted pb-4"
@@ -34,7 +42,7 @@ function App() {
         style={{ cursor: "pointer" }}
       >
         <div className="section-text-wrapper">
-          <h5 className="section-title mb-0">{title}</h5>
+          <h5 className="section-title text-dark ps-0 mb-0">{title}</h5>
           <p className="section-description-text text-muted mb-0 mt-2">
             {description}
           </p>
@@ -58,8 +66,8 @@ function App() {
         <div className="settings-content-area">
 
           {/* Settings Card */}
-          <div className="card w-100 settings-card-wrapper mb-4 p-3 pb-0">
-            <h4 className="card-title-header mb-4 pb-3">Settings</h4>
+          <div className="card1 w-100 settings-card-wrapper text-left mb-4 p-4 border rounded-3 pb-0">
+            <h4 className="card-title-header mb-4 pb-3 w-100 text-left">Settings</h4>
 
             {/* Quiz Section */}
             <div className="section-container mb-4 p-3 pb-4 border-bottom border-muted">
@@ -68,7 +76,7 @@ function App() {
                 style={{ cursor: "default" }}
               >
                 <div className="section-text-wrapper">
-                  <h5 className="section-title mb-0" style={{ fontSize: "18px" }}>
+                  <h5 className="section-title text-dark ps-0 mb-0" style={{ fontSize: "18px" }}>
                     Make this a quiz
                   </h5>
                   <p className="section-description-text mb-0 mt-2" style={{ fontSize: "16px" }}>
@@ -88,27 +96,142 @@ function App() {
                   </div>
                 </div>
               </div>
+
+              {/* Collapsible Content */}
+              {isQuizEnabled && (
+                <div className="quiz-settings mt-4 p-4 pt-0">
+                  {/* Release Grades */}
+                  <div className="mb-4">
+                    <h6 className="fw-medium" style={{ fontSize:"18px" }}>Release Grades</h6>
+                    <FormCheck
+                      type="radio"
+                      id="release-immediate"
+                      label="Immediately after each submission"
+                      name="releaseGrades"
+                      value="immediate"
+                      checked={releaseType === "immediate"}
+                      onChange={() => setReleaseType("immediate")}
+                      style={{ fontSize:"18px", marginTop:"10px"}}
+                    />
+                    <FormCheck
+                      type="radio"
+                      id="release-later"
+                      label="Later, after manual review"
+                      name="releaseGrades"
+                      value="later"
+                      checked={releaseType === "later"}
+                      onChange={() => setReleaseType("later")}
+                      style={{ fontSize:"18px", marginTop:"10px"}}
+                    />
+                    <p className="text-muted ms-4" style={{ fontSize: "14px" }}>
+                      Turns on Responses → Collect email addresses
+                    </p>
+                  </div>
+
+                  {/* Respondent Settings */}
+                  <div className="mb-4">
+                    <h6 className="fw-medium" style={{ fontSize:"18px"}}>Respondent Settings</h6>
+                    <div className='d-flex align-items-center justify-content-between mt-3'>
+                      <div>
+                        <label className='fw-medium' style={{ fontSize: "16px" }}>Missed questions</label>
+                        <p className="text-muted" style={{ fontSize: "16px" }}>
+                          Respondents can see which questions were answered incorrectly
+                        </p>
+                      </div>
+                      <FormCheck
+                        type="switch"
+                        id="missed-questions"
+                        
+                        checked={showMissed}
+                        onChange={() => setShowMissed(!showMissed)}
+                      />
+                    </div>
+
+                    <div className='d-flex align-items-center justify-content-between mt-2'>
+                      <div>
+                        <label className='fw-medium' style={{ fontSize: "16px" }}>Correct answers</label>
+                        <p className="text-muted" style={{ fontSize: "16px" }}>
+                          Respondents can see correct answers after grades are released
+                        </p>
+                      </div>
+                      <FormCheck
+                      type="switch"
+                      id="correct-answers"
+                      checked={showCorrect}
+                      onChange={() => setShowCorrect(!showCorrect)}
+                    />
+                    </div>
+
+                    <div className='d-flex align-items-center justify-content-between mt-2'>
+                      <div>
+                        <label className='fw-medium' style={{ fontSize: "16px" }}>Point values</label>
+                        <p className="text-muted" style={{ fontSize: "16px" }}>
+                          Respondents can see total points and points received for each question
+                        </p>
+                      </div>
+                      <FormCheck
+                      type="switch"
+                      id="point-values"
+                      label=""
+                      checked={showPoints}
+                      onChange={() => setShowPoints(!showPoints)}
+                    />
+                    </div>
+                  </div>
+
+                  {/* Global Defaults */}
+                  <div>
+                    <h6 className="fw-medium" style={{fontSize:"18px"}}>Global Quiz Defaults</h6>
+                    <div className="d-flex align-items-center justify-content-between">
+                      <span className="me-2 fw-medium">Default question point value</span>
+                      <div className='d-flex align-item-center'>
+                        <Form.Control
+                          type="number"
+                          value={defaultPoints}
+                          onChange={(e) => setDefaultPoints(e.target.value)}
+                          style={{ width: "70px", border:"none", borderBottom:"1px solid #ceccccff" }}
+                          className='rounded-0'
+                        />
+                        <span>points</span>
+                      </div>
+                    </div>
+                    <p className="text-muted" style={{ fontSize: "16px" }}>
+                      Point values for every new question
+                    </p>
+                  </div>
+                </div>
+              )}
             </div>
+
 
             {/* Responses Section (with border) */}
             {renderSection(
               "Responses",
               "Manage how responses are collected and protected",
               "responses",
-              <div className="responses-settings">
+              <div className="responses-settings p-4">
                 {/* Collect email addresses */}
                 <div className="d-flex justify-content-between align-items-center mb-3">
-                  <label className="fw-medium" style={{ fontSize: "18px" }}>
-                    Collect email addresses
-                  </label>
+                  <div>
+                    <label className="fw-medium" style={{ fontSize: "18px" }}>Collect email addresses</label>
+
+                    <p>
+                      {collectEmails === "Verified"
+                        ? "Respondents will be required to sign in to Google"
+                        : collectEmails === "Responder Input"
+                        ? "Respondents will manually enter their email response"
+                        : ""}
+                    </p>
+                  </div>
+
                   <FormSelect
                     value={collectEmails}
                     onChange={(e) => setCollectEmails(e.target.value)}
                     style={{ width: "220px", fontSize: "16px" }}
                   >
-                    <option>Do not collect</option>
-                    <option>Verified</option>
-                    <option>Responder Input</option>
+                    <option value="Do not collect">Do not collect</option>
+                    <option value="Verified">Verified</option>
+                    <option value="Responder Input">Responder Input</option>
                   </FormSelect>
                 </div>
 
@@ -177,9 +300,9 @@ function App() {
               "Presentation",
               "Manage how the form and responses are presented",
               "presentation",
-              <div className="presentation-settings">
+              <div className="presentation-settings p-4">
                 {/* Form Presentation */}
-                <h6 className="text-uppercase text-muted small fw-bold mb-3" style={{ fontSize: "16px" }}>
+                <h6 className="text-uppercase text-muted small fw-medium mb-3" style={{ fontSize: "14px" }}>
                   Form Presentation
                 </h6>
                 <div className="d-flex justify-content-between align-items-center mb-3">
@@ -192,7 +315,7 @@ function App() {
                 </div>
 
                 {/* After Submission */}
-                <h6 className="text-uppercase text-muted small fw-bold mb-3" style={{ fontSize: "16px" }}>
+                <h6 className="text-uppercase text-muted small fw-bold mt-5 mb-3" style={{ fontSize: "14px" }}>
                   After Submission
                 </h6>
                 <div className="d-flex justify-content-between align-items-center mb-3">
@@ -228,7 +351,7 @@ function App() {
                 </div>
 
                 {/* Restrictions */}
-                <h6 className="text-uppercase text-muted small fw-bold mb-3" style={{ fontSize: "16px" }}>
+                <h6 className="text-uppercase text-muted small fw-bold mt-5 mb-3" style={{ fontSize: "14px" }}>
                   Restrictions
                 </h6>
                 <div className="d-flex justify-content-between align-items-center mb-3">
@@ -244,7 +367,7 @@ function App() {
           </div>
 
           {/* Defaults Card */}
-          <div className="card w-100 defaults-card-wrapper p-3 pb-0">
+          <div className="card1 border rounded-3 w-100 defaults-card-wrapper p-4 pb-0">
             <h4 className="card-title-header mb-4 pb-3">Defaults</h4>
 
             {/* Form defaults (with border) */}
@@ -252,19 +375,28 @@ function App() {
               "Form defaults",
               "Settings applied to this form and new forms",
               "formDefaults",
-              <div className="form-defaults-settings">
+              <div className="form-defaults-settings p-4">
                 <div className="d-flex justify-content-between align-items-center mb-3">
-                  <label className="fw-medium" style={{ fontSize: "18px" }}>
-                    Collect email addresses by default
-                  </label>
+                  <div>
+                    <label className="fw-medium" style={{ fontSize: "18px" }}>
+                      Collect email addresses by default
+                    </label>
+                    <p>
+                      {collectEmails === "Verified"
+                        ? "Respondents will be required to sign in to Google"
+                        : collectEmails === "Responder Input"
+                        ? "Respondents will manually enter their email response"
+                        : ""}
+                    </p>
+                  </div>
                   <FormSelect
                     value={collectEmails}
                     onChange={(e) => setCollectEmails(e.target.value)}
                     style={{ width: "220px", fontSize: "16px" }}
                   >
-                    <option>Do not collect</option>
-                    <option>Verified</option>
-                    <option>Responder Input</option>
+                    <option value="Do not collect">Do not collect</option>
+                    <option value="Verified">Verified</option>
+                    <option value="Responder Input">Responder Input</option>
                   </FormSelect>
                 </div>
               </div>,
@@ -276,7 +408,7 @@ function App() {
               "Question defaults",
               "Settings applied to all new questions",
               "questionDefaults",
-              <div className="question-defaults-settings">
+              <div className="question-defaults-settings p-4">
                 <div className="d-flex justify-content-between align-items-center mb-3">
                   <label className="fw-medium" style={{ fontSize: "18px" }}>
                     Make questions required by default

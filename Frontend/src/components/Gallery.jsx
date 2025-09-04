@@ -41,7 +41,7 @@ const Gallery = () => {
                 <div className="gal-section">
                     <h3 className="gal-section-title">Recently used templates</h3>
                     <div className="gal-card-grid">
-                        <Link to="#" className="gal-card">
+                        <Link to="/question" className="gal-card">
                             <img src={blank} alt="Blank" />
                             <p>Blank form</p>
                         </Link>
@@ -53,15 +53,15 @@ const Gallery = () => {
                             <img src={blank2} alt="Contact" />
                             <p>Contact Information</p>
                         </Link>
-                        <Link to="/form/rsvp" className="gal-card">
+                        <Link to="/form/jobapplication" className="gal-card">
                             <img src={blank4} alt="job" />
                             <p>Job Application</p>
                         </Link>
-                        <Link to="#" className="gal-card">
+                        <Link to="/form/rsvp" className="gal-card">
                             <img src={blank3} alt="rsvp" />
                             <p>RSVP</p>
                         </Link>
-                        <Link to="#" className="gal-card">
+                        <Link to="/form/partyinvite" className="gal-card">
                             <img src={blank5} alt="party" />
                             <p>Party Invite</p>
                         </Link>
@@ -80,11 +80,11 @@ const Gallery = () => {
                             <img src={blank8} alt="Find Time" />
                             <p>Find a Time</p>
                         </Link>
-                        <Link to="#" className="gal-card">
+                        <Link to="/form/rsvp" className="gal-card">
                             <img src={blank3} alt="RSVP" />
                             <p>RSVP</p>
                         </Link>
-                        <Link to="#" className="gal-card">
+                        <Link to="/form/partyinvite" className="gal-card">
                             <img src={blank5} alt="Party" />
                             <p>Party Invite</p>
                         </Link>
@@ -111,8 +111,8 @@ const Gallery = () => {
                             <img src={blank10} alt="Find Time" />
                             <p>Order Form</p>
                         </Link>
-                        <Link to="#" className="gal-card">
-                            <img src={blank4} alt="RSVP" />
+                        <Link to="/form/jobapplication" className="gal-card">
+                            <img src={blank4} alt="job" />
                             <p>Job Application</p>
                         </Link>
                         <Link to="#" className="gal-card">
@@ -134,7 +134,11 @@ const Gallery = () => {
                 <div className="gal-section">
                     <h3 className="gal-section-title">Education</h3>
                     <div className="gal-card-grid">
-                        <Link to="#" className="gal-card">
+                        <Link
+                            to="/quiz"
+                            state={{ templateType: "blank-quiz" }}
+                            className="gal-card"
+                        >
                             <img src={blank14} alt="blankquiz" />
                             <p>Blank Quiz</p>
                         </Link>
