@@ -1,7 +1,11 @@
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 require('dotenv').config();
 
+const seedAdmin = require('./utils/seedAdmin');
+
+// Routes imports
 const authRoutes = require('./routes/authRoutes');
 const formRoutes = require('./routes/formRoutes');
 const formfieldsRoutes = require('./routes/formFieldRoutes');
@@ -14,14 +18,24 @@ const formstyleRoutes = require('./routes/formStyleRoutes');
 const systemConfigRoutes = require('./routes/systemConfigRoutes');
 const notificationRoutes = require('./routes/notificationRoutes');
 const slideRoutes = require('./routes/slideRoutes');
+const themeRoutes = require('./routes/themeRoutes');
+const responsesetting = require('./routes/responseSettingsRoutes');
+const Presentationsetting = require('./routes/PresentationSettingsRoutes');
+const defaultsetting = require('./routes/defaultSettingsRoutes');
 
 const app = express();
 
 // Middleware
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-// Routes 
+// ✅ Serve uploads folder
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+// ✅ Seed Default Admin
+seedAdmin();
+
+// Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/forms', formRoutes);
 app.use('/api/forms-fields', formfieldsRoutes);
@@ -34,6 +48,10 @@ app.use('/api/formstyle', formstyleRoutes);
 app.use('/api/systemconfig', systemConfigRoutes);
 app.use('/api/notification', notificationRoutes);
 app.use('/api/slide', slideRoutes);
+app.use('/api/theme', themeRoutes);
+app.use('/api/responsesetting', responsesetting);
+app.use('/api/Presentationsetting', Presentationsetting);
+app.use('/api/defaultsetting', defaultsetting);
 
 // Server listen
 const PORT = process.env.PORT || 5000;

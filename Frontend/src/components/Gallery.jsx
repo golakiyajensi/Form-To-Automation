@@ -6,7 +6,7 @@ import blank from "/img/blank1.png";
 import blank8 from "/img/blank8.png";
 import blank2 from "/img/blank2.png";
 import blank4 from "/img/blank4.png";
-import blank3 from "/img/blank3.png";
+import blank3 from "/img/blank3.png"; 
 import blank5 from "/img/blank5.png";
 import blank6 from "/img/blank6.png";
 import blank7 from "/img/blank7.png";
@@ -41,7 +41,7 @@ const Gallery = () => {
                 <div className="gal-section">
                     <h3 className="gal-section-title">Recently used templates</h3>
                     <div className="gal-card-grid">
-                        <Link to="/form/blank" className="gal-card">
+                        <Link to="/question" className="gal-card">
                             <img src={blank} alt="Blank" />
                             <p>Blank form</p>
                         </Link>
