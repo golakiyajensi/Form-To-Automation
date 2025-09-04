@@ -296,6 +296,7 @@ CREATE TABLE `tbl_theme` (
   CONSTRAINT `fk_theme_form` FOREIGN KEY (`form_id`) REFERENCES `tbl_forms` (`form_id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+-- 16. Form Publish Status
 CREATE TABLE `tbl_form_publish_status` (
   `id` int NOT NULL AUTO_INCREMENT,
   `form_id` int NOT NULL,
@@ -313,6 +314,7 @@ CREATE TABLE `tbl_form_publish_status` (
   CONSTRAINT `tbl_form_publish_status_ibfk_2` FOREIGN KEY (`published_by`) REFERENCES `tbl_user` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+-- 17. Creator (extra from main)
 CREATE TABLE tbl_creator (
   creator_id INT AUTO_INCREMENT PRIMARY KEY,
   user_id INT NOT NULL,
@@ -321,17 +323,4 @@ CREATE TABLE tbl_creator (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   create_date timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  update_date timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  FOREIGN KEY (user_id) REFERENCES tbl_user(user_id) ON DELETE CASCADE
-);
-
-CREATE TABLE tbl_viewer (
-  viewer_id INT AUTO_INCREMENT PRIMARY KEY,
-  user_id INT NOT NULL,
-  preferences JSON,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-   updated_at datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  create_date timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  update_date timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  FOREIGN KEY (user_id) REFERENCES tbl_user(user_id) ON DELETE CASCADE
-);
+  update_date timestamp

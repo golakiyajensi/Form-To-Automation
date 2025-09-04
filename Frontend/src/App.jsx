@@ -95,15 +95,15 @@ import Signin from "./Components/Signin.jsx";
 import UseAccount from "./Components/UseAccount.jsx";
 import Password from "./Components/Pasword.jsx";
 import ForgotPassword from "./Components/ForgotPassword.jsx";
-import SheetGallery from "./Components/SheetGallery.jsx";
-import TemplateGallery from "./Components/TemplateGallery.jsx";
+import SheetGallery from "./components/SheetGallery.jsx";
+import TemplateGallery from "./components/TemplateGallery.jsx";
 import BlankForm from "./Components/BlankForm.jsx";
 import Form from "./Components/Forms.jsx";
 import Response from "./Components/Response.jsx";
 import Setting from "./Components/Setting.jsx";
-import Template from "./components/Template";
-import FormPage from "./components/FormPage";
-import Gallery from "./components/Gallery";
+import Template from "./components/Template.jsx";
+import FormPage from "./components/FormPage.jsx";
+import Gallery from "./components/Gallery.jsx";
 import Docstemplate from "./components/Docstemplate.jsx";
 import Docsgallery from "./components/Docsgallery.jsx";
 import JobApplicationForm from "./components/JobApplication.jsx";
@@ -113,6 +113,11 @@ import RSVP from "./components/RsvpForm.jsx";
 import Quiz from "./components/Quiz.jsx";
 
 // Temporary components
+const Docs = () => <h2 className="p-3">Docs Page</h2>;
+const Sheets = () => <h2 className="p-3">Sheets Page</h2>;
+const Forms = () => <h2 className="p-3">Forms Page</h2>;
+
+// Optional placeholder components
 const Docs = () => <h2 className="p-3">Docs Page</h2>;
 const Sheets = () => <h2 className="p-3">Sheets Page</h2>;
 const Forms = () => <h2 className="p-3">Forms Page</h2>;
@@ -129,8 +134,21 @@ function AppWrapper() {
       {showHeader && <Header />}
       <Routes>
         {/* Main Routes */}
+        <Route path="/" element={<Slidetemplate />} />
+        <Route path="/forms" element={<Form />} />
+        <Route path="/form/:id" element={<FormPage />} />
+        <Route path="/form/jobapplication" element={<JobApplicationForm />} />
+        <Route path="/form/partyinvite" element={<PartyInviteForm />} />
+        <Route path="/form/rsvpform" element={<RsvpForm />} />
+
+        {/* Docs & Sheets */}
         <Route path="/docs" element={<Docs />} />
+        <Route path="/docstemplate" element={<Docstemplate />} />
+        <Route path="/docsgallery" element={<Docsgallery />} />
         <Route path="/sheets" element={<Sheets />} />
+        <Route path="/sheetgallery" element={<SheetGallery />} />
+
+        {/* Slides */}
         <Route path="/slidetemplate" element={<Slidetemplate />} />
         <Route path="/forms" element={<Forms />} />
 
@@ -141,7 +159,6 @@ function AppWrapper() {
         <Route path="/forgotpassword" element={<ForgotPassword />} />
 
         {/* Extra Routes */}
-        <Route path="/sheetgallery" element={<SheetGallery />} />
         <Route path="/templategallery" element={<TemplateGallery />} />
         <Route path="/formgallery" element={<Template />} />
         <Route path="/gallery" element={<Gallery />} />

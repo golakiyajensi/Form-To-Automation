@@ -23,6 +23,7 @@ const Users = () => {
   const location = useLocation();
   const pathParts = location.pathname.split("/").filter(Boolean);
 
+  // API helper
   const apiRequest = async (url, options = {}) => {
     const config = {
       headers: {
@@ -38,6 +39,7 @@ const Users = () => {
     return data;
   };
 
+  // Fetch users
   const fetchData = async () => {
     setLoading(true);
     setError(null);
@@ -57,6 +59,7 @@ const Users = () => {
     fetchData();
   }, []);
 
+  // Filtering
   const filteredItems = users.filter((user) => {
     const name = user?.name || "";
     const email = user?.email || "";
@@ -68,6 +71,7 @@ const Users = () => {
     );
   });
 
+  // Pagination
   const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const currentItems = filteredItems.slice(
@@ -88,6 +92,7 @@ const Users = () => {
     }
   };
 
+  // Edit role modal
   const openEditModal = (user) => {
     setSelectedUser(user);
     setRole(user.role);
@@ -121,6 +126,7 @@ const Users = () => {
     }
   };
 
+  // Delete
   const handleDelete = async (userId) => {
     if (!window.confirm("Are you sure you want to delete this user?")) return;
     setLoading(true);
@@ -139,6 +145,7 @@ const Users = () => {
     }
   };
 
+  // Select items
   const handleSelectAll = (checked) => {
     setSelectedItems(checked ? currentItems.map((i) => i.user_id) : []);
   };
@@ -148,6 +155,7 @@ const Users = () => {
     );
   };
 
+  // Mobile Card
   const MobileCard = ({ user, index }) => (
     <div className="bg-white p-5 rounded-xl shadow-md border border-gray-200 mb-4">
       <div className="flex items-start justify-between mb-3">
@@ -156,9 +164,7 @@ const Users = () => {
             type="checkbox"
             className="rounded border-gray-300"
             checked={selectedItems.includes(user.user_id)}
-            onChange={(e) =>
-              handleSelectItem(user.user_id, e.target.checked)
-            }
+            onChange={(e) => handleSelectItem(user.user_id, e.target.checked)}
           />
           <div>
             <span className="text-xs font-medium text-gray-500">
@@ -217,6 +223,7 @@ const Users = () => {
     </div>
   );
 
+  // Pagination
   const PaginationComponent = () => {
     const getVisiblePages = () => {
       const delta = 2;
@@ -269,7 +276,9 @@ const Users = () => {
             {currentPage} / {totalPages}
           </div>
           <button
-            onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+            onClick={() =>
+              setCurrentPage(Math.min(totalPages, currentPage + 1))
+            }
             disabled={currentPage === totalPages}
             className="p-2 text-gray-400 hover:text-gray-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
@@ -298,7 +307,9 @@ const Users = () => {
                 return (
                   <span key={index}>
                     {name}
-                    {index < pathParts.length - 1 && <span className="mx-2">/</span>}
+                    {index < pathParts.length - 1 && (
+                      <span className="mx-2">/</span>
+                    )}
                   </span>
                 );
               })}
@@ -376,26 +387,38 @@ const Users = () => {
                                 selectedItems.length === currentItems.length &&
                                 currentItems.length > 0
                               }
-                              onChange={(e) => handleSelectAll(e.target.checked)}
+                              onChange={(e) =>
+                                handleSelectAll(e.target.checked)
+                              }
                             />
                           </th>
-                          {["ID", "Name", "Email", "Role", "Created Date", "Updated Date", "Actions"].map(
-                            (heading) => (
-                              <th
-                                key={heading}
-                                className="px-6 py-3 text-left text-xs font-bold text-black uppercase tracking-wider"
-                              >
-                                {heading}
-                              </th>
-                            )
-                          )}
+                          {[
+                            "ID",
+                            "Name",
+                            "Email",
+                            "Role",
+                            "Created Date",
+                            "Updated Date",
+                            "Actions",
+                          ].map((heading) => (
+                            <th
+                              key={heading}
+                              className="px-6 py-3 text-left text-xs font-bold text-black uppercase tracking-wider"
+                            >
+                              {heading}
+                            </th>
+                          ))}
                         </tr>
                       </thead>
                       <tbody className="bg-white divide-y divide-gray-200">
                         {currentItems.map((user, idx) => (
                           <tr
                             key={user.user_id}
-                            className={idx % 2 === 0 ? "bg-gray-50 hover:bg-gray-100" : "hover:bg-gray-100"}
+                            className={
+                              idx % 2 === 0
+                                ? "bg-gray-50 hover:bg-gray-100"
+                                : "hover:bg-gray-100"
+                            }
                           >
                             <td className="px-6 py-4">
                               <input
@@ -407,8 +430,12 @@ const Users = () => {
                                 }
                               />
                             </td>
-                            <td className="px-6 py-4 text-sm font-bold text-gray-700">{user.user_id}</td>
-                            <td className="px-6 py-4 text-sm font-medium text-gray-600">{user.name}</td>
+                            <td className="px-6 py-4 text-sm font-bold text-gray-700">
+                              {user.user_id}
+                            </td>
+                            <td className="px-6 py-4 text-sm font-medium text-gray-600">
+                              {user.name}
+                            </td>
                             <td className="px-6 py-4">{user.email}</td>
                             <td className="px-6 py-4">
                               <span
@@ -423,8 +450,12 @@ const Users = () => {
                                 {user.role}
                               </span>
                             </td>
-                            <td className="px-6 py-4 text-sm font-medium text-gray-600">{formatDate(user.created_at)}</td>
-                            <td className="px-6 py-4 text-sm font-medium text-gray-600">{formatDate(user.updated_at)}</td>
+                            <td className="px-6 py-4 text-sm font-medium text-gray-600">
+                              {formatDate(user.created_at)}
+                            </td>
+                            <td className="px-6 py-4 text-sm font-medium text-gray-600">
+                              {formatDate(user.updated_at)}
+                            </td>
                             <td className="px-6 py-4">
                               <div className="flex items-center space-x-2">
                                 <button
@@ -464,71 +495,65 @@ const Users = () => {
                         />
                         <span className="text-sm text-gray-600">Select All</span>
                       </div>
-                      {selectedItems.length > 0 && (
-                        <span className="text-sm text-blue-600">
-                          {selectedItems.length} selected
-                        </span>
-                      )}
                     </div>
                     {currentItems.map((user, idx) => (
-                      <MobileCard key={user.user_id} user={user} index={startIndex + idx} />
+                      <MobileCard
+                        key={user.user_id}
+                        user={user}
+                        index={startIndex + idx}
+                      />
                     ))}
                   </div>
-
-                  {/* Edit Modal */}
-                  {showEditModal && selectedUser && (
-                    <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4 overflow-auto">
-                      <div className="bg-white rounded-lg p-6 w-full max-w-md relative shadow-lg animate-fadeIn">
-                        <h3 className="text-lg font-semibold mb-4">
-                          Edit Role for {selectedUser.name}
-                        </h3>
-                        <select
-                          className="border border-gray-300 rounded px-3 py-2 w-full mb-4"
-                          value={role}
-                          onChange={(e) => setRole(e.target.value)}
-                        >
-                          <option value="admin">Admin</option>
-                          <option value="viewer">Viewer</option>
-                          <option value="creator">Creator</option>
-                        </select>
-                        <div className="flex justify-end space-x-3">
-                          <button
-                            onClick={closeEditModal}
-                            className="px-4 py-2 border rounded hover:bg-gray-100 transition-colors"
-                          >
-                            Cancel
-                          </button>
-                          <button
-                            onClick={handleRoleUpdate}
-                            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
-                          >
-                            Save
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Pagination */}
-                  {filteredItems.length > 0 && <PaginationComponent />}
                 </>
               )}
             </>
           )}
+
+          {/* Pagination */}
+          {filteredItems.length > 0 && <PaginationComponent />}
         </div>
       </div>
 
-      <ToastContainer
-        position="top-right"
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        pauseOnHover
-        draggable
-        theme="light"
-        className="mt-16 sm:mt-0"
-      />
+      {/* Edit Modal */}
+      {showEditModal && selectedUser && (
+        <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
+          <div className="bg-white rounded-xl shadow-lg w-full max-w-md mx-4">
+            <div className="p-6 border-b border-gray-200">
+              <h3 className="text-xl font-semibold text-gray-900">Edit Role</h3>
+              <p className="text-sm text-gray-500 mt-1">
+                Update role for <span className="font-medium">{selectedUser.name}</span>
+              </p>
+            </div>
+            <div className="p-6">
+              <select
+                className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
+                value={role}
+                onChange={(e) => setRole(e.target.value)}
+              >
+                <option value="admin">Admin</option>
+                <option value="viewer">Viewer</option>
+                <option value="editor">Editor</option>
+              </select>
+            </div>
+            <div className="px-6 py-4 border-t border-gray-200 flex justify-end space-x-3">
+              <button
+                onClick={closeEditModal}
+                className="px-4 py-2 bg-gray-100 rounded-lg hover:bg-gray-200 text-sm"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleRoleUpdate}
+                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm"
+              >
+                Save Changes
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <ToastContainer position="top-right" autoClose={3000} />
     </div>
   );
 };
