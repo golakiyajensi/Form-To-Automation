@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "./App.css";
+import "./CSS/style.css";
 
 // Components
 import Header from "./screen/Header.jsx";
@@ -46,7 +47,7 @@ function AppWrapper() {
         <Route path="/forms" element={<Form />} />
         <Route path="/form/:id" element={<FormPage />} />
         <Route path="/form/jobapplication" element={<JobApplicationForm />} />
-        <Route path="/form/rsvpform" element={<RsvpForm />} />
+        <Route path="/form/rsvp" element={<RsvpForm />} />
 
         {/* Docs & Sheets */}
         <Route path="/docstemplate" element={<Docstemplate />} />

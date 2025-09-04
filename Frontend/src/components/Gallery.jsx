@@ -6,7 +6,7 @@ import blank from "/img/blank1.png";
 import blank8 from "/img/blank8.png";
 import blank2 from "/img/blank2.png";
 import blank4 from "/img/blank4.png";
-import blank3 from "/img/blank3.png"; 
+import blank3 from "/img/blank3.png";
 import blank5 from "/img/blank5.png";
 import blank6 from "/img/blank6.png";
 import blank7 from "/img/blank7.png";
@@ -41,29 +41,29 @@ const Gallery = () => {
                 <div className="gal-section">
                     <h3 className="gal-section-title">Recently used templates</h3>
                     <div className="gal-card-grid">
-                        <Link to="/form/blank" className="gal-card">
+                        <Link to="#" className="gal-card">
                             <img src={blank} alt="Blank" />
                             <p>Blank form</p>
                         </Link>
-                        <Link to="/form/job" className="gal-card">
-                            <img src={blank8} alt="Job" />
+                        <Link to="#" className="gal-card">
+                            <img src={blank8} alt="find" />
+                            <p>Find a Time</p>
+                        </Link>
+                        <Link to="#" className="gal-card">
+                            <img src={blank2} alt="Contact" />
                             <p>Contact Information</p>
                         </Link>
-                        <Link to="/form/contact" className="gal-card">
-                            <img src={blank2} alt="Contact" />
+                        <Link to="/form/rsvp" className="gal-card">
+                            <img src={blank4} alt="job" />
                             <p>Job Application</p>
                         </Link>
-                        <Link to="/form/rsvp" className="gal-card">
-                            <img src={blank4} alt="RSVP" />
+                        <Link to="#" className="gal-card">
+                            <img src={blank3} alt="rsvp" />
                             <p>RSVP</p>
                         </Link>
-                        <Link to="/form/party" className="gal-card">
-                            <img src={blank3} alt="Party" />
+                        <Link to="#" className="gal-card">
+                            <img src={blank5} alt="party" />
                             <p>Party Invite</p>
-                        </Link>
-                        <Link to="/form/tshirt" className="gal-card">
-                            <img src={blank5} alt="T-Shirt" />
-                            <p>T-Shirt Sign Up</p>
                         </Link>
                     </div>
                 </div>
@@ -72,27 +72,27 @@ const Gallery = () => {
                 <div className="gal-section">
                     <h3 className="gal-section-title">Personal</h3>
                     <div className="gal-card-grid">
-                        <Link to="/form/contact" className="gal-card">
+                        <Link to="#" className="gal-card">
                             <img src={blank2} alt="Contact" />
                             <p>Contact Information</p>
                         </Link>
-                        <Link to="/form/findtime" className="gal-card">
+                        <Link to="#" className="gal-card">
                             <img src={blank8} alt="Find Time" />
                             <p>Find a Time</p>
                         </Link>
-                        <Link to="/form/rsvp" className="gal-card">
+                        <Link to="#" className="gal-card">
                             <img src={blank3} alt="RSVP" />
                             <p>RSVP</p>
                         </Link>
-                        <Link to="/form/party" className="gal-card">
+                        <Link to="#" className="gal-card">
                             <img src={blank5} alt="Party" />
                             <p>Party Invite</p>
                         </Link>
-                        <Link to="/form/tshirt" className="gal-card">
+                        <Link to="#" className="gal-card">
                             <img src={blank6} alt="T-Shirt" />
                             <p>T-Shirt Sign Up</p>
                         </Link>
-                        <Link to="/form/event" className="gal-card">
+                        <Link to="#" className="gal-card">
                             <img src={blank7} alt="Event" />
                             <p>Event registration</p>
                         </Link>
@@ -103,27 +103,27 @@ const Gallery = () => {
                 <div className="gal-section">
                     <h3 className="gal-section-title">Work</h3>
                     <div className="gal-card-grid">
-                        <Link to="/form/contact" className="gal-card">
+                        <Link to="#" className="gal-card">
                             <img src={blank9} alt="Contact" />
                             <p>Event Feedback</p>
                         </Link>
-                        <Link to="/form/findtime" className="gal-card">
+                        <Link to="#" className="gal-card">
                             <img src={blank10} alt="Find Time" />
                             <p>Order Form</p>
                         </Link>
-                        <Link to="/form/rsvp" className="gal-card">
+                        <Link to="#" className="gal-card">
                             <img src={blank4} alt="RSVP" />
                             <p>Job Application</p>
                         </Link>
-                        <Link to="/form/party" className="gal-card">
+                        <Link to="#" className="gal-card">
                             <img src={blank11} alt="Party" />
                             <p>Time Off Request</p>
                         </Link>
-                        <Link to="/form/tshirt" className="gal-card">
+                        <Link to="#" className="gal-card">
                             <img src={blank12} alt="T-Shirt" />
                             <p>Work Request</p>
                         </Link>
-                        <Link to="/form/event" className="gal-card">
+                        <Link to="#" className="gal-card">
                             <img src={blank13} alt="Event" />
                             <p>Customer Feedback</p>
                         </Link>
@@ -134,25 +134,25 @@ const Gallery = () => {
                 <div className="gal-section">
                     <h3 className="gal-section-title">Education</h3>
                     <div className="gal-card-grid">
-                        <Link to="/form/contact" className="gal-card">
-                            <img src={blank14} alt="Contact" />
-                            <p>Contact Information</p>
+                        <Link to="#" className="gal-card">
+                            <img src={blank14} alt="blankquiz" />
+                            <p>Blank Quiz</p>
                         </Link>
-                        <Link to="/form/findtime" className="gal-card">
-                            <img src={blank15} alt="Find Time" />
-                            <p>Find a Time</p>
+                        <Link to="#" className="gal-card">
+                            <img src={blank15} alt="exitticket" />
+                            <p>Exit Ticket</p>
                         </Link>
-                        <Link to="/form/rsvp" className="gal-card">
-                            <img src={blank16} alt="RSVP" />
-                            <p>RSVP</p>
+                        <Link to="#" className="gal-card">
+                            <img src={blank16} alt="Assessment" />
+                            <p>Assessment</p>
                         </Link>
-                        <Link to="/form/party" className="gal-card">
-                            <img src={blank17} alt="Party" />
-                            <p>Party Invite</p>
+                        <Link to="#" className="gal-card">
+                            <img src={blank17} alt="worksheet" />
+                            <p>Worksheet Title</p>
                         </Link>
-                        <Link to="/form/tshirt" className="gal-card">
-                            <img src={blank18} alt="T-Shirt" />
-                            <p>T-Shirt Sign Up</p>
+                        <Link to="#" className="gal-card">
+                            <img src={blank18} alt="course" />
+                            <p>Course Evaluation</p>
                         </Link>
                     </div>
                 </div>

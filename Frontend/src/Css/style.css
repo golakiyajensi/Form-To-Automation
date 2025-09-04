@@ -2482,98 +2482,437 @@ input:checked+.slider:before {
 }
 
 
+
 /* RSVP FORM CSS  */
 
 
-
-
-
-
-.container {
+/* Main Container */
+.rsvp-main-container {
     width: 60%;
+    margin: 0 auto;
+    padding: 30px 0;
     display: flex;
-    padding-top: 30px;
     flex-direction: column;
     align-items: center;
-    padding-bottom: 30px;
     font-family: "Segoe UI", Arial, sans-serif;
+    gap: 20px;
 }
 
-.bgpicture {
+/* Banner */
+.rsvp-bgpicture {
     background-image: url(/public/img/rsvp.jpg);
     width: 100%;
     height: 250px;
-    margin: 0 auto;
     background-size: cover;
     background-position: center;
     border-radius: 12px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
 
-.form-section-container {
+/* Event Section */
+.rsvp-form-section {
+    width: 100%;
     border: 1px solid #ddd;
-    width: 58%;
     border-radius: 10px;
     padding: 20px;
-    margin: 0 auto;
     background: #fff;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
 }
 
-.form-main-title {
+.rsvp-form-title {
     font-size: 32px;
     font-weight: 500;
     margin-bottom: 10px;
     color: #333;
-    text-align: left;
-    cursor: pointer;
-    transition: color 0.2s ease-in-out;
 }
 
-.form-main-title.active {
-    color: #1976d2;
-}
-
-.title-underline {
+.rsvp-title-underline {
     width: 100%;
     height: 2px;
     background: #1976d2;
     margin-bottom: 12px;
 }
 
-.toolbar {
+.rsvp-description-editable {
+    font-size: 16px;
+    line-height: 1.6;
+    outline: none;
+    border: none;
+    width: 420px;
+    min-height: 60px;
+    padding: 6px;
+    border-radius: 6px;
+}
+
+/* RSVP Question Card */
+.rsvp-question-card {
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    background: #fff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+/* Header */
+.rsvp-question-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 500;
+    padding-bottom: 30px;
+    cursor: pointer;
+}
+
+.rsvp-question-title {
+    flex: 1;
+}
+
+.rsvp-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Question text input */
+.rsvp-question-input {
+    flex: 1;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    font-size: 16px;
+    padding: 4px;
+    outline: none;
+    background: transparent;
+}
+
+.rsvp-question-input:focus {
+    border-bottom: 2px solid #4285f4;
+}
+
+
+/* Toolbar */
+.rsvp-toolbar {
     display: flex;
     gap: 10px;
     margin-bottom: 16px;
 }
 
-.toolbar-btn {
+.rsvp-toolbar-btn {
     background: #f5f5f5;
     border: 1px solid #ddd;
     border-radius: 6px;
     padding: 6px 10px;
     cursor: pointer;
-    transition: 0.2s;
     font-size: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.toolbar-btn:hover {
+.rsvp-toolbar-btn:hover {
     background: #e0e0e0;
 }
 
-.form-description-wrapper {
+/* Options */
+.rsvp-options {
+    margin: 12px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.rsvp-input,
+.rsvp-textarea,
+.rsvp-select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.rsvp-textarea {
+    min-height: 80px;
+}
+
+/* Footer */
+.rsvp-actions-footer-unique {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 12px;
+    padding-top: 40px;
+}
+
+.rsvp-icon {
+    font-size: 24px;
+    cursor: pointer;
+    color: #444;
+    margin-right: 40px;
+}
+
+.rsvp-icon:hover {
+    color: #1976d2;
+}
+
+/* Required toggle */
+.rsvp-required-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.rsvp-required-toggle input {
+    display: none;
+}
+
+.rsvp-slider {
+    width: 34px;
+    height: 18px;
+    background: #ccc;
+    border-radius: 20px;
+    position: relative;
+    transition: 0.3s;
+}
+
+.rsvp-slider::after {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 14px;
+    height: 14px;
+    background: white;
+    border-radius: 50%;
+    transition: 0.3s;
+}
+
+.rsvp-required-toggle input:checked+.rsvp-slider {
+    background: #1976d2;
+}
+
+.rsvp-required-toggle input:checked+.rsvp-slider::after {
+    transform: translateX(16px);
+}
+
+/* Long Answer Question */
+.rsvp-long-question-card {
+    width: 100%;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 10px auto;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+}
+
+.rsvp-long-question-label {
+    display: block;
+    font-size: 16px;
+    font-weight: 500;
+    color: #202124;
+    margin-bottom: 12px;
+}
+
+.rsvp-long-question-textarea {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    resize: none;
+    outline: none;
+    font-size: 14px;
+    padding: 4px 0;
+    font-family: inherit;
+    color: #333;
+    background: transparent;
+}
+
+.rsvp-long-question-textarea:focus {
+    border-bottom: 2px solid #4285f4;
+}
+
+
+/* section mcq  */
+
+.event-mcq-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 5px auto;
+    width: 100%;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+}
+
+.event-mcq-label {
+    display: block;
+    font-size: 16px;
+    font-weight: 500;
+    color: #202124;
+    margin-bottom: 16px;
+}
+
+.event-mcq-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.event-mcq-option {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+}
+
+
+.event-mcq-option input[type="radio"] {
+    margin-right: 10px;
+    accent-color: #4285f4;
+
+}
+
+/* comment section  */
+
+.comment-mcq-card {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 5px auto;
+    width: 100%;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+}
+
+.comment-mcq-label {
+    display: block;
+    font-size: 16px;
+    font-weight: 500;
+    color: #202124;
+    margin-bottom: 16px;
+}
+
+
+.comment-mcq-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+
+.comment-mcq-option {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+}
+
+.comment-mcq-option input[type="radio"] {
+    margin-right: 10px;
+    accent-color: #4285f4;
+}
+
+/* floating roolbarend  */
+
+
+
+
+
+.rsvp-floating-toolbarend {
+    position: fixed;
+    top: 250px;
+    right: 160px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+}
+
+.rsvp-toolbar-btnend {
+    background: #ffffff;
+    border: 1px solid #ffffff;
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    font-size: 18px;
+    color: #444;
+}
+
+/* Dynamic Field */
+.dynamic-field {
+
+
+    width: 100%;
+    border-radius: 8px;
+
+}
+
+/* Video Modal */
+.video-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+}
+
+.video-modal-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    width: 400px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.video-modal-content input {
+    width: 100%;
+    padding: 8px;
+    margin: 12px 0;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.modal-actions {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
     margin-top: 10px;
 }
 
-.form-description-editable {
-    font-size: 16px;
-    line-height: 1.6;
-    outline: none;
+.modal-actions button {
+    padding: 8px 16px;
     border: none;
-    min-height: 80px;
     border-radius: 6px;
-    white-space: pre-wrap;
+    cursor: pointer;
+    background: #1976d2;
+    color: #fff;
+}
+
+.modal-actions button:last-child {
+    background: #aaa;
 }
