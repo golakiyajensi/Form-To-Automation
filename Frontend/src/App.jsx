@@ -33,7 +33,7 @@ function AppWrapper() {
   const location = useLocation();
 
   // Hide header on these routes
-  const hideHeaderPaths = ["/question", "/responses", "/settings", "/templategallery", "/slide"];
+  const hideHeaderPaths = ["/question", "/responses", "/settings", "/templategallery", "/slide", "/gallery"];
   const showHeader = !hideHeaderPaths.includes(location.pathname);
 
   return (

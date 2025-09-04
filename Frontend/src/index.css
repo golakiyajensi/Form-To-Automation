@@ -1767,6 +1767,239 @@
     color: #1a73e8;
 }
 
+/* job application css */
+
+/* =============================== General Layout =================================*/
+.gform-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 16px;
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  color: #333;
+ 
+  background-color:"#d8eeec;"
+}
+
+/* =============================== Header Banner =================================*/
+.gform-header-banner img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+/* =============================== Header Title & Description =================================*/
+.gform-header {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.gform-title {
+  width: 100%;
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  border: none;
+  outline: none;
+  background: transparent;
+}
+
+.gform-desc {
+  width: 100%;
+  border: none;
+  outline: none;
+  resize: none;
+  font-size: 1rem;
+  color: #555;
+  background: transparent;
+}
+
+/* =============================== Form Cards =================================*/
+.gform-card {
+  background: #fff;
+  padding: 18px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.gform-label {
+  font-weight: 500;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.gform-required {
+  color: red;
+  font-weight: bold;
+}
+
+.gform-sub {
+  font-size: 0.9rem;
+  color: #777;
+  margin-bottom: 8px;
+}
+
+/* =============================== Input & Textarea (Underline Style) =================================*/
+.gform-input,
+.gform-textarea {
+  width: 100%;
+  padding: 8px 0;
+  border: none;
+  border-bottom: 1px solid #ccc; 
+  border-radius: 0; 
+  font-size: 1rem;
+  background: transparent;
+  transition: border-color 0.2s ease;
+}
+
+.gform-input:focus,
+.gform-textarea:focus {
+  border-bottom: 2px solid #4caf50; 
+  outline: none;
+}
+
+.gform-textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* =============================== Checkbox & Radio Options =================================*/
+.gform-checkbox label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  margin-bottom: 6px;
+  font-size: 1rem;
+}
+
+/* =============================== Dynamic Sections =================================*/
+.gform-section {
+  font-size: 1.3rem;
+  font-weight: 600;
+  border-bottom: 2px solid #eee;
+  margin-bottom: 12px;
+  padding-bottom: 6px;
+}
+
+/* =============================== Actions (delete, required toggle) =================================*/
+.gform-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+/* =============================== Submit Button =================================*/
+.gform-submit {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.gform-submit button {
+  background: #4caf50;
+  color: white;
+  font-size: 1.1rem;
+  padding: 12px 28px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.25s ease;
+}
+
+.gform-submit button:hover {
+  background: #43a047;
+}
+
+/* =============================== Floating Toolbar =================================*/
+.gform-toolbar {
+  position: fixed;
+  top: 50%;
+  right: 24px;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: #fff;
+  padding: 12px;
+  border-radius: 16px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+}
+
+.gform-toolbar button {
+  background: #f4f4f4;
+  border: none;
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: all 0.2s ease;
+}
+
+.gform-toolbar button:hover {
+  background: #e0e0e0;
+  transform: scale(1.05);
+}
+
+/* =============================== Responsive Design =================================*/
+@media (max-width: 992px) {
+  .gform-container {
+    padding: 12px;
+  }
+  .gform-title {
+    font-size: 1.6rem;
+  }
+  .gform-desc {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .gform-toolbar {
+    position: fixed;
+    top: auto;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transform: none;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 10px;
+    border-radius: 12px 12px 0 0;
+  }
+  .gform-toolbar button {
+    padding: 12px;
+  }
+}
+
+@media (max-width: 576px) {
+  .move-modal .modal-dialog {
+    width: 100%;
+    margin: 0;
+  }
+  .move-modal .modal-content {
+    height: 100vh;
+    border-radius: 0;
+  }
+  .gform-title {
+    font-size: 1.4rem;
+  }
+  .gform-desc {
+    font-size: 0.9rem;
+  }
+  .gform-submit button {
+    width: 100%;
+    font-size: 1rem;
+    padding: 12px;
+  }
+}
+
 /*---------- blank form start ---------- */
 /* Header start */
 .background{
@@ -2212,222 +2445,6 @@
   .move-modal .modal-dialog {
     max-width: 95%;
     margin: auto;
-
-
-
-
-
-
-
-
-/* job application css */
-
-/* =============================== General Layout =================================*/
-.gform-container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 16px;
-  font-family: "Segoe UI", Roboto, Arial, sans-serif;
-  color: #333;
- 
-  background-color:"#d8eeec;"
-}
-
-/* =============================== Header Banner =================================*/
-.gform-header-banner img {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-  border-radius: 12px;
-  margin-bottom: 20px;
-}
-
-/* =============================== Header Title & Description =================================*/
-.gform-header {
-  background: #fff;
-  padding: 20px;
-  border-radius: 12px;
-  margin-bottom: 20px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-}
-
-.gform-title {
-  width: 100%;
-  font-size: 1.8rem;
-  font-weight: 600;
-  margin-bottom: 10px;
-  border: none;
-  outline: none;
-  background: transparent;
-}
-
-.gform-desc {
-  width: 100%;
-  border: none;
-  outline: none;
-  resize: none;
-  font-size: 1rem;
-  color: #555;
-  background: transparent;
-}
-
-/* =============================== Form Cards =================================*/
-.gform-card {
-  background: #fff;
-  padding: 18px;
-  border-radius: 10px;
-  margin-bottom: 20px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-}
-
-.gform-label {
-  font-weight: 500;
-  display: block;
-  margin-bottom: 8px;
-}
-
-.gform-required {
-  color: red;
-  font-weight: bold;
-}
-
-.gform-sub {
-  font-size: 0.9rem;
-  color: #777;
-  margin-bottom: 8px;
-}
-
-/* =============================== Input & Textarea (Underline Style) =================================*/
-.gform-input,
-.gform-textarea {
-  width: 100%;
-  padding: 8px 0;
-  border: none;
-  border-bottom: 1px solid #ccc; 
-  border-radius: 0; 
-  font-size: 1rem;
-  background: transparent;
-  transition: border-color 0.2s ease;
-}
-
-.gform-input:focus,
-.gform-textarea:focus {
-  border-bottom: 2px solid #4caf50; 
-  outline: none;
-}
-
-.gform-textarea {
-  resize: vertical;
-  min-height: 100px;
-}
-
-/* =============================== Checkbox & Radio Options =================================*/
-.gform-checkbox label {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  cursor: pointer;
-  margin-bottom: 6px;
-  font-size: 1rem;
-}
-
-/* =============================== Dynamic Sections =================================*/
-.gform-section {
-  font-size: 1.3rem;
-  font-weight: 600;
-  border-bottom: 2px solid #eee;
-  margin-bottom: 12px;
-  padding-bottom: 6px;
-}
-
-/* =============================== Actions (delete, required toggle) =================================*/
-.gform-actions {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 10px;
-}
-
-/* =============================== Submit Button =================================*/
-.gform-submit {
-  text-align: center;
-  margin-top: 30px;
-}
-
-.gform-submit button {
-  background: #4caf50;
-  color: white;
-  font-size: 1.1rem;
-  padding: 12px 28px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background 0.25s ease;
-}
-
-.gform-submit button:hover {
-  background: #43a047;
-}
-
-/* =============================== Floating Toolbar =================================*/
-.gform-toolbar {
-  position: fixed;
-  top: 50%;
-  right: 24px;
-  transform: translateY(-50%);
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  background: #fff;
-  padding: 12px;
-  border-radius: 16px;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
-  z-index: 1000;
-}
-
-.gform-toolbar button {
-  background: #f4f4f4;
-  border: none;
-  padding: 10px;
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 1.1rem;
-  transition: all 0.2s ease;
-}
-
-.gform-toolbar button:hover {
-  background: #e0e0e0;
-  transform: scale(1.05);
-}
-
-/* =============================== Responsive Design =================================*/
-@media (max-width: 992px) {
-  .gform-container {
-    padding: 12px;
-  }
-  .gform-title {
-    font-size: 1.6rem;
-  }
-  .gform-desc {
-    font-size: 0.95rem;
-  }
-}
-
-@media (max-width: 768px) {
-  .gform-toolbar {
-    position: fixed;
-    top: auto;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    transform: none;
-    flex-direction: row;
-    justify-content: space-around;
-    padding: 10px;
-    border-radius: 12px 12px 0 0;
-  }
-  .gform-toolbar button {
-    padding: 12px;
   }
 }
 
@@ -2578,101 +2595,6 @@
 }
 
 /* form.jsx start */
-/* .form-content{
-  width: 770px;
-}
-
-.google-form-clone .card {
-  border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(60, 64, 67, 0.3), 
-              0 4px 8px 3px rgba(60, 64, 67, 0.15);
-  border: 1px solid transparent;
-  width: 100%;
-}
-
-.card-header-purple {
-  background-color: #673ab7;
-  height: 8px;
-}
-
-.google-form-clone .form-title-input,
-.google-form-clone .form-description-input,
-.google-form-clone .question-input,
-.google-form-clone .option-input {
-  border: none;
-  border-bottom: 2px solid transparent;
-  font-size: 1.5rem;
-  font-weight: 400;
-  padding: 8px 0;
-  transition: all 0.2s ease-in-out;
-}
-
-.google-form-clone .form-title-input {
-  font-size: 2rem;
-  font-weight: 500;
-}
-
-.google-form-clone .form-description-input {
-  font-size: 1rem;
-  font-weight: 400;
-}
-
-.google-form-clone .form-control:focus {
-  box-shadow: none;
-  border-color: #673ab7;
-}
-
-.google-form-clone .form-check-input:checked {
-  background-color: #673ab7;
-  border-color: #673ab7;
-}
-
-.google-form-clone .form-check-input {
-  margin-top: 0.5em;
-  cursor: pointer;
-} */
-
-/* Floating Toolbar */
-/* .floating-toolbar {
-  position: fixed;
-  right: 2rem;
-  bottom: 2rem;
-  z-index: 1000;
-  display: flex;
-  flex-direction: row;
-  background-color: white;
-  padding: 0.5rem;
-  border-radius: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.floating-toolbar .btn {
-  border: none;
-  background: transparent;
-  color: #5f6368;
-  font-size: 1.5rem;
-  padding: 0.5rem 1rem;
-}
-
-.floating-toolbar .btn:hover {
-  color: #673ab7;
-  background-color: #f0ebf8;
-} */
-
-/* Responsive */
-/* @media (min-width: 768px) {
-  .floating-toolbar {
-    position: sticky;
-    top: 2rem;
-    right: 0;
-    bottom: auto;
-    flex-direction: column;
-    border-radius: 8px;
-    padding: 0.5rem;
-  }
-} */
-
-
 body {
   font-family: 'Inter', sans-serif;
 }
@@ -2888,6 +2810,7 @@ body {
   border: none;
   border-bottom: 1px solid #cbcccd;
   border-radius: 0;
+  cursor: pointer;
 }
 
 /* .section-container{
@@ -2912,16 +2835,4 @@ body {
 
 .section-description-text{
   font-size: 16px;
-}
-  .gform-title {
-    font-size: 1.4rem;
-  }
-  .gform-desc {
-    font-size: 0.9rem;
-  }
-  .gform-submit button {
-    width: 100%;
-    font-size: 1rem;
-    padding: 12px;
-  }
 }

@@ -58,7 +58,7 @@ const Template = () => {
 
                     {/* Cards Section */}
                     <div className="tpl-cards">
-                        <Link to="/form/blank" className="tpl-card">
+                        <Link to="/question" className="tpl-card">
                             <img src={blank} alt="no-img" className="tpl-card-img" />
                             <p className="tpl-card-title">Blank</p>
                         </Link>
