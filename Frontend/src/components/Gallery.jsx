@@ -51,13 +51,13 @@ const Gallery = () => {
                         </Link>
                         <Link to="/form/contact" className="gal-card">
                             <img src={blank2} alt="Contact" />
-                            <p>Job Application</p>
+                            <p>Contact Information</p>
                         </Link>
                         <Link to="/form/rsvp" className="gal-card">
                             <img src={blank4} alt="RSVP" />
                             <p>RSVP</p>
                         </Link>
-                        <Link to="/form/party" className="gal-card">
+                        <Link to="/form/Partyinvite" className="gal-card">
                             <img src={blank3} alt="Party" />
                             <p>Party Invite</p>
                         </Link>
@@ -84,7 +84,7 @@ const Gallery = () => {
                             <img src={blank3} alt="RSVP" />
                             <p>RSVP</p>
                         </Link>
-                        <Link to="/form/party" className="gal-card">
+                        <Link to="/form/Partyinvite" className="gal-card">
                             <img src={blank5} alt="Party" />
                             <p>Party Invite</p>
                         </Link>
@@ -111,7 +111,7 @@ const Gallery = () => {
                             <img src={blank10} alt="Find Time" />
                             <p>Order Form</p>
                         </Link>
-                        <Link to="/form/rsvp" className="gal-card">
+                        <Link to="/form/jobApplication" className="gal-card">
                             <img src={blank4} alt="RSVP" />
                             <p>Job Application</p>
                         </Link>
