@@ -41,7 +41,11 @@ const Gallery = () => {
                 <div className="gal-section">
                     <h3 className="gal-section-title">Recently used templates</h3>
                     <div className="gal-card-grid">
+
                         <Link to="#" className="gal-card">
+
+                        <Link to="/question" className="gal-card">
+
                             <img src={blank} alt="Blank" />
                             <p>Blank form</p>
                         </Link>
@@ -61,8 +65,13 @@ const Gallery = () => {
                             <img src={blank3} alt="rsvp" />
                             <p>RSVP</p>
                         </Link>
+
                         <Link to="#" className="gal-card">
                             <img src={blank5} alt="party" />
+
+                        <Link to="/form/Partyinvite" className="gal-card">
+                            <img src={blank3} alt="Party" />
+
                             <p>Party Invite</p>
                         </Link>
                     </div>
@@ -84,7 +93,11 @@ const Gallery = () => {
                             <img src={blank3} alt="RSVP" />
                             <p>RSVP</p>
                         </Link>
+
                         <Link to="#" className="gal-card">
+
+                        <Link to="/form/Partyinvite" className="gal-card">
+
                             <img src={blank5} alt="Party" />
                             <p>Party Invite</p>
                         </Link>
@@ -111,7 +124,11 @@ const Gallery = () => {
                             <img src={blank10} alt="Find Time" />
                             <p>Order Form</p>
                         </Link>
+
                         <Link to="#" className="gal-card">
+
+                        <Link to="/form/jobApplication" className="gal-card">
+
                             <img src={blank4} alt="RSVP" />
                             <p>Job Application</p>
                         </Link>
@@ -134,8 +151,13 @@ const Gallery = () => {
                 <div className="gal-section">
                     <h3 className="gal-section-title">Education</h3>
                     <div className="gal-card-grid">
+
                         <Link to="#" className="gal-card">
                             <img src={blank14} alt="blankquiz" />
+
+                        <Link to="/quiz" state={{ templateType: "blank-quiz" }} className="gal-card">
+                            <img src={blank14} alt="Contact" />
+
                             <p>Blank Quiz</p>
                         </Link>
                         <Link to="#" className="gal-card">

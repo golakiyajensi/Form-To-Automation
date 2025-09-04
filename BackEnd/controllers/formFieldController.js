@@ -31,7 +31,8 @@ exports.createFormField = async (req, res) => {
       order_no,
       fieldImage,
       description,
-      response_validation
+      response_validation,
+      req.user.user_id 
     );
 
     res.json(response.success("Field created successfully", result));
