@@ -25,12 +25,12 @@ const Slides = () => {
   const API_URL = import.meta.env.VITE_FRONTEND_API_URL;
 
   const location = useLocation();
+  const navigate = useNavigate();
   const pathParts = location.pathname.split("/").filter(Boolean);
 
   const openImageModal = (url) => setModalImage(url);
   const closeImageModal = () => setModalImage(null);
 
-  const navigate = useNavigate();
   const apiRequest = async (url, options = {}) => {
     const config = {
       headers: {
@@ -53,19 +53,14 @@ const Slides = () => {
       const response = await apiRequest(`${API_URL}/api/slide/slides`);
       let data = Array.isArray(response.data) ? response.data : [];
 
-      console.log("Fetched slides:", data);
-
       // ✅ Role-based filtering
-      const role = localStorage.getItem("admin_role"); // e.g., 'creator' or 'admin'
-      const userId = localStorage.getItem("admin_id"); // current user's ID
-
+      const role = localStorage.getItem("admin_role");
+      const userId = localStorage.getItem("admin_id");
       if (role === "creator") {
         data = data.filter(
           (form) => String(form.created_by) === String(userId)
         );
       }
-
-      // If role is admin, show all slides (no filter)
 
       setSlides(data);
     } catch (err) {
@@ -135,7 +130,7 @@ const Slides = () => {
           <button
             onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
             disabled={currentPage === 1}
-            className="p-2 text-gray-400 hover:text-gray-600 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="p-2 text-gray-400 hover:text-gray-600 disabled:opacity-50"
           >
             <ChevronLeft className="w-4 h-4" />
           </button>
@@ -165,7 +160,7 @@ const Slides = () => {
               setCurrentPage(Math.min(totalPages, currentPage + 1))
             }
             disabled={currentPage === totalPages}
-            className="p-2 text-gray-400 hover:text-gray-600 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="p-2 text-gray-400 hover:text-gray-600 disabled:opacity-50"
           >
             <ChevronRight className="w-4 h-4" />
           </button>
@@ -174,7 +169,7 @@ const Slides = () => {
     );
   };
 
-  const MobileCard = ({ slide, index }) => (
+  const MobileCard = ({ slide }) => (
     <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200 mb-4">
       <div className="flex justify-between items-start mb-2">
         <div>
@@ -305,7 +300,7 @@ const Slides = () => {
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                  {currentItems.map((slide, idx) => (
+                  {currentItems.map((slide) => (
                     <tr key={slide.slide_id} className="hover:bg-gray-50">
                       <td className="px-6 py-4">
                         <input
@@ -371,8 +366,8 @@ const Slides = () => {
 
             {/* Mobile Cards */}
             <div className="lg:hidden">
-              {currentItems.map((slide, idx) => (
-                <MobileCard key={slide.slide_id} slide={slide} index={idx} />
+              {currentItems.map((slide) => (
+                <MobileCard key={slide.slide_id} slide={slide} />
               ))}
             </div>
 
