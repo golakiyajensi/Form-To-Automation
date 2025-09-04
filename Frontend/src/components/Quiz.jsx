@@ -20,7 +20,7 @@ import { Form, FormControl, FormCheck, FormSelect, Row, Col, Button, Modal, Drop
 
 
 export default function App() {
-  const [formTitle, setFormTitle] = useState('Untitled Form');
+  const [formTitle, setFormTitle] = useState('');
   const [formDescription, setFormDescription] = useState('Form description');
   const [elements, setElements] = useState([]);
   const [draggedElementId, setDraggedElementId] = useState(null);
@@ -644,8 +644,6 @@ const FormElement = ({ element, onRemove }) => {
       </div>
     )}
 
-
-
       {element.type === 'file' && (
         // <div className="form-card p-4 my-3 rounded shadow-sm">
           <div className="file-upload">
@@ -714,7 +712,7 @@ const FormElement = ({ element, onRemove }) => {
             {/* Section Footer/Navigation */}
             <div className="d-flex justify-content-between align-items-center p-4">
                 <h5 className="mb-0 text-muted">After section {elements.filter(el => el.type === 'section').findIndex(el => el.id === element.id) + 1}</h5>
-                <FormSelect className="w-auto ms-3">
+                <FormSelect className="w-auto ms-3 border-0 px-5">
                     <option selected>Continue to next section</option>
                     <option>Go to section 1</option>
                     <option>Go to section 2</option>
@@ -736,34 +734,41 @@ const FormElement = ({ element, onRemove }) => {
             <div className="card1 shadow mb-4 w-100 border-rounded-0">
               <div className="card-body">
                 <div
-                  contentEditable
-                  suppressContentEditableWarning={true}
-                  className="form-title-input text-box"
-                  onFocus={() => setActiveInputId('form-title')}
-                  onBlur={(e) => {
-                    setActiveInputId(null);
-                    setFormTitle(stripBidi(e.currentTarget.innerHTML));
-                  }}
-                  onKeyDown={(e) => {
-                    // Handle Tab key for indentation
-                    if (e.key === "Tab") {
-                      e.preventDefault();
-                      document.execCommand('insertHTML', false, "\u00a0\u00a0\u00a0\u00a0"); // insert 4 non-breaking spaces
-                    }
-                  }}
-                  dangerouslySetInnerHTML={{ __html: formTitle || "Untitled title" }}
-                  style={{
-                    minHeight: "40px",
-                    whiteSpace: "pre-wrap",
-                    overflowWrap: "break-word",
-                    outline: "none",               
-                    border: "none",                 
-                    borderBottom: "1px solid #ccc", 
-                    padding: "4px 0"                
-                  }}
-              ></div>
+  contentEditable
+  suppressContentEditableWarning={true}
+  className="form-title-input text-box"
+  onFocus={() => setActiveInputId("form-title")}
+  onBlur={(e) => {
+    setActiveInputId(null);
+    setFormTitle(stripBidi(e.currentTarget.innerHTML));
+  }}
+  onKeyDown={(e) => {
+    // Handle Tab key for indentation
+    if (e.key === "Tab") {
+      e.preventDefault();
+      document.execCommand(
+        "insertHTML",
+        false,
+        "\u00a0\u00a0\u00a0\u00a0" // insert 4 non-breaking spaces
+      );
+    }
+  }}
+  dangerouslySetInnerHTML={{
+    __html: formTitle || "Blank Quiz", // ✅ Changed here
+  }}
+  style={{
+    minHeight: "40px",
+    whiteSpace: "pre-wrap",
+    overflowWrap: "break-word",
+    outline: "none",
+    border: "none",
+    borderBottom: "1px solid #ccc",
+    padding: "4px 0",
+  }}
+></div>
 
-              {activeInputId === 'form-title' && <RichTextToolbar />}
+{activeInputId === "form-title" && <RichTextToolbar />}
+
 
               <div
                 contentEditable

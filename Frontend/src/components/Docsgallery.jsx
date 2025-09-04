@@ -21,10 +21,6 @@ import letter3 from "/img/letter3.png";
 import letter4 from "/img/letter4.png";
 import letter5 from "/img/letter5.png";
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 0500cc8c7ea5e4a3f46194db36d490507e29e6eb
 const Docsgallery = () => {
     const navigate = useNavigate();
 

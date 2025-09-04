@@ -2159,7 +2159,17 @@ body {
 }
 
 .navbar2 {
-  border-bottom: 1px solid #e3e1e1;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #fff; /* or your background color */
+  z-index: 1050; /* keeps it above modals & content */
+  border-bottom: 1px solid #ddd;
+}
+
+.background {
+  padding-top: 70px; 
 }
 
 .custom-navbar {
@@ -3328,5 +3338,4 @@ body {
 .section-description-text{
   font-size: 16px;
 }
-
 
