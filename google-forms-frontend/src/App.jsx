@@ -1,70 +1,10 @@
-// import Template from "./components/Template";
-// // import FormPage from "./components/FormPage";
-// import "../src/index.css";
-// import Gallery from "./components/Gallery";
-// import MainBody from "./components/MainBody";
-// import "bootstrap/dist/css/bootstrap.min.css";
-// import "bootstrap/dist/js/bootstrap.bundle.min.js";
-
-
-// import { useState } from 'react'
-// import './App.css'
-// import Header from './screen/Header'
-
-// import "bootstrap/dist/css/bootstrap.min.css";
-// import "bootstrap/dist/js/bootstrap.bundle.min.js"; // required for dropdown behavior
-// import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-// import "./CSS/style.css";
-
-// import Signin from "./Components/Signin.jsx";
-// import UseAccount from "./Components/UseAccount.jsx";
-// import Password from "./Components/Pasword.jsx";
-// import ForgotPassword from "./Components/ForgotPassword.jsx";
-
-// import SheetGallery from "./Components/SheetGallery.jsx";
-// import TemplateGallery from './Components/TemplateGallery.jsx';
-// // import FormBuilder from "./Components/FormPage.jsx";
-// import FormPage from "./Components/FormPage.jsx";
-// import Register from "./Components/register.jsx";
-// import Login from "./Components/login.jsx";
-// import Dashboard from "./Components/dashboard.jsx";
-// import FormBuilder from "./Components/formbuilder.jsx";
-// // import { AuthProvider } from "./context/authcontext.jsx";
-
-// import { AuthProvider } from "./context/authcontext.jsx"; // adjust path if needed
-
-// function App() {
-//   return (
-//     <AuthProvider>
-//       <Router>
-//         <Header />
-//         <Routes>
-//           <Route path='/dd' element={<Dashboard/>}></Route>
-//           <Route path='/register' element={<Register/>}></Route>
-//           <Route path='/' element={<Login/>}></Route>
-//           <Route path='/create' element={<FormBuilder/>}></Route>
-//           <Route path='/forgotpassword' element={<ForgotPassword/>}></Route>
-//           <Route path='/sheetgallery' element={<SheetGallery/>}></Route>
-//           <Route path='/templategallery' element={<TemplateGallery/>}></Route>
-//           <Route path="/gallery" element={<Gallery />} />
-//           <Route path="/form/:id" element={<FormPage/>} />
-//         </Routes>
-//       </Router>
-//     </AuthProvider>
-//   );
-// }
-
-// export default App;
-
-
-
 import { useState, useEffect } from 'react';
-import Layout from './Components/Layout.jsx';
-import Login from './Components/Login.jsx';
-import Dashboard from './Components/Dashboard.jsx';
-import FormBuilder from './Components/FormBuilder.jsx';
-import FormViewer from './Components/FormViewer.jsx';
-import ResponseViewer from './Components/ResponseViewer.jsx';
+import Layout from './components/Layout.jsx';
+import Login from './components/Login.jsx';
+import Dashboard from './components/Dashboard.jsx';
+import FormBuilder from './components/FormBuilder.jsx';
+import FormViewer from './components/FormViewer.jsx';
+import ResponseViewer from './components/ResponseViewer.jsx';
 import './App.css';
 
 function App() {
@@ -190,4 +130,3 @@ function App() {
 }
 
 export default App;
-  
