@@ -41,7 +41,7 @@ const Gallery = () => {
                 <div className="gal-section">
                     <h3 className="gal-section-title">Recently used templates</h3>
                     <div className="gal-card-grid">
-                        <Link to="/form/blank" className="gal-card">
+                        <Link to="/question" className="gal-card">
                             <img src={blank} alt="Blank" />
                             <p>Blank form</p>
                         </Link>

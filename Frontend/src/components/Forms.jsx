@@ -277,32 +277,69 @@ const FormElement = ({ element, onRemove }) => {
         <div className="form-card p-4 my-3 rounded shadow-sm">
           {/* Title Input */}
           <input
-            type="text"
-            className="form-control text-box mb-2"
-            value={element.content}
-            placeholder="Enter title"
-            onFocus={() => setActiveInputId(`${element.id}-title`)}
-            onBlur={() => setActiveInputId(null)}
-            onChange={(e) => updateQuestionContent(element.id, e.target.value)}
-          />
+            type="text"
+            className="text-box mb-2 w-100"
+            value={element.content}
+            placeholder="Enter title"
+            onFocus={() => setActiveInputId(`${element.id}-title`)}
+            onBlur={() => setActiveInputId(null)}
+            onChange={(e) => updateQuestionContent(element.id, e.target.value)}
+            style={{
+              border: "none",
+              borderBottom: "1px solid #ccc",
+              outline: "none",
+              padding: "4px 0",
+            }}
+          />
           {activeInputId === `${element.id}-title` && <RichTextToolbar />}
 
           {/* Description Input */}
           <div
-            contentEditable
-            suppressContentEditableWarning={true}
-            className="form-control text-box mb-2"
-            onFocus={() => setActiveInputId(`${element.id}-description`)}
-            onBlur={(e) => {
-                setActiveInputId(null);
-                updateQuestionDescription(element.id, e.currentTarget.textContent);
+            contentEditable
+            suppressContentEditableWarning={true}
+            className="text-box mb-2 mt-2"
+            onFocus={() => setActiveInputId(`${element.id}-description`)}
+            onBlur={(e) => {
+              setActiveInputId(null);
+              updateQuestionDescription(element.id, e.currentTarget.textContent);
             }}
-            style={{ color: !element.description ? "#2c2c2cff" : "#000" }} // gray for placeholder
-          >
-            {!element.description ? "Untitled description" : element.description}
-          </div>
+            style={{
+              minHeight: "30px",
+              border: "none",
+              borderBottom: "1px solid #ccc",
+              outline: "none",
+              padding: "4px 0",
+              color: !element.description ? "#2c2c2cff" : "#000",
+            }}
+          >
+            {!element.description ? "Untitled description" : element.description}
+          </div>
 
           {activeInputId === `${element.id}-description` && <RichTextToolbar />}
+            {/* // Below your input (conditionally render description input) */}
+            {element.showDescription && (
+               <input
+                type="text"
+                className="text-box mb-2 mt-2 w-100"
+                onFocus={() => setActiveInputId(`${element.id}-description1`)}
+                value={element.description || ""}
+                placeholder="Enter description"
+                onChange={(e) => {
+                  const updatedElements = elements.map((el) =>
+                    el.id === element.id ? { ...el, description: e.target.value } : el
+                  );
+                  setElements(updatedElements);
+                }}
+                style={{
+                  border: "none",
+                  borderBottom: "1px solid #ccc",
+                  outline: "none",
+                  padding: "4px 0",
+                }}
+              />
+            )}
+
+            {activeInputId === `${element.id}-description1` && <RichTextToolbar />}
 
           {/* Footer */}
           <div className="d-flex justify-content-end align-items-center pt-3 mt-3">
@@ -323,9 +360,27 @@ const FormElement = ({ element, onRemove }) => {
               onChange={() => toggleRequired(element.id)}
               className="mx-3"
             />
-            <Button variant="light">
-              <FontAwesomeIcon icon={faEllipsisV} />
-            </Button>
+            <Dropdown align="end">
+              <Dropdown.Toggle as={Button} variant="light" className="border-0">
+                <FontAwesomeIcon icon={faEllipsisV} />
+              </Dropdown.Toggle>
+
+              <Dropdown.Menu>
+                <Dropdown.Item
+                  onClick={() => {
+                    // Example: toggle description for this element
+                    const updatedElements = elements.map((el) =>
+                      el.id === element.id
+                        ? { ...el, showDescription: !el.showDescription }
+                        : el
+                    );
+                    setElements(updatedElements);
+                  }}
+                >
+                  {element.showDescription ? "Remove Description" : "Add Description"}
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
           </div>
         </div>
       )}
@@ -335,7 +390,7 @@ const FormElement = ({ element, onRemove }) => {
           <Row className="align-items-center mb-3">
             <Col xs={9}>
               <div
-                className="element-title"
+                className="element-title text-box pb-2 w-75"
                 contentEditable
                 suppressContentEditableWarning
                 ref={(el) => (editorRefs.current[element.id] = el)}
@@ -633,54 +688,62 @@ const FormElement = ({ element, onRemove }) => {
             <div className="card1 shadow mb-4 w-100 border-rounded-0">
               <div className="card-body">
                 <div
-                contentEditable
-                suppressContentEditableWarning={true}
-                className="form-title-input text-box form-control"
-                onFocus={() => setActiveInputId('form-title')}
-                onBlur={(e) => {
+                  contentEditable
+                  suppressContentEditableWarning={true}
+                  className="form-title-input text-box"
+                  onFocus={() => setActiveInputId('form-title')}
+                  onBlur={(e) => {
                     setActiveInputId(null);
                     setFormTitle(stripBidi(e.currentTarget.innerHTML));
                   }}
-                onKeyDown={(e) => {
-                  // Handle Tab key for indentation
-                  if (e.key === "Tab") {
-                    e.preventDefault();
-                    document.execCommand('insertHTML', false, "\u00a0\u00a0\u00a0\u00a0"); // insert 4 non-breaking spaces
-                  }
-                }}
-                dangerouslySetInnerHTML={{ __html: formTitle || "Untitled title" }}
-                style={{
-                  minHeight: "40px",
-                  whiteSpace: "pre-wrap",
-                  overflowWrap: "break-word"
-                }}
-              ></div>
+                  onKeyDown={(e) => {
+                    // Handle Tab key for indentation
+                    if (e.key === "Tab") {
+                      e.preventDefault();
+                      document.execCommand('insertHTML', false, "\u00a0\u00a0\u00a0\u00a0"); // insert 4 non-breaking spaces
+                    }
+                  }}
+                  dangerouslySetInnerHTML={{ __html: formTitle || "Untitled title" }}
+                  style={{
+                    minHeight: "40px",
+                    whiteSpace: "pre-wrap",
+                    overflowWrap: "break-word",
+                    outline: "none",               
+                    border: "none",                 
+                    borderBottom: "1px solid #ccc", 
+                    padding: "4px 0"                
+                  }}
+                ></div>
 
               {activeInputId === 'form-title' && <RichTextToolbar />}
 
               <div
-                contentEditable
-                suppressContentEditableWarning={true}
-                className="form-control text-box mt-4"
-                onFocus={() => setActiveInputId('form-description')}
-                onBlur={(e) => {
-                    setActiveInputId(null);
-                    setFormDescription(stripBidi(e.currentTarget.innerHTML));
-                  }}
-                onKeyDown={(e) => {
-                  // Handle Tab key for indentation
-                  if (e.key === "Tab") {
-                    e.preventDefault();
-                    document.execCommand('insertHTML', false, "\u00a0\u00a0\u00a0\u00a0"); // insert 4 non-breaking spaces
-                  }
-                }}
-                dangerouslySetInnerHTML={{ __html: formDescription || "Untitled description" }}
-                style={{
-                  minHeight: "40px",
-                  whiteSpace: "pre-wrap",
-                  overflowWrap: "break-word"
-                }}
-              ></div>
+                contentEditable
+                suppressContentEditableWarning={true}
+                className="text-box mt-4"
+                onFocus={() => setActiveInputId('form-description')}
+                onBlur={(e) => {
+                  setActiveInputId(null);
+                  setFormDescription(stripBidi(e.currentTarget.innerHTML));
+                }}
+                onKeyDown={(e) => {
+                  // Handle Tab key for indentation
+                  if (e.key === "Tab") {
+                    e.preventDefault();
+                    document.execCommand('insertHTML', false, "\u00a0\u00a0\u00a0\u00a0"); // insert 4 non-breaking spaces
+                  }
+                }}
+                dangerouslySetInnerHTML={{ __html: formDescription || "Untitled description" }}
+                style={{
+                  minHeight: "40px",
+                  whiteSpace: "pre-wrap",
+                  overflowWrap: "break-word",
+                  outline: "none",                // remove blue outline
+                  border: "none",                 // remove all borders
+                  borderBottom: "1px solid #ccc", // add only bottom border
+                  padding: "4px 0"                // adjust padding
+                }}
+              ></div>
 
               {activeInputId === 'form-description' && <RichTextToolbar />}
 
@@ -770,7 +833,7 @@ const FormElement = ({ element, onRemove }) => {
                             type: "video",
                             content: parseYouTubeUrl(videoUrl) || "https://www.youtube.com/embed/dQw4w9WgXcQ",
                           };
-                          setElements((prev) => [...prev, newElement]); // 👈 add to form
+                          setElements((prev) => [...prev, newElement]); 
                           setVideoUrl(""); // clear input
                           setShowVideoModal(false); // close modal
                         }
