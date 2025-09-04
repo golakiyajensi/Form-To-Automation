@@ -206,14 +206,8 @@ const Header = () => {
             <li
               className="d-flex align-items-center mb-1"
               style={{ cursor: "pointer" }}
-<<<<<<< HEAD
               onClick={() => navigate("/docsgallery")}
 
-=======
-              onClick={() =>
-                handleSidebarClick("/img/docs.png", "Docs", "/docstemplate")
-              }
->>>>>>> 0500cc8c7ea5e4a3f46194db36d490507e29e6eb
             >
               <img src="/img/docs.png" alt="Docs" className="sidelogo me-2" />
               Docs
