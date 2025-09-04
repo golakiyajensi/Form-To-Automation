@@ -4,7 +4,7 @@ import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "./App.css";
 
 // Components
-import Header from "./screen/Header";
+import Header from "./screen/Header.jsx";
 import Signin from "./Components/Signin.jsx";
 import UseAccount from "./Components/UseAccount.jsx";
 import Password from "./Components/Pasword.jsx";
@@ -15,19 +15,17 @@ import BlankForm from "./Components/BlankForm.jsx";
 import Form from "./Components/Forms.jsx";
 import Response from "./Components/Response.jsx";
 import Setting from "./Components/Setting.jsx";
-import Template from "./components/Template";
-import FormPage from "./components/FormPage";
-import Gallery from "./components/Gallery";
+import Template from "./components/Template.jsx";
+import FormPage from "./components/FormPage.jsx";
+import Gallery from "./components/Gallery.jsx";
+import SheetGallery from "./components/SheetGallery.jsx";
+import TemplateGallery from "./components/TempateGallery.jsx";
 import Docstemplate from "./components/Docstemplate.jsx";
 import Docsgallery from "./components/Docsgallery.jsx";
 import JobApplicationForm from "./components/JobApplication.jsx";
 import SlideGallery from "./components/SlideGallery.jsx";
 import Slidetemplate from "./components/Slidetemplate.jsx";
-
-// Temporary components
-const Docs = () => <h2 className="p-3">Docs Page</h2>;
-const Sheets = () => <h2 className="p-3">Sheets Page</h2>;
-const Forms = () => <h2 className="p-3">Forms Page</h2>;
+import RsvpForm from "./components/RsvpForm.jsx";
 
 function AppWrapper() {
   const location = useLocation();
@@ -41,10 +39,17 @@ function AppWrapper() {
       {showHeader && <Header />}
       <Routes>
         {/* Main Routes */}
-        <Route path="/docs" element={<Docs />} />
-        <Route path="/sheets" element={<Sheets />} />
+        <Route path="/forms" element={<Form />} />
+        <Route path="/form/:id" element={<FormPage />} />
+        <Route path="/form/jobapplication" element={<JobApplicationForm />} />
+        <Route path="/form/rsvpform" element={<RsvpForm />} />
+
+        {/* Docs & Sheets */}
+        <Route path="/docstemplate" element={<Docstemplate />} />
+        <Route path="/docsgallery" element={<Docsgallery />} />
+        <Route path="/sheets" element={<SheetGallery />} />
         <Route path="/slidetemplate" element={<Slidetemplate />} />
-        <Route path="/forms" element={<Forms />} />
+        <Route path="/slidegallery" element={<SlideGallery />} />
 
         {/* Auth Routes */}
         <Route path="/signin" element={<Signin />} />
@@ -57,42 +62,9 @@ function AppWrapper() {
         <Route path="/templategallery" element={<TemplateGallery />} />
         <Route path="/formgallery" element={<Template />} />
         <Route path="/gallery" element={<Gallery />} />
-        <Route path="/form/:id" element={<FormPage />} />
-        <Route path="/docstemplate" element={<Docstemplate />} />
-        <Route path="/docsgallery" element={<Docsgallery />} />
-        <Route path="/SlideGallery" element={<SlideGallery />} />
-
-        {/* Blank Form with child pages */}
-        <Route
-          path="/question"
-          element={
-            <>
-              <BlankForm />
-              <Form />
-            </>
-          }
-        />
-        <Route
-          path="/responses"
-          element={
-            <>
-              <BlankForm />
-              <Response />
-            </>
-          }
-        />
-        <Route
-          path="/settings"
-          element={
-            <>
-              <BlankForm />
-              <Setting />
-            </>
-          }
-        />
-
-        {/* Job application form */}
-        <Route path="/form/jobapplication" element={<JobApplicationForm />} />
+        <Route path="/blankform" element={<BlankForm />} />
+        <Route path="/response" element={<Response />} />
+        <Route path="/settings" element={<Setting />} />
       </Routes>
     </>
   );
@@ -107,4 +79,3 @@ function App() {
 }
 
 export default App;
-

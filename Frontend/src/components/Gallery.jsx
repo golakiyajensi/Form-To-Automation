@@ -6,7 +6,7 @@ import blank from "/img/blank1.png";
 import blank8 from "/img/blank8.png";
 import blank2 from "/img/blank2.png";
 import blank4 from "/img/blank4.png";
-import blank3 from "/img/blank3.png";
+import blank3 from "/img/blank3.png"; 
 import blank5 from "/img/blank5.png";
 import blank6 from "/img/blank6.png";
 import blank7 from "/img/blank7.png";
