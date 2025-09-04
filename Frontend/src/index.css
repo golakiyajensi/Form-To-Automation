@@ -1798,15 +1798,6 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
-.gform-title {
-  width: 100%;
-  font-size: 1.8rem;
-  font-weight: 600;
-  margin-bottom: 10px;
-  border: none;
-  outline: none;
-  background: transparent;
-}
 
 .gform-desc {
   width: 100%;
