@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { Search, Eye, Edit, Trash2, ChevronLeft, ChevronRight } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Forms = () => {
   const [forms, setForms] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedItems, setSelectedItems] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const [modalImage, setModalImage] = useState(null);
 
   const itemsPerPage = 10;
@@ -18,12 +18,15 @@ const Forms = () => {
   const API_URL = import.meta.env.VITE_FRONTEND_API_URL;
 
   const navigate = useNavigate();
+  const location = useLocation();
+  const pathParts = location.pathname.split("/").filter(Boolean);
 
   const apiRequest = async (url, options = {}) => {
     const config = {
       headers: {
         "Content-Type": "application/json",
         ...(token && { Authorization: `Bearer ${token}` }),
+        ...options.headers,
       },
       ...options,
     };
@@ -40,6 +43,7 @@ const Forms = () => {
       const response = await apiRequest(`${API_URL}/api/forms/`);
       let data = Array.isArray(response.data) ? response.data : [];
 
+      // role-based filter
       const role = localStorage.getItem("admin_role");
       const userId = localStorage.getItem("admin_id");
 
@@ -63,7 +67,7 @@ const Forms = () => {
   const filteredItems = forms.filter((form) => {
     const title = form.title || "";
     const description = form.description || "";
-    const createdBy = form.created_by || "";
+    const createdBy = form.created_by?.toString() || "";
     return (
       title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       description.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -92,9 +96,18 @@ const Forms = () => {
     <div className="min-h-screen bg-gray-50 p-4 sm:p-6">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="mb-6">
-          <h1 className="text-2xl font-bold text-gray-800">Forms</h1>
-          <p className="text-gray-500 text-sm">Manage all forms</p>
+        <div className="mb-6 sm:mb-8">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between space-y-2 sm:space-y-0">
+            <h1 className="text-xl sm:text-2xl font-bold text-gray-700">FORMS</h1>
+            <div className="flex items-center text-xs sm:text-sm text-gray-500">
+              {pathParts.map((part, index) => (
+                <span key={index}>
+                  {part.charAt(0).toUpperCase() + part.slice(1)}
+                  {index < pathParts.length - 1 && <span className="mx-2">/</span>}
+                </span>
+              ))}
+            </div>
+          </div>
         </div>
 
         {/* Search */}
@@ -132,6 +145,7 @@ const Forms = () => {
             </button>
           </div>
         )}
+
         {!loading && !error && currentItems.length === 0 && (
           <div className="text-center py-12 text-gray-500">No forms found</div>
         )}

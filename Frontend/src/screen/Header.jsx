@@ -26,18 +26,14 @@ const Header = () => {
     {
       name: "Divyesh",
       email: "divyesh1234@gmail.com",
-      photo: "/img/logo.png",
+      photo: "/img/user-11.jpg",
     },
     {
       name: "John Doe",
       email: "john.doe@gmail.com",
-      photo: "/img/form.png",
+      photo: "/img/user-30.jpg",
     },
-    {
-      name: "Jane Smith",
-      email: "jane.smith@gmail.com",
-      photo: "/img/user.png",
-    },
+    
   ];
 
   // Close profile dropdown on outside click
@@ -112,7 +108,7 @@ const Header = () => {
               {profileOpen && (
                 <div
                   className="card shadow border-0 position-absolute end-0 mt-3"
-                  style={{ width: "400px", zIndex: 1050 }}
+                  style={{ width: "350px", zIndex: 1050 }}
                 >
                   <div className="card-body text-center">
                     <img
