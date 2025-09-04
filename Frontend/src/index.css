@@ -415,7 +415,7 @@
     font-weight: 500;
 }
 
-/* ✅ Grid Layout */
+/*  Grid Layout */
 .template-grid1 {
     display: grid;
     gap: 20px;
@@ -1777,7 +1777,9 @@
 
 /* job application css */
 
-/* =============================== General Layout =================================*/
+/* =============
+ General Layout 
+===============*/
 .gform-container {
   max-width: 800px;
   margin: 0 auto;
@@ -1788,7 +1790,9 @@
   background-color:"#d8eeec;"
 }
 
-/* =============================== Header Banner =================================*/
+/* ============
+ Header Banner 
+==============*/
 .gform-header-banner img {
   width: 100%;
   height: auto;
@@ -1797,7 +1801,9 @@
   margin-bottom: 20px;
 }
 
-/* =============================== Header Title & Description =================================*/
+/* =========================
+ Header Title & Description 
+===========================*/
 .gform-header {
   background: #fff;
   padding: 20px;
@@ -1826,7 +1832,9 @@
   background: transparent;
 }
 
-/* =============================== Form Cards =================================*/
+/* =========
+ Form Cards 
+===========*/
 .gform-card {
   background: #fff;
   padding: 18px;
@@ -1852,7 +1860,9 @@
   margin-bottom: 8px;
 }
 
-/* =============================== Input & Textarea (Underline Style) =================================*/
+/* ===============================
+ Input & Textarea (Underline Style) 
+=================================*/
 .gform-input,
 .gform-textarea {
   width: 100%;
@@ -1876,7 +1886,9 @@
   min-height: 100px;
 }
 
-/* =============================== Checkbox & Radio Options =================================*/
+/* =======================
+ Checkbox & Radio Options 
+=========================*/
 .gform-checkbox label {
   display: flex;
   align-items: center;
@@ -1886,7 +1898,9 @@
   font-size: 1rem;
 }
 
-/* =============================== Dynamic Sections =================================*/
+/* ==============
+ Dynamic Sections 
+================*/
 .gform-section {
   font-size: 1.3rem;
   font-weight: 600;
@@ -1895,7 +1909,9 @@
   padding-bottom: 6px;
 }
 
-/* =============================== Actions (delete, required toggle) =================================*/
+/* ===============================
+ Actions (delete, required toggle) 
+=================================*/
 .gform-actions {
   display: flex;
   justify-content: space-between;
@@ -1903,7 +1919,9 @@
   margin-top: 10px;
 }
 
-/* =============================== Submit Button =================================*/
+/* ===========
+ Submit Button 
+=============*/
 .gform-submit {
   text-align: center;
   margin-top: 30px;
@@ -1924,7 +1942,9 @@
   background: #43a047;
 }
 
-/* =============================== Floating Toolbar =================================*/
+/* ==============
+ Floating Toolbar 
+================*/
 .gform-toolbar {
   position: fixed;
   top: 50%;
@@ -1955,7 +1975,9 @@
   transform: scale(1.05);
 }
 
-/* =============================== Responsive Design =================================*/
+/* ===============
+ Responsive Design 
+================*/
 @media (max-width: 992px) {
   .gform-container {
     padding: 12px;
@@ -1997,5 +2019,147 @@
     width: 100%;
     font-size: 1rem;
     padding: 12px;
+  }
+}
+
+
+/* party invite css */
+body {
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  background-color: #f3f1f9;
+  margin: 0;
+  padding: 0;
+}
+
+.form-page {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  position: relative;
+}
+
+.form-container {
+  background: white;
+  border-radius: 8px;
+  max-width: 770px;
+  width: 100%;
+  padding: 0 0 40px;
+}
+
+.form-header-image img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.form-section {
+  background: white;
+  margin: 20px 15px;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.title-section {
+  border-top: 6px solid #673ab7;
+}
+
+.form-title {
+  width: 100%;
+  border: none;
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.form-desc {
+  width: 100%;
+  border: none;
+  margin-top: 10px;
+  font-size: 14px;
+  resize: none;
+}
+
+.title-divider {
+  border-bottom: 2px solid #673ab7;
+  margin: 10px 0;
+}
+
+.form-section label {
+  display: block;
+  font-size: 15px;
+  margin-bottom: 8px;
+}
+
+.required {
+  color: red;
+}
+
+.form-section input[type="text"],
+.form-section input[type="email"] {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  padding: 5px;
+  font-size: 14px;
+}
+
+.form-section input:focus {
+  outline: none;
+  border-bottom: 2px solid #673ab7;
+}
+
+.form-option {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.form-option input {
+  margin-right: 10px;
+}
+
+.hint {
+  color: #666;
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+
+.form-toolbar {
+  position: absolute;
+  right: 20px;
+  top: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  background: white;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+
+.form-toolbar button {
+  border: none;
+  background: transparent;
+  font-size: 18px;
+  cursor: pointer;
+  color: #555;
+}
+
+.form-toolbar button:hover {
+  color: #673ab7;
+}
+
+@media (max-width: 768px) {
+  .form-page {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .form-toolbar {
+    position: static;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 20px;
   }
 }

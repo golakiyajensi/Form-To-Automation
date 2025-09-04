@@ -78,7 +78,7 @@ const Template = () => {
                             <img src={blank3} alt="no-img" className="tpl-card-img" />
                             <p className="tpl-card-title">RSVP</p>
                         </Link>
-                        <Link to="/form/rsvp" className="tpl-card">
+                        <Link to="/form/Partyinvite" className="tpl-card">
                             <img src={blank5} alt="no-img" className="tpl-card-img" />
                             <p className="tpl-card-title">Party Invite</p>
                         </Link>
