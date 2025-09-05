@@ -41,15 +41,11 @@ const Gallery = () => {
                 <div className="gal-section">
                     <h3 className="gal-section-title">Recently used templates</h3>
                     <div className="gal-card-grid">
-
-                        {/* <Link to="#" className="gal-card"> */}
-
                         <Link to="/question" className="gal-card">
-
                             <img src={blank} alt="Blank" />
                             <p>Blank form</p>
                         </Link>
-                        <Link to="#" className="gal-card">
+                        <Link to="/form/findtime" className="gal-card">
                             <img src={blank8} alt="find" />
                             <p>Find a Time</p>
                         </Link>
@@ -82,7 +78,7 @@ const Gallery = () => {
                             <img src={blank2} alt="Contact" />
                             <p>Contact Information</p>
                         </Link>
-                        <Link to="#" className="gal-card">
+                        <Link to="/form/findtime" className="gal-card">
                             <img src={blank8} alt="Find Time" />
                             <p>Find a Time</p>
                         </Link>
@@ -98,14 +94,14 @@ const Gallery = () => {
                             <p>Party Invite</p>
                         </Link>
 
-                        <Link to="/form/T-shirtsignup" className="gal-card">
+                        {/* <Link to="/form/T-shirtsignup" className="gal-card"> */}
 
                         <Link to="#" className="gal-card">
 
                             <img src={blank6} alt="T-Shirt" />
                             <p>T-Shirt Sign Up</p>
                         </Link>
-                        <Link to="#" className="gal-card">
+                        <Link to="/form/eventregistration" className="gal-card">
                             <img src={blank7} alt="Event" />
                             <p>Event registration</p>
                         </Link>
@@ -121,7 +117,7 @@ const Gallery = () => {
                             <img src={blank9} alt="Contact" />
                             <p>Event Feedback</p>
                         </Link>
-                        <Link to="/form/Orderform" className="gal-card">
+                        {/* <Link to="/form/Orderform" className="gal-card"> */}
 
                         <Link to="#" className="gal-card">
                             <img src={blank9} alt="Contact" />
@@ -180,7 +176,7 @@ const Gallery = () => {
                             <img src={blank17} alt="worksheet" />
                             <p>Worksheet Title</p>
                         </Link>
-                        <Link to="#" className="gal-card">
+                        <Link to="/form/evaluation" className="gal-card">
                             <img src={blank18} alt="course" />
                             <p>Course Evaluation</p>
                         </Link>
