@@ -88,7 +88,7 @@ const Gallery = () => {
                             <img src={blank5} alt="Party" />
                             <p>Party Invite</p>
                         </Link>
-                        <Link to="/form/tshirt" className="gal-card">
+                        <Link to="/form/T-shirtsignup" className="gal-card">
                             <img src={blank6} alt="T-Shirt" />
                             <p>T-Shirt Sign Up</p>
                         </Link>
@@ -103,11 +103,11 @@ const Gallery = () => {
                 <div className="gal-section">
                     <h3 className="gal-section-title">Work</h3>
                     <div className="gal-card-grid">
-                        <Link to="/form/contact" className="gal-card">
+                        <Link to="/form/Eventfeedback" className="gal-card">
                             <img src={blank9} alt="Contact" />
                             <p>Event Feedback</p>
                         </Link>
-                        <Link to="/form/findtime" className="gal-card">
+                        <Link to="/form/Orderform" className="gal-card">
                             <img src={blank10} alt="Find Time" />
                             <p>Order Form</p>
                         </Link>

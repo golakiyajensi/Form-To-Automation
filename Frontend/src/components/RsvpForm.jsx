@@ -4,7 +4,7 @@ import {
     FaItalic,
     FaUnderline,
     FaLink,
-    FaListUl,
+    FaListUl
 } from "react-icons/fa";
 
 const RsvpForm = () => {
