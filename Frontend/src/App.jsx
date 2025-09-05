@@ -16,45 +16,31 @@ import BlankForm from "./Components/BlankForm.jsx";
 import Form from "./Components/Forms.jsx";
 import Response from "./Components/Response.jsx";
 import Setting from "./Components/Setting.jsx";
-
 import Template from "./components/Template.jsx";
 import FormPage from "./components/FormPage.jsx";
 import Gallery from "./components/Gallery.jsx";
-
 import Docstemplate from "./components/Docstemplate.jsx";
 import Docsgallery from "./components/Docsgallery.jsx";
 import JobApplicationForm from "./components/JobApplication.jsx";
 import SlideGallery from "./components/SlideGallery.jsx";
 import Slidetemplate from "./components/Slidetemplate.jsx";
-
-import RsvpForm from "./components/RsvpForm.jsx";  
+import RSVP from "./components/RsvpForm.jsx";
 import Quiz from "./components/Quiz.jsx";
-import PartyInviteForm from "./components/PartyInvite.jsx";
-import OrderForm from "./components/Orderform.jsx";
-import EventFeedbackForm from "./components/Eventfeedback.jsx";
-import TShirtForm from "./components/T-shirtsignup.jsx";
-
+import PartyInvite from "./components/PartyInvite.jsx";
+import ExitTicket from "./components/ExitTicket.jsx";
+import Feedback from "./components/Feedback.jsx";
+import Assesment from "./components/Assesment.jsx";
 
 // Temporary components
 const Docs = () => <h2 className="p-3">Docs Page</h2>;
 const Sheets = () => <h2 className="p-3">Sheets Page</h2>;
+const Forms = () => <h2 className="p-3">Forms Page</h2>;
 
 function AppWrapper() {
   const location = useLocation();
 
   // Hide header on these routes
-  const hideHeaderPaths = [
-    "/question",
-    "/responses",
-    "/settings",
-    "/templategallery",
-    "/slide",
-    "/gallery",
-    "/form/rsvp",
-    "/form/rsvpform",
-    "/quiz"
-  ];
-
+  const hideHeaderPaths = ["/question", "/responses", "/settings", "/templategallery", "/slide", "/gallery", "/form/rsvp", "/quiz", "/assesment"];
   const showHeader = !hideHeaderPaths.includes(location.pathname);
 
   return (
@@ -65,15 +51,10 @@ function AppWrapper() {
         <Route path="/" element={<Slidetemplate />} />
         <Route path="/forms" element={<Form />} />
         <Route path="/form/:id" element={<FormPage />} />
-        <Route path="/form/jobapplication" element={<JobApplicationForm />} />
 
-        {/*  Uncomment only if you have this file */}
-        <Route path="/form/Partyinvite" element={<PartyInviteForm />} />
-        <Route path="/form/Orderform" element={<OrderForm />} />
-        <Route path="/form/Eventfeedback" element={<EventFeedbackForm />} />
-        <Route path="/form/T-shirtsignup" element={<TShirtForm />} />
-
-        <Route path="/form/rsvpform" element={<RsvpForm />} />
+        <Route path="/form/jobapplication" element={<><BlankForm /><JobApplicationForm /></>} />
+        {/* <Route path="/form/partyinvite" element={<PartyInviteForm />} /> */}
+        {/* <Route path="/form/rsvpform" element={<RsvpForm />} /> */}
 
         {/* Docs & Sheets */}
         <Route path="/docs" element={<Docs />} />
@@ -147,6 +128,37 @@ function AppWrapper() {
             </>
           }
         />
+
+        <Route
+          path="/partyinvite"
+          element={
+            <>
+              <BlankForm /><PartyInvite />
+            </>}
+          />
+
+          <Route
+          path="/exitticket"
+          element={
+            <>
+              <BlankForm /><ExitTicket />
+            </>}
+          />
+          
+          <Route
+          path="/feedback"
+          element={
+            <>
+              <BlankForm /><Feedback />
+            </>}
+          />
+          <Route
+          path="/assesment"
+          element={
+            <>
+              <BlankForm /><Assesment/>
+            </>}
+          />
       </Routes>
     </>
   );
