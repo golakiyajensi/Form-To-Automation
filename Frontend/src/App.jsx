@@ -51,6 +51,7 @@ function AppWrapper() {
         <Route path="/" element={<Slidetemplate />} />
         <Route path="/forms" element={<Form />} />
         <Route path="/form/:id" element={<FormPage />} />
+
         <Route path="/form/jobapplication" element={<><BlankForm /><JobApplicationForm /></>} />
         {/* <Route path="/form/partyinvite" element={<PartyInviteForm />} /> */}
         {/* <Route path="/form/rsvpform" element={<RsvpForm />} /> */}
