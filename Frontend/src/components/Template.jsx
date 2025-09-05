@@ -73,7 +73,7 @@ const Template = () => {
                     {/* Cards Section */}
                     <div className="tpl-cards">
 
-                        <Link to="/forms" className="tpl-card">
+                        {/* <Link to="/forms" className="tpl-card"> */}
 
                         <Link to="/question" className="tpl-card">
 
@@ -104,8 +104,8 @@ const Template = () => {
                 </div>
             </div>
 
+            {/* <Link to="/form/jobapplication" className="tpl-card">
 
-            <Link to="/form/jobapplication" className="tpl-card">
               <img src={blank4} alt="no-img" className="tpl-card-img" />
               <p className="tpl-card-title">Job Application</p>
             </Link>
@@ -121,7 +121,7 @@ const Template = () => {
             </Link>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* Dashboard Section */}
       <div className="dashboard">

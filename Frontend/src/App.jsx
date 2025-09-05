@@ -39,6 +39,9 @@ import PartyInvite from "./components/PartyInvite.jsx";
 import ExitTicket from "./components/ExitTicket.jsx";
 import Feedback from "./components/Feedback.jsx";
 import Assesment from "./components/Assesment.jsx";
+import TimeOffRequest from "./components/TimeOffRequest.jsx";
+import WorkRequest from "./components/WorkRequest.jsx";
+import Worksheet from "./components/Worksheet.jsx";
 
 
 
@@ -52,21 +55,7 @@ function AppWrapper() {
   const location = useLocation();
 
   // Hide header on these routes
-
-  const hideHeaderPaths = [
-    "/question",
-    "/responses",
-    "/settings",
-    "/templategallery",
-    "/slide",
-    "/gallery",
-    "/form/rsvp",
-    "/form/rsvpform",
-    "/quiz"
-  ];
-
-
-  const hideHeaderPaths = ["/question", "/responses", "/settings", "/templategallery", "/slide", "/gallery", "/form/rsvp", "/quiz", "/assesment"];
+  const hideHeaderPaths = ["/question", "/responses", "/settings", "/templategallery", "/slide", "/gallery", "/form/rsvp", "/quiz", "/assesment", "/timeoffrequest", "/workrequest", "/form/jobapplication"];
 
   const showHeader = !hideHeaderPaths.includes(location.pathname);
 
@@ -75,7 +64,7 @@ function AppWrapper() {
       {showHeader && <Header />}
       <Routes>
         {/* Main Routes */}
-        <Route path="/" element={<Slidetemplate />} />
+        <Route path="/" element={<Template />} />
         <Route path="/forms" element={<Form />} />
         <Route path="/form/:id" element={<FormPage />} />
 
@@ -88,7 +77,6 @@ function AppWrapper() {
         <Route path="/form/T-shirtsignup" element={<TShirtForm />} />
 
         <Route path="/form/rsvpform" element={<RsvpForm />} />
-
 
         <Route path="/form/jobapplication" element={<><BlankForm /><JobApplicationForm /></>} />
         {/* <Route path="/form/partyinvite" element={<PartyInviteForm />} /> */}
@@ -196,6 +184,28 @@ function AppWrapper() {
           element={
             <>
               <BlankForm /><Assesment/>
+            </>}
+          />
+          <Route
+          path="/timeoffrequest"
+          element={
+            <>
+              <BlankForm /><TimeOffRequest/>
+            </>}
+          />
+          <Route
+          path="/workrequest"
+          element={
+            <>
+              <BlankForm /><WorkRequest/>
+            </>}
+          />
+
+          <Route
+          path="/worksheet"
+          element={
+            <>
+              <BlankForm /><Worksheet/>
             </>}
           />
       </Routes>

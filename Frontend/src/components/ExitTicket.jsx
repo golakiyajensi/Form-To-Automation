@@ -683,7 +683,7 @@ const handleSubmit = (e) => {
         )}
   
         {element.type === 'section' && (
-          <div className="form-card p-0 my-3 rounded shadow-sm">
+          <div className="form-card p-0 my-3 border rounded shadow-sm">
               {/* Section Header with Auto Numbering */}
               <div className="section-header1 d-flex justify-content-between align-items-center px-4 py-2 text-white rounded-top">
                   <h2 className="mb-0 fw-normal fs-6">
@@ -742,7 +742,7 @@ const handleSubmit = (e) => {
               {/* Section Footer/Navigation */}
               <div className="d-flex justify-content-between align-items-center p-4">
                   <h5 className="mb-0 text-muted">After section {elements.filter(el => el.type === 'section').findIndex(el => el.id === element.id) + 1}</h5>
-                  <FormSelect className="w-auto ms-3">
+                  <FormSelect className="w-auto px-5 border-0 ms-3">
                       <option selected>Continue to next section</option>
                       <option>Go to section 1</option>
                       <option>Go to section 2</option>
