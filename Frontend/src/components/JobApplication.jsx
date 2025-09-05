@@ -158,167 +158,170 @@ export default function JobApplicationFormBuilder() {
   );
 
   return (
-    <div className="gform-container">
-      {/* Header Banner */}
-      <div className="gform-header-banner">
-        <img src="/img/job aplication.jpg" alt="Header" />
-      </div>
+    <div className="background2">
+      <div className="gform-container">
+        {/* Header Banner */}
+        <div className="gform-header-banner">
+          <img src="/img/job aplication.jpg" alt="Header" />
+        </div>
 
-      {/* Header */}
-      <div className="gform-header">
-        <input
-          type="text"
-          value={formTitle}
-          onChange={(e) => setFormTitle(e.target.value)}
-          className="gform-title"
-        />
-        <textarea
-          value={formDescription}
-          onChange={(e) => setFormDescription(e.target.value)}
-          className="gform-desc"
-        />
-      </div>
-
-      {/* Job Application Form */}
-      <form className="gform-form" onSubmit={handleSubmit}>
-        {/* Name */}
-        <div className="gform-card">
-          <label className="gform-label">
-            Name <span className="gform-required">*</span>
-          </label>
-          <p className="gform-sub">First and last name</p>
+        {/* Header */}
+        <div className="form-header-bar2"></div>
+        <div className="gform-header border rounded-bottom-3">
           <input
             type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            className="gform-input"
-            required
+            value={formTitle}
+            onChange={(e) => setFormTitle(e.target.value)}
+            className="gform-title"
           />
-        </div>
-
-        {/* Email */}
-        <div className="gform-card">
-          <label className="gform-label">
-            Email <span className="gform-required">*</span>
-          </label>
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            className="gform-input"
-            required
-          />
-        </div>
-
-        {/* Phone */}
-        <div className="gform-card">
-          <label className="gform-label">
-            Phone number <span className="gform-required">*</span>
-          </label>
-          <input
-            type="tel"
-            name="phone"
-            value={formData.phone}
-            onChange={handleChange}
-            className="gform-input"
-            required
-          />
-        </div>
-
-        {/* Positions */}
-        <div className="gform-card">
-          <label className="gform-label">
-            Which position(s) are you interested in? <span className="gform-required">*</span>
-          </label>
-          {["Position 1", "Position 2", "Position 3"].map((pos) => (
-            <div key={pos} className="gform-checkbox">
-              <label>
-                <input
-                  type="checkbox"
-                  value={pos}
-                  checked={formData.positions.includes(pos)}
-                  onChange={handleChange}
-                />{" "}
-                {pos}
-              </label>
-            </div>
-          ))}
-        </div>
-
-        {/* Resume */}
-        <div className="gform-card">
-          <label className="gform-label">Submit your cover letter or resume</label>
           <textarea
-            name="resume"
-            value={formData.resume}
-            onChange={handleChange}
-            className="gform-textarea"
-            rows="4"
+            value={formDescription}
+            onChange={(e) => setFormDescription(e.target.value)}
+            className="gform-desc"
           />
         </div>
 
-        {/* Dynamic Elements */}
-        {elements.map((el) => (
-          <FormElement key={el.id} element={el} />
-        ))}
-      </form>
+        {/* Job Application Form */}
+        <form className="gform-form" onSubmit={handleSubmit}>
+          {/* Name */}
+          <div className="gform-card border rounded-3">
+            <label className="gform-label">
+              Name <span className="gform-required">*</span>
+            </label>
+            <p className="gform-sub">First and last name</p>
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              className="gform-input"
+              required
+            />
+          </div>
 
-      {/* Floating Toolbar */}
-      <div className="gform-toolbar">
-        <button onClick={() => addElement("text")}>
-          <FontAwesomeIcon icon={faT} />
-        </button>
-        <button onClick={() => addElement("multiple_choice")}>
-          <FontAwesomeIcon icon={faPlusCircle} />
-        </button>
-        <button onClick={() => addElement("image")}>
-          <FontAwesomeIcon icon={faImage} />
-        </button>
-        <button onClick={() => setShowVideoModal(true)}>
-          <FontAwesomeIcon icon={faVideo} />
-        </button>
-        <button onClick={() => addElement("file")}>
-          <FontAwesomeIcon icon={faUpload} />
-        </button>
-        <button onClick={() => addElement("section")}>
-          <FontAwesomeIcon icon={faBox} />
-        </button>
+          {/* Email */}
+          <div className="gform-card border rounded-3">
+            <label className="gform-label">
+              Email <span className="gform-required">*</span>
+            </label>
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              className="gform-input"
+              required
+            />
+          </div>
+
+          {/* Phone */}
+          <div className="gform-card border rounded-3">
+            <label className="gform-label">
+              Phone number <span className="gform-required">*</span>
+            </label>
+            <input
+              type="tel"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+              className="gform-input"
+              required
+            />
+          </div>
+
+          {/* Positions */}
+          <div className="gform-card border rounded-3">
+            <label className="gform-label">
+              Which position(s) are you interested in? <span className="gform-required">*</span>
+            </label>
+            {["Position 1", "Position 2", "Position 3"].map((pos) => (
+              <div key={pos} className="gform-checkbox">
+                <label>
+                  <input
+                    type="checkbox"
+                    value={pos}
+                    checked={formData.positions.includes(pos)}
+                    onChange={handleChange}
+                  />{" "}
+                  {pos}
+                </label>
+              </div>
+            ))}
+          </div>
+
+          {/* Resume */}
+          <div className="gform-card border rounded-3">
+            <label className="gform-label">Submit your cover letter or resume</label>
+            <textarea
+              name="resume"
+              value={formData.resume}
+              onChange={handleChange}
+              className="gform-textarea"
+              rows="4"
+            />
+          </div>
+
+          {/* Dynamic Elements */}
+          {elements.map((el) => (
+            <FormElement key={el.id} element={el} />
+          ))}
+        </form>
+
+        {/* Floating Toolbar */}
+        <div className="gform-toolbar">
+          <button onClick={() => addElement("text")}>
+            <FontAwesomeIcon icon={faT} />
+          </button>
+          <button onClick={() => addElement("multiple_choice")}>
+            <FontAwesomeIcon icon={faPlusCircle} />
+          </button>
+          <button onClick={() => addElement("image")}>
+            <FontAwesomeIcon icon={faImage} />
+          </button>
+          <button onClick={() => setShowVideoModal(true)}>
+            <FontAwesomeIcon icon={faVideo} />
+          </button>
+          <button onClick={() => addElement("file")}>
+            <FontAwesomeIcon icon={faUpload} />
+          </button>
+          <button onClick={() => addElement("section")}>
+            <FontAwesomeIcon icon={faBox} />
+          </button>
+        </div>
+
+        {/* Video Modal */}
+        <Modal show={showVideoModal} onHide={() => setShowVideoModal(false)} centered>
+          <Modal.Header closeButton>
+            <Modal.Title>Insert Video</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Paste YouTube URL"
+              value={videoUrl}
+              onChange={(e) => setVideoUrl(e.target.value)}
+            />
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={() => setShowVideoModal(false)}>
+              Cancel
+            </Button>
+            <Button
+              variant="primary"
+              onClick={() => {
+                if (videoUrl.trim()) {
+                  addElement("video", videoUrl);
+                  setVideoUrl("");
+                  setShowVideoModal(false);
+                }
+              }}
+            >
+              Insert
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </div>
-
-      {/* Video Modal */}
-      <Modal show={showVideoModal} onHide={() => setShowVideoModal(false)} centered>
-        <Modal.Header closeButton>
-          <Modal.Title>Insert Video</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Paste YouTube URL"
-            value={videoUrl}
-            onChange={(e) => setVideoUrl(e.target.value)}
-          />
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowVideoModal(false)}>
-            Cancel
-          </Button>
-          <Button
-            variant="primary"
-            onClick={() => {
-              if (videoUrl.trim()) {
-                addElement("video", videoUrl);
-                setVideoUrl("");
-                setShowVideoModal(false);
-              }
-            }}
-          >
-            Insert
-          </Button>
-        </Modal.Footer>
-      </Modal>
     </div>
   );
 }
