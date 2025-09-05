@@ -140,7 +140,8 @@ const Gallery = () => {
                             <img src={blank12} alt="T-Shirt" />
                             <p>Work Request</p>
                         </Link>
-                        <Link to="#" className="gal-card">
+
+                        <Link to="/feedback" className="gal-card">
                             <img src={blank13} alt="Event" />
                             <p>Customer Feedback</p>
                         </Link>
@@ -160,13 +161,15 @@ const Gallery = () => {
 
                             <p>Blank Quiz</p>
                         </Link>
-                        <Link to="#" className="gal-card">
-                            <img src={blank15} alt="exitticket" />
+
+                        <Link to="/exitticket" className="gal-card">
+                            <img src={blank15} alt="Find Time" />
                             <p>Exit Ticket</p>
                         </Link>
-                        <Link to="#" className="gal-card">
-                            <img src={blank16} alt="Assessment" />
-                            <p>Assessment</p>
+                        <Link to="/assesment" className="gal-card">
+                            <img src={blank16} alt="RSVP" />
+                            <p>Assesment</p>
+
                         </Link>
                         <Link to="#" className="gal-card">
                             <img src={blank17} alt="worksheet" />
