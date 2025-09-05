@@ -11,5 +11,17 @@ const storage = multer.diskStorage({
   },
 });
 
+const changeslideimage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "uploads/fields"); // folder to store uploaded images
+  },
+  filename: (req, file, cb) => {
+    const uniqueName = Date.now() + path.extname(file.originalname);
+    cb(null, uniqueName);
+  },
+});
+
 const upload = multer({ storage });
-module.exports = upload;
+const changeSlideUpload = multer({ storage: changeslideimage });
+
+module.exports = { upload, changeSlideUpload };

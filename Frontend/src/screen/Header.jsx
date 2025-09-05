@@ -209,7 +209,7 @@ const Header = () => {
               onClick={() => navigate("/docsgallery")}
 
             >
-              <img src="/img/docs.png" alt="Docs" className="sidelogo me-2" />
+              <img src="/img/docs.png" alt="Docs" className="drive me-2" />
               Docs
             </li>
             <li
@@ -219,7 +219,7 @@ const Header = () => {
                 handleSidebarClick("/img/sheets.png", "Sheets", "/sheetgallery")
               }
             >
-              <img src="/img/sheets.png" alt="Sheets" className="sidelogo me-2" />
+              <img src="/img/sheets.png" alt="Sheets" className="drive me-2" />
               Sheets
             </li>
             <li
@@ -229,7 +229,7 @@ const Header = () => {
                 handleSidebarClick("/img/slides.png", "Slides", "/slidetemplate")
               }
             >
-              <img src="/img/slides.png" alt="Slides" className="sidelogo me-2" />
+              <img src="/img/slides.png" alt="Slides" className="drive me-2" />
               Slides
             </li>
             <li
@@ -239,7 +239,7 @@ const Header = () => {
                 handleSidebarClick("/img/forms.png", "Forms", "/formgallery")
               }
             >
-              <img src="/img/forms.png" alt="Forms" className="sidelogo me-2" />
+              <img src="/img/forms.png" alt="Forms" className="drive me-2" />
               Forms
             </li>
 

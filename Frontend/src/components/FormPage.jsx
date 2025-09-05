@@ -1,179 +1,173 @@
 // ContactForm.jsx
 import React, { useState, useRef, useEffect } from "react";
 import {
-    FaFont,
-    FaImage,
-    FaVideo,
-    FaBars,
-    FaBold,
-    FaItalic,
-    FaUnderline,
-    FaLink,
-    FaListUl,
-    FaCopy,
-    FaTrash,
-    FaEllipsisV,
-    FaUpload,
-    FaRegListAlt,
+  FaFont,
+  FaImage,
+  FaVideo,
+  FaBars,
+  FaBold,
+  FaItalic,
+  FaUnderline,
+  FaLink,
+  FaListUl,
+  FaCopy,
+  FaTrash,
+  FaEllipsisV,
+  FaUpload,
+  FaRegListAlt
 } from "react-icons/fa";
 
 const ContactForm = () => {
-    const [formTitle, setFormTitle] = useState("Contact information");
-    const [formDescription, setFormDescription] = useState("");
+  const [formTitle, setFormTitle] = useState("Contact information");
+  const [formDescription, setFormDescription] = useState("");
 
-    const [fields, setFields] = useState([
-        { type: "textarea", label: "Address", placeholder: "Long answer text", required: true },
-        { type: "tel", label: "Phone number", placeholder: "Short answer text", required: false },
-        { type: "textarea", label: "Comments", placeholder: "Long answer text", required: false },
-    ]);
+  const [fields, setFields] = useState([
+    { type: "textarea", label: "Address", placeholder: "Long answer text", required: true },
+    { type: "tel", label: "Phone number", placeholder: "Short answer text", required: false },
+    { type: "textarea", label: "Comments", placeholder: "Long answer text", required: false },
+  ]);
 
-    const [sections, setSections] = useState([]);
-    const [images, setImages] = useState([]);
-    const [videos, setVideos] = useState([]);
+  const [sections, setSections] = useState([]);
+  const [images, setImages] = useState([]);
+  const [videos, setVideos] = useState([]);
 
-    const [uploadedImage, setUploadedImage] = useState(null);
-    const [uploadedEmailImage, setUploadedEmailImage] = useState(null);
+  const [uploadedImage, setUploadedImage] = useState(null);
+  const [uploadedEmailImage, setUploadedEmailImage] = useState(null);
 
-    const [isExpanded, setIsExpanded] = useState(false);
-    const [isEmailExpanded, setIsEmailExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [isEmailExpanded, setIsEmailExpanded] = useState(false);
 
-    const [questionTitle, setQuestionTitle] = useState("Name");
-    const [emailTitle, setEmailTitle] = useState("Email");
+  const [questionTitle, setQuestionTitle] = useState("Name");
+  const [emailTitle, setEmailTitle] = useState("Email");
 
-    const [type, setType] = useState("short");
-    const [emailType, setEmailType] = useState("short");
+  const [type, setType] = useState("short");
+  const [emailType, setEmailType] = useState("short");
 
-    const [required, setRequired] = useState(true);
-    const [emailRequired, setEmailRequired] = useState(true);
+  const [required, setRequired] = useState(true);
+  const [emailRequired, setEmailRequired] = useState(true);
 
-    const [showVideoModal, setShowVideoModal] = useState(false);
-    const [videoLink, setVideoLink] = useState("");
+  const [showVideoModal, setShowVideoModal] = useState(false);
+  const [videoLink, setVideoLink] = useState("");
 
-    const [showFileUpload, setShowFileUpload] = useState(false);
-    const [files, setFiles] = useState([]);
+  const [showFileUpload, setShowFileUpload] = useState(false);
+  const [files, setFiles] = useState([]);
 
-    const fileInputRef = useRef(null);
-    const emailFileInputRef = useRef(null);
-    const uploadFileRef = useRef(null);
+  const fileInputRef = useRef(null);
+  const emailFileInputRef = useRef(null);
+  const uploadFileRef = useRef(null);
 
-    const blockRef = useRef(null);
-    const emailBlockRef = useRef(null);
+  const blockRef = useRef(null);
+  const emailBlockRef = useRef(null);
 
-    useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (blockRef.current && !blockRef.current.contains(event.target)) {
-                setIsExpanded(false);
-            }
-            if (emailBlockRef.current && !emailBlockRef.current.contains(event.target)) {
-                setIsEmailExpanded(false);
-            }
-        };
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => document.removeEventListener("mousedown", handleClickOutside);
-    }, []);
-
-    const addField = (type) => {
-        const newField =
-            type === "text"
-                ? { type: "text", label: "New Question", placeholder: "Short answer text", required: false }
-                : { type: "textarea", label: "New Question", placeholder: "Long answer text", required: false };
-        setFields([...fields, newField]);
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (blockRef.current && !blockRef.current.contains(event.target)) {
+        setIsExpanded(false);
+      }
+      if (emailBlockRef.current && !emailBlockRef.current.contains(event.target)) {
+        setIsEmailExpanded(false);
+      }
     };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
-    const addSection = () => {
-        setSections([...sections, { title: `New Section ${sections.length + 1}`, description: "Section description" }]);
-    };
+  const addField = (type) => {
+    const newField =
+      type === "text"
+        ? { type: "text", label: "New Question", placeholder: "Short answer text", required: false }
+        : { type: "textarea", label: "New Question", placeholder: "Long answer text", required: false };
+    setFields([...fields, newField]);
+  };
 
-    const handleImageClick = (forEmail = false) => {
-        if (forEmail) {
-            emailFileInputRef.current.click();
-        } else {
-            fileInputRef.current.click();
-        }
-    };
+  const addSection = () => {
+    setSections([...sections, { title: `New Section ${sections.length + 1}`, description: "Section description" }]);
+  };
 
-    const handleImageChange = (e, forEmail = false) => {
-        const file = e.target.files[0];
-        if (file) {
-            const imageUrl = URL.createObjectURL(file);
-            if (forEmail) {
-                setUploadedEmailImage(imageUrl);
-            } else {
-                setUploadedImage(imageUrl);
-            }
-        }
-    };
+  const handleImageClick = (forEmail = false) => {
+    if (forEmail) {
+      emailFileInputRef.current.click();
+    } else {
+      fileInputRef.current.click();
+    }
+  };
 
-    const handleFileUpload = (e) => {
-        const uploadedFiles = Array.from(e.target.files);
-        setFiles([...files, ...uploadedFiles]);
-    };
+  const handleImageChange = (e, forEmail = false) => {
+    const file = e.target.files[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      if (forEmail) {
+        setUploadedEmailImage(imageUrl);
+      } else {
+        setUploadedImage(imageUrl);
+      }
+    }
+  };
 
-    const applyFormat = (command) => {
-        document.execCommand(command, false, null);
-    };
+  const handleFileUpload = (e) => {
+    const uploadedFiles = Array.from(e.target.files);
+    setFiles([...files, ...uploadedFiles]);
+  };
 
-    const insertLink = () => {
-        const url = prompt("Enter the link URL:");
-        if (url) {
-            document.execCommand("createLink", false, url);
-        }
-    };
+  const applyFormat = (command) => {
+    document.execCommand(command, false, null);
+  };
 
-    const handleToggle = () => setRequired(!required);
-    const handleEmailToggle = () => setEmailRequired(!emailRequired);
+  const insertLink = () => {
+    const url = prompt("Enter the link URL:");
+    if (url) {
+      document.execCommand("createLink", false, url);
+    }
+  };
 
-    const onDuplicate = () => alert("Duplicate function not implemented yet!");
-    const onDelete = () => alert("Delete function not implemented yet!");
+  const handleToggle = () => setRequired(!required);
+  const handleEmailToggle = () => setEmailRequired(!emailRequired);
 
-    const renderFieldByType = (selectedType, isEmail = false) => {
-        switch (selectedType) {
-            case "short":
-                return <input type={isEmail ? "email" : "text"} placeholder={isEmail ? "Your email" : "Short answer text"} required={isEmail ? emailRequired : required} />;
-            case "paragraph":
-                return <textarea placeholder={isEmail ? "Your email details" : "Long answer text"}></textarea>;
-            case "multiple":
-                return (
-                    <div>
-                        <label><input type="radio" /> Option 1</label>
-                        <label><input type="radio" /> Option 2</label>
-                    </div>
-                );
-            case "checkbox":
-                return (
-                    <div>
-                        <label><input type="checkbox" /> Option A</label>
-                        <label><input type="checkbox" /> Option B</label>
-                    </div>
-                );
-            case "dropdown":
-                return (
-                    <select>
-                        <option>Select an option</option>
-                        <option>Option 1</option>
-                        <option>Option 2</option>
-                    </select>
-                );
-            case "date":
-                return <input type="date" />;
-            case "time":
-                return <input type="time" />;
-            default:
-                return <input type="text" placeholder="Short answer text" />;
-        }
-    };
+  const onDuplicate = () => alert("Duplicate function not implemented yet!");
+  const onDelete = () => alert("Delete function not implemented yet!");
 
-    const handleAddVideo = () => {
-        if (videoLink.trim() !== "") {
-            let embedLink = videoLink;
-            if (videoLink.includes("watch?v=")) {
-                embedLink = videoLink.replace("watch?v=", "embed/");
-            }
-            setVideos([...videos, embedLink]);
-            setVideoLink("");
-            setShowVideoModal(false);
-        }
-    };
+  const renderFieldByType = (selectedType, isEmail = false) => {
+    switch (selectedType) {
+      case "short":
+        return (
+          <input
+            type={isEmail ? "email" : "text"}
+            placeholder={isEmail ? "Your email" : "Short answer text"}
+            required={isEmail ? emailRequired : required}
+          />
+        );
+      case "paragraph":
+        return <textarea placeholder={isEmail ? "Your email details" : "Long answer text"}></textarea>;
+      case "multiple":
+        return (
+          <div>
+            <label><input type="radio" /> Option 1</label>
+            <label><input type="radio" /> Option 2</label>
+          </div>
+        );
+      case "checkbox":
+        return (
+          <div>
+            <label><input type="checkbox" /> Option A</label>
+            <label><input type="checkbox" /> Option B</label>
+          </div>
+        );
+      case "dropdown":
+        return (
+          <select>
+            <option>Select an option</option>
+            <option>Option 1</option>
+            <option>Option 2</option>
+          </select>
+        );
+      case "date":
+        return <input type="date" />;
+      case "time":
+        return <input type="time" />;
+      default:
+        return <input type="text" placeholder="Short answer text" />;
+    }
+  };
 
     return (
         <>
