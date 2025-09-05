@@ -13,13 +13,16 @@ exports.createSlide = async (req, res) => {
       description_formatted,
     } = req.body;
 
+    const created_by = req.user?.user_id; // ✅ get logged-in user id
+
     const slide = await slideModel.createSlide(
       form_id,
       title,
       description,
       order_no,
       title_formatted,
-      description_formatted
+      description_formatted,
+      created_by
     );
 
     res.json(response.success("Slide created", slide));
@@ -63,6 +66,53 @@ exports.getSlidesWithFields = async (req, res) => {
     const slidesWithFields = await slideModel.getSlidesWithFields(form_id);
 
     res.json(response.success("Slides fetched", slidesWithFields));
+  } catch (err) {
+    res.status(500).json(response.error(err.message));
+  }
+};
+
+// ✅ Edit slide with FormData (including file)
+exports.editSlide = async (req, res) => {
+  try {
+    const { slide_id } = req.params;
+
+    const title = req.body.title || null;
+    const description = req.body.description || null;
+    const order_no = req.body.order_no ? parseInt(req.body.order_no) : 0;
+    const title_formatted = req.body.title_formatted
+      ? JSON.parse(req.body.title_formatted)
+      : null;
+    const description_formatted = req.body.description_formatted
+      ? JSON.parse(req.body.description_formatted)
+      : null;
+    const header_image = req.file ? req.file.filename : null;
+
+    const updatedSlide = await slideModel.updateSlide(
+      slide_id,
+      title,
+      description,
+      order_no,
+      title_formatted,
+      description_formatted,
+      header_image
+    );
+
+    res.json(response.success("Slide updated", updatedSlide));
+  } catch (err) {
+    console.error(err);
+    res.status(500).json(response.error(err.message));
+  }
+};
+
+// ✅ Delete slide
+exports.deleteSlide = async (req, res) => {
+  try {
+    const { slide_id } = req.params;
+    const deleted = await slideModel.deleteSlide(slide_id);
+
+    if (!deleted) return res.status(404).json(response.error("Slide not found"));
+
+    res.json(response.success("Slide deleted", {}));
   } catch (err) {
     res.status(500).json(response.error(err.message));
   }
