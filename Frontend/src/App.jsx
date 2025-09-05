@@ -86,7 +86,7 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "./App.css";
-import "./CSS/style.css";
+import "./CSS/Index1.css"
 
 // Components
 import Header from "./screen/Header";
@@ -110,9 +110,12 @@ import Docsgallery from "./components/Docsgallery.jsx";
 import JobApplicationForm from "./components/JobApplication.jsx";
 import SlideGallery from "./components/SlideGallery.jsx";
 import Slidetemplate from "./components/Slidetemplate.jsx";
-
+import PartyInviteForm from "./components/PartyInvite.jsx";
 import RSVP from "./components/RsvpForm.jsx";
+import EventRegistration from "./components/EventRegistration.jsx";
 import Quiz from "./components/Quiz.jsx";
+import CourseEvaluation from "./components/CourseEvaluation.jsx";
+import Findtime from "./components/Findtime.jsx";
 
 // Placeholder components
 const Docs = () => <h2 className="p-3">Docs Page</h2>;
@@ -145,6 +148,12 @@ function AppWrapper() {
         <Route path="/forms" element={<Form />} />
         <Route path="/form/:id" element={<FormPage />} />
         <Route path="/form/jobapplication" element={<JobApplicationForm />} />
+        <Route path="/form/partyinvite" element={<PartyInviteForm />} />
+        <Route path="/form/eventregistration" element={<EventRegistration />} />
+        <Route path="/form/evaluation" element={<CourseEvaluation />} />
+        <Route path="/form/findtime" element={<Findtime />} />
+
+
 
         {/* Docs & Sheets */}
         <Route path="/docs" element={<Docs />} />

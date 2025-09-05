@@ -1860,7 +1860,7 @@
 
 
 
-.form-container {
+.form-containertwo {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -2490,7 +2490,7 @@ input:checked+.slider:before {
 .rsvp-main-container {
     width: 60%;
     margin: 0 auto;
-    padding: 30px 0;
+    padding: 60px 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -2911,6 +2911,1251 @@ input:checked+.slider:before {
     cursor: pointer;
     background: #1976d2;
     color: #fff;
+}
+
+.modal-actions button:last-child {
+    background: #aaa;
+}
+
+
+
+/* EVENT REGISTRATION FORM CSS  */
+
+
+.eventregistration {
+    width: 60%;
+    margin: 0 auto;
+    padding-top: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: "Segoe UI", Arial, sans-serif;
+    gap: 20px;
+}
+
+/* Banner */
+.form-registration {
+    width: 100%;
+    height: 250px;
+    background-image: url("/img/eventregistration.jpg");
+    background-size: cover;
+    background-position: center;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Event Card */
+.event-card {
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background: #fff;
+    overflow: hidden;
+    position: relative;
+}
+
+.event-card-top {
+    background: brown;
+    height: 12px;
+    border-radius: 6px 6px 0 0;
+}
+
+.event-card-content {
+    padding: 16px;
+    border-left: 4px solid #1a73e8;
+}
+
+.event-title {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 500;
+}
+
+.event-divider {
+    border-top: 2px solid brown;
+    margin: 10px 0;
+}
+
+/* Toolbar inside card */
+.event-toolbar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.event-toolbar button {
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 6px;
+    color: #333;
+    transition: 0.2s;
+}
+
+.event-toolbar button:hover {
+    background: #f0f0f0;
+    border-radius: 4px;
+}
+
+.event-description {
+    width: 100%;
+    height: 100px;
+    border: none;
+    outline: none;
+    resize: none;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #333;
+}
+
+/* Input fields */
+.field-card {
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.field-card::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background-color: #4285f4;
+    border-radius: 8px 0 0 8px;
+}
+
+.field-label {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: #202124;
+}
+
+.required {
+    color: red;
+}
+
+.field-input {
+    border: none;
+    outline: none;
+    font-size: 14px;
+    padding: 4px 0;
+    color: #202124;
+}
+
+.field-input::placeholder {
+    color: #5f6368;
+}
+
+.field-underline {
+    height: 1px;
+    background-color: #dadce0;
+    margin-top: 4px;
+}
+
+/* Email + Org fields */
+.ff-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.ff-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    position: relative;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.ff-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #202124;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.ff-required {
+    color: red;
+}
+
+.ff-input {
+    width: 100%;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    padding: 4px 0;
+    color: #202124;
+}
+
+.ff-input::placeholder {
+    color: #5f6368;
+}
+
+.ff-underline {
+    height: 1px;
+    background-color: #dadce0;
+    margin-top: 4px;
+    width: 100%;
+}
+
+/* Attendance + Food */
+.af-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.af-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.af-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #202124;
+    margin-bottom: 12px;
+    display: block;
+}
+
+.af-required {
+    color: red;
+}
+
+.af-options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.af-option {
+    font-size: 14px;
+    color: #202124;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.af-option input[type="checkbox"],
+.af-option input[type="radio"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+/* Payment */
+.payment-checkbox-container {
+    width: 100%;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
+
+.payment-label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.payment-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.payment-input {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.payment-text {
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+}
+
+/* Floating Toolbar */
+.eventregistration-floating-toolbar {
+    position: fixed;
+    top: 250px;
+    right: 160px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+}
+
+.eventregistration-toolbar-btn {
+    background: #ffffff;
+    border: 1px solid #ffffff;
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    font-size: 18px;
+    color: #444;
+}
+
+.eventregistration-toolbar-btn:hover {
+    background: #f5f5f5;
+    transform: scale(1.1);
+}
+
+.dynamic-section {
+    width: 100%;
+    margin-top: 15px;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #fff;
+}
+
+.uploaded-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.file-section {
+    font-size: 14px;
+    color: #333;
+}
+
+.new-section {
+    padding: 10px;
+    background: #f0f0f0;
+    border-radius: 6px;
+    text-align: center;
+    font-weight: 500;
+}
+
+.video-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+}
+
+.video-modal-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+
+
+/* COURSE EVALUATION FORM CSS */
+
+.bg-color {
+    background-color: rgb(255, 243, 227);
+}
+
+.course-evaluation {
+    width: 60%;
+    margin: 0 auto;
+    padding: 60px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: "Segoe UI", Arial, sans-serif;
+    gap: 20px;
+}
+
+.course-bg {
+    background-image: url(/img/Courseevaluation.jpg);
+    width: 100%;
+    height: 250px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.courseevaluation-card-content {
+    border-top: 5px solid brown;
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+.courseevaluation-title {
+    font-size: 22px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.courseevaluation-divider {
+    height: 2px;
+    background: #7c3030;
+    margin-bottom: 15px;
+}
+
+.courseevaluation-toolbar {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.courseevaluation-toolbar-btn {
+    background: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 6px 10px;
+    cursor: pointer;
+    font-size: 16px;
+    color: #333;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.courseevaluation-toolbar-btn:hover {
+    background: #e9ecef;
+    transform: scale(1.05);
+}
+
+.courseevaluation-description {
+    width: 100%;
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    color: #333;
+    resize: vertical;
+}
+
+.courseevaluation-form {
+    width: 100%;
+    font-family: "Segoe UI", Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.courseevaluation-field {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 25px 20px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.courseevaluation-fieldtop {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 25px 20px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.courseevaluation-label {
+    display: block;
+    font-size: 15px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 6px;
+}
+
+.courseevaluation-required {
+    color: red;
+}
+
+.courseevaluation-input {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    padding: 6px 2px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.courseevaluation-input:focus {
+    border-bottom: 2px solid #4285f4;
+    /* Google blue */
+}
+
+.courseevaluation-input::placeholder {
+    color: #aaa;
+    font-style: italic;
+}
+
+.courseevaluation-effort-field {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 25px 10px;
+    width: 100%;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.courseevaluation-effort-label {
+    display: block;
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.courseevaluation-effort-options {
+    display: flex;
+    margin-left: 180px;
+    align-items: center;
+    gap: 50px;
+    flex-wrap: wrap;
+}
+
+.courseevaluation-effort-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+}
+
+.courseevaluation-effort-option input[type="radio"] {
+    margin-top: 6px;
+    accent-color: #4285f4;
+    /* Google blue */
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.courseevaluation-effort-text {
+    margin-top: 4px;
+}
+
+.ce-matrix {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px 20px;
+    width: 100%;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.ce-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.ce-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+.ce-option-header {
+    font-size: 14px;
+    font-weight: 500;
+    color: #444;
+    padding: 10px;
+}
+
+.ce-question {
+    text-align: left;
+    font-size: 14px;
+    color: #333;
+    padding: 10px;
+    font-weight: 500;
+    width: 250px;
+}
+
+.ce-cell {
+    padding: 10px;
+}
+
+.ce-cell input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: #4285f4;
+    /* Google blue */
+}
+
+.sr-matrix {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    width: 100%;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.sr-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.sr-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+.sr-option {
+    font-size: 14px;
+    font-weight: 500;
+    color: #444;
+    padding: 10px;
+}
+
+.sr-question {
+    text-align: left;
+    font-size: 14px;
+    color: #333;
+    padding: 10px;
+    font-weight: 500;
+    width: 260px;
+}
+
+.sr-cell {
+    padding: 10px;
+}
+
+.sr-cell input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: #4285f4;
+    /* Google style blue */
+}
+
+.coursecontent {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    width: 100%;
+    padding: 20px;
+}
+
+.coursecontent-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.coursecontent-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+.coursecontent-table th,
+.coursecontent-table td {
+    padding: 12px 8px;
+}
+
+.coursecontent-option {
+    font-size: 14px;
+    font-weight: 500;
+    color: #555;
+    white-space: nowrap;
+}
+
+.coursecontent-question {
+    text-align: left;
+    font-size: 15px;
+    color: #444;
+    padding-right: 10px;
+    width: 250px;
+}
+
+.coursecontent-cell input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.ec-container {
+    width: 100%;
+    font-family: Arial, sans-serif;
+}
+
+.ec-box {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 18px;
+    margin-bottom: 18px;
+}
+
+.ec-label {
+    display: block;
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.ec-textarea {
+    width: 100%;
+    min-height: 70px;
+    border: none;
+    border-bottom: 1px solid #bbb;
+    font-size: 14px;
+    padding: 8px 4px;
+    outline: none;
+    resize: vertical;
+}
+
+.ec-textarea:focus {
+    border-bottom: 2px solid #4285f4;
+}
+
+.ec-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.ec-option {
+    font-size: 14px;
+    color: #444;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.ec-option input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+/* Floating Toolbar */
+.cour-evulation-floating-toolbar {
+    position: fixed;
+    top: 250px;
+    right: 160px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+}
+
+.cour-evulation-toolbar-btn {
+    background: #ffffff;
+    border: 1px solid #ffffff;
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    font-size: 18px;
+    color: #444;
+}
+
+.cour-evulation-toolbar-btn:hover {
+    background: #f5f5f5;
+    transform: scale(1.1);
+}
+
+
+/* Dynamic sections full width */
+.dynamic-sections {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.dynamic-section {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    width: 100%;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.dynamic-input {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #bbb;
+    padding: 8px;
+    font-size: 14px;
+    outline: none;
+}
+
+.dynamic-textarea {
+    width: 100%;
+    min-height: 80px;
+    border: none;
+    border-bottom: 1px solid #bbb;
+    padding: 8px;
+    font-size: 14px;
+    resize: vertical;
+    outline: none;
+}
+
+.dynamic-file {
+    width: 100%;
+    font-size: 14px;
+}
+
+.dynamic-subsection {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+}
+
+
+
+
+
+/* FIND TIME FORM CSS  */
+
+
+.full-bg {
+    background-color: rgba(247, 246, 244, 0.969);
+}
+
+.find-time {
+    width: 60%;
+    margin: 0 auto;
+    padding: 60px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: "Segoe UI", Arial, sans-serif;
+    gap: 20px;
+}
+
+.time-bg {
+    background-image: url(/img/findtime.png);
+    width: 100%;
+    height: 250px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.findtime-card-content {
+    border-top: 10px solid rgb(17, 11, 11);
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    border-left: 5px solid rgb(40, 133, 255);
+}
+
+.findtime-title {
+    font-size: 22px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.findtime-divider {
+    height: 2px;
+    background: #000000;
+    margin-bottom: 15px;
+}
+
+.findtime-toolbar {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.findtime-toolbar-btn {
+    background: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 6px 10px;
+    cursor: pointer;
+    font-size: 16px;
+    color: #333;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.findtime-toolbar-btn:hover {
+    background: #e9ecef;
+    transform: scale(1.05);
+}
+
+.findtime-description {
+    width: 100%;
+    border: none;
+    padding: 5px;
+    font-size: 16px;
+    color: #333;
+    resize: vertical;
+}
+
+.email-field {
+    margin-top: 15px;
+    font-family: Arial, sans-serif;
+}
+
+.email-label-wrapper {
+    display: flex;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+.email-label {
+    font-size: 15px;
+    color: #333;
+    font-weight: 500;
+}
+
+.email-required {
+    color: red;
+    margin-left: 4px;
+}
+
+.email-input-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.email-input {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 15px;
+    border: none;
+    border-bottom: 2px solid #ccc;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.email-input:focus {
+    border-bottom: 2px solid #3367d6;
+}
+
+.email-input::placeholder {
+    color: #999;
+    font-size: 14px;
+}
+
+/* time box */
+.find-time-box {
+    background: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    border-left: 5px solid rgb(40, 133, 255);
+    font-family: Arial, sans-serif;
+}
+
+.find-time-box-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.find-time-box-subtitle {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.find-time-box-table {
+    display: table;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.find-time-box-row {
+    display: table-row;
+}
+
+.find-time-box-cell {
+    display: table-cell;
+    padding: 10px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.find-time-box-header .find-time-box-cell {
+    font-weight: bold;
+    color: #333;
+}
+
+.day-cell {
+    text-align: left;
+    font-weight: 500;
+    color: #444;
+}
+
+.find-time-box-checkbox {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.findtime-wrapper {
+    width: 100%;
+    font-family: Arial, sans-serif;
+}
+
+.section-title {
+    font-size: 18px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.items-to-discuss,
+.dietary-restrictions {
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 15px;
+    background: #fff;
+}
+
+.discussion-input {
+    width: 100%;
+    height: 80px;
+    border: none;
+    border-bottom: 1px solid #aaa;
+    outline: none;
+    font-size: 14px;
+    padding: 8px;
+    resize: none;
+}
+
+.options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 15px;
+}
+
+.options label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.timecomment-container {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 12px;
+    background: #fff;
+    width: 100%;
+}
+
+.timecomment-label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.timecomment-textarea {
+    width: 100%;
+    min-height: 60px;
+    border: none;
+    border-top: 1px solid #ccc;
+    padding: 10px;
+    font-size: 14px;
+    resize: vertical;
+    outline: none;
+}
+
+/* Floating Toolbar */
+.custom-floating-toolbar {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: row;
+    gap: 6px;
+    padding: 0.5rem 0.75rem;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 50px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.custom-floating-toolbar button {
+    border: none;
+    background: transparent;
+    color: #5f6368;
+    font-size: 1.4rem;
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: background 0.2s;
+}
+
+.custom-floating-toolbar button:hover {
+    background: #f1f3f4;
+}
+
+/* Added dynamic fields */
+.custom-added-fields {
+    margin-top: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.added-field {
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #fff;
+}
+
+.dynamic-input,
+.dynamic-textarea,
+.dynamic-file {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #bbb;
+    border-radius: 6px;
+    outline: none;
+}
+
+.dynamic-section {
+    border: 2px dashed #999;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.dynamic-section textarea {
+    width: 100%;
+    min-height: 80px;
+    padding: 10px;
+    border: none;
+    border-top: 1px solid #ccc;
+    outline: none;
+    resize: vertical;
+}
+
+.field-heading {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.preview-img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-top: 8px;
+}
+
+/* Modal */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.modal {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    width: 400px;
+    max-width: 90%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.modal h3 {
+    margin-bottom: 15px;
+}
+
+.modal input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.modal-actions button {
+    padding: 8px 14px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    background: #007bff;
+    color: white;
+    font-size: 14px;
 }
 
 .modal-actions button:last-child {

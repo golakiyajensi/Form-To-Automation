@@ -59,7 +59,7 @@ const Template = () => {
               <p className="tpl-card-title">Blank</p>
             </Link>
 
-            <Link to="#" className="tpl-card">
+            <Link to="/form/findtime" className="tpl-card">
               <img src={blank8} alt="no-img" className="tpl-card-img" />
               <p className="tpl-card-title">Find a Time</p>
             </Link>

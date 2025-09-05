@@ -176,8 +176,9 @@ const ContactForm = () => {
     };
 
     return (
-        <div className="main-form">
-            <div className="form-container">
+        <>
+
+            <div className="form-containertwo">
                 <div className="form-header"></div>
 
                 {/* Title & Description */}
@@ -442,7 +443,8 @@ const ContactForm = () => {
                     </div>
                 </div>
             )}
-        </div>
+
+        </>
     );
 };
 
