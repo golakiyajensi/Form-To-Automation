@@ -30,6 +30,9 @@ import PartyInvite from "./components/PartyInvite.jsx";
 import ExitTicket from "./components/ExitTicket.jsx";
 import Feedback from "./components/Feedback.jsx";
 import Assesment from "./components/Assesment.jsx";
+import TimeOffRequest from "./components/TimeOffRequest.jsx";
+import WorkRequest from "./components/WorkRequest.jsx";
+import Worksheet from "./components/Worksheet.jsx";
 
 // Temporary components
 const Docs = () => <h2 className="p-3">Docs Page</h2>;
@@ -40,7 +43,7 @@ function AppWrapper() {
   const location = useLocation();
 
   // Hide header on these routes
-  const hideHeaderPaths = ["/question", "/responses", "/settings", "/templategallery", "/slide", "/gallery", "/form/rsvp", "/quiz", "/assesment"];
+  const hideHeaderPaths = ["/question", "/responses", "/settings", "/templategallery", "/slide", "/gallery", "/form/rsvp", "/quiz", "/assesment", "/timeoffrequest", "/workrequest", "/form/jobapplication"];
   const showHeader = !hideHeaderPaths.includes(location.pathname);
 
   return (
@@ -48,7 +51,7 @@ function AppWrapper() {
       {showHeader && <Header />}
       <Routes>
         {/* Main Routes */}
-        <Route path="/" element={<Slidetemplate />} />
+        <Route path="/" element={<Template />} />
         <Route path="/forms" element={<Form />} />
         <Route path="/form/:id" element={<FormPage />} />
         <Route path="/form/jobapplication" element={<><BlankForm /><JobApplicationForm /></>} />
@@ -162,6 +165,28 @@ function AppWrapper() {
           element={
             <>
               <BlankForm /><Assesment/>
+            </>}
+          />
+          <Route
+          path="/timeoffrequest"
+          element={
+            <>
+              <BlankForm /><TimeOffRequest/>
+            </>}
+          />
+          <Route
+          path="/workrequest"
+          element={
+            <>
+              <BlankForm /><WorkRequest/>
+            </>}
+          />
+
+          <Route
+          path="/worksheet"
+          element={
+            <>
+              <BlankForm /><Worksheet/>
             </>}
           />
       </Routes>

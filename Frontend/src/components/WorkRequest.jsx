@@ -21,9 +21,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function JobApplicationFormBuilder() {
     const [activeInputId, setActiveInputId] = useState(null);
-  const [formTitle, setFormTitle] = useState("Assessment");
+  const [formTitle, setFormTitle] = useState("Work Request");
   const [formDescription, setFormDescription] = useState(
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur quis sem odio. Sed commodo vestibulum leo, sit amet tempus odio consectetur in. Mauris dolor elit, dignissim mollis feugiat maximus, faucibus et eros. Pellentesque venenatis odio nec nunc hendrerit commodo."
+    "In emergencies please contact us at (123) 456-7890 or "
   );
    const [elements, setElements] = useState([]);
     const [draggedElementId, setDraggedElementId] = useState(null);
@@ -33,18 +33,17 @@ export default function JobApplicationFormBuilder() {
     const editorRefs = useRef({});
     const toolbarRef = useRef(null);
     const inputRef = useRef(null);
-    const [questionLabel, setQuestionLabel] = useState("Quiz Question");
-    const [firstQuestion, setFirstQuestion] = useState("Your first question");
-    const [secondQuestion, setSecondQuestion] = useState("Your second question");
-    const [thirdQuestion, setThirdQuestion] = useState("Your third question");
-    const [fourthQuestion, setFourthQuestion] = useState(
-    "Based on the text above, your fourth question."
-  );
+  const [labelText, setLabelText] = useState("Describe the problem");
+  const [labelText1, setLabelText1] = useState("Summary");
+  const [labelText2, setLabelText2] = useState("Location of problem");
 
-  const [labelText, setLabelText] = useState(
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque non risus ipsum. Nullam interdum semper erat, viverra tristique enim efficitur a. Praesent pretium diam enim. Sed orci magna, fermentum in aliquam tristique, dictum ac metus. Maecenas quis eros enim. Mauris ultrices orci mi, vitae tincidunt lorem efficitur a. Aenean pharetra, neque vel facilisis feugiat, eros nunc interdum lorem, vel finibus justo sapien eget ipsum."
-  );
-
+  const [firstQuestion, setFirstQuestion] = useState("Type");
+      const [secondQuestion, setSecondQuestion] = useState("Type of Leave");
+      const [thirdQuestion, setThirdQuestion] = useState("Your third question");
+      const [fourthQuestion, setFourthQuestion] = useState(
+      "Based on the text above, your fourth question."
+    );
+  
    const [showDescription, setShowDescription] = useState(false);
     const [description, setDescription] = useState("");
 
@@ -56,49 +55,39 @@ export default function JobApplicationFormBuilder() {
 //       resume: "",
 //     });
 
-    // Example state
-// Instead of selected being an array, use a single value
-const [formData, setFormData] = useState({
-  positions: ["Option 1", "Correct answer", "Option 3", "Option 4"],
+const [selectedPriority, setSelectedPriority] = useState(null);
+
+  const priorities = [
+    { label: 'Very high', value: 1 },
+    { label: '2', value: 2 },
+    { label: '3', value: 3 },
+    { label: '4', value: 4 },
+    { label: '5', value: 5 },
+    { label: 'Very low', value: 6 },
+  ];
+
+  const handlePriorityChange = (e) => {
+    setSelectedPriority(e.target.value);
+  };
+
+const [formData1, setFormData1] = useState({
+  positions: ["Plumbing", "Lighting", "Heat/AC", "Pests", "Security", "Noise"],
   selected: "" // single string for MCQ
 });
 
 // Handle radio change
-const handleRadioChange = (e, index) => {
-  setFormData({
-    ...formData,
+const handleRadio1Change = (e, index) => {
+  setFormData1({
+    ...formData1,
     selected: e.target.value
   });
 };
 
 // Handle option text edit
-const handleOptionEdit = (e, index) => {
-  const newPositions = [...formData.positions];
+const handleOption1Edit = (e, index) => {
+  const newPositions = [...formData1.positions];
   newPositions[index] = e.target.value;
-  setFormData({ ...formData, positions: newPositions });
-};
-
-const [formData1, setFormData1] = useState({
-  positions: ["Option 1", "Correct answer 1", "option 3", "Correct answer 2", "Correct answer 3"],
-  selected: []
-});
-
-// Handle selecting checkbox
-const handleCheckboxChange = (e, index) => {
-  const value = formData.positions[index];
-  setFormData((prev) => {
-    const selected = e.target.checked
-      ? [...prev.selected, value]
-      : prev.selected.filter((v) => v !== value);
-    return { ...prev, selected };
-  });
-};
-
-// Handle editing option name
-const handleCheckEdit = (e, index) => {
-  const newPositions = [...formData.positions];
-  newPositions[index] = e.target.value;
-  setFormData((prev) => ({ ...prev, positions: newPositions }));
+  setFormData1({ ...formData1, positions: newPositions });
 };
   
     const stripBidi = (s) => s.replace(/[\u200E\u200F\u202A-\u202E]/g, "");
@@ -741,7 +730,7 @@ const handleSubmit = (e) => {
         {element.type === 'section' && (
           <div className="form-card p-0 my-3 border rounded shadow-sm">
               {/* Section Header with Auto Numbering */}
-              <div className="section-header3 d-flex justify-content-between align-items-center px-4 py-2 text-white rounded-top">
+              <div className="section-header4 d-flex justify-content-between align-items-center px-4 py-2 text-white rounded-top">
                   <h2 className="mb-0 fw-normal fs-6">
                       Section {elements.filter(el => el.type === 'section').findIndex(el => el.id === element.id) + 1}
                       of {elements.filter(el => el.type === 'section').length}
@@ -798,7 +787,7 @@ const handleSubmit = (e) => {
               {/* Section Footer/Navigation */}
               <div className="d-flex justify-content-between align-items-center p-4">
                   <h5 className="mb-0 text-muted">After section {elements.filter(el => el.type === 'section').findIndex(el => el.id === element.id) + 1}</h5>
-                  <FormSelect className="w-auto border-0 px-5 ms-3">
+                  <FormSelect className="w-auto px-5 border-0 ms-3">
                       <option selected>Continue to next section</option>
                       <option>Go to section 1</option>
                       <option>Go to section 2</option>
@@ -811,13 +800,13 @@ const handleSubmit = (e) => {
     )};
 
   return (
-    <div className="background3">
+    <div className="background4">
         <div className="gform-container" style={{marginTop:"65px"}}>
             {/* Header Banner */}
             <div className="gform-header-banner">
-                <img src="/img/assesment.png" alt="Header" />
+                <img src="/img/workrequest.jpg" alt="Header" />
             </div>
-            <div className="form-header-bar3"></div>
+            <div className="form-header-bar4"></div>
             {/* Header */}
             <div className="card1 mb-4 w-100 border rounded-bottom-3">
               <div className="card-body">
@@ -851,10 +840,11 @@ const handleSubmit = (e) => {
 
               {activeInputId === 'form-title' && <RichTextToolbar />}
 
-              <div
+              <div className="d-flex align-item">
+                <div
                 contentEditable
                 suppressContentEditableWarning={true}
-                className="text-box mt-4 border-0"
+                className="text-box mt-4"
                 onFocus={() => setActiveInputId('form-description')}
                 onBlur={(e) => {
                   setActiveInputId(null);
@@ -878,56 +868,100 @@ const handleSubmit = (e) => {
                   padding: "4px 0"                // adjust padding
                 }}
               ></div>
+             <a href="#" className="text-box mt-4" style={{padding:"4px 0"}}>no_reply@example.com</a>
+            </div>
 
               {activeInputId === 'form-description' && <RichTextToolbar />}
 
               </div>
           </div>
 
-            {/* Name */}
-                <div className="gform-card border rounded-3">
+            <div className="gform-card border rounded-3">
                 <label className="gform-label">
-                   Name<span className="gform-required">*</span>
+                    Personal Information
+                </label>
+                {/* <p className="gform-sub">First and last name</p> */}
+                <input
+                    type="text"
+                    name="name"
+                    className="gform-input"
+                    required
+                    placeholder="Description (Optional)"
+                />
+            </div>
+
+            {/* Name */}
+            <div className="gform-card border rounded-3">
+                <label className="gform-label">
+                   Name <span className="gform-required">*</span>
                 </label>
                 <input
                     type="text"
-                    className="gform-input"
+                    className="gform-input w-50"
                     required
                     placeholder="Short answer text"
                 />
-                </div>
+            </div>
 
-                <div className="gform-card border rounded-3">
+            <div className="gform-card border rounded-3">
                 <label className="gform-label">
-                   Email<span className="gform-required">*</span>
+                   Email <span className="gform-required">*</span>
                 </label>
                 <input
                     type="email"
-                    className="gform-input"
+                    className="gform-input w-50"
                     required
                     placeholder="Short answer text"
                 />
-                </div>
+            </div>
 
-                {/* Resume */}
-                <div className="gform-card border rounded-3">
-                    <input
-                        type="text"
-                        value={questionLabel}
-                        onChange={(e) => setQuestionLabel(e.target.value)}
-                        className="gform-label-input"
-                    />
+            <div className="gform-card border rounded-3">
+                <input
+                    type="text"
+                    value={labelText}
+                    onChange={(e) => setLabelText(e.target.value)}
+                    className="gform-label border-0 bg-transparent text-box pt-1 pb-1 w-100"
+                />
 
-                    <input
-                        type="text"
-                        className="gform-input"
-                        required
-                        placeholder="Description (optional)"
-                    />
-                    </div>
+                <input
+                    type="email"
+                    className="gform-input w-100"
+                    placeholder="Description (Optional)"
+                />
+            </div>
 
-            {/* Positions */}
-            <div className="gform-card border">
+            <div className="gform-card border rounded-3">
+                <input
+                    type="text"
+                    value={labelText1}
+                    onChange={(e) => setLabelText1(e.target.value)}
+                    className="gform-label border-0 bg-transparent text-box pt-1 pb-1 w-100"
+                />
+
+                <input
+                    type="text"
+                    className="gform-input w-100"
+                    placeholder="Long answer text"
+                />
+            </div>
+
+            <div className="gform-card border rounded-3">
+                <input
+                    type="text"
+                    value={labelText2}
+                    onChange={(e) => setLabelText2(e.target.value)}
+                    className="gform-label border-0 bg-transparent text-box pt-1 pb-1 w-100"
+                />
+
+                <input
+                    type="text"
+                    className="gform-input w-50"
+                    required
+                    placeholder="Short answer text"
+                />
+            </div>
+
+            <div className="gform-card border rounded-3">
             <input
                 type="text"
                 value={firstQuestion}
@@ -935,111 +969,109 @@ const handleSubmit = (e) => {
                 className="gform-label-input"
             />
 
-            {formData.positions.map((pos, index) => (
+            {formData1.positions.map((pos, index) => (
                 <div key={index} className="gform-radio">
-                    <label className="mt-3 flex items-center gap-2">
+                    <label className="mt-3 d-flex align-items-center gap-2">
                     <input
                         type="radio"
                         name="mcq" // ✅ ensures only one can be selected
                         value={pos}
-                        checked={formData.selected === pos} // ✅ single value, not array
-                        onChange={(e) => handleRadioChange(e, index)}
+                        checked={formData1.selected === pos} // ✅ single value, not array
+                        onChange={(e) => handleRadio1Change(e, index)}
                     />
                     <input
                         type="text"
                         value={pos}
-                        onChange={(e) => handleOptionEdit(e, index)}
-                        className="option-input text-box w-75 ms-2 border-0"
+                        onChange={(e) => handleOption1Edit(e, index)}
+                        className="option-input text-box w-100 ms-2 border-0"
                     />
                     </label>
                 </div>
                 ))}
+
+                <input type="text" placeholder="Other..." className="text-box mt-3 w-75 p-2"/>
             </div>
 
-            {/* Positions */}
-            <div className="gform-card border">
-            <input
-                type="text"
-                value={secondQuestion}
-                onChange={(e) => setSecondQuestion(e.target.value)}
-                className="gform-label-input"
-            />
-            {formData1.positions.map((pos, index) => (
-                <div key={index} className="gform-checkbox">
-                <label className="mt-3 flex items-center gap-2">
-                    <input
-                    type="checkbox"
-                    value={pos}
-                    checked={formData1.selected.includes(pos)}
-                    onChange={(e) => handleCheckboxChange(e, index)}
-                    />
-                    <input
-                    type="text"
-                    value={pos}
-                    onChange={(e) => handleCheckEdit(e, index)}
-                    className="option-input text-box w-50 border-0"
-                    />
-                </label>
-                </div>
-            ))}
-            </div>
+                  <div className="priority-container">
+                    <div className="gform-card border">
+                        {/* Title */}
+                        <div className="priority-title">
+                        <label className="gform-label">
+                            Priority <span className="gform-required">*</span>
+                        </label>
+                        </div>
+
+                        {/* Priority Row */}
+                        <div className="priority-row">
+                        {/* Left text */}
+                        <div className="priority-side">
+                            <span>Very high</span>
+                        </div>
+
+                        {/* Radio buttons */}
+                        <div className="priority-options">
+                            {priorities.map((p) => (
+                            <div key={p.value} className="priority-option">
+                                <span>{p.value}</span>
+                                <input
+                                type="radio"
+                                name="priority"
+                                value={p.value}
+                                checked={selectedPriority === p.value}
+                                onChange={handlePriorityChange}
+                                />
+                            </div>
+                            ))}
+                        </div>
+
+                        {/* Right text */}
+                        <div className="priority-side">
+                            <span>Very low</span>
+                        </div>
+                        </div>
+
+                        {/* Selected Priority */}
+                        {selectedPriority && (
+                        <div className="priority-selected">
+                            Selected Priority: {selectedPriority}
+                        </div>
+                        )}
+                    </div>
+                    </div>
 
             {/* Job Application Form */}
             <form className="gform-form" onSubmit={handleSubmit}>
                 <div className="gform-card border rounded-3">
                 <input
-                type="text"
-                value={thirdQuestion}
-                onChange={(e) => setThirdQuestion(e.target.value)}
-                className="gform-label-input"
-            />
-                {/* <p className="gform-sub">First and last name</p> */}
-                <input
                     type="text"
+                    defaultValue="Due date"
+                    className="gform-label border-0 bg-transparent text-box "
+                />
+
+                <input
+                    type="date"
                     name="name"
-                    value={formData.name}
+                    // value={formData.name}
                     onChange={handleChange}
-                    className="gform-input w-50"
-                    required
-                    placeholder="Short answer text"
-                />
-                </div>
-
-                <div className="gform-card border rounded-3">
-                    <input
-                    type="text"
-                    name="text"
-                    value={formData.email}
-                    onChange={handleChange}
-                    className="gform-input"
-                    required
-                    placeholder="Title"
-                />
-
-                <textarea
-                  value={labelText}
-                  onChange={(e) => setLabelText(e.target.value)}
-                  className="gform-label border-0 bg-transparent fw-normal p-3 desc-text mt-3 w-100"
-                  rows={7}   // you can adjust height
-                />
-
-                </div>
-
-
-                <div className="gform-card border rounded-3">
-                <input
-                    type="text"
-                    value={fourthQuestion}
-                    onChange={(e) => setFourthQuestion(e.target.value)}
-                    className="gform-label border-0 bg-transparent w-100"
-                />
-                <input
-                    type="text"
                     className="gform-input"
                     required
                     placeholder="Long answer text"
                 />
                 </div>
+
+                <div className="gform-card border rounded-3">
+                <input
+                    type="text"
+                    defaultValue="More Details"
+                    className="gform-label border-0 bg-transparent text-box pt-1 pb-1 w-100"
+                />
+
+                <input
+                    type="text"
+                    className="gform-input w-100"
+                    placeholder="Long answer text"
+                />
+            </div>
 
                 {/* Dynamic Elements */}
                 {elements.map((el) => (
