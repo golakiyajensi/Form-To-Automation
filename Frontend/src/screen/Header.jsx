@@ -26,18 +26,14 @@ const Header = () => {
     {
       name: "Divyesh",
       email: "divyesh1234@gmail.com",
-      photo: "/img/logo.png",
+      photo: "/img/user-11.jpg",
     },
     {
       name: "John Doe",
       email: "john.doe@gmail.com",
-      photo: "/img/form.png",
+      photo: "/img/user-30.jpg",
     },
-    {
-      name: "Jane Smith",
-      email: "jane.smith@gmail.com",
-      photo: "/img/user.png",
-    },
+    
   ];
 
   // Close profile dropdown on outside click
@@ -112,7 +108,7 @@ const Header = () => {
               {profileOpen && (
                 <div
                   className="card shadow border-0 position-absolute end-0 mt-3"
-                  style={{ width: "400px", zIndex: 1050 }}
+                  style={{ width: "350px", zIndex: 1050 }}
                 >
                   <div className="card-body text-center">
                     <img
@@ -210,16 +206,10 @@ const Header = () => {
             <li
               className="d-flex align-items-center mb-1"
               style={{ cursor: "pointer" }}
-<<<<<<< HEAD
               onClick={() => navigate("/docsgallery")}
 
-=======
-              onClick={() =>
-                handleSidebarClick("/img/docs.png", "Docs", "/docstemplate")
-              }
->>>>>>> 0500cc8c7ea5e4a3f46194db36d490507e29e6eb
             >
-              <img src="/img/docs.png" alt="Docs" className="sidelogo me-2" />
+              <img src="/img/docs.png" alt="Docs" className="drive me-2" />
               Docs
             </li>
             <li
@@ -229,7 +219,7 @@ const Header = () => {
                 handleSidebarClick("/img/sheets.png", "Sheets", "/sheetgallery")
               }
             >
-              <img src="/img/sheets.png" alt="Sheets" className="sidelogo me-2" />
+              <img src="/img/sheets.png" alt="Sheets" className="drive me-2" />
               Sheets
             </li>
             <li
@@ -239,7 +229,7 @@ const Header = () => {
                 handleSidebarClick("/img/slides.png", "Slides", "/slidetemplate")
               }
             >
-              <img src="/img/slides.png" alt="Slides" className="sidelogo me-2" />
+              <img src="/img/slides.png" alt="Slides" className="drive me-2" />
               Slides
             </li>
             <li
@@ -249,7 +239,7 @@ const Header = () => {
                 handleSidebarClick("/img/forms.png", "Forms", "/formgallery")
               }
             >
-              <img src="/img/forms.png" alt="Forms" className="sidelogo me-2" />
+              <img src="/img/forms.png" alt="Forms" className="drive me-2" />
               Forms
             </li>
 

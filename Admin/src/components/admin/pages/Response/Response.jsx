@@ -13,13 +13,12 @@ const FormResponses = () => {
   const [selectedItems, setSelectedItems] = useState([]);
 
   const location = useLocation();
+  const navigate = useNavigate();
   const pathParts = location.pathname.split("/").filter(Boolean);
 
   const itemsPerPage = 10;
   const token = localStorage.getItem("admin_token");
   const API_URL = import.meta.env.VITE_FRONTEND_API_URL;
-
-  const navigate = useNavigate();
 
   const fetchResponses = async () => {
     setLoading(true);
@@ -57,6 +56,7 @@ const FormResponses = () => {
     else setSelectedItems((prev) => prev.filter((i) => i !== id));
   };
 
+  // Filter responses
   const filteredResponses = responses.filter((resp) => {
     const search = searchTerm.toLowerCase();
 
@@ -110,6 +110,7 @@ const FormResponses = () => {
               )} of ${filteredResponses.length} responses`
             : `Page ${currentPage} / ${totalPages}`}
         </span>
+
         <div className="flex items-center space-x-1">
           <button
             onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
@@ -118,6 +119,7 @@ const FormResponses = () => {
           >
             Prev
           </button>
+
           <div className="hidden sm:flex items-center space-x-1">
             {pages.map((page) => (
               <button
@@ -133,6 +135,7 @@ const FormResponses = () => {
               </button>
             ))}
           </div>
+
           <button
             onClick={() =>
               setCurrentPage(Math.min(totalPages, currentPage + 1))

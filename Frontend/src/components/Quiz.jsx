@@ -1,6 +1,5 @@
 import React, { useState, useRef } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-// import "../CSS/app.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBox, faChain, faClose, faPlusCircle, faT, faUpload, faVideo, faTrashAlt, faCopy, faEllipsisV, faTrash, faGripLines, 
   faParagraph, 
@@ -13,14 +12,15 @@ import { faBox, faChain, faClose, faPlusCircle, faT, faUpload, faVideo, faTrashA
   faThLarge,  
   faTh, 
   faCalendarAlt, 
-  faClock  } from '@fortawesome/free-solid-svg-icons';
+  faClock,  
+  faClipboardCheck} from '@fortawesome/free-solid-svg-icons';
 import { faImage, faTrashCan } from '@fortawesome/free-regular-svg-icons';
 import { Form, FormControl, FormCheck, FormSelect, Row, Col, Button, Modal, Dropdown } from 'react-bootstrap';
 // import FormHeader from "./FormHeader.jsx";
 
 
 export default function App() {
-  const [formTitle, setFormTitle] = useState('Untitled Form');
+  const [formTitle, setFormTitle] = useState('');
   const [formDescription, setFormDescription] = useState('Form description');
   const [elements, setElements] = useState([]);
   const [draggedElementId, setDraggedElementId] = useState(null);
@@ -30,6 +30,9 @@ export default function App() {
   const editorRefs = useRef({});
   const toolbarRef = useRef(null);
   const inputRef = useRef(null);
+
+ const [showDescription, setShowDescription] = useState(false);
+  const [description, setDescription] = useState("");
 
   const stripBidi = (s) => s.replace(/[\u200E\u200F\u202A-\u202E]/g, "");
 
@@ -223,20 +226,20 @@ const [activeInputId, setActiveInputId] = useState(null);
   const RichTextToolbar = () => (
     <div
       ref={toolbarRef}
-      className="d-flex gap-2 py-2 toolbar"
+      className="d-flex gap-2 py-2 border-0 toolbar"
       onMouseDown={(e) => e.preventDefault()}
     >
-      <button className="toolbar-btn" onClick={() => handleFormat('bold')} title="Bold">
+      <button className="toolbar-btn border-0" onClick={() => handleFormat('bold')} title="Bold">
         <b>B</b>
       </button>
-      <button className="toolbar-btn" onClick={() => handleFormat('italic')} title="Italic">
+      <button className="toolbar-btn border-0" onClick={() => handleFormat('italic')} title="Italic">
         <i>I</i>
       </button>
-      <button className="toolbar-btn" onClick={() => handleFormat('underline')} title="Underline">
+      <button className="toolbar-btn border-0" onClick={() => handleFormat('underline')} title="Underline">
         <u>U</u>
       </button>
       <button
-        className="toolbar-btn"
+        className="toolbar-btn border-0"
         onClick={() => {
           const url = prompt('Enter the URL:');
           if (url) handleFormat('createLink', url);
@@ -245,26 +248,26 @@ const [activeInputId, setActiveInputId] = useState(null);
       >
         <FontAwesomeIcon icon={faChain} />
       </button>
-      <button className="toolbar-btn" onClick={() => handleFormat('removeFormat')} title="Remove Formatting">
+      <button className="toolbar-btn border-0" onClick={() => handleFormat('removeFormat')} title="Remove Formatting">
         <FontAwesomeIcon icon={faClose} />
       </button>
     </div>
   );
 
 const FormElement = ({ element, onRemove }) => {
-  const updateQuestionDescription = (elementId, newDescription) => {
-    const updated = elements.map((el) =>
-      el.id === elementId ? { ...el, description: stripBidi(newDescription) } : el
-    );
-    setElements(updated);
-  };
-  
-  const updateElementTitle = (elementId, newTitle) => {
-    const updated = elements.map((el) =>
-      el.id === elementId ? { ...el, content: stripBidi(newTitle) } : el
-    );
-    setElements(updated);
-  };
+  const updateQuestionDescription = (elementId, newDescription) => {
+    const updated = elements.map((el) =>
+      el.id === elementId ? { ...el, description: stripBidi(newDescription) } : el
+    );
+    setElements(updated);
+  };
+  
+  const updateElementTitle = (elementId, newTitle) => {
+    const updated = elements.map((el) =>
+      el.id === elementId ? { ...el, content: stripBidi(newTitle) } : el
+    );
+    setElements(updated);
+  };
     return (
     <div
       className="form-element"
@@ -278,12 +281,18 @@ const FormElement = ({ element, onRemove }) => {
           {/* Title Input */}
           <input
             type="text"
-            className="form-control text-box mb-2"
+            className="text-box mb-2 w-100"
             value={element.content}
             placeholder="Enter title"
             onFocus={() => setActiveInputId(`${element.id}-title`)}
             onBlur={() => setActiveInputId(null)}
             onChange={(e) => updateQuestionContent(element.id, e.target.value)}
+            style={{
+              border: "none",
+              borderBottom: "1px solid #ccc",
+              outline: "none",
+              padding: "4px 0",
+            }}
           />
           {activeInputId === `${element.id}-title` && <RichTextToolbar />}
 
@@ -291,18 +300,43 @@ const FormElement = ({ element, onRemove }) => {
           <div
             contentEditable
             suppressContentEditableWarning={true}
-            className="form-control text-box mb-2"
+            className="text-box mb-2 mt-2"
             onFocus={() => setActiveInputId(`${element.id}-description`)}
             onBlur={(e) => {
-                setActiveInputId(null);
-                updateQuestionDescription(element.id, e.currentTarget.textContent);
-            }}
-            style={{ color: !element.description ? "#2c2c2cff" : "#000" }} // gray for placeholder
+              setActiveInputId(null);
+              updateQuestionDescription(element.id, e.currentTarget.textContent);
+            }}
+            style={{
+              minHeight: "30px",
+              border: "none",
+              borderBottom: "1px solid #ccc",
+              outline: "none",
+              padding: "4px 0",
+              color: !element.description ? "#2c2c2cff" : "#000",
+            }}
           >
             {!element.description ? "Untitled description" : element.description}
           </div>
 
           {activeInputId === `${element.id}-description` && <RichTextToolbar />}
+            {/* // Below your input (conditionally render description input) */}
+            {element.showDescription && (
+               <input
+                type="text"
+                className="text-box mb-2 mt-2 w-100"
+                onFocus={() => setActiveInputId(`${element.id}-description1`)}
+                value={element.description || ""}
+                placeholder="Enter description"
+                onChange={(e) => {
+                  const updatedElements = elements.map((el) =>
+                    el.id === element.id ? { ...el, description: e.target.value } : el
+                  );
+                  setElements(updatedElements);
+                }}
+              />
+            )}
+
+            {activeInputId === `${element.id}-description1` && <RichTextToolbar />}
 
           {/* Footer */}
           <div className="d-flex justify-content-end align-items-center pt-3 mt-3">
@@ -323,141 +357,210 @@ const FormElement = ({ element, onRemove }) => {
               onChange={() => toggleRequired(element.id)}
               className="mx-3"
             />
-            <Button variant="light">
-              <FontAwesomeIcon icon={faEllipsisV} />
-            </Button>
-          </div>
+            <Dropdown align="end">
+              <Dropdown.Toggle as={Button} variant="light" className="border-0">
+                <FontAwesomeIcon icon={faEllipsisV} />
+              </Dropdown.Toggle>
+
+              <Dropdown.Menu>
+                <Dropdown.Item
+                  onClick={() => {
+                    // Example: toggle description for this element
+                    const updatedElements = elements.map((el) =>
+                      el.id === element.id
+                        ? { ...el, showDescription: !el.showDescription }
+                        : el
+                    );
+                    setElements(updatedElements);
+                  }}
+                >
+                  {element.showDescription ? "Remove Description" : "Add Description"}
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+        </div>
         </div>
       )}
 
       {element.type === 'multiple_choice' && (
-        <div className="form-card p-4 my-3 rounded shadow-sm">
-          <Row className="align-items-center mb-3">
-            <Col xs={9}>
-              <div
-                className="element-title"
-                contentEditable
-                suppressContentEditableWarning
-                ref={(el) => (editorRefs.current[element.id] = el)}
-                onFocus={() => handleFocus(element.id)}
-                onBlur={(e) => {
-                  handleBlur();
-                  // Update element content only on blur
-                  const updated = elements.map((el) =>
-                    el.id === element.id ? { ...el, content: e.target.innerHTML } : el
-                  );
-                  setElements(updated);
-                }}
-                dangerouslySetInnerHTML={{ __html: element.content }}
-              />
-            </Col>
-            <Col xs={3} className="d-flex justify-content-end align-items-center">
-              <Button variant="light" className="me-2" onClick={() => setShowImageModal(true)}>
-                <FontAwesomeIcon icon={faImage} />
+  <div className="form-card p-4 my-3 rounded shadow-sm">
+    <Row className="align-items-center mb-3">
+      <Col xs={12} md={9}>
+        <div
+          className="element-title text-box pb-2 w-75"
+          contentEditable
+          suppressContentEditableWarning
+          ref={(el) => (editorRefs.current[element.id] = el)}
+          onFocus={() => handleFocus(element.id)}
+          onBlur={(e) => {
+            handleBlur();
+            // Update element content only on blur
+            const updated = elements.map((el) =>
+              el.id === element.id
+                ? { ...el, content: e.target.innerHTML }
+                : el
+            );
+            setElements(updated);
+          }}
+          dangerouslySetInnerHTML={{ __html: element.content }}
+        />
+        {/* ✅ Description box after title */}
+        {element.showDescription && (
+          <textarea
+            className="form-control mt-2"
+            placeholder="Enter description here..."
+            value={element.description}
+            onChange={(e) => {
+              const updated = elements.map((el) =>
+                el.id === element.id
+                  ? { ...el, description: e.target.value }
+                  : el
+              );
+              setElements(updated);
+            }}
+          />
+        )}
+      </Col>
+      <Col xs={12} md={3} className="d-flex justify-content-end align-items-center mt-3 mt-md-0">
+        <Button
+          variant="light"
+          className="me-2"
+          onClick={() => setShowImageModal(true)}
+        >
+          <FontAwesomeIcon icon={faImage} />
+        </Button>
+        <FormSelect
+          className="w-auto"
+          value={element.type}
+          onChange={(e) => updateElementType(element.id, e.target.value)}
+        >
+          <option value="short">Short Answer</option>
+          <option value="paragraph">Paragraph</option>
+          <option value="multiple">Multiple Choice</option>
+          <option value="checkboxes">Checkboxes</option>
+          <option value="dropdown">Dropdown</option>
+          <option value="file">File Upload</option>
+          <option value="linear">Linear Scale</option>
+          <option value="rating">Rating</option>
+          <option value="grid-mc">Multiple Choice Grid</option>
+          <option value="grid-checkbox">Checkbox Grid</option>
+          <option value="date">Date</option>
+          <option value="time">Time</option>
+        </FormSelect>
+      </Col>
+    </Row>
+
+    {activeElementId === element.id && <RichTextToolbar />}
+
+    {/* ✅ Options with conditional section dropdowns */}
+    {element.options.map((option, index) => (
+      <div className="d-flex align-items-center my-2" key={index}>
+        <input type="radio" className="form-check- require-btn me-2" disabled />
+        <FormControl
+          type="text"
+          className="option-input"
+          value={option}
+          onChange={(e) => updateOption(element.id, index, e.target.value)}
+        />
+
+        {/* ✅ Section dropdown appears if enabled */}
+        {element.goToSectionEnabled && (
+          <FormSelect
+            className="ms-2 w-auto"
+            value={element.optionRouting?.[option] || "next"}
+            onChange={(e) => {
+              const updated = elements.map((el) =>
+                el.id === element.id
+                  ? {
+                      ...el,
+                      optionRouting: {
+                        ...el.optionRouting,
+                        [option]: e.target.value,
+                      },
+                    }
+                  : el
+              );
+              setElements(updated);
+            }}
+          >
+            <option value="next">Continue to next section</option>
+            <option value="section1">Go to section 1 (Untitled form)</option>
+            <option value="section2">Go to section 2 (Untitled Section)</option>
+            <option value="submit">Submit form</option>
+          </FormSelect>
+        )}
+      </div>
+    ))}
+
+    <div className="d-flex align-items-center mt-3">
+      <Button variant="light" onClick={() => addOption(element.id)}>
+        Add option
+      </Button>
+      <span className="mx-2">or</span>
+      <Button variant="link" onClick={() => addOption(element.id, "Other")}>
+        add "Other"
+      </Button>
+    </div>
+
+    <div className="d-flex justify-content-between align-items-center border-top pt-3 mt-3 flex-wrap">
+            <div className="flex items-center space-x-2 text-blue-600 cursor-pointer">
+              {/* Icon */}
+              {/* <FaClipboardCheck className="text-lg" /> */}
+              <a href='#' className='text-decoration-none'>
+                <FontAwesomeIcon icon={faClipboardCheck} style={{fontSize:"20px"}}/>
+
+                {/* Text */}
+                <span className="ms-1" style={{fontSize:"18px"}} >Answer key</span>
+              </a>
+
+              {/* Points */}
+              <span className="text-gray-600 ms-2">(0 points)</span>
+            </div>
+            <div className='d-flex align-items-center flex-wrap mt-2 mt-md-0'>
+              <Button className="bg-transparent text-muted border-0" size='lg'>
+                <FontAwesomeIcon icon={faCopy} />
               </Button>
-              <FormSelect className="w-auto">
-                <option value="short">
-                  <FontAwesomeIcon icon={faGripLines} /> Short Answer
-                </option>
-                <option value="paragraph">
-                  <FontAwesomeIcon icon={faParagraph} /> Paragraph
-                </option>
-                <option value="multiple" selected>
-                  <FontAwesomeIcon icon={faListUl} /> Multiple Choice
-                </option>
-                <option value="checkboxes">
-                  <FontAwesomeIcon icon={faCheckSquare} /> Checkboxes
-                </option>
-                <option value="dropdown">
-                  <FontAwesomeIcon icon={faChevronDown} /> Dropdown
-                </option>
-                <option value="file">
-                  <FontAwesomeIcon icon={faFileArrowUp} /> File Upload
-                </option>
-                <option value="linear">
-                  <FontAwesomeIcon icon={faRulerHorizontal} /> Linear Scale
-                </option>
-                <option value="rating">
-                  <FontAwesomeIcon icon={faStar} /> Rating
-                </option>
-                <option value="grid-mc">
-                  <FontAwesomeIcon icon={faThLarge} /> Multiple Choice Grid
-                </option>
-                <option value="grid-checkbox">
-                  <FontAwesomeIcon icon={faTh} /> Checkbox Grid
-                </option>
-                <option value="date">
-                  <FontAwesomeIcon icon={faCalendarAlt} /> Date
-                </option>
-                <option value="time">
-                  <FontAwesomeIcon icon={faClock} /> Time
-                </option>
-              </FormSelect>
-            </Col>
-          </Row>
-          {activeElementId === element.id && <RichTextToolbar />}
-          {element.options.map((option, index) => (
-            <div className="d-flex align-items-center my-2" key={index}>
-              <input type="radio" className="form-check- require-btn me-2" disabled />
-              <FormControl
-                type="text"
-                className="option-input"
-                value={option}
-                onChange={(e) => updateOption(element.id, index, e.target.value)}
+              <Button className='bg-transparent text-muted border-0' size='lg' onClick={() => onRemove(element.id)}>
+                <FontAwesomeIcon icon={faTrashCan} />
+              </Button>
+              <FormCheck
+                type="switch"
+                label="Required"
+                checked={element.required}
+                onChange={() => toggleRequired(element.id)}
+                className="mx-3"
               />
-          </div>
-          ))}
-          <div className="d-flex align-items-center mt-3">
-            <Button variant="light" onClick={() => addOption(element.id)}>
-              Add option
-            </Button>
-            <span className="mx-2">or</span>
-            <Button variant="link" onClick={() => addOption(element.id, 'Other')}>
-              add "Other"
-            </Button>
-          </div>
-          <div className="d-flex justify-content-end align-items-center border-top pt-3 mt-3">
-            <Button className="bg-transparent text-muted border-0" size='lg'>
-              <FontAwesomeIcon icon={faCopy} />
-            </Button>
-            <Button className='bg-transparent text-muted border-0' size='lg' onClick={() => onRemove(element.id)}>
-              <FontAwesomeIcon icon={faTrashCan} />
-            </Button>
-            <FormCheck
-              type="switch"
-              label="Required"
-              checked={element.required}
-              onChange={() => toggleRequired(element.id)}
-              className="mx-3"
-            />
-            <Dropdown align="end">
-              <Dropdown.Toggle as={Button} variant="light" className="p-0 border-0">
-                <FontAwesomeIcon icon={faEllipsisV} className='text-muted'/>
-              </Dropdown.Toggle>
+              <Dropdown align="end">
+                <Dropdown.Toggle as={Button} variant="light" className="p-0 border-0">
+                  <FontAwesomeIcon icon={faEllipsisV} className='text-muted'/>
+                </Dropdown.Toggle>
 
-              <Dropdown.Menu className="shadow-sm">
-                {/* Header */}
-                <Dropdown.Header>Show</Dropdown.Header>
+                <Dropdown.Menu className="shadow-sm">
+                  {/* Header */}
+                  <Dropdown.Header>Show</Dropdown.Header>
 
-                {/* Items */}
-                <Dropdown.Item onClick={() => console.log("Description clicked")}>
-                  Description
-                </Dropdown.Item>
-                <Dropdown.Item
-                  onClick={() => console.log("Go to section based on answer clicked")}>
-                  Go to section based on answer
-                </Dropdown.Item>
+                  {/* Items */}
+                  <Dropdown.Item onClick={() => console.log("Description clicked")}>
+                    Description
+                  </Dropdown.Item>
+                  <Dropdown.Item
+                    onClick={() => console.log("Go to section based on answer clicked")}>
+                    Go to section based on answer
+                  </Dropdown.Item>
 
-                <Dropdown.Divider />
+                  <Dropdown.Divider />
 
-                <Dropdown.Item onClick={() => console.log("Shuffle option order clicked")}>
-                  Shuffle option order
-                </Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
+                  <Dropdown.Item onClick={() => console.log("Shuffle option order clicked")}>
+                    Shuffle option order
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+            </div>
           </div>
         </div>
       )}
+
+
 
       {/* image */}
 
@@ -541,8 +644,6 @@ const FormElement = ({ element, onRemove }) => {
       </div>
     )}
 
-
-
       {element.type === 'file' && (
         // <div className="form-card p-4 my-3 rounded shadow-sm">
           <div className="file-upload">
@@ -611,7 +712,7 @@ const FormElement = ({ element, onRemove }) => {
             {/* Section Footer/Navigation */}
             <div className="d-flex justify-content-between align-items-center p-4">
                 <h5 className="mb-0 text-muted">After section {elements.filter(el => el.type === 'section').findIndex(el => el.id === element.id) + 1}</h5>
-                <FormSelect className="w-auto ms-3">
+                <FormSelect className="w-auto ms-3 border-0 px-5">
                     <option selected>Continue to next section</option>
                     <option>Go to section 1</option>
                     <option>Go to section 2</option>
@@ -633,40 +734,51 @@ const FormElement = ({ element, onRemove }) => {
             <div className="card1 shadow mb-4 w-100 border-rounded-0">
               <div className="card-body">
                 <div
-                contentEditable
-                suppressContentEditableWarning={true}
-                className="form-title-input text-box form-control"
-                onFocus={() => setActiveInputId('form-title')}
-                onBlur={(e) => {
-                    setActiveInputId(null);
-                    setFormTitle(stripBidi(e.currentTarget.innerHTML));
-                  }}
-                onKeyDown={(e) => {
-                  // Handle Tab key for indentation
-                  if (e.key === "Tab") {
-                    e.preventDefault();
-                    document.execCommand('insertHTML', false, "\u00a0\u00a0\u00a0\u00a0"); // insert 4 non-breaking spaces
-                  }
-                }}
-                dangerouslySetInnerHTML={{ __html: formTitle || "Untitled title" }}
-                style={{
-                  minHeight: "40px",
-                  whiteSpace: "pre-wrap",
-                  overflowWrap: "break-word"
-                }}
-              ></div>
+  contentEditable
+  suppressContentEditableWarning={true}
+  className="form-title-input text-box"
+  onFocus={() => setActiveInputId("form-title")}
+  onBlur={(e) => {
+    setActiveInputId(null);
+    setFormTitle(stripBidi(e.currentTarget.innerHTML));
+  }}
+  onKeyDown={(e) => {
+    // Handle Tab key for indentation
+    if (e.key === "Tab") {
+      e.preventDefault();
+      document.execCommand(
+        "insertHTML",
+        false,
+        "\u00a0\u00a0\u00a0\u00a0" // insert 4 non-breaking spaces
+      );
+    }
+  }}
+  dangerouslySetInnerHTML={{
+    __html: formTitle || "Blank Quiz", // ✅ Changed here
+  }}
+  style={{
+    minHeight: "40px",
+    whiteSpace: "pre-wrap",
+    overflowWrap: "break-word",
+    outline: "none",
+    border: "none",
+    borderBottom: "1px solid #ccc",
+    padding: "4px 0",
+  }}
+></div>
 
-              {activeInputId === 'form-title' && <RichTextToolbar />}
+{activeInputId === "form-title" && <RichTextToolbar />}
+
 
               <div
                 contentEditable
                 suppressContentEditableWarning={true}
-                className="form-control text-box mt-4"
+                className="text-box mt-4"
                 onFocus={() => setActiveInputId('form-description')}
                 onBlur={(e) => {
-                    setActiveInputId(null);
-                    setFormDescription(stripBidi(e.currentTarget.innerHTML));
-                  }}
+                  setActiveInputId(null);
+                  setFormDescription(stripBidi(e.currentTarget.innerHTML));
+                }}
                 onKeyDown={(e) => {
                   // Handle Tab key for indentation
                   if (e.key === "Tab") {
@@ -678,14 +790,18 @@ const FormElement = ({ element, onRemove }) => {
                 style={{
                   minHeight: "40px",
                   whiteSpace: "pre-wrap",
-                  overflowWrap: "break-word"
+                  overflowWrap: "break-word",
+                  outline: "none",                // remove blue outline
+                  border: "none",                 // remove all borders
+                  borderBottom: "1px solid #ccc", // add only bottom border
+                  padding: "4px 0"                // adjust padding
                 }}
               ></div>
 
               {activeInputId === 'form-description' && <RichTextToolbar />}
 
               </div>
-            </div>
+          </div>
 
             {elements.length === 0 && (
               <div className="placeholder-box">
@@ -770,7 +886,7 @@ const FormElement = ({ element, onRemove }) => {
                             type: "video",
                             content: parseYouTubeUrl(videoUrl) || "https://www.youtube.com/embed/dQw4w9WgXcQ",
                           };
-                          setElements((prev) => [...prev, newElement]); // 👈 add to form
+                          setElements((prev) => [...prev, newElement]); 
                           setVideoUrl(""); // clear input
                           setShowVideoModal(false); // close modal
                         }
