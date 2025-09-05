@@ -52,6 +52,24 @@ const Template = () => {
             </div>
           </div>
 
+
+          {/* Cards Section */}
+          <div className="tpl-cards">
+            <Link to="/question" className="tpl-card">
+              <img src={blank} alt="no-img" className="tpl-card-img" />
+              <p className="tpl-card-title">Blank</p>
+            </Link>
+
+            <Link to="#" className="tpl-card">
+              <img src={blank8} alt="no-img" className="tpl-card-img" />
+              <p className="tpl-card-title">Find a Time</p>
+            </Link>
+
+            <Link to="/form/contact" className="tpl-card">
+              <img src={blank2} alt="no-img" className="tpl-card-img" />
+              <p className="tpl-card-title">Contact Information</p>
+            </Link>
+
                     {/* Cards Section */}
                     <div className="tpl-cards">
 
@@ -86,6 +104,7 @@ const Template = () => {
                 </div>
             </div>
 
+
             <Link to="/form/jobapplication" className="tpl-card">
               <img src={blank4} alt="no-img" className="tpl-card-img" />
               <p className="tpl-card-title">Job Application</p>
@@ -96,7 +115,6 @@ const Template = () => {
               <p className="tpl-card-title">RSVP</p>
             </Link>
 
-            {/* ✅ Fixed Party Invite link */}
             <Link to="/form/partyinvite" className="tpl-card">
               <img src={blank5} alt="no-img" className="tpl-card-img" />
               <p className="tpl-card-title">Party Invite</p>
