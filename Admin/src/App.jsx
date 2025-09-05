@@ -16,6 +16,8 @@ import ViewSlides from "./components/admin/pages/Slides/ViewSlides";
 import ViewResponse from "./components/admin/pages/Response/ViewResponse";
 import ViewForm from "./components/admin/pages/Forms/ViewForm";
 import EditForm from "./components/admin/pages/Forms/EditForm";
+import ViewFormResponse from "./components/admin/pages/Forms/ViewFormResponse";
+import EditSlide from "./components/admin/pages/Slides/EditSlide.JSX";
 
 export default function App() {
   return (
@@ -29,8 +31,10 @@ export default function App() {
           <Route path="forms" element={<Forms />} />
           <Route path="forms/view/:id" element={<ViewForm />} />
           <Route path="forms/edit/:id" element={<EditForm />} />
+          <Route path="form-responses/:formId" element={<ViewFormResponse />} />
           <Route path="slides" element={<Slides />} />
           <Route path="slides/view/:formId" element={<ViewSlides />} />
+          <Route path="slides/edit/:slideId/:formId" element={<EditSlide />} />
           <Route path="response" element={<Response />} />
           <Route
             path="form-responses/response/:responseId"

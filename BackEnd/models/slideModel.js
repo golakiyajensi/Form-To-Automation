@@ -7,7 +7,8 @@ const createSlide = async (
   description,
   order_no,
   title_formatted,
-  description_formatted
+  description_formatted,
+  created_by
 ) => {
   const [result] = await db.query(
     `INSERT INTO tbl_form_slides 
@@ -18,9 +19,9 @@ const createSlide = async (
       title,
       description,
       order_no,
-      JSON.stringify(title_formatted || null),
-      JSON.stringify(description_formatted || null),
-      created_by
+      title_formatted ? JSON.stringify(title_formatted) : null,
+      description_formatted ? JSON.stringify(description_formatted) : null,
+      created_by,
     ]
   );
 
@@ -32,6 +33,7 @@ const createSlide = async (
     order_no,
     title_formatted,
     description_formatted,
+    created_by,
   };
 };
 
@@ -52,7 +54,6 @@ const addFieldsBulk = async (slide_id, fields, userId) => {
     scale: "linear_scale",
   };
 
-  // fetch form_id once from slide_id
   const [formRow] = await db.query(
     "SELECT form_id FROM tbl_form_slides WHERE id=?",
     [slide_id]
@@ -64,47 +65,59 @@ const addFieldsBulk = async (slide_id, fields, userId) => {
     const fieldType = fieldTypeMap[f.type];
     if (!fieldType) throw new Error(`Unsupported field type: ${f.type}`);
 
-   const [rows] = await db.query(
-  "CALL sp_create_form_field(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-  [
-    form_id,
-    slide_id,
-    f.label,
-    f.label_formatted || null,
-    fieldType,
-    f.is_required ? 1 : 0,
-    f.options_json ? JSON.stringify(f.options_json) : null,
-    f.conditional_logic ? JSON.stringify(f.conditional_logic) : null,
-    f.order_no || 0,
-    f.field_image || null,
-    f.description || null,
-    f.response_validation ? JSON.stringify(f.response_validation) : null,
-    userId, // ✅ created_by
-  ]
-);
+    const [rows] = await db.query(
+      "CALL sp_create_form_field(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+      [
+        form_id,
+        slide_id,
+        f.label,
+        f.label_formatted ? JSON.stringify(f.label_formatted) : null,
+        fieldType,
+        f.is_required ? 1 : 0,
+        f.options_json ? JSON.stringify(f.options_json) : null,
+        f.conditional_logic ? JSON.stringify(f.conditional_logic) : null,
+        f.order_no || 0,
+        f.field_image || null,
+        f.description || null,
+        f.response_validation ? JSON.stringify(f.response_validation) : null,
+        userId,
+      ]
+    );
 
-
-    // SP returns inserted record
     created.push(rows[0][0]);
   }
   return created;
 };
 
-// ✅ Get all slides from database
+// ✅ Get all slides safely
 const getAllSlides = async () => {
   const [rows] = await db.query("CALL sp_get_all_slides()");
-  return rows[0].map((slide) => ({
-    ...slide,
-    title_formatted: slide.title_formatted
-      ? JSON.parse(slide.title_formatted)
-      : null,
-    description_formatted: slide.description_formatted
-      ? JSON.parse(slide.description_formatted)
-      : null,
-  }));
+
+  return rows[0].map((slide) => {
+    let titleFormatted = null;
+    let descriptionFormatted = null;
+
+    try {
+      titleFormatted = slide.title_formatted ? JSON.parse(slide.title_formatted) : null;
+    } catch (e) {
+      titleFormatted = null;
+    }
+
+    try {
+      descriptionFormatted = slide.description_formatted ? JSON.parse(slide.description_formatted) : null;
+    } catch (e) {
+      descriptionFormatted = null;
+    }
+
+    return {
+      ...slide,
+      title_formatted: titleFormatted,
+      description_formatted: descriptionFormatted,
+    };
+  });
 };
 
-// ✅ Get slides + fields (nested)
+// ✅ Get slides + fields safely
 const getSlidesWithFields = async (form_id) => {
   const [slides] = await db.query(
     "SELECT * FROM tbl_form_slides WHERE form_id = ? ORDER BY order_no ASC, id ASC",
@@ -118,42 +131,82 @@ const getSlidesWithFields = async (form_id) => {
 
   const parsedFields = fields.map((f) => {
     let options = null;
-    try {
-      options = f.options ? JSON.parse(f.options) : null;
-    } catch (e) {
-      options = f.options;
-    }
+    try { options = f.options ? JSON.parse(f.options) : null; } catch (e) { options = null; }
 
     let validation = null;
-    try {
-      validation = f.response_validation
-        ? JSON.parse(f.response_validation)
-        : null;
-    } catch (e) {
-      validation = f.response_validation;
-    }
+    try { validation = f.response_validation ? JSON.parse(f.response_validation) : null; } catch (e) { validation = null; }
+
+    let conditional = null;
+    try { conditional = f.conditional_logic ? JSON.parse(f.conditional_logic) : null; } catch (e) { conditional = null; }
+
+    let labelFormatted = null;
+    try { labelFormatted = f.label_formatted ? JSON.parse(f.label_formatted) : null; } catch (e) { labelFormatted = null; }
 
     return {
       ...f,
       options,
-      description: f.description,
       response_validation: validation,
-      conditional_logic: (() => {
-        try {
-          return f.conditional_logic
-            ? JSON.parse(f.conditional_logic)
-            : null;
-        } catch (e) {
-          return f.conditional_logic;
-        }
-      })(),
+      conditional_logic: conditional,
+      label_formatted: labelFormatted,
     };
   });
 
-  return slides.map((s) => ({
-    ...s,
-    fields: parsedFields.filter((f) => f.slide_id === s.id),
-  }));
+  const mappedSlides = slides.map((s) => {
+    let titleFormatted = null;
+    let descriptionFormatted = null;
+
+    try { titleFormatted = s.title_formatted ? JSON.parse(s.title_formatted) : null; } catch(e){ titleFormatted = null; }
+    try { descriptionFormatted = s.description_formatted ? JSON.parse(s.description_formatted) : null; } catch(e){ descriptionFormatted = null; }
+
+    return {
+      ...s,
+      title_formatted: titleFormatted,
+      description_formatted: descriptionFormatted,
+      fields: parsedFields.filter((f) => f.slide_id === s.id),
+    };
+  });
+
+  return mappedSlides;
+};
+
+// ✅ Update slide
+const updateSlide = async (
+  slide_id,
+  title,
+  description,
+  order_no,
+  title_formatted,
+  description_formatted,
+  header_image
+) => {
+  const [rows] = await db.query(
+    "CALL sp_update_slide(?, ?, ?, ?, ?, ?, ?)",
+    [
+      slide_id,
+      title,
+      description,
+      order_no,
+      title_formatted ? JSON.stringify(title_formatted) : null,
+      description_formatted ? JSON.stringify(description_formatted) : null,
+      header_image || null
+    ]
+  );
+
+  const slide = rows[0][0];
+  let titleFormatted = null;
+  let descriptionFormatted = null;
+
+  try { titleFormatted = slide.title_formatted ? JSON.parse(slide.title_formatted) : null; } catch(e){ titleFormatted = null; }
+  try { descriptionFormatted = slide.description_formatted ? JSON.parse(slide.description_formatted) : null; } catch(e){ descriptionFormatted = null; }
+
+  return { ...slide, title_formatted: titleFormatted, description_formatted: descriptionFormatted };
+};
+
+
+// ✅ Delete slide
+const deleteSlide = async (slide_id) => {
+  const [rows] = await db.query("CALL sp_delete_slide(?)", [slide_id]);
+  return rows[0][0].affected_rows > 0;
 };
 
 module.exports = {
@@ -161,4 +214,6 @@ module.exports = {
   addFieldsBulk,
   getAllSlides,
   getSlidesWithFields,
+  updateSlide,
+  deleteSlide,
 };

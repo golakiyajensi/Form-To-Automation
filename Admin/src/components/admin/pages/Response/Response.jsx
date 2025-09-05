@@ -58,15 +58,34 @@ const FormResponses = () => {
   };
 
   const filteredResponses = responses.filter((resp) => {
-    const submittedBy = resp.submitted_by || "Anonymous";
+    const search = searchTerm.toLowerCase();
+
+    const submittedBy = (resp.submitted_by || "Anonymous")
+      .toString()
+      .toLowerCase();
+
+    const formId = resp.form_id ? resp.form_id.toString().toLowerCase() : "";
+    const responseId = resp.response_id
+      ? resp.response_id.toString().toLowerCase()
+      : "";
+
+    // ✅ Normalize all answers into one string
+    const answersText = (resp.answers || [])
+      .map((a) => {
+        if (!a || a.value == null) return "";
+        if (Array.isArray(a.value)) {
+          return a.value.join(" ");
+        }
+        return a.value.toString();
+      })
+      .join(" ")
+      .toLowerCase();
+
     return (
-      submittedBy.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      resp.form_id.toString().includes(searchTerm) ||
-      resp.answers.some((a) =>
-        Array.isArray(a.value)
-          ? a.value.join(" ").toLowerCase().includes(searchTerm.toLowerCase())
-          : a.value.toLowerCase().includes(searchTerm.toLowerCase())
-      )
+      submittedBy.includes(search) ||
+      formId.includes(search) ||
+      responseId.includes(search) ||
+      answersText.includes(search)
     );
   });
 
@@ -156,9 +175,6 @@ const FormResponses = () => {
           >
             <Eye className="w-4 h-4" />
           </button>
-          <button className="text-green-500 hover:text-green-700">
-            <Edit className="w-4 h-4" />
-          </button>
           <button className="text-red-500 hover:text-red-700">
             <Trash2 className="w-4 h-4" />
           </button>
@@ -180,7 +196,7 @@ const FormResponses = () => {
           rel="noopener noreferrer"
           className="text-blue-500 text-xs mt-2 inline-block hover:underline"
         >
-          View Response
+          View Response Link
         </a>
       )}
     </div>
@@ -322,9 +338,6 @@ const FormResponses = () => {
                           }
                         >
                           <Eye className="w-4 h-4" />
-                        </button>
-                        <button className="text-green-500 hover:text-green-700">
-                          <Edit className="w-4 h-4" />
                         </button>
                         <button className="text-red-500 hover:text-red-700">
                           <Trash2 className="w-4 h-4" />

@@ -81,6 +81,33 @@ const Slides = () => {
     fetchSlides();
   }, []);
 
+  const handleDelete = async (slideId) => {
+    if (!window.confirm("Are you sure you want to delete this slide?")) return;
+
+    try {
+      setLoading(true);
+      const res = await fetch(`${API_URL}/api/slide/slides/${slideId}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          ...(token && { Authorization: `Bearer ${token}` }),
+        },
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message || "Failed to delete slide");
+
+      toast.success("Slide deleted successfully");
+
+      // Remove deleted slide from state
+      setSlides((prev) => prev.filter((slide) => slide.slide_id !== slideId));
+    } catch (err) {
+      toast.error(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleSelectAll = (checked) => {
     if (checked) setSelectedItems(currentItems.map((item) => item.slide_id));
     else setSelectedItems([]);
@@ -209,10 +236,20 @@ const Slides = () => {
         >
           <Eye className="w-4 h-4" /> <span>View</span>
         </button>
-        <button className="flex items-center space-x-1 text-green-500 hover:underline">
+        <button
+          className="flex items-center space-x-1 text-green-500 hover:underline"
+          onClick={() =>
+            navigate(
+              `/admin/dashboard/slides/edit/${slide.slide_id}/${slide.form_id}`
+            )
+          }
+        >
           <Edit className="w-4 h-4" /> <span>Edit</span>
         </button>
-        <button className="flex items-center space-x-1 text-red-500 hover:underline">
+        <button
+          className="flex items-center space-x-1 text-red-500 hover:underline"
+          onClick={() => handleDelete(slide.slide_id)}
+        >
           <Trash2 className="w-4 h-4" /> <span>Delete</span>
         </button>
       </div>
@@ -356,10 +393,20 @@ const Slides = () => {
                         >
                           <Eye className="w-4 h-4" />
                         </button>
-                        <button className="text-green-500 hover:text-green-700">
+                        <button
+                          className="text-green-500 hover:text-green-700"
+                          onClick={() =>
+                            navigate(
+                              `/admin/dashboard/slides/edit/${slide.slide_id}/${slide.form_id}`
+                            )
+                          }
+                        >
                           <Edit className="w-4 h-4" />
                         </button>
-                        <button className="text-red-500 hover:text-red-700">
+                        <button
+                          className="text-red-500 hover:text-red-700"
+                          onClick={() => handleDelete(slide.slide_id)}
+                        >
                           <Trash2 className="w-4 h-4" />
                         </button>
                       </td>

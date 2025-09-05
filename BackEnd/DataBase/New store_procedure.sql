@@ -914,10 +914,51 @@ BEGIN
         s.header_image,
         s.order_no,
         s.is_active,
+        s.created_by,
         s.created_at,
         s.updated_at
     FROM tbl_form_slides s
     LEFT JOIN tbl_forms f ON f.form_id = s.form_id
     ORDER BY s.form_id ASC, s.order_no ASC, s.id ASC;
 END$$
+DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE `sp_update_slide`(
+    IN p_slide_id INT,
+    IN p_title VARCHAR(255),
+    IN p_description TEXT,
+    IN p_order_no INT,
+    IN p_title_formatted JSON,
+    IN p_description_formatted JSON,
+    IN p_header_image VARCHAR(255)
+)
+BEGIN
+    UPDATE tbl_form_slides
+    SET 
+        title = p_title,
+        description = p_description,
+        order_no = p_order_no,
+        title_formatted = p_title_formatted,
+        description_formatted = p_description_formatted,
+        header_image = COALESCE(p_header_image, header_image),
+        updated_at = CURRENT_TIMESTAMP
+    WHERE id = p_slide_id;
+    
+    SELECT * FROM tbl_form_slides WHERE id = p_slide_id;
+END //
+
+DELIMITER ;
+
+
+
+DELIMITER //
+CREATE PROCEDURE `sp_delete_slide`(
+    IN p_slide_id INT
+)
+BEGIN
+    DELETE FROM tbl_form_slides WHERE id = p_slide_id;
+    SELECT ROW_COUNT() AS affected_rows;
+END //
 DELIMITER ;
