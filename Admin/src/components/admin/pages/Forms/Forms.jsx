@@ -1,16 +1,23 @@
 import React, { useState, useEffect } from "react";
-import { Search, Eye, Edit, Trash2, ChevronLeft, ChevronRight } from "lucide-react";
-import { useNavigate, useLocation } from "react-router-dom";
+import {
+  Search,
+  Eye,
+  Edit,
+  Trash2,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Forms = () => {
   const [forms, setForms] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedItems, setSelectedItems] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
   const [modalImage, setModalImage] = useState(null);
 
   const itemsPerPage = 10;
@@ -18,15 +25,12 @@ const Forms = () => {
   const API_URL = import.meta.env.VITE_FRONTEND_API_URL;
 
   const navigate = useNavigate();
-  const location = useLocation();
-  const pathParts = location.pathname.split("/").filter(Boolean);
 
   const apiRequest = async (url, options = {}) => {
     const config = {
       headers: {
         "Content-Type": "application/json",
         ...(token && { Authorization: `Bearer ${token}` }),
-        ...options.headers,
       },
       ...options,
     };
@@ -43,7 +47,6 @@ const Forms = () => {
       const response = await apiRequest(`${API_URL}/api/forms/`);
       let data = Array.isArray(response.data) ? response.data : [];
 
-      // role-based filter
       const role = localStorage.getItem("admin_role");
       const userId = localStorage.getItem("admin_id");
 
@@ -64,20 +67,58 @@ const Forms = () => {
     fetchData();
   }, []);
 
+  const handleDelete = async (formId) => {
+    if (!window.confirm("Are you sure you want to delete this form?")) return;
+
+    try {
+      setLoading(true);
+      const res = await fetch(`${API_URL}/api/forms/${formId}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          ...(token && { Authorization: `Bearer ${token}` }),
+        },
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message || "Failed to delete form");
+
+      toast.success("Form deleted successfully");
+
+      // Remove deleted form from state
+      setForms((prev) => prev.filter((form) => form.id !== formId));
+      setSelectedItems((prev) => prev.filter((id) => id !== formId));
+    } catch (err) {
+      toast.error(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const filteredItems = forms.filter((form) => {
-    const title = form.title || "";
-    const description = form.description || "";
-    const createdBy = form.created_by?.toString() || "";
+    const title = form.title ? form.title.toString().toLowerCase() : "";
+    const description = form.description
+      ? form.description.toString().toLowerCase()
+      : "";
+    const createdBy = form.created_by
+      ? form.created_by.toString().toLowerCase()
+      : "";
+
+    const search = searchTerm.toLowerCase();
+
     return (
-      title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      createdBy.toLowerCase().includes(searchTerm.toLowerCase())
+      title.includes(search) ||
+      description.includes(search) ||
+      createdBy.includes(search)
     );
   });
 
   const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const currentItems = filteredItems.slice(startIndex, startIndex + itemsPerPage);
+  const currentItems = filteredItems.slice(
+    startIndex,
+    startIndex + itemsPerPage
+  );
 
   const handleSelectItem = (id, checked) => {
     if (checked) setSelectedItems((prev) => [...prev, id]);
@@ -96,18 +137,9 @@ const Forms = () => {
     <div className="min-h-screen bg-gray-50 p-4 sm:p-6">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="mb-6 sm:mb-8">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between space-y-2 sm:space-y-0">
-            <h1 className="text-xl sm:text-2xl font-bold text-gray-700">FORMS</h1>
-            <div className="flex items-center text-xs sm:text-sm text-gray-500">
-              {pathParts.map((part, index) => (
-                <span key={index}>
-                  {part.charAt(0).toUpperCase() + part.slice(1)}
-                  {index < pathParts.length - 1 && <span className="mx-2">/</span>}
-                </span>
-              ))}
-            </div>
-          </div>
+        <div className="mb-6">
+          <h1 className="text-2xl font-bold text-gray-800">Forms</h1>
+          <p className="text-gray-500 text-sm">Manage all forms</p>
         </div>
 
         {/* Search */}
@@ -145,7 +177,6 @@ const Forms = () => {
             </button>
           </div>
         )}
-
         {!loading && !error && currentItems.length === 0 && (
           <div className="text-center py-12 text-gray-500">No forms found</div>
         )}
@@ -164,12 +195,24 @@ const Forms = () => {
                       className="rounded border-gray-300"
                     />
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">ID</th>
-                  <th className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Title</th>
-                  <th className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Description</th>
-                  <th className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Created By</th>
-                  <th className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Header Image</th>
-                  <th className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Actions</th>
+                  <th className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">
+                    ID
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">
+                    Title
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">
+                    Description
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">
+                    Created By
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">
+                    Header Image
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">
+                    Actions
+                  </th>
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-100">
@@ -179,21 +222,35 @@ const Forms = () => {
                       <input
                         type="checkbox"
                         checked={selectedItems.includes(form.id)}
-                        onChange={(e) => handleSelectItem(form.id, e.target.checked)}
+                        onChange={(e) =>
+                          handleSelectItem(form.id, e.target.checked)
+                        }
                         className="rounded border-gray-300"
                       />
                     </td>
-                    <td className="px-6 py-4 text-sm font-medium text-gray-900">{form.id}</td>
-                    <td className="px-6 py-4 text-sm text-gray-700">{form.title}</td>
-                    <td className="px-6 py-4 text-sm text-gray-700">{form.description}</td>
-                    <td className="px-6 py-4 text-sm text-gray-700">{form.created_by || "N/A"}</td>
+                    <td className="px-6 py-4 text-sm font-medium text-gray-900">
+                      {form.id}
+                    </td>
+                    <td className="px-6 py-4 text-sm text-gray-700">
+                      {form.title}
+                    </td>
+                    <td className="px-6 py-4 text-sm text-gray-700">
+                      {form.description}
+                    </td>
+                    <td className="px-6 py-4 text-sm text-gray-700">
+                      {form.created_by || "N/A"}
+                    </td>
                     <td className="px-6 py-4">
                       {form.header_image ? (
                         <img
                           src={`${API_URL}/uploads/${form.header_image}`}
                           alt="Header"
                           className="w-16 h-10 object-cover rounded cursor-pointer border border-gray-200"
-                          onClick={() => openImageModal(`${API_URL}/uploads/${form.header_image}`)}
+                          onClick={() =>
+                            openImageModal(
+                              `${API_URL}/uploads/${form.header_image}`
+                            )
+                          }
                         />
                       ) : (
                         "N/A"
@@ -203,10 +260,10 @@ const Forms = () => {
                       <button onClick={() => navigate(`view/${form.id}`)}>
                         <Eye className="w-5 h-5 text-blue-600 hover:text-blue-800" />
                       </button>
-                      <button>
+                      <button onClick={() => navigate(`edit/${form.id}`)}>
                         <Edit className="w-5 h-5 text-green-600 hover:text-green-800" />
                       </button>
-                      <button>
+                      <button onClick={() => handleDelete(form.id)}>
                         <Trash2 className="w-5 h-5 text-red-600 hover:text-red-800" />
                       </button>
                     </td>
@@ -221,32 +278,54 @@ const Forms = () => {
         {!loading && !error && currentItems.length > 0 && (
           <div className="lg:hidden space-y-4">
             {currentItems.map((form) => (
-              <div key={form.id} className="bg-white p-4 rounded-xl shadow-md border border-gray-200">
+              <div
+                key={form.id}
+                className="bg-white p-4 rounded-xl shadow-md border border-gray-200"
+              >
                 <div className="flex justify-between items-start mb-2">
                   <div>
-                    <h3 className="font-semibold text-gray-900 text-lg line-clamp-2">{form.title}</h3>
-                    <p className="text-gray-500 text-sm line-clamp-3">{form.description}</p>
-                    <span className="text-gray-400 text-xs mt-1 block">Created by: {form.created_by || "N/A"}</span>
+                    <h3 className="font-semibold text-gray-900 text-lg line-clamp-2">
+                      {form.title}
+                    </h3>
+                    <p className="text-gray-500 text-sm line-clamp-3">
+                      {form.description}
+                    </p>
+                    <span className="text-gray-400 text-xs mt-1 block">
+                      Created by: {form.created_by || "N/A"}
+                    </span>
                   </div>
                   {form.header_image && (
                     <img
                       src={`${API_URL}/uploads/${form.header_image}`}
                       alt="Header"
                       className="w-20 h-12 object-cover rounded cursor-pointer border border-gray-200"
-                      onClick={() => openImageModal(`${API_URL}/uploads/${form.header_image}`)}
+                      onClick={() =>
+                        openImageModal(
+                          `${API_URL}/uploads/${form.header_image}`
+                        )
+                      }
                     />
                   )}
                 </div>
                 <div className="flex space-x-3 mt-2">
-                  <button onClick={() => navigate(`view/${form.id}`)} className="flex items-center space-x-1 text-blue-600 hover:text-blue-800 text-sm">
+                  <button
+                    onClick={() => navigate(`view/${form.id}`)}
+                    className="flex items-center space-x-1 text-blue-600 hover:text-blue-800 text-sm"
+                  >
                     <Eye className="w-4 h-4" />
                     <span>View</span>
                   </button>
-                  <button className="flex items-center space-x-1 text-green-600 hover:text-green-800 text-sm">
+                  <button
+                    onClick={() => navigate(`edit/${form.id}`)}
+                    className="flex items-center space-x-1 text-green-600 hover:text-green-800 text-sm"
+                  >
                     <Edit className="w-4 h-4" />
                     <span>Edit</span>
                   </button>
-                  <button className="flex items-center space-x-1 text-red-600 hover:text-red-800 text-sm">
+                  <button
+                    className="flex items-center space-x-1 text-red-600 hover:text-red-800 text-sm"
+                    onClick={() => handleDelete(form.id)}
+                  >
                     <Trash2 className="w-4 h-4" />
                     <span>Delete</span>
                   </button>
@@ -260,14 +339,28 @@ const Forms = () => {
         {!loading && !error && currentItems.length > 0 && (
           <div className="flex justify-between items-center mt-4 px-4 sm:px-6 py-2 border-t border-gray-200">
             <span className="text-sm text-gray-500">
-              Showing {startIndex + 1} to {Math.min(startIndex + itemsPerPage, filteredItems.length)} of {filteredItems.length}
+              Showing {startIndex + 1} to{" "}
+              {Math.min(startIndex + itemsPerPage, filteredItems.length)} of{" "}
+              {filteredItems.length}
             </span>
             <div className="flex items-center space-x-1">
-              <button onClick={() => setCurrentPage(Math.max(1, currentPage - 1))} disabled={currentPage === 1} className="p-2 text-gray-400 hover:text-gray-600 disabled:opacity-50 disabled:cursor-not-allowed">
+              <button
+                onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+                disabled={currentPage === 1}
+                className="p-2 text-gray-400 hover:text-gray-600 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
                 <ChevronLeft className="w-4 h-4" />
               </button>
-              <span className="px-3 py-1 text-sm text-gray-700">{currentPage} / {totalPages}</span>
-              <button onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))} disabled={currentPage === totalPages} className="p-2 text-gray-400 hover:text-gray-600 disabled:opacity-50 disabled:cursor-not-allowed">
+              <span className="px-3 py-1 text-sm text-gray-700">
+                {currentPage} / {totalPages}
+              </span>
+              <button
+                onClick={() =>
+                  setCurrentPage(Math.min(totalPages, currentPage + 1))
+                }
+                disabled={currentPage === totalPages}
+                className="p-2 text-gray-400 hover:text-gray-600 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
                 <ChevronRight className="w-4 h-4" />
               </button>
             </div>

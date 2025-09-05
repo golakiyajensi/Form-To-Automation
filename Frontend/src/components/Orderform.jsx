@@ -12,8 +12,8 @@ import { faImage } from "@fortawesome/free-regular-svg-icons";
 import { Button, Modal, FormCheck, FormControl } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-export default function PartyInviteForm() {
-  const [formTitle, setFormTitle] = useState("Party Invite");
+export default function OrderForm() {
+  const [formTitle, setFormTitle] = useState("Oreder Form");
   const [formDescription, setFormDescription] = useState(
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur quis sem odio. Sed commodo vestibulum leo..."
   );
@@ -21,11 +21,18 @@ export default function PartyInviteForm() {
   const [showVideoModal, setShowVideoModal] = useState(false);
   const [videoUrl, setVideoUrl] = useState("");
 
-  // ✅ Generate Unique IDs
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    positions: [],
+    resume: "",
+  });
+
   const generateId = () =>
     Date.now().toString(36) + Math.random().toString(36).substr(2);
 
-  // ✅ Convert YouTube URL to embed
+  /** Convert YouTube URL to embed format */
   const convertToEmbedUrl = (url) => {
     if (!url) return "";
     const youtubeRegex =
@@ -34,7 +41,7 @@ export default function PartyInviteForm() {
     return match ? `https://www.youtube.com/embed/${match[1]}` : url;
   };
 
-  // ✅ Add dynamic element
+  /** Add new element */
   const addElement = (type, url = "") => {
     let newElement = null;
     if (type === "text") {
@@ -75,26 +82,39 @@ export default function PartyInviteForm() {
     setElements([...elements, newElement]);
   };
 
-  // ✅ Remove element
   const removeElement = (id) => {
     setElements(elements.filter((el) => el.id !== id));
   };
 
-  // ✅ Form Element Renderer
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    if (type === "checkbox") {
+      setFormData((prev) => {
+        const positions = checked
+          ? [...prev.positions, value]
+          : prev.positions.filter((p) => p !== value);
+        return { ...prev, positions };
+      });
+    } else {
+      setFormData((prev) => ({ ...prev, [name]: value }));
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Form Submitted:", formData);
+  };
+
   const FormElement = ({ element }) => (
-    <div className="form-section">
+    <div className="gform-card">
       {element.type === "text" && (
         <>
-          <label>
-            {element.label} {element.required && <span className="required">*</span>}
+          <label className="gform-label">
+            {element.label} {element.required && <span className="gform-required">*</span>}
           </label>
-          <input type="text" placeholder="Short-answer text" disabled />
-          <div className="form-actions">
-            <Button
-              variant="light"
-              size="sm"
-              onClick={() => removeElement(element.id)}
-            >
+          <input type="text" className="gform-input" placeholder="Short-answer text" disabled />
+          <div className="gform-actions">
+            <Button variant="light" size="sm" onClick={() => removeElement(element.id)}>
               <FontAwesomeIcon icon={faTrashAlt} />
             </Button>
             <FormCheck type="switch" label="Required" checked={element.required} />
@@ -104,7 +124,7 @@ export default function PartyInviteForm() {
 
       {element.type === "multiple_choice" && (
         <>
-          <label>{element.label}</label>
+          <label className="gform-label">{element.label}</label>
           {element.options.map((opt, i) => (
             <div key={i} className="d-flex align-items-center mb-2">
               <input type="radio" disabled className="me-2" />
@@ -128,98 +148,125 @@ export default function PartyInviteForm() {
 
       {element.type === "file" && (
         <>
-          <label>Upload File</label>
+          <label className="gform-label">Upload File</label>
           <input type="file" className="form-control" />
         </>
       )}
 
-      {element.type === "section" && (
-        <h4 className="gform-section">{element.label}</h4>
-      )}
+      {element.type === "section" && <h4 className="gform-section">{element.label}</h4>}
     </div>
   );
 
-  // ✅ Main Return
   return (
-    <div className="form-page">
-      <div className="form-container">
-        {/* Header Image */}
-        <div className="form-header-image">
-          <img src="/img/party.jpg" alt="Party" />
-        </div>
+    <div className="gform-container">
+      {/* Header Banner */}
+      <div className="gform-header-banner">
+        <img src="/img/order.jpg" alt="Header" />
+      </div>
 
-        {/* Title Section */}
-        <div className="form-section title-section">
+      {/* Header */}
+      <div className="gform-header">
+        <input
+          type="text"
+          value={formTitle}
+          onChange={(e) => setFormTitle(e.target.value)}
+          className="gform-title"
+        />
+        <textarea
+          value={formDescription}
+          onChange={(e) => setFormDescription(e.target.value)}
+          className="gform-desc"
+        />
+      </div>
+
+      {/* Job Application Form */}
+      <form className="gform-form" onSubmit={handleSubmit}>
+        {/* Name */}
+        <div className="gform-card">
+          <label className="gform-label">
+            Name <span className="gform-required">*</span>
+          </label>
+          <p className="gform-sub">First and last name</p>
           <input
             type="text"
-            value={formTitle}
-            onChange={(e) => setFormTitle(e.target.value)}
-            className="form-title"
-          />
-          <div className="title-divider"></div>
-          <textarea
-            value={formDescription}
-            onChange={(e) => setFormDescription(e.target.value)}
-            className="form-desc"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            className="gform-input"
+            required
           />
         </div>
 
-        {/* Static Questions */}
-        <div className="form-section">
-          <label>What is your name?</label>
-          <input type="text" placeholder="Short-answer text" />
-        </div>
-
-        <div className="form-section">
-          <label>
-            Can you attend? <span className="required">*</span>
+        {/* Email */}
+        <div className="gform-card">
+          <label className="gform-label">
+            Email <span className="gform-required">*</span>
           </label>
-          <div className="form-option">
-            <input type="radio" name="attend" id="yes" />
-            <label htmlFor="yes">Yes, I'll be there</label>
-          </div>
-          <div className="form-option">
-            <input type="radio" name="attend" id="no" />
-            <label htmlFor="no">Sorry, can't make it</label>
-          </div>
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            className="gform-input"
+            required
+          />
         </div>
 
-        <div className="form-section">
-          <label>How many of you are attending?</label>
-          <input type="text" placeholder="Short-answer text" />
+        {/* Phone */}
+        <div className="gform-card">
+          <label className="gform-label">
+            Phone number <span className="gform-required">*</span>
+          </label>
+          <input
+            type="tel"
+            name="phone"
+            value={formData.phone}
+            onChange={handleChange}
+            className="gform-input"
+            required
+          />
         </div>
 
-        <div className="form-section">
-          <label>What will you be bringing?</label>
-          <p className="hint">Let us know what kind of dish(es) you'll be bringing</p>
-          {["Mains", "Salad", "Dessert", "Drinks", "Sides/Appetizers", "Other"].map(
-            (item, i) => (
-              <div className="form-option" key={i}>
-                <input type="checkbox" id={item} />
-                <label htmlFor={item}>{item}</label>
-              </div>
-            )
-          )}
+        {/* Positions */}
+        <div className="gform-card">
+          <label className="gform-label">
+            Which position(s) are you interested in? <span className="gform-required">*</span>
+          </label>
+          {["Position 1", "Position 2", "Position 3"].map((pos) => (
+            <div key={pos} className="gform-checkbox">
+              <label>
+                <input
+                  type="checkbox"
+                  value={pos}
+                  checked={formData.positions.includes(pos)}
+                  onChange={handleChange}
+                />{" "}
+                {pos}
+              </label>
+            </div>
+          ))}
         </div>
 
-        <div className="form-section">
-          <label>Do you have any allergies or dietary restrictions?</label>
-          <input type="text" placeholder="Short-answer text" />
-        </div>
-
-        <div className="form-section">
-          <label>What is your email address?</label>
-          <input type="email" placeholder="Short-answer text" />
+        {/* Resume */}
+        <div className="gform-card">
+          <label className="gform-label">Submit your cover letter or resume</label>
+          <textarea
+            name="resume"
+            value={formData.resume}
+            onChange={handleChange}
+            className="gform-textarea"
+            rows="4"
+          />
         </div>
 
         {/* Dynamic Elements */}
         {elements.map((el) => (
           <FormElement key={el.id} element={el} />
         ))}
-      </div>
+      </form>
 
       {/* Floating Toolbar */}
-      <div className="form-toolbar">
+      <div className="gform-toolbar">
         <button onClick={() => addElement("text")}>
           <FontAwesomeIcon icon={faT} />
         </button>
