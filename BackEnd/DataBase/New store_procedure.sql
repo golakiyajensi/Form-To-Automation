@@ -951,8 +951,6 @@ END //
 
 DELIMITER ;
 
-
-
 DELIMITER //
 CREATE PROCEDURE `sp_delete_slide`(
     IN p_slide_id INT
