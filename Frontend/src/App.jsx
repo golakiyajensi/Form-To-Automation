@@ -26,7 +26,7 @@ import SlideGallery from "./components/SlideGallery.jsx";
 import Slidetemplate from "./components/Slidetemplate.jsx";
 
 
-import RsvpForm from "./components/RsvpForm.jsx";  
+import RsvpForm from "./components/RsvpForm.jsx";
 import Quiz from "./components/Quiz.jsx";
 import PartyInviteForm from "./components/PartyInvite.jsx";
 import OrderForm from "./components/Orderform.jsx";
@@ -77,7 +77,7 @@ function AppWrapper() {
 
 
         {/*  Uncomment only if you have this file */}
-        {/* <Route path="/form/Partyinvite" element={<PartyInviteForm />} /> */}
+        <Route path="/form/Partyinvite" element={<PartyInviteForm />} />
         <Route path="/form/Orderform" element={<OrderForm />} />
         <Route path="/form/Eventfeedback" element={<EventFeedbackForm />} />
         <Route path="/form/T-shirtsignup" element={<TShirtForm />} />
@@ -166,54 +166,55 @@ function AppWrapper() {
           path="/partyinvite"
           element={
             <>
-              <BlankForm /><PartyInvite />
+              <BlankForm />
+              <PartyInviteForm />
             </>}
-          />
+        />
 
-          <Route
+        <Route
           path="/exitticket"
           element={
             <>
               <BlankForm /><ExitTicket />
             </>}
-          />
-          
-          <Route
+        />
+
+        <Route
           path="/feedback"
           element={
             <>
               <BlankForm /><Feedback />
             </>}
-          />
-          <Route
+        />
+        <Route
           path="/assesment"
           element={
             <>
-              <BlankForm /><Assesment/>
+              <BlankForm /><Assesment />
             </>}
-          />
-          <Route
+        />
+        <Route
           path="/timeoffrequest"
           element={
             <>
-              <BlankForm /><TimeOffRequest/>
+              <BlankForm /><TimeOffRequest />
             </>}
-          />
-          <Route
+        />
+        <Route
           path="/workrequest"
           element={
             <>
-              <BlankForm /><WorkRequest/>
+              <BlankForm /><WorkRequest />
             </>}
-          />
+        />
 
-          <Route
+        <Route
           path="/worksheet"
           element={
             <>
-              <BlankForm /><Worksheet/>
+              <BlankForm /><Worksheet />
             </>}
-          />
+        />
       </Routes>
     </>
   );
