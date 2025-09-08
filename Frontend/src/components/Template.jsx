@@ -71,6 +71,7 @@ const Template = () => {
             </Link>
 
             <Link to="/form/jobapplication" className="tpl-card">
+
               <img src={blank4} alt="Job Application" className="tpl-card-img" />
               <p className="tpl-card-title">Job Application</p>
             </Link> 
@@ -84,6 +85,21 @@ const Template = () => {
               <img src={blank5} alt="Party Invite" className="tpl-card-img" />
               <p className="tpl-card-title">Party Invite</p>
             </Link> 
+
+              <img src={blank4} alt="no-img" className="tpl-card-img" />
+              <p className="tpl-card-title">Job Application</p>
+            </Link>
+
+            <Link to="/form/rsvp" className="tpl-card">
+              <img src={blank3} alt="no-img" className="tpl-card-img" />
+              <p className="tpl-card-title">RSVP</p>
+            </Link>
+
+            <Link to="/form/partyinvite" className="tpl-card">
+              <img src={blank5} alt="no-img" className="tpl-card-img" />
+              <p className="tpl-card-title">Party Invite</p>
+            </Link>
+
           </div>
         </div>
       </div>

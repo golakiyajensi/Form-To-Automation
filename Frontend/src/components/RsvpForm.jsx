@@ -29,11 +29,11 @@ const RsvpForm = () => {
     const fileInputRef = useRef(null);
     const floatingFileRef = useRef(null);
 
-    const [dynamicFields, setDynamicFields] = useState([]); // for toolbar added fields
+    const [dynamicFields, setDynamicFields] = useState([]);
     const [showVideoModal, setShowVideoModal] = useState(false);
     const [videoLink, setVideoLink] = useState("");
 
-    // Toolbar formatting
+    
     const applyFormat = (command) => {
         document.execCommand(command, false, null);
     };
