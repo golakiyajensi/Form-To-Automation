@@ -135,7 +135,11 @@ const Gallery = () => {
         <div className="gal-section">
           <h3 className="gal-section-title">Education</h3>
           <div className="gal-card-grid">
-            <Link to="/quiz" className="gal-card">
+            <Link
+              to="/quiz"
+              state={{ templateType: "blank-quiz" }}
+              className="gal-card"
+            >
               <img src={blank14} alt="Blank Quiz" />
               <p>Blank Quiz</p>
             </Link>

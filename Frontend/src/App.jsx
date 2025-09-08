@@ -37,7 +37,6 @@ import EventFeedbackForm from "./components/Eventfeedback.jsx";
 // Temporary pages
 const Docs = () => <h2 className="p-3">Docs Page</h2>;
 const Sheets = () => <h2 className="p-3">Sheets Page</h2>;
-const Forms = () => <h2 className="p-3">Forms Page</h2>;
 
 function AppWrapper() {
   const location = useLocation();
@@ -57,6 +56,7 @@ function AppWrapper() {
     "/form/tshirtform",
     "/form/eventfeedbackform",
   ];
+
   const showHeader = !hideHeaderPaths.includes(location.pathname.toLowerCase());
 
   return (
@@ -115,20 +115,24 @@ function AppWrapper() {
           }
         />
 
-        {/* Auth */}
-        <Route path="/signin" element={<Signin />} />
-        <Route path="/useaccount" element={<UseAccount />} />
-        <Route path="/password" element={<Password />} />
-        <Route path="/forgotpassword" element={<ForgotPassword />} />
-
-        {/* Docs, Sheets & Galleries */}
+        {/* Docs & Sheets */}
         <Route path="/docs" element={<Docs />} />
         <Route path="/docstemplate" element={<Docstemplate />} />
         <Route path="/docsgallery" element={<Docsgallery />} />
         <Route path="/sheets" element={<Sheets />} />
         <Route path="/sheetgallery" element={<SheetGallery />} />
+
+        {/* Slides */}
         <Route path="/slidetemplate" element={<Slidetemplate />} />
         <Route path="/slidegallery" element={<SlideGallery />} />
+
+        {/* Auth Routes */}
+        <Route path="/signin" element={<Signin />} />
+        <Route path="/useaccount" element={<UseAccount />} />
+        <Route path="/password" element={<Password />} />
+        <Route path="/forgotpassword" element={<ForgotPassword />} />
+
+        {/* Galleries */}
         <Route path="/templategallery" element={<TemplateGallery />} />
         <Route path="/formgallery" element={<Template />} />
         <Route path="/gallery" element={<Gallery />} />

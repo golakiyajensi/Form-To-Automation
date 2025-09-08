@@ -66,7 +66,7 @@ const Template = () => {
             </Link>
 
             <Link to="/form/contact" className="tpl-card">
-              <img src={blank2} alt="Contact Information" className="tpl-card-img" />
+              <img src={blank2} alt="Contact" className="tpl-card-img" />
               <p className="tpl-card-title">Contact Information</p>
             </Link>
 

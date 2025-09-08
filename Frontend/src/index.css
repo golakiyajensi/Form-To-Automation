@@ -2859,11 +2859,106 @@ body {
   }
 }
 
+
 @media (max-width: 576px) {
   .move-modal .modal-dialog {
     width: 100%;
     margin: 0;
   }
+
+    .placeholder-box {
+      text-align: center;
+      color: #6b7280;
+      padding: 2rem;
+      border: 2px dashed #d1d5db;
+      border-radius: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    /* Default floating toolbar (desktop) */
+/* ✅ Default = Desktop view (≥1025px) */
+.floating-toolbar {
+    position: fixed;
+    top: 240px;
+    right: 250px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 0.75rem;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 9999px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    z-index: 1000;
+}
+
+/* toolbar buttons */
+.floating-toolbar button {
+  border: none;
+  background: transparent;
+  color: #5f6368;
+  font-size: 1.5rem;
+  padding: 8px;
+  cursor: pointer;
+}
+
+/* ✅ Mobile & Tablet (≤1024px) → stick to bottom */
+@media (max-width: 1024px) {
+  .floating-toolbar {
+    position: fixed;
+    bottom: 0;
+    top: 92%;
+    left: 0;
+    right: 0;
+    margin: 0;
+    flex-direction: row !important;  /* force horizontal */
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px;
+    border-radius: 12px 12px 0 0;   /* rounded top corners */
+    width: 100%;   /* full width bottom bar */
+    height: 60px;  /* fixed height */
+    z-index: 9999;
+  }
+
+  .floating-toolbar button {
+    flex: 1;       /* evenly spaced */
+    padding: 12px;
+    font-size: 1.25rem; /* slightly smaller icons */
+  }
+}
+
+
+
+    .floating-toolbar button:hover {
+      background: #e5e7eb;
+      /* gray-200 */
+      border-radius: 50%;
+    }
+
+    .toolbar-btn {
+      background: transparent;
+      border: none;
+      padding: 0.25rem 0.5rem;
+      border-radius: 50%;
+      transition: background 0.2s;
+      color: #4b5563;
+    }
+
+    .toolbar-btn:hover {
+      background: #e5e7eb;
+    }
+
+    .section-header {
+      background-color: #6f42c1;
+    }
+
+    /* .form-control{
+  border: none;
+  border-bottom: 1px solid #d1d2d4;
+  border-radius: 0;
+} */
+
 
   .move-modal .modal-content {
     height: 100vh;
@@ -2907,6 +3002,7 @@ body {
   display: flex;
   align-items: center;
 }
+
 
 .custom-dropdown ul li:hover {
   background-color: #f5f5f5;
@@ -3142,6 +3238,101 @@ body {
 .form-header-bar {
   background-color: #6f42c1;
   /* purple-600 */
+
+/* ✅ Keep desktop (≥1025px) exactly as is */
+
+/* Tablet & Mobile (≤1024px) */
+@media (max-width: 1024px) {
+  .form-content {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .app-container, 
+  .response-page-content, 
+  .settings-page-wrapper {
+    width: 95%;
+    padding: 15px;
+    min-height: auto;
+  }
+
+  .form-element {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  .form-title-input {
+    width: 100%;
+    font-size: 1.5rem;
+  }
+
+  .element-title,
+  .form-description-input,
+  .option-input,
+  .file-upload,
+  .placeholder-box,
+  .section-title,
+  .section-description-text {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+/* Small Mobile (≤480px) */
+@media (max-width: 480px) {
+  .form-title-input {
+    font-size: 1.25rem;
+  }
+
+  .element-title {
+    font-size: 1rem;
+  }
+
+  .form-description-input,
+  .option-input,
+  .file-upload,
+  .placeholder-box,
+  .section-description-text {
+    font-size: 0.9rem;
+  }
+}
+
+
+/*----------------- ExitTicket.jsx start---------------------------- */
+.background1{
+  background-color: #effcee;
+}
+
+.section-header1{
+  background-color: rgb(39, 120, 24);
+}
+
+.form-header-bar1 {
+      background-color: rgb(39, 120, 24);
+      /* purple-600 */
+      height: 12px;
+      border-radius: 0.75rem 0.75rem 0 0;
+    }
+
+/*----------------- Feedback.jsx start------------------------------ */
+.background2{
+  background-color: rgb(233, 255, 253);
+}
+
+.form-header-bar2 {
+      background-color: rgb(2, 116, 107);
+      /* purple-600 */
+      height: 12px;
+      border-radius: 0.75rem 0.75rem 0 0;
+    }
+
+/* -----------------Assesment.jsx start---------------------- */
+.background3{
+  background-color: rgb(249, 239, 231);
+}
+
+.form-header-bar3{
+  background-color: rgb(134, 62, 4);
   height: 12px;
   border-radius: 0.75rem 0.75rem 0 0;
 }
@@ -3780,4 +3971,36 @@ body {
 .gform-image img {
   max-width: 200px;
   border-radius: 4px;
+}
+
+.gform-label-input {
+  font-size: 16px;
+  font-weight: 500;
+  border: none;
+  outline: none;
+  background: transparent;
+  width: 100%;
+  color: #333;
+}
+
+.gform-label-input:focus {
+  border-bottom: 1px solid #6f42c1; /* purple underline on focus */
+}
+.gform-label-input {
+  font-size: 16px;
+  font-weight: 500;
+  border: none;
+  outline: none;
+  background: transparent;
+  width: 100%;
+  color: #1f2937; /* same gray-800 like your label */
+  cursor: text;
+}
+
+.gform-label-input:focus {
+  border-bottom: 1px solid #6f42c1; /* purple underline like Google Form */
+}
+
+.desc-text{
+  line-height: 1.5;
 }
