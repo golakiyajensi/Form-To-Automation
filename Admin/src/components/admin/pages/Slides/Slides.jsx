@@ -28,9 +28,7 @@ const Slides = () => {
   const navigate = useNavigate();
   const pathParts = location.pathname.split("/").filter(Boolean);
 
-  const openImageModal = (url) => setModalImage(url);
-  const closeImageModal = () => setModalImage(null);
-
+  // ------------------ API Helper ------------------
   const apiRequest = async (url, options = {}) => {
     const config = {
       headers: {
@@ -46,6 +44,7 @@ const Slides = () => {
     return data;
   };
 
+  // ------------------ Fetch Slides ------------------
   const fetchSlides = async () => {
     setLoading(true);
     setError(null);
@@ -53,13 +52,11 @@ const Slides = () => {
       const response = await apiRequest(`${API_URL}/api/slide/slides`);
       let data = Array.isArray(response.data) ? response.data : [];
 
-      // ✅ Role-based filtering
+      // Role-based filtering
       const role = localStorage.getItem("admin_role");
       const userId = localStorage.getItem("admin_id");
       if (role === "creator") {
-        data = data.filter(
-          (form) => String(form.created_by) === String(userId)
-        );
+        data = data.filter((slide) => String(slide.created_by) === String(userId));
       }
 
       setSlides(data);
@@ -76,6 +73,7 @@ const Slides = () => {
     fetchSlides();
   }, []);
 
+  // ------------------ Delete Slide ------------------
   const handleDelete = async (slideId) => {
     if (!window.confirm("Are you sure you want to delete this slide?")) return;
 
@@ -88,13 +86,10 @@ const Slides = () => {
           ...(token && { Authorization: `Bearer ${token}` }),
         },
       });
-
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || "Failed to delete slide");
 
       toast.success("Slide deleted successfully");
-
-      // Remove deleted slide from state
       setSlides((prev) => prev.filter((slide) => slide.slide_id !== slideId));
     } catch (err) {
       toast.error(err.message);
@@ -103,6 +98,7 @@ const Slides = () => {
     }
   };
 
+  // ------------------ Selection ------------------
   const handleSelectAll = (checked) => {
     if (checked) setSelectedItems(currentItems.map((item) => item.slide_id));
     else setSelectedItems([]);
@@ -113,34 +109,31 @@ const Slides = () => {
     else setSelectedItems((prev) => prev.filter((i) => i !== id));
   };
 
+  // ------------------ Filtering & Pagination ------------------
   const filteredItems = slides.filter((slide) => {
-    const formTitle = slide?.form_title || "";
-    const slideTitle = slide?.slide_title || "";
-    const slideDesc = slide?.slide_description || "";
+    const term = searchTerm.toLowerCase();
     return (
-      formTitle.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      slideTitle.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      slideDesc.toLowerCase().includes(searchTerm.toLowerCase())
+      slide.form_title?.toLowerCase().includes(term) ||
+      slide.slide_title?.toLowerCase().includes(term) ||
+      slide.slide_description?.toLowerCase().includes(term)
     );
   });
 
   const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const currentItems = filteredItems.slice(
-    startIndex,
-    startIndex + itemsPerPage
-  );
+  const currentItems = filteredItems.slice(startIndex, startIndex + itemsPerPage);
 
+  // ------------------ Pagination Component ------------------
   const PaginationComponent = () => {
     const getVisiblePages = () => {
       const delta = 2;
       const pages = [];
       const start = Math.max(2, currentPage - delta);
       const end = Math.min(totalPages - 1, currentPage + delta);
+
       pages.push(1);
       if (start > 2) pages.push("...");
-      for (let i = start; i <= end; i++)
-        if (i !== 1 && i !== totalPages) pages.push(i);
+      for (let i = start; i <= end; i++) if (i !== 1 && i !== totalPages) pages.push(i);
       if (end < totalPages - 1) pages.push("...");
       if (totalPages > 1) pages.push(totalPages);
       return pages;
@@ -149,9 +142,7 @@ const Slides = () => {
     return (
       <div className="flex flex-col sm:flex-row items-center justify-between space-y-4 sm:space-y-0 px-4 sm:px-6 py-4 border-t border-gray-200">
         <div className="text-sm text-gray-500">
-          Showing {startIndex + 1} to{" "}
-          {Math.min(startIndex + itemsPerPage, filteredItems.length)} of{" "}
-          {filteredItems.length} slides
+          Showing {startIndex + 1} to {Math.min(startIndex + itemsPerPage, filteredItems.length)} of {filteredItems.length} slides
         </div>
         <div className="flex items-center space-x-1">
           <button
@@ -183,9 +174,7 @@ const Slides = () => {
             {currentPage} / {totalPages}
           </div>
           <button
-            onClick={() =>
-              setCurrentPage(Math.min(totalPages, currentPage + 1))
-            }
+            onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
             disabled={currentPage === totalPages}
             className="p-2 text-gray-400 hover:text-gray-600 disabled:opacity-50"
           >
@@ -196,48 +185,28 @@ const Slides = () => {
     );
   };
 
+  // ------------------ Mobile Card ------------------
   const MobileCard = ({ slide }) => (
     <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200 mb-4">
       <div className="flex justify-between items-start mb-2">
         <div>
-          <h3 className="text-gray-900 font-medium text-sm">
-            {slide.slide_title}
-          </h3>
-          <p className="text-gray-500 text-xs line-clamp-2">
-            {slide.slide_description}
-          </p>
+          <h3 className="text-gray-900 font-medium text-sm">{slide.slide_title}</h3>
+          <p className="text-gray-500 text-xs line-clamp-2">{slide.slide_description}</p>
           <p className="text-gray-500 text-xs mt-1">
-            <span className="font-semibold">Form:</span>{" "}
-            {slide.form_title || "N/A"}
+            <span className="font-semibold">Form:</span> {slide.form_title || "N/A"}
           </p>
         </div>
-        {slide.header_image && (
-          <img
-            src={`${API_URL}/uploads/${slide.header_image}`}
-            alt="Header"
-            className="w-16 h-10 object-cover rounded cursor-pointer"
-            onClick={() =>
-              openImageModal(`${API_URL}/uploads/${slide.header_image}`)
-            }
-          />
-        )}
       </div>
       <div className="mt-2 flex space-x-3 text-sm">
         <button
           className="flex items-center space-x-1 text-blue-500 hover:underline"
-          onClick={() =>
-            navigate(`/admin/dashboard/slides/view/${slide.slide_id}`)
-          }
+          onClick={() => navigate(`/admin/dashboard/slides/view/${slide.form_id}`)}
         >
           <Eye className="w-4 h-4" /> <span>View</span>
         </button>
         <button
           className="flex items-center space-x-1 text-green-500 hover:underline"
-          onClick={() =>
-            navigate(
-              `/admin/dashboard/slides/edit/${slide.slide_id}/${slide.form_id}`
-            )
-          }
+          onClick={() => navigate(`/admin/dashboard/slides/edit/${slide.slide_id}/${slide.form_id}`)}
         >
           <Edit className="w-4 h-4" /> <span>Edit</span>
         </button>
@@ -254,26 +223,19 @@ const Slides = () => {
   return (
     <div className="min-h-screen bg-gray-50 p-4 sm:p-6">
       <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="mb-6 sm:mb-8">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between space-y-2 sm:space-y-0">
-            <div>
-              <h1 className="text-2xl font-bold text-gray-800">Slides</h1>
-              <p className="text-gray-500 text-sm">Manage all Slides</p>
-            </div>
-            <div className="flex items-center text-xs sm:text-sm text-gray-500">
-              {pathParts.map((part, index) => {
-                const name = part.charAt(0).toUpperCase() + part.slice(1);
-                return (
-                  <span key={index}>
-                    {name}
-                    {index < pathParts.length - 1 && (
-                      <span className="mx-2">/</span>
-                    )}
-                  </span>
-                );
-              })}
-            </div>
+        {/* Header & Breadcrumb */}
+        <div className="mb-6 sm:mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between space-y-2 sm:space-y-0">
+          <div>
+            <h1 className="text-2xl font-bold text-gray-800">Slides</h1>
+            <p className="text-gray-500 text-sm">Manage all Slides</p>
+          </div>
+          <div className="flex items-center text-xs sm:text-sm text-gray-500">
+            {pathParts.map((part, index) => (
+              <span key={index}>
+                {part.charAt(0).toUpperCase() + part.slice(1)}
+                {index < pathParts.length - 1 && <span className="mx-2">/</span>}
+              </span>
+            ))}
           </div>
         </div>
 
@@ -294,7 +256,7 @@ const Slides = () => {
           </div>
         </div>
 
-        {/* Loading/Error/Empty */}
+        {/* Loading / Error / Empty */}
         {loading && <div className="text-center py-12">Loading...</div>}
         {error && <div className="text-center py-12">{error}</div>}
         {!loading && !error && filteredItems.length === 0 && (
@@ -329,9 +291,6 @@ const Slides = () => {
                       Slide Description
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">
-                      Header Image
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">
                       Actions
                     </th>
                   </tr>
@@ -352,49 +311,19 @@ const Slides = () => {
                       <td className="px-6 py-4 text-sm font-medium text-gray-900">
                         {slide.slide_id}
                       </td>
-                      <td className="px-6 py-4 text-sm text-gray-700">
-                        {slide.form_title}
-                      </td>
-                      <td className="px-6 py-4 text-sm text-gray-700">
-                        {slide.slide_title}
-                      </td>
-                      <td className="px-6 py-4 text-sm text-gray-700">
-                        {slide.slide_description}
-                      </td>
-                      <td className="px-6 py-4">
-                        {slide.header_image ? (
-                          <img
-                            src={`${API_URL}/uploads/${slide.header_image}`}
-                            alt="Header"
-                            className="w-16 h-10 object-cover rounded cursor-pointer"
-                            onClick={() =>
-                              openImageModal(
-                                `${API_URL}/uploads/${slide.header_image}`
-                              )
-                            }
-                          />
-                        ) : (
-                          "N/A"
-                        )}
-                      </td>
+                      <td className="px-6 py-4 text-sm text-gray-700">{slide.form_title}</td>
+                      <td className="px-6 py-4 text-sm text-gray-700">{slide.slide_title}</td>
+                      <td className="px-6 py-4 text-sm text-gray-700">{slide.slide_description}</td>
                       <td className="px-6 py-4 flex space-x-2">
                         <button
                           className="text-blue-500 hover:text-blue-700"
-                          onClick={() =>
-                            navigate(
-                              `/admin/dashboard/slides/view/${slide.slide_id}`
-                            )
-                          }
+                          onClick={() => navigate(`/admin/dashboard/slides/view/${slide.form_id}`)}
                         >
                           <Eye className="w-4 h-4" />
                         </button>
                         <button
                           className="text-green-500 hover:text-green-700"
-                          onClick={() =>
-                            navigate(
-                              `/admin/dashboard/slides/edit/${slide.slide_id}/${slide.form_id}`
-                            )
-                          }
+                          onClick={() => navigate(`/admin/dashboard/slides/edit/${slide.slide_id}/${slide.form_id}`)}
                         >
                           <Edit className="w-4 h-4" />
                         </button>
@@ -427,7 +356,7 @@ const Slides = () => {
         {modalImage && (
           <div
             className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-4"
-            onClick={closeImageModal}
+            onClick={() => setModalImage(null)}
           >
             <div className="relative max-w-3xl w-full">
               <img
@@ -437,7 +366,7 @@ const Slides = () => {
                 onClick={(e) => e.stopPropagation()}
               />
               <button
-                onClick={closeImageModal}
+                onClick={() => setModalImage(null)}
                 className="absolute top-2 right-2 bg-white text-gray-800 text-xl font-bold rounded-full w-8 h-8 flex items-center justify-center shadow hover:bg-gray-100 transition"
               >
                 &times;

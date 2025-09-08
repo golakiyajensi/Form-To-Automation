@@ -33,11 +33,15 @@ const ViewResponse = () => {
     const fetchResponse = async () => {
       try {
         // Fetch the response
-        const res = await apiRequest(`${API_URL}/api/form-responses/response/${responseId}`);
+        const res = await apiRequest(
+          `${API_URL}/api/form-responses/response/${responseId}`
+        );
         const responseData = res.data;
 
         // Fetch form info
-        const formRes = await apiRequest(`${API_URL}/api/forms/${responseData.form_id}`);
+        const formRes = await apiRequest(
+          `${API_URL}/api/forms/${responseData.form_id}`
+        );
         setForm(formRes.data);
 
         // Fetch field labels for answers if missing
@@ -45,7 +49,9 @@ const ViewResponse = () => {
           responseData.answers.map(async (a) => {
             if (!a.label) {
               try {
-                const fieldRes = await apiRequest(`${API_URL}/api/forms-fields/field/${a.field_id}`);
+                const fieldRes = await apiRequest(
+                  `${API_URL}/api/forms-fields/field/${a.field_id}`
+                );
                 a.label = fieldRes.data?.label || `Field ${a.field_id}`;
                 a.field_image = fieldRes.data?.field_image || null;
               } catch {
@@ -66,6 +72,28 @@ const ViewResponse = () => {
 
     fetchResponse();
   }, [responseId]);
+
+  // Inside your component, before return statement
+  const handleOpenPublicLink = async () => {
+    if (!response || !response.form_id) return;
+
+    try {
+      const res = await apiRequest(
+        `${API_URL}/api/forms/public/${response.form_id}`
+      );
+
+      console.log("Public Form Data:", res.data);
+      toast.success("Public form data loaded!");
+
+      // Navigate to the public form page
+      if (res.data?.form?.share_url) {
+        window.open(res.data.form.share_url, "_blank"); // Opens in a new tab
+      }
+    } catch (err) {
+      console.error("Failed to fetch public form:", err);
+      toast.error("Failed to load public form");
+    }
+  };
 
   if (loading)
     return (
@@ -103,8 +131,12 @@ const ViewResponse = () => {
         {/* Form Title & Description */}
         {form && (
           <div className="mb-6">
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">{form.title}</h1>
-            {form.description && <p className="text-gray-700">{form.description}</p>}
+            <h1 className="text-3xl font-bold text-gray-900 mb-2">
+              {form.title}
+            </h1>
+            {form.description && (
+              <p className="text-gray-700">{form.description}</p>
+            )}
           </div>
         )}
 
@@ -128,14 +160,12 @@ const ViewResponse = () => {
             </div>
           </div>
           {response.link && (
-            <a
-              href={response.link}
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
+              onClick={handleOpenPublicLink}
               className="inline-block mt-3 text-blue-600 hover:underline text-sm"
             >
               Open Public Link
-            </a>
+            </button>
           )}
         </div>
 
@@ -172,11 +202,11 @@ const ViewResponse = () => {
               {/* Optional Field Image */}
               {a.field_image && (
                 <img
-                  src={`${API_URL}/uploads/${a.field_image}`}
+                  src={`${API_URL}/uploads/fields/${a.field_image}`}
                   alt="Field"
                   className="w-40 h-28 object-cover rounded mt-3 border"
                 />
-              )}
+              )}  
             </div>
           ))}
         </div>

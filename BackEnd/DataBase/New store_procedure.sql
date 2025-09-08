@@ -39,7 +39,6 @@ BEGIN
 END$$
 DELIMITER ;
 
-
 DELIMITER $$
 CREATE PROCEDURE sp_login_user(
     IN p_email VARCHAR(100),
@@ -47,11 +46,12 @@ CREATE PROCEDURE sp_login_user(
     OUT p_user_id INT,
     OUT p_role VARCHAR(50),
     OUT p_name VARCHAR(100),
-    OUT p_password VARCHAR(255)
+    OUT p_password VARCHAR(255),
+    OUT p_is_verified TINYINT
 )
 BEGIN
-    SELECT user_id, role, name, password
-    INTO p_user_id, p_role, p_name, p_password
+    SELECT user_id, role, name, password, is_verified
+    INTO p_user_id, p_role, p_name, p_password, p_is_verified
     FROM tbl_user
     WHERE email = p_email
     LIMIT 1;
@@ -62,11 +62,13 @@ BEGIN
         SET p_role = NULL;
         SET p_name = NULL;
         SET p_password = NULL;
+        SET p_is_verified = NULL;
     ELSE
         SET p_status = 'SUCCESS';
     END IF;
 END$$
 DELIMITER ;
+
 
 -- form
 

@@ -2,6 +2,7 @@ const formFieldModel = require("../models/formFieldModel");
 const response = require("../utils/responseTemplate");
 
 // Create field
+// Create field
 exports.createFormField = async (req, res) => {
   try {
     const {
@@ -13,14 +14,17 @@ exports.createFormField = async (req, res) => {
       options,
       conditional_logic,
       order_no,
-      description,          // ✅ new
-      response_validation,  // ✅ new
+      description,
+      response_validation,
     } = req.parsedBody;
 
     const fieldImage = req.parsedBody.field_image || null;
 
+    // ✅ Logic: slide_id hoy to form_id null, else form_id use
+    const formId = slide_id ? null : req.params.formId;
+
     const result = await formFieldModel.createFormField(
-      req.params.formId,
+      formId,
       slide_id,
       label,
       label_formatted,
@@ -32,7 +36,7 @@ exports.createFormField = async (req, res) => {
       fieldImage,
       description,
       response_validation,
-      req.user.user_id 
+      req.user.user_id
     );
 
     res.json(response.success("Field created successfully", result));
@@ -40,6 +44,7 @@ exports.createFormField = async (req, res) => {
     res.status(500).json(response.error(err.message));
   }
 };
+
 
 // Get fields by formId
 exports.getFieldsByFormId = async (req, res) => {

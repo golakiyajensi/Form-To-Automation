@@ -18,4 +18,10 @@ router.get("/response/:responseId", authMiddleware(["admin","creator"]), respons
 // GET Excel-compatible data
 router.get("/excel/:id", authMiddleware(["admin","creator"]), responseController.getResponseForExcel);
 
+// Export CSV
+router.get("/export/csv/:formId", authMiddleware(["admin","creator"]), responseController.exportResponsesCSV);
+
+// Export PDF
+router.get("/export/pdf/:formId", authMiddleware(["admin","creator"]), responseController.exportResponsesPDF);
+
 module.exports = router;

@@ -1,17 +1,22 @@
 const formModel = require("../models/formModel");
 const formThemeModel = require("../models/formThemeModel");
+const { getUserById } = require("../models/userModel"); // ✅ fetch by user ID
 const response = require("../utils/responseTemplate");
+const nodemailer = require("nodemailer");
+require("dotenv").config();
 
-// Create Form
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS },
+});
+
 exports.createForm = async (req, res) => {
   try {
-    const { title, description, title_formatted, description_formatted } =
-      req.body;
+    const { title, description, title_formatted, description_formatted } = req.body;
     const created_by = req.user.userId;
-    const header_image = req.file
-      ? req.file.filename
-      : req.body.header_image || null;
+    const header_image = req.file ? req.file.filename : req.body.header_image || null;
 
+    // 1️⃣ Create form
     const result = await formModel.createForm(
       title,
       description,
@@ -21,6 +26,37 @@ exports.createForm = async (req, res) => {
       description_formatted
     );
 
+    // 2️⃣ Fetch user info
+    const user = await getUserById(created_by);
+    if (!user) {
+      return res.status(404).json(response.error("User not found"));
+    }
+    const { email, name } = user;
+
+    const shareUrl = `${process.env.FRONTEND_URL}/form/${result.form_id}`;
+
+    // 3️⃣ Send email to user
+    await transporter.sendMail({
+      from: process.env.EMAIL_USER,
+      to: email,
+      subject: "Your form has been created!",
+      html: `<h2>Hi ${name},</h2>
+             <p>Your form "<b>${title}</b>" has been successfully created.</p>
+             <p>Share URL: <a href="${shareUrl}">${shareUrl}</a></p>`,
+    });
+
+    // 4️⃣ Send email to admin (optional)
+    if (process.env.ADMIN_EMAIL) {
+      await transporter.sendMail({
+        from: process.env.EMAIL_USER,
+        to: process.env.ADMIN_EMAIL,
+        subject: "New form created by user",
+        html: `<p>User <b>${name}</b> (${email}) created a new form: <b>${title}</b></p>
+               <p>Share URL: <a href="${shareUrl}">${shareUrl}</a></p>`,
+      });
+    }
+
+    // 5️⃣ Respond
     res.json(
       response.success("Form created successfully", {
         id: result.form_id,
@@ -30,10 +66,11 @@ exports.createForm = async (req, res) => {
         description_formatted,
         created_by,
         header_image,
-        share_url: result.share_url,
+        share_url: shareUrl,
       })
     );
   } catch (err) {
+    console.error(err);
     res.status(500).json(response.error(err.message));
   }
 };
@@ -166,6 +203,10 @@ exports.getFormForPublic = async (req, res) => {
 
     // Theme fetch karo → auto-create default if missing
     const theme = await formThemeModel.getFormTheme(formId);
+
+    // 🔥 share_url generate from ENV (fallback localhost)
+    const BASE_URL = process.env.FRONTEND_URL || "http://localhost:5174";
+    result.share_url = `${BASE_URL}/form/${formId}`;
 
     // Response
     res.json(

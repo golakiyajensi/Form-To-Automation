@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const API_URL = import.meta.env.VITE_FRONTEND_API_URL;
 
@@ -17,7 +18,9 @@ const EditForm = () => {
 
   const token = localStorage.getItem("admin_token");
 
-  // Fetch form by ID
+  // -----------------------------
+  // Fetch Form By ID
+  // -----------------------------
   const fetchForm = async () => {
     try {
       setLoading(true);
@@ -27,16 +30,15 @@ const EditForm = () => {
           ...(token && { Authorization: `Bearer ${token}` }),
         },
       });
-
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || "Failed to fetch form");
 
       setForm(data.data);
-      setTitle(data.data.title);
-      setDescription(data.data.description);
-      setHeaderImage(data.data.header_image);
+      setTitle(data.data.title || "");
+      setDescription(data.data.description || "");
+      setHeaderImage(data.data.header_image || null);
     } catch (err) {
-      toast.error(err.message);
+      toast.error(err.message || "Failed to fetch form");
     } finally {
       setLoading(false);
     }
@@ -46,26 +48,32 @@ const EditForm = () => {
     fetchForm();
   }, [id]);
 
-  // Handle file input
+  // -----------------------------
+  // Handle File Input
+  // -----------------------------
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       setNewImage(file);
-      setHeaderImage(URL.createObjectURL(file)); // preview
+      setHeaderImage(URL.createObjectURL(file)); // Preview
     }
   };
 
-  // Save updates
+  // -----------------------------
+  // Save Updates
+  // -----------------------------
   const handleSave = async () => {
+    if (!title.trim()) {
+      toast.warning("Title cannot be empty");
+      return;
+    }
+
     try {
       setLoading(true);
-
       const formData = new FormData();
       formData.append("title", title);
       formData.append("description", description);
-      if (newImage) {
-        formData.append("header_image", newImage);
-      }
+      if (newImage) formData.append("header_image", newImage);
 
       const res = await fetch(`${API_URL}/api/forms/${id}`, {
         method: "PUT",
@@ -81,12 +89,15 @@ const EditForm = () => {
       toast.success("Form updated successfully");
       navigate("/admin/dashboard/forms");
     } catch (err) {
-      toast.error(err.message);
+      toast.error(err.message || "Failed to update form");
     } finally {
       setLoading(false);
     }
   };
 
+  // -----------------------------
+  // Loading / Not Found States
+  // -----------------------------
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-gray-50">
@@ -105,7 +116,7 @@ const EditForm = () => {
 
   return (
     <div className="min-h-screen bg-gray-100 py-10 px-4">
-      <div className="mx-auto bg-white rounded-2xl shadow-lg border border-gray-200 p-8">
+      <div className="mx-auto bg-white rounded-2xl shadow-lg border border-gray-200 p-8 max-w-2xl">
         <h2 className="text-2xl font-bold text-gray-800 mb-6">Edit Form</h2>
 
         {/* Title */}
@@ -135,11 +146,9 @@ const EditForm = () => {
           <span className="text-gray-700 text-sm font-medium">Header Image</span>
           {headerImage && (
             <img
-              src={
-                newImage ? headerImage : `${API_URL}/uploads/${headerImage}`
-              }
+              src={newImage ? headerImage : `${API_URL}/uploads/${headerImage}`}
               alt="Header Preview"
-              className="w-full h-48 rounded-lg border mb-3 shadow-sm"
+              className="w-full h-48 rounded-lg border mb-3 shadow-sm object-cover"
             />
           )}
           <input
@@ -166,6 +175,9 @@ const EditForm = () => {
           </button>
         </div>
       </div>
+
+      {/* Toast Container */}
+      <ToastContainer position="top-right" autoClose={3000} theme="light" />
     </div>
   );
 };
