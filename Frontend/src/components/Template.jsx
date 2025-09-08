@@ -60,8 +60,8 @@ const Template = () => {
               <p className="tpl-card-title">Blank</p>
             </Link>
 
-            <Link to="#" className="tpl-card">
-              <img src={blank8} alt="Find a Time" className="tpl-card-img" />
+            <Link to="/form/findtime" className="tpl-card">
+              <img src={blank8} alt="no-img" className="tpl-card-img" />
               <p className="tpl-card-title">Find a Time</p>
             </Link>
 
@@ -73,20 +73,22 @@ const Template = () => {
             <Link to="/form/jobapplication" className="tpl-card">
               <img src={blank4} alt="Job Application" className="tpl-card-img" />
               <p className="tpl-card-title">Job Application</p>
-            </Link>
+            </Link> 
 
             <Link to="/form/rsvpform" className="tpl-card">
               <img src={blank3} alt="RSVP" className="tpl-card-img" />
               <p className="tpl-card-title">RSVP</p>
-            </Link>
+            </Link> 
 
             <Link to="/form/partyinvite" className="tpl-card">
               <img src={blank5} alt="Party Invite" className="tpl-card-img" />
               <p className="tpl-card-title">Party Invite</p>
-            </Link>
+            </Link> 
           </div>
         </div>
       </div>
+
+
 
       {/* Dashboard Section */}
       <div className="dashboard">
@@ -117,7 +119,8 @@ const Template = () => {
           <div className="empty-state-card">
             <h3>No forms yet</h3>
             <p>
-              Select a blank form or choose another template above to get started
+              Select a blank form or choose another template above to get
+              started
             </p>
           </div>
         </div>

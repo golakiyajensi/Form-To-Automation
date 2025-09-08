@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const formFieldController = require("../controllers/formFieldController");
 const authMiddleware = require("../middlewares/authMiddleware");
-const upload = require("../middlewares/uploadMiddleware");
+const { upload, changeSlideUpload } = require("../middlewares/uploadMiddleware");
 const parseRequestBody = require("../utils/parseRequestBody");
 
 // Create Field

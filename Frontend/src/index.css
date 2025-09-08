@@ -3108,101 +3108,7 @@ body {
   }
 }
 
-/* form.jsx start */
-/* .form-content{
-  width: 770px;
-}
-
-.google-form-clone .card {
-  border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(60, 64, 67, 0.3), 
-              0 4px 8px 3px rgba(60, 64, 67, 0.15);
-  border: 1px solid transparent;
-  width: 100%;
-}
-
-.card-header-purple {
-  background-color: #673ab7;
-  height: 8px;
-}
-
-.google-form-clone .form-title-input,
-.google-form-clone .form-description-input,
-.google-form-clone .question-input,
-.google-form-clone .option-input {
-  border: none;
-  border-bottom: 2px solid transparent;
-  font-size: 1.5rem;
-  font-weight: 400;
-  padding: 8px 0;
-  transition: all 0.2s ease-in-out;
-}
-
-.google-form-clone .form-title-input {
-  font-size: 2rem;
-  font-weight: 500;
-}
-
-.google-form-clone .form-description-input {
-  font-size: 1rem;
-  font-weight: 400;
-}
-
-.google-form-clone .form-control:focus {
-  box-shadow: none;
-  border-color: #673ab7;
-}
-
-.google-form-clone .form-check-input:checked {
-  background-color: #673ab7;
-  border-color: #673ab7;
-}
-
-.google-form-clone .form-check-input {
-  margin-top: 0.5em;
-  cursor: pointer;
-} */
-
-/* Floating Toolbar */
-/* .floating-toolbar {
-  position: fixed;
-  right: 2rem;
-  bottom: 2rem;
-  z-index: 1000;
-  display: flex;
-  flex-direction: row;
-  background-color: white;
-  padding: 0.5rem;
-  border-radius: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.floating-toolbar .btn {
-  border: none;
-  background: transparent;
-  color: #5f6368;
-  font-size: 1.5rem;
-  padding: 0.5rem 1rem;
-}
-
-.floating-toolbar .btn:hover {
-  color: #673ab7;
-  background-color: #f0ebf8;
-} */
-
-/* Responsive */
-/* @media (min-width: 768px) {
-  .floating-toolbar {
-    position: sticky;
-    top: 2rem;
-    right: 0;
-    bottom: auto;
-    flex-direction: column;
-    border-radius: 8px;
-    padding: 0.5rem;
-  }
-} */
-
+    /*-------------- form.jsx start ------------- */
 
 body {
   font-family: 'Inter', sans-serif;
@@ -3787,6 +3693,24 @@ body {
   cursor: pointer;
 }
 
+.section-header2{
+  background-color:rgb(2, 116, 107);
+}
+
+/* -----------------Assesment.jsx start---------------------- */
+.background3{
+  background-color: rgb(249, 239, 231);
+}
+
+.section-header3{
+  background-color: rgb(134, 62, 4);
+}
+
+.form-header-bar3{
+  background-color: rgb(134, 62, 4);
+  height: 12px;
+  border-radius: 0.75rem 0.75rem 0 0;
+
 .delete-btn:hover {
   background: #a71d2a;
 }
@@ -3970,7 +3894,6 @@ body {
 
 .gform-image img {
   max-width: 200px;
-  border-radius: 4px;
 }
 
 .gform-label-input {
@@ -4003,4 +3926,187 @@ body {
 
 .desc-text{
   line-height: 1.5;
+}
+
+/*---------------------- WorkRequest.jsx start -----------------*/
+.background4{
+  background-color: rgb(235, 251, 248) ;
+}
+
+.section-header4{
+  background-color:  rgb(10, 136, 117);
+}
+
+.form-header-bar4{
+  background-color: rgb(10, 136, 117);
+  height: 12px;
+  border-radius: 0.75rem 0.75rem 0 0;
+}
+
+/* Title */
+.priority-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: #333;
+}
+
+/* Row layout */
+.priority-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Side labels */
+.priority-side {
+  font-size: 16px;
+  font-weight: 500;
+  text-align: center;
+}
+
+/* Radio options */
+.priority-options {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  flex: 1;
+}
+
+.priority-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 14px;
+  color: #444;
+}
+
+.priority-option input {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+/* Selected Priority */
+.priority-selected {
+  margin-top: 24px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 500;
+  color: #444;
+}
+
+/* ---------------- RESPONSIVE ---------------- */
+
+/* Tablet (<= 992px) */
+@media (max-width: 992px) {
+  .priority-row {
+    flex-wrap: wrap;
+    text-align: center;
+  }
+
+  .priority-side {
+    width: 100%;
+    margin-bottom: 12px;
+  }
+
+  .priority-options {
+    /* flex-wrap: wrap; */
+    gap: 16px;
+
+  }
+
+  .priority-option {
+    width: 30%; /* 3 per row on tablet */
+  }
+}
+
+/* Mobile (<= 600px) */
+@media (max-width: 600px) {
+  .priority-options {
+    /* flex-wrap: wrap; */
+    gap: 12px;
+     display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .priority-option {
+    width: 45%; /* 2 per row on mobile */
+  }
+
+  .priority-selected {
+    font-size: 16px;
+  }
+}
+
+/* -------------Worksheet.jsx start -------------*/
+.image-card {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  /* margin: 16px auto; */
+  width: 100%;
+  /* max-width: 600px; */
+  overflow: hidden;
+  position: relative;
+}
+
+/* Header */
+.image-card-header {
+  /* background: #fafafa; */
+  padding: 8px 12px;
+  /* border-bottom: 1px solid #eee; */
+}
+
+.image-title-input {
+  border: none;
+  box-shadow: none !important;
+  background: transparent;
+  font-size: 14px;
+  padding: 4px;
+  width: 70%;
+}
+
+.image-title-input:focus {
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+
+/* Icons */
+.icon-btn {
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.icon-btn:hover {
+  opacity: 0.7;
+}
+
+/* Body */
+.image-card-body {
+  padding: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 180px;
+  position: relative;
+}
+
+.image-placeholder {
+  font-size: 20px;
+  font-weight: 500;
+  color: #000;
+  text-align: center;
+}
+
+/* Floating button */
+.floating-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

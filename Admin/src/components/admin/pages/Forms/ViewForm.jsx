@@ -1,6 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+import {
+  ArrowLeft,
+  Calendar,
+  User,
+  FileText,
+  ClipboardList,
+  Edit,
+} from "lucide-react";
 import "react-toastify/dist/ReactToastify.css";
 
 const ViewForm = () => {
@@ -40,75 +48,115 @@ const ViewForm = () => {
     fetchForm();
   }, [id, API_URL, token]);
 
-  if (loading)
+  // ---------- UI States ----------
+  if (loading) {
     return (
-      <div className="p-6 text-center">
-        <div className="inline-block animate-spin rounded-full h-10 w-10 border-b-2 border-blue-600"></div>
-        <p className="mt-2 text-gray-600">Loading Form...</p>
+      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50">
+        <div className="animate-spin rounded-full h-12 w-12 border-4 border-blue-500 border-t-transparent"></div>
+        <p className="mt-3 text-gray-600">Loading form details...</p>
       </div>
     );
+  }
 
-  if (error)
+  if (error) {
     return (
-      <div className="p-6 text-center text-red-500">
-        {error}
+      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50">
+        <p className="text-red-500 font-medium mb-4">{error}</p>
         <button
           onClick={() => navigate(-1)}
-          className="ml-4 px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
+          className="px-5 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition"
         >
           Go Back
         </button>
       </div>
     );
+  }
 
-  if (!form)
+  if (!form) {
     return (
-      <div className="p-6 text-center text-gray-500">
-        Form not found
+      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50">
+        <p className="text-gray-500 mb-4">Form not found</p>
         <button
           onClick={() => navigate(-1)}
-          className="ml-4 px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
+          className="px-5 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition"
         >
           Go Back
         </button>
       </div>
     );
+  }
 
+  // ---------- Main Layout ----------
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
-      <div className="max-w-3xl mx-auto bg-white p-6 rounded-xl shadow-md">
-        <button
-          onClick={() => navigate(-1)}
-          className="mb-4 text-sm text-blue-600 hover:underline"
-        >
-          ← Back
-        </button>
+    <div className="min-h-screen bg-gray-100 p-6 relative">
+      {/* Back Button */}
+      <button
+        onClick={() => navigate(-1)}
+        className="absolute top-6 left-6 flex items-center gap-2 px-4 py-2 bg-white text-gray-700 rounded-full shadow-md hover:shadow-lg hover:bg-gray-50 border border-gray-200 transition"
+      >
+        <ArrowLeft className="w-4 h-4" />
+        <span className="text-sm font-medium">Back</span>
+      </button>
 
-        <h1 className="text-2xl font-bold mb-4 text-gray-800">{form.title}</h1>
-
+      <div className="mx-auto bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-200 max-w-4xl">
+        {/* Header Image */}
         {form.header_image && (
-          <img
-            src={`${API_URL}/uploads/${form.header_image}`}
-            alt="Header"
-            className="w-full h-52 object-cover rounded-lg mb-4 border border-gray-200"
-          />
+          <div className="h-56 w-full overflow-hidden">
+            <img
+              src={`${API_URL}/uploads/${form.header_image}`}
+              alt="Form Header"
+              className="w-full h-full"
+            />
+          </div>
         )}
 
-        <div className="space-y-2 text-gray-700">
-          <p>
-            <strong>Description:</strong> {form.description}
-          </p>
-          <p>
-            <strong>Created By:</strong> {form.created_by || "N/A"}
-          </p>
-          <p>
-            <strong>Created At:</strong>{" "}
-            {form.created_at
-              ? new Date(form.created_at).toLocaleString()
-              : "N/A"}
-          </p>
+        <div className="p-8">
+          {/* Title */}
+          <h1 className="text-3xl font-bold text-gray-900 mb-4">
+            {form.title}
+          </h1>
+
+          {/* Meta Info Chips */}
+          <div className="flex flex-wrap gap-3 mb-6">
+            <div className="flex items-center gap-2 bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-sm">
+              <User className="w-4 h-4" />
+              <span>{form.created_by || "Unknown"}</span>
+            </div>
+            <div className="flex items-center gap-2 bg-green-50 text-green-700 px-3 py-1 rounded-full text-sm">
+              <Calendar className="w-4 h-4" />
+              <span>
+                {form.created_at
+                  ? new Date(form.created_at).toLocaleDateString()
+                  : "N/A"}
+              </span>
+            </div>
+            <div className="flex items-center gap-2 bg-purple-50 text-purple-700 px-3 py-1 rounded-full text-sm">
+              <ClipboardList className="w-4 h-4" />
+              <span>{form.response_count || 0} Responses</span>
+            </div>
+          </div>
+
+          {/* Description */}
+          <div className="bg-gray-50 border border-gray-200 rounded-xl p-5 flex items-start gap-3 mb-6">
+            <FileText className="w-5 h-5 text-gray-500 mt-1" />
+            <p className="text-gray-700 whitespace-pre-line leading-relaxed">
+              {form.description || "No description provided."}
+            </p>
+          </div>
+
+          {/* Actions */}
+          <div className="flex gap-4">
+            <button
+              onClick={() => navigate(`/admin/dashboard/form-responses/${form.id}`)}
+              className="flex items-center gap-2 px-5 py-2 bg-gray-100 text-gray-700 rounded-lg border hover:bg-gray-200 transition"
+            >
+              <ClipboardList className="w-4 h-4" />
+              View Responses
+            </button>
+          </div>
         </div>
       </div>
+
       <ToastContainer position="top-right" autoClose={3000} theme="light" />
     </div>
   );
