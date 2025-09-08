@@ -86,6 +86,7 @@ const RsvpForm = () => {
 
     return (
         <>
+        <div className="rsvs mt-5" style={{paddingTop:"30px", backgroundColor:"#f7f1ed"}}>
             <div className="rsvp-main-container">
                 {/* Banner */}
                 <div className="rsvp-bgpicture"></div>
@@ -402,6 +403,7 @@ const RsvpForm = () => {
                     </div>
                 </div>
             )}
+            </div>
         </>
     );
 };

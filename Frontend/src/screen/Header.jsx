@@ -107,7 +107,7 @@ const Header = () => {
 
               {profileOpen && (
                 <div
-                  className="card shadow border-0 position-absolute end-0 mt-3"
+                  className="card01 shadow border-0 position-absolute end-0 mt-3"
                   style={{ width: "350px", zIndex: 1050 }}
                 >
                   <div className="card-body text-center">

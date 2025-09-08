@@ -64,6 +64,57 @@ function AppWrapper() {
     <>
       {showHeader && <Header />}
       <Routes>
+        {/* Default/Home */}
+        <Route path="/" element={<Slidetemplate />} />
+        <Route path="/forms" element={<Form />} />
+        <Route path="/form/:id" element={<FormPage />} />
+
+        {/* Forms */}
+        <Route
+          path="/form/jobapplication"
+          element={
+            <>
+              <BlankForm />
+              <JobApplicationForm />
+            </>
+          }
+        />
+        <Route
+          path="/form/orderform"
+          element={
+            <>
+              <BlankForm />
+              <OrderForm />
+            </>
+          }
+        />
+        <Route
+          path="/form/tshirtform"
+          element={
+            <>
+              <BlankForm />
+              <TShirtForm />
+            </>
+          }
+        />
+        <Route
+          path="/form/eventfeedbackform"
+          element={
+            <>
+              <BlankForm />
+              <EventFeedbackForm />
+            </>
+          }
+        />
+        <Route
+          path="/form/rsvp"
+          element={
+            <>
+              <BlankForm />
+              <RsvpForm />
+            </>
+          }
+        />
         {/* Main Routes */}
         <Route path="/" element={<Template />} />
         <Route path="/forms" element={<Form />} />
@@ -106,12 +157,12 @@ function AppWrapper() {
         <Route path="/password" element={<Password />} />
         <Route path="/forgotpassword" element={<ForgotPassword />} />
 
-        {/* Extra Routes */}
+        {/* Galleries */}
         <Route path="/templategallery" element={<TemplateGallery />} />
         <Route path="/formgallery" element={<Template />} />
         <Route path="/gallery" element={<Gallery />} />
 
-        {/* Blank Form with child pages */}
+        {/* BlankForm + Child Routes */}
         <Route
           path="/question"
           element={
@@ -161,30 +212,51 @@ function AppWrapper() {
             </>
           }
         />
-
         <Route
           path="/partyinvite"
           element={
             <>
               <BlankForm />
+
+              <PartyInvite />
+            </>
+          }
+        />
+
               <PartyInviteForm />
             </>}
         />
+
 
         <Route
           path="/exitticket"
           element={
             <>
+
+              <BlankForm />
+              <ExitTicket />
+            </>
+          }
+        />
+
               <BlankForm /><ExitTicket />
             </>}
         />
+
 
         <Route
           path="/feedback"
           element={
             <>
+
+              <BlankForm />
+              <Feedback />
+            </>
+          }
+
               <BlankForm /><Feedback />
             </>}
+
         />
         <Route
           path="/assesment"
@@ -229,4 +301,3 @@ function App() {
 }
 
 export default App;
-

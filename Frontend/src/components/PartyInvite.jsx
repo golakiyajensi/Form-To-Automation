@@ -139,8 +139,9 @@ export default function PartyInviteForm() {
     </div>
   );
 
-  // ✅ Main Return
+  
   return (
+    <div className="background03">
     <div className="form-page">
       <div className="form-container">
         {/* Header Image */}
@@ -272,6 +273,7 @@ export default function PartyInviteForm() {
           </Button>
         </Modal.Footer>
       </Modal>
+    </div>
     </div>
   );
 }

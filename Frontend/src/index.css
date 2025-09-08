@@ -120,7 +120,7 @@
   .list-group,
   .logo-card,
   .txt-column {
-    width: 100% !important;
+    width: 100%;
   }
 
   .list-group {
@@ -1010,6 +1010,16 @@
   font-size: 16px;
 }
 
+.cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 20px 40px;
+}
+
+.template-top {
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
 @media screen and (max-width: 768px) {
   .dashboard-header {
     margin-left: 40px;
@@ -1464,52 +1474,73 @@
 
 /* DOCS GALLERY PAGE  */
 
-
-
-/* .tpl2-cards-2 {
-  padding: 20px 160px;
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 20px;
-  justify-items: center;
+.tpl2-cards-2 {
+    padding: 20px 160px;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 20px;
+    justify-items: center;
 }
 
 .tpl2-card {
-  text-decoration: none;
-  color: inherit;
-  text-align: center;
+    text-decoration: none;
+    color: inherit;
+    text-align: center;
 }
 
 .tpl2-card-img2 {
-  height: 210px;
-  width: 170px;
-  cursor: pointer;
-  border-radius: 2px;
-  border: 0.2px solid #fffdf7;
-  transition: border 0.2s ease;
+    height: 210px;
+    width: 170px;
+    cursor: pointer;
+    border-radius: 2px;
+    border: 0.2px solid #fffdf7;
+    transition: border 0.2s ease;
 }
 
 .tpl2-card-img2:hover {
-  border: 1px solid #5290fc;
-} */
+    border: 1px solid #5290fc;
+}
 
-/* continue...  */
+@media (max-width: 1024px) {
+    .tpl2-cards-2 {
+        grid-template-columns: repeat(4, 1fr);
+        padding: 20px 60px;
+    }
+
+    .tpl2-card-img2 {
+        height: 200px;
+        width: 160px;
+    }
+}
+
+@media (max-width: 768px) {
+    .tpl2-cards-2 {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 20px 40px;
+    }
+
+    .tpl2-card-img2 {
+        height: 180px;
+        width: 140px;
+    }
+}
+
+@media (max-width: 480px) {
+    .tpl2-cards-2 {
+        grid-template-columns: 1fr;
+        padding: 10px 20px;
+    }
+
+    .tpl2-card-img2 {
+        height: 160px;
+        width: 120px;
+    }
+}
 
 
 
-/* :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
- 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
- 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+
+
 /* =========================
    Header Styles
 ========================= */
@@ -1559,93 +1590,11 @@
 /* =========================
    Profile Dropdown
 ========================= */
-.card {
-  border-radius: 12px !important;
+.card01 {
+  border-radius: 10px;
   width: 400px;
-}
-
-.card-body img {
-  border: 2px solid #dadce0;
-}
-
-.card-footer {
-  background: #f8f9fa;
-}
-
-/* Profile dropdown links */
-.card-footer a {
-  font-size: 0.8rem;
-  text-decoration: none;
-}
-
-/* =========================
-   Sidebar / Offcanvas
-========================= */
-.drive {
-  width: 20px;
-  height: 20px;
-}
-
-.offcanvas {
-  background: #fff;
-  border-right: 1px solid #e5e5e5;
-  transition: transform 0.3s ease-in-out;
-}
-
-.offcanvas.show {
-  transform: translateX(0) !important;
-}
-
-.offcanvas-header {
-  padding: 1rem;
-}
-
-.offcanvas-title img {
-  width: 30px;
-  height: 30px;
-}
-
-.offcanvas-body {
-  padding: 0.5rem 1rem;
-}
-
-.forms-title {
-  font-size: 1.2rem;
-  color: #202124;
-}
-
-/* =========================
-   Search Bar
-========================= */
-.search-bar {
-  height: 38px;
-  width: 50%;
-  background: #f1f3f4;
-  transition: all 0.2s ease-in-out;
-}
-
-.search-bar input {
-  font-size: 0.9rem;
-  padding-left: 10px;
-  background: transparent;
-}
-
-.search-bar input:focus {
-  outline: none;
-  box-shadow: none;
-}
-
-.search-bar:focus-within {
-  background: #fff;
-  border: 1px solid #dadce0;
-}
-
-/* =========================
-   Profile Dropdown
-========================= */
-.card {
-  border-radius: 12px !important;
-  width: 400px;
+  background-color: #fff;
+  padding: 20px;
 }
 
 .card-body img {
@@ -1769,12 +1718,11 @@
  General Layout 
 ===============*/
 .gform-container {
-  max-width: 770px;
+  max-width: 870px;
   margin: 0 auto;
   /* padding: 16px; */
   font-family: "Segoe UI", Roboto, Arial, sans-serif;
   color: #333;
-
   background-color: "#d8eeec;"
 }
 
@@ -2019,6 +1967,11 @@
 
 
 /* party invite css */
+.background03 {
+  padding-top: 25px;
+  background-color: #f3edfc;
+}
+
 body {
   font-family: "Segoe UI", Roboto, Arial, sans-serif;
   background-color: #f3f1f9;
@@ -2034,7 +1987,7 @@ body {
 }
 
 .form-container {
-  background: white;
+  /* background: white; */
   border-radius: 8px;
   max-width: 770px;
   width: 100%;
@@ -2178,7 +2131,7 @@ body {
 }
 
 .background {
-  padding-top: 55px; 
+  padding-top: 25px;
 }
 
 .custom-navbar {
@@ -2663,6 +2616,64 @@ body {
     margin: auto;
   }
 }
+/* ===== Responsive ===== */
+@media (max-width: 992px) {
+  /* Instead of hiding tabs, collapse them into hamburger */
+  .navbar-center {
+    display: none;
+  }
+
+  .hamburger {
+    display: block;
+    font-size: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  .mobile-menu {
+    display: none;
+    flex-direction: column;
+    background: #fff;
+    border-top: 1px solid #ddd;
+    padding: 10px 20px;
+  }
+  .mobile-menu.show {
+    display: flex;
+  }
+
+  .mobile-menu .nav-item {
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+  }
+}
+
+@media (max-width: 768px) {
+  .custom-navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .navbar-left {
+    width: 100%;
+    margin-bottom: 8px;
+  }
+
+  .navbar-right {
+    width: 100%;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+  }
+
+  .publish-btn {
+    width: 100%;
+    margin-top: 10px;
+  }
+}
+
+
+
+
 
 .gform-title {
   width: 100%;
@@ -3114,7 +3125,7 @@ body {
   margin: 0 auto;
   /* padding: 2rem; */
   padding-top: 40px;
-  min-height: 690px;
+  min-height: 755px;
 }
 
 .form-content {
@@ -3337,7 +3348,7 @@ body {
   padding: 0.75rem;
   background: #fff;
   border: 1px solid #e5e7eb;
-  border-radius: 9999px;
+  border-radius: 50px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
 
@@ -3397,7 +3408,7 @@ body {
 
 /* setting page start */
 .settings-page-wrapper {
-  width: 770px;
+  width: 870px;
   margin: 0 auto;
   /* padding: 2rem; */
   padding-top: 40px;
@@ -3445,15 +3456,160 @@ body {
   font-size: 16px;
 }
 
+/*  Keep desktop (≥1025px) exactly as is */
+
+/* Tablet & Mobile (≤1024px) */
+@media (max-width: 1024px) {
+  .form-content {
+    padding-top: 80px;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .form {
+    padding-top: 80px;
+  }
+
+  .app-container,
+  .response-page-content,
+  .settings-page-wrapper {
+    width: 95%;
+    padding: 15px;
+    min-height: auto;
+  }
+
+  .form-element {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  .form-title-input {
+    width: 100%;
+    font-size: 1.5rem;
+  }
+
+  .element-title,
+  .form-description-input,
+  .option-input,
+  .file-upload,
+  .placeholder-box,
+  .section-title,
+  .section-description-text {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+/* Small Mobile (≤480px) */
+@media (max-width: 480px) {
+  .form-title-input {
+    font-size: 1.25rem;
+  }
+
+  .element-title {
+    font-size: 1rem;
+  }
+
+  .form-description-input,
+  .option-input,
+  .file-upload,
+  .placeholder-box,
+  .section-description-text {
+    font-size: 0.9rem;
+  }
+}
+
+
+/*----------------- ExitTicket.jsx start---------------------------- */
+.background1 {
+  background-color: #effcee;
+  padding-top: 25px;
+}
+
+.section-header1 {
+  background-color: rgb(39, 120, 24);
+}
+
+.form-header-bar1 {
+  background-color: rgb(39, 120, 24);
+  /* purple-600 */
+  height: 12px;
+  border-radius: 0.75rem 0.75rem 0 0;
+}
+
+/*----------------- Feedback.jsx start------------------------------ */
+.background2 {
+  background-color: rgb(233, 255, 253);
+}
+
+.form-header-bar2 {
+  background-color: rgb(2, 116, 107);
+  /* purple-600 */
+  height: 12px;
+  border-radius: 0.75rem 0.75rem 0 0;
+}
+
+/* -----------------Assesment.jsx start---------------------- */
+.background3 {
+  background-color: rgb(249, 239, 231);
+  padding-top: 25px;
+}
+
+.form-header-bar3 {
+  background-color: rgb(134, 62, 4);
+  height: 12px;
+  border-radius: 0.75rem 0.75rem 0 0;
+}
+
+.gform-label-input {
+  font-size: 16px;
+  font-weight: 500;
+  border: none;
+  outline: none;
+  background: transparent;
+  width: 100%;
+  color: #333;
+}
+
+.gform-label-input:focus {
+  border-bottom: 1px solid #6f42c1;
+  /* purple underline on focus */
+}
+
+.gform-label-input {
+  font-size: 16px;
+  font-weight: 500;
+  border: none;
+  outline: none;
+  background: transparent;
+  width: 100%;
+  color: #1f2937;
+  /* same gray-800 like your label */
+  cursor: text;
+}
+
+.gform-label-input:focus {
+  border-bottom: 1px solid #6f42c1;
+  /* purple underline like Google Form */
+}
+
+.desc-text {
+  line-height: 1.5;
+}
 
 
 
 /* Event feedback css */
-.gform-container {
-  max-width: 900px;
-  margin: 20px auto;
-  padding: 15px;
+.background01 {
+  background-color: #f0ebbd;
+  padding-top: 90px;
 }
+
+/* .gform-container {
+  max-width: 870px;
+  margin: 0px auto;
+  padding: 15px;
+} */
 
 .gform-banner img {
   width: 100%;
@@ -3668,6 +3824,12 @@ body {
 
 
 /* T-shirt css */
+
+.background02 {
+  padding-top: 100px;
+  background-color: #f0e8fc;
+}
+
 /* .gform-container {
   max-width: 640px;
   margin: 2rem auto;
@@ -3682,7 +3844,7 @@ body {
   /* padding: 16px; */
   margin-bottom: 20px;
   border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .gform-title {
