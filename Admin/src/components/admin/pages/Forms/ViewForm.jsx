@@ -7,20 +7,24 @@ import {
   User,
   FileText,
   ClipboardList,
-  Edit,
 } from "lucide-react";
 import "react-toastify/dist/ReactToastify.css";
+
+const API_URL = import.meta.env.VITE_FRONTEND_API_URL;
 
 const ViewForm = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+
   const [form, setForm] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   const token = localStorage.getItem("admin_token");
-  const API_URL = import.meta.env.VITE_FRONTEND_API_URL;
 
+  // -----------------------------
+  // Fetch Form by ID
+  // -----------------------------
   useEffect(() => {
     if (!id) return;
 
@@ -33,13 +37,12 @@ const ViewForm = () => {
             ...(token && { Authorization: `Bearer ${token}` }),
           },
         });
-
         const data = await res.json();
         if (!res.ok) throw new Error(data.message || "Failed to fetch form");
         setForm(data.data);
       } catch (err) {
-        setError(err.message);
-        toast.error(err.message);
+        setError(err.message || "Something went wrong");
+        toast.error(err.message || "Something went wrong");
       } finally {
         setLoading(false);
       }
@@ -48,7 +51,9 @@ const ViewForm = () => {
     fetchForm();
   }, [id, API_URL, token]);
 
-  // ---------- UI States ----------
+  // -----------------------------
+  // UI States
+  // -----------------------------
   if (loading) {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50">
@@ -58,10 +63,10 @@ const ViewForm = () => {
     );
   }
 
-  if (error) {
+  if (error || !form) {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50">
-        <p className="text-red-500 font-medium mb-4">{error}</p>
+        <p className="text-red-500 font-medium mb-4">{error || "Form not found"}</p>
         <button
           onClick={() => navigate(-1)}
           className="px-5 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition"
@@ -72,21 +77,9 @@ const ViewForm = () => {
     );
   }
 
-  if (!form) {
-    return (
-      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50">
-        <p className="text-gray-500 mb-4">Form not found</p>
-        <button
-          onClick={() => navigate(-1)}
-          className="px-5 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition"
-        >
-          Go Back
-        </button>
-      </div>
-    );
-  }
-
-  // ---------- Main Layout ----------
+  // -----------------------------
+  // Main Layout
+  // -----------------------------
   return (
     <div className="min-h-screen bg-gray-100 p-6 relative">
       {/* Back Button */}
@@ -105,18 +98,16 @@ const ViewForm = () => {
             <img
               src={`${API_URL}/uploads/${form.header_image}`}
               alt="Form Header"
-              className="w-full h-full"
+              className="w-full h-full object-cover"
             />
           </div>
         )}
 
         <div className="p-8">
           {/* Title */}
-          <h1 className="text-3xl font-bold text-gray-900 mb-4">
-            {form.title}
-          </h1>
+          <h1 className="text-3xl font-bold text-gray-900 mb-4">{form.title}</h1>
 
-          {/* Meta Info Chips */}
+          {/* Meta Info */}
           <div className="flex flex-wrap gap-3 mb-6">
             <div className="flex items-center gap-2 bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-sm">
               <User className="w-4 h-4" />
@@ -147,11 +138,22 @@ const ViewForm = () => {
           {/* Actions */}
           <div className="flex gap-4">
             <button
-              onClick={() => navigate(`/admin/dashboard/form-responses/${form.id}`)}
+              onClick={() =>
+                navigate(`/admin/dashboard/form-responses/${form.id}`)
+              }
               className="flex items-center gap-2 px-5 py-2 bg-gray-100 text-gray-700 rounded-lg border hover:bg-gray-200 transition"
             >
               <ClipboardList className="w-4 h-4" />
               View Responses
+            </button>
+            <button
+              onClick={() =>
+                navigate(`/admin/dashboard/forms/public/${form.id}`)
+              }
+              className="flex items-center gap-2 px-5 py-2 bg-gray-100 text-gray-700 rounded-lg border hover:bg-gray-200 transition"
+            >
+              <ClipboardList className="w-4 h-4" />
+              Public Forms
             </button>
           </div>
         </div>

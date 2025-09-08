@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
-import { ArrowLeft, Edit, FileText, Image } from "lucide-react";
+import { ArrowLeft, Edit } from "lucide-react";
 import "react-toastify/dist/ReactToastify.css";
 
 const EditSlide = () => {
-  const { slideId, formId } = useParams(); // slideId and formId from URL
+  const { slideId, formId } = useParams();
   const navigate = useNavigate();
 
   const [slide, setSlide] = useState(null);
@@ -18,7 +18,7 @@ const EditSlide = () => {
   const token = localStorage.getItem("admin_token");
   const API_URL = import.meta.env.VITE_FRONTEND_API_URL;
 
-  // Fetch slide by formId
+  // ------------------ Fetch Slide ------------------
   const fetchSlide = async () => {
     try {
       setLoading(true);
@@ -28,13 +28,11 @@ const EditSlide = () => {
           ...(token && { Authorization: `Bearer ${token}` }),
         },
       });
+
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || "Failed to fetch slide");
 
-      const singleSlide = data.data.find(
-        (s) => String(s.id) === String(slideId)
-      );
-
+      const singleSlide = data.data.find((s) => String(s.id) === String(slideId));
       if (!singleSlide) throw new Error("Slide not found");
 
       setSlide(singleSlide);
@@ -52,6 +50,7 @@ const EditSlide = () => {
     if (slideId && formId) fetchSlide();
   }, [slideId, formId]);
 
+  // ------------------ Handle File Upload ------------------
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -60,37 +59,39 @@ const EditSlide = () => {
     }
   };
 
-const handleSave = async () => {
-  try {
-    setLoading(true);
-    const formData = new FormData();
-    formData.append("title", title);
-    formData.append("description", description);
-    formData.append("order_no", slide.order_no);
-    formData.append("title_formatted", JSON.stringify({ bold: true, color: "red" }));
-    formData.append("description_formatted", JSON.stringify({ italic: true, color: "blue" }));
-    if (newImage) formData.append("header_image", newImage);
+  // ------------------ Save Slide ------------------
+  const handleSave = async () => {
+    try {
+      setLoading(true);
+      const formData = new FormData();
+      formData.append("title", title);
+      formData.append("description", description);
+      formData.append("order_no", slide.order_no);
+      formData.append("title_formatted", JSON.stringify({ bold: true, color: "red" }));
+      formData.append("description_formatted", JSON.stringify({ italic: true, color: "blue" }));
+      if (newImage) formData.append("header_image", newImage);
 
-    const res = await fetch(`${API_URL}/api/slide/slides/${slideId}`, {
-      method: "PUT",
-      headers: {
-        ...(token && { Authorization: `Bearer ${token}` }),
-      },
-      body: formData,
-    });
+      const res = await fetch(`${API_URL}/api/slide/slides/${slideId}`, {
+        method: "PUT",
+        headers: {
+          ...(token && { Authorization: `Bearer ${token}` }),
+        },
+        body: formData,
+      });
 
-    const data = await res.json();
-    if (!res.ok) throw new Error(data.message || "Failed to update slide");
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message || "Failed to update slide");
 
-    toast.success("Slide updated successfully");
-    navigate(`/admin/dashboard/slides`); // go to general slides list
-  } catch (err) {
-    toast.error(err.message);
-  } finally {
-    setLoading(false);
-  }
-};
+      toast.success("Slide updated successfully");
+      navigate(`/admin/dashboard/slides`);
+    } catch (err) {
+      toast.error(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  // ------------------ Loading State ------------------
   if (loading && !slide)
     return (
       <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50">

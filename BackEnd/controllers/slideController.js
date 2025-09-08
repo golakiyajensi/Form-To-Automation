@@ -13,7 +13,7 @@ exports.createSlide = async (req, res) => {
       description_formatted,
     } = req.body;
 
-    const created_by = req.user?.user_id; // ✅ get logged-in user id
+    const created_by = req.user?.user_id;
 
     const slide = await slideModel.createSlide(
       form_id,

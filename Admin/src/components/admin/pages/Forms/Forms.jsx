@@ -23,9 +23,11 @@ const Forms = () => {
   const itemsPerPage = 10;
   const token = localStorage.getItem("admin_token");
   const API_URL = import.meta.env.VITE_FRONTEND_API_URL;
-
   const navigate = useNavigate();
 
+  // -----------------------------
+  // Reusable API request function
+  // -----------------------------
   const apiRequest = async (url, options = {}) => {
     const config = {
       headers: {
@@ -33,14 +35,17 @@ const Forms = () => {
         ...(token && { Authorization: `Bearer ${token}` }),
       },
       ...options,
-    };
+    }; 
     const response = await fetch(url, config);
     const data = await response.json();
     if (!response.ok) throw new Error(data.message || "API Error");
     return data;
   };
 
-  const fetchData = async () => {
+  // -----------------------------
+  // Fetch forms
+  // -----------------------------
+  const fetchForms = async () => {
     setLoading(true);
     setError(null);
     try {
@@ -64,73 +69,67 @@ const Forms = () => {
   };
 
   useEffect(() => {
-    fetchData();
+    fetchForms();
   }, []);
 
+  // -----------------------------
+  // Delete form
+  // -----------------------------
   const handleDelete = async (formId) => {
     if (!window.confirm("Are you sure you want to delete this form?")) return;
 
     try {
       setLoading(true);
-      const res = await fetch(`${API_URL}/api/forms/${formId}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          ...(token && { Authorization: `Bearer ${token}` }),
-        },
-      });
-
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.message || "Failed to delete form");
+      await apiRequest(`${API_URL}/api/forms/${formId}`, { method: "DELETE" });
 
       toast.success("Form deleted successfully");
 
-      // Remove deleted form from state
       setForms((prev) => prev.filter((form) => form.id !== formId));
       setSelectedItems((prev) => prev.filter((id) => id !== formId));
     } catch (err) {
-      toast.error(err.message);
+      toast.error(err.message || "Failed to delete form");
     } finally {
       setLoading(false);
     }
   };
 
-  const filteredItems = forms.filter((form) => {
-    const title = form.title ? form.title.toString().toLowerCase() : "";
-    const description = form.description
-      ? form.description.toString().toLowerCase()
-      : "";
-    const createdBy = form.created_by
-      ? form.created_by.toString().toLowerCase()
-      : "";
-
+  // -----------------------------
+  // Filter & Pagination
+  // -----------------------------
+  const filteredForms = forms.filter(({ title, description, created_by }) => {
     const search = searchTerm.toLowerCase();
+    const titleStr = title ? title.toString().toLowerCase() : "";
+    const descriptionStr = description
+      ? description.toString().toLowerCase()
+      : "";
+    const createdByStr = created_by ? created_by.toString().toLowerCase() : "";
 
     return (
-      title.includes(search) ||
-      description.includes(search) ||
-      createdBy.includes(search)
+      titleStr.includes(search) ||
+      descriptionStr.includes(search) ||
+      createdByStr.includes(search)
     );
   });
 
-  const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
+  const totalPages = Math.ceil(filteredForms.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const currentItems = filteredItems.slice(
+  const currentItems = filteredForms.slice(
     startIndex,
     startIndex + itemsPerPage
   );
 
-  const handleSelectItem = (id, checked) => {
-    if (checked) setSelectedItems((prev) => [...prev, id]);
-    else setSelectedItems((prev) => prev.filter((i) => i !== id));
-  };
+  // -----------------------------
+  // Select & Modal handlers
+  // -----------------------------
+  const handleSelectItem = (id, checked) =>
+    setSelectedItems((prev) =>
+      checked ? [...prev, id] : prev.filter((i) => i !== id)
+    );
 
-  const handleSelectAll = (checked) => {
-    if (checked) setSelectedItems(currentItems.map((i) => i.id));
-    else setSelectedItems([]);
-  };
+  const handleSelectAll = (checked) =>
+    setSelectedItems(checked ? currentItems.map((i) => i.id) : []);
 
-  const openImageModal = (imageUrl) => setModalImage(imageUrl);
+  const openImageModal = (url) => setModalImage(url);
   const closeImageModal = () => setModalImage(null);
 
   return (
@@ -170,7 +169,7 @@ const Forms = () => {
           <div className="text-center py-12 text-red-500">
             {error}
             <button
-              onClick={fetchData}
+              onClick={fetchForms}
               className="ml-4 px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
             >
               Retry
@@ -195,24 +194,21 @@ const Forms = () => {
                       className="rounded border-gray-300"
                     />
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">
-                    ID
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">
-                    Title
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">
-                    Description
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">
-                    Created By
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">
-                    Header Image
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">
-                    Actions
-                  </th>
+                  {[
+                    "ID",
+                    "Title",
+                    "Description",
+                    "Created By",
+                    "Header Image",
+                    "Actions",
+                  ].map((head) => (
+                    <th
+                      key={head}
+                      className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider"
+                    >
+                      {head}
+                    </th>
+                  ))}
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-100">
@@ -323,8 +319,8 @@ const Forms = () => {
                     <span>Edit</span>
                   </button>
                   <button
-                    className="flex items-center space-x-1 text-red-600 hover:text-red-800 text-sm"
                     onClick={() => handleDelete(form.id)}
+                    className="flex items-center space-x-1 text-red-600 hover:text-red-800 text-sm"
                   >
                     <Trash2 className="w-4 h-4" />
                     <span>Delete</span>
@@ -340,8 +336,8 @@ const Forms = () => {
           <div className="flex justify-between items-center mt-4 px-4 sm:px-6 py-2 border-t border-gray-200">
             <span className="text-sm text-gray-500">
               Showing {startIndex + 1} to{" "}
-              {Math.min(startIndex + itemsPerPage, filteredItems.length)} of{" "}
-              {filteredItems.length}
+              {Math.min(startIndex + itemsPerPage, filteredForms.length)} of{" "}
+              {filteredForms.length}
             </span>
             <div className="flex items-center space-x-1">
               <button

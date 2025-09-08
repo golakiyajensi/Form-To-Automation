@@ -3,40 +3,41 @@ const db = require("../config/db");
 module.exports = {
   // Create Form Field
   createFormField: async (
-    formId,
-    slideId,
-    label,
-    labelFormatted,
-    fieldType,
-    isRequired,
-    options,
-    conditionalLogic,
-    orderNo,
-    fieldImage,
-    description,
-    responseValidation,
-    createdBy // ✅ add this
-  ) => {
-    const [rows] = await db.query(
-      "CALL sp_create_form_field(?,?,?,?,?,?,?,?,?,?,?,?,?)",
-      [
-        formId,
-        slideId,
-        label,
-        labelFormatted,
-        fieldType,
-        isRequired,
-        JSON.stringify(options),
-        JSON.stringify(conditionalLogic),
-        orderNo,
-        fieldImage,
-        description,
-        JSON.stringify(responseValidation),
-        createdBy, // ✅ pass to SP
-      ]
-    );
-    return rows[0][0];
-  },
+  formId,
+  slideId,
+  label,
+  labelFormatted,
+  fieldType,
+  isRequired,
+  options,
+  conditionalLogic,
+  orderNo,
+  fieldImage,
+  description,
+  responseValidation,
+  createdBy
+) => {
+  const [rows] = await db.query(
+    "CALL sp_create_form_field(?,?,?,?,?,?,?,?,?,?,?,?,?)",
+    [
+      formId, // 👈 null if slideId is used
+      slideId,
+      label,
+      labelFormatted,
+      fieldType,
+      isRequired,
+      JSON.stringify(options || []),
+      JSON.stringify(conditionalLogic || {}),
+      orderNo,
+      fieldImage,
+      description,
+      JSON.stringify(responseValidation || {}),
+      createdBy,
+    ]
+  );
+  return rows[0][0];
+},
+
 
   // Get Fields by Form
   getFieldsByFormId: async (formId) => {

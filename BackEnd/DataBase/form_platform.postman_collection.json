@@ -197,7 +197,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"name\": \"admin1\",\r\n    \"email\": \"admin1@example.com\",\r\n    \"password\": \"admin123\",\r\n    \"role\": \"admin\"\r\n}\r\n",
+									"raw": "{\r\n    \"name\": \"jenish1\",\r\n    \"email\": \"jenish1@example.com\",\r\n    \"password\": \"jenish123\",\r\n    \"role\": \"admin\"\r\n}\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -327,6 +327,66 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "verify-otp",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"email\": \"admin@example.com\",\r\n  \"otp\": \"773562\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/auth/verify-otp",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"auth",
+										"verify-otp"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "resend-otp",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"email\": \"jenish1@example.com\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/auth/resend-otp",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"auth",
+										"resend-otp"
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
@@ -353,18 +413,18 @@
 									"formdata": [
 										{
 											"key": "title",
-											"value": "Doctor Details",
+											"value": "Job Application",
 											"type": "text"
 										},
 										{
 											"key": "description",
-											"value": "This is List Doctor",
+											"value": "Submit your details below to apply for this position. All fields are mandatory unless stated otherwise.",
 											"type": "text"
 										},
 										{
 											"key": "header_image",
 											"type": "file",
-											"src": "/C:/Users/ABC/Pictures/2-5/Screenshot 2025-05-02 192305.png"
+											"src": "/C:/Users/ABC/Pictures/Screenshots/Screenshot (4).png"
 										}
 									]
 								},
@@ -473,14 +533,14 @@
 									"raw": "{\r\n  \"title\": \"Ahmedabad City Feedback Form\",\r\n  \"description\": \"Ahmedabad Clean survey \",\r\n  \"created_by\": 1\r\n}\r\n"
 								},
 								"url": {
-									"raw": "{{base_url}}/forms/public/13",
+									"raw": "{{base_url}}/forms/public/16",
 									"host": [
 										"{{base_url}}"
 									],
 									"path": [
 										"forms",
 										"public",
-										"13"
+										"16"
 									]
 								}
 							},
@@ -578,7 +638,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"title\": \"Personal Info For Doctor\",\r\n  \"description\": \"Enter your details\",\r\n  \"order_no\": 1\r\n}\r\n",
+									"raw": "{\r\n  \"title\": \"Enter API List\",\r\n  \"description\": \"Enter your All API\",\r\n  \"order_no\": 1\r\n}\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -586,14 +646,14 @@
 									}
 								},
 								"url": {
-									"raw": "{{base_url}}/slide/forms/13/slides",
+									"raw": "{{base_url}}/slide/forms/16/slides",
 									"host": [
 										"{{base_url}}"
 									],
 									"path": [
 										"slide",
 										"forms",
-										"13",
+										"16",
 										"slides"
 									]
 								}
@@ -623,14 +683,14 @@
 									"raw": "{\r\n  \"logo_url\": \"https://example.com/newlogo.png\",\r\n  \"company_name\": \"My New Company updated\",\r\n  \"theme_color\": \"#FF5733\",\r\n  \"default_font\": \"Poppins\",\r\n  \"password_policy\": \"min:10|max:20|uppercase:true|special:true\"\r\n}\r\n"
 								},
 								"url": {
-									"raw": "{{base_url}}/slide/forms/9/slides",
+									"raw": "{{base_url}}/slide/forms/16/slides",
 									"host": [
 										"{{base_url}}"
 									],
 									"path": [
 										"slide",
 										"forms",
-										"9",
+										"16",
 										"slides"
 									]
 								}
@@ -676,6 +736,79 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "Get All Slides",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{formAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{base_url}}/slide/slides",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"slide",
+										"slides"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Slide",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{formAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"title\": \"Updated Personal Details\",\r\n  \"description\": \"Fill your basic information updated\",\r\n  \"order_no\": 2,\r\n  \"title_formatted\": {\"bold\": true, \"color\": \"red\"},\r\n  \"description_formatted\": {\"italic\": true, \"color\": \"blue\"}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/slide/slides/9",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"slide",
+										"slides",
+										"9"
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
@@ -702,17 +835,18 @@
 									"formdata": [
 										{
 											"key": "slide_id",
-											"value": "8",
-											"type": "text"
+											"value": "11",
+											"type": "text",
+											"disabled": true
 										},
 										{
 											"key": "label",
-											"value": "Doctor Name",
+											"value": "Description",
 											"type": "text"
 										},
 										{
 											"key": "field_type",
-											"value": "short_text",
+											"value": "paragraph",
 											"type": "text"
 										},
 										{
@@ -723,7 +857,8 @@
 										{
 											"key": "options",
 											"value": "Jenish",
-											"type": "text"
+											"type": "text",
+											"disabled": true
 										},
 										{
 											"key": "conditional_logic",
@@ -738,19 +873,19 @@
 										{
 											"key": "field_image",
 											"type": "file",
-											"src": "/C:/Users/ABC/Pictures/2-5/Screenshot 2025-05-02 192305.png"
+											"src": []
 										}
 									]
 								},
 								"url": {
-									"raw": "{{base_url}}/forms-fields/form/13/field",
+									"raw": "{{base_url}}/forms-fields/form/16/field",
 									"host": [
 										"{{base_url}}"
 									],
 									"path": [
 										"forms-fields",
 										"form",
-										"13",
+										"16",
 										"field"
 									]
 								}
@@ -1031,7 +1166,7 @@
 							"response": []
 						},
 						{
-							"name": "Excel Format",
+							"name": "CSV Download",
 							"request": {
 								"auth": {
 									"type": "bearer",
@@ -1046,14 +1181,45 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{base_url}}/form-responses/excel/1",
+									"raw": "{{base_url}}/form-responses/export/csv/16",
 									"host": [
 										"{{base_url}}"
 									],
 									"path": [
 										"form-responses",
-										"excel",
-										"1"
+										"export",
+										"csv",
+										"16"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "PDF Download",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{formAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/form-responses/export/pdf/16",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"form-responses",
+										"export",
+										"pdf",
+										"16"
 									]
 								}
 							},
@@ -1308,7 +1474,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{ \"user_id\": 1, \"permission\": \"editor\" }\r\n",
+									"raw": "{ \"user_id\": 5, \"permission\": \"editor\" }\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1316,14 +1482,14 @@
 									}
 								},
 								"url": {
-									"raw": "{{base_url}}/permission/forms/2/share",
+									"raw": "{{base_url}}/permission/forms/13/share",
 									"host": [
 										"{{base_url}}"
 									],
 									"path": [
 										"permission",
 										"forms",
-										"2",
+										"13",
 										"share"
 									]
 								}
@@ -1353,14 +1519,14 @@
 									"raw": "{ \"user_id\": 1, \"permission\": \"editor\" }\r\n"
 								},
 								"url": {
-									"raw": "{{base_url}}/permission/forms/2/users",
+									"raw": "{{base_url}}/permission/forms/13/users",
 									"host": [
 										"{{base_url}}"
 									],
 									"path": [
 										"permission",
 										"forms",
-										"2",
+										"13",
 										"users"
 									]
 								}
@@ -2236,7 +2402,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"name\": \"creater\",\r\n    \"email\": \"creater@example.com\",\r\n    \"password\": \"creater123\",\r\n    \"role\": \"admin\"\r\n}\r\n",
+									"raw": "{\r\n    \"name\": \"creater new1\",\r\n    \"email\": \"creater11@example.com\",\r\n    \"password\": \"creater123\",\r\n    \"role\": \"creator\"\r\n}\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2266,7 +2432,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"email\": \"creater@example.com\",\r\n  \"password\": \"creater123\"\r\n}",
+									"raw": "{\r\n  \"email\": \"creater11@example.com\",\r\n  \"password\": \"creater123\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
