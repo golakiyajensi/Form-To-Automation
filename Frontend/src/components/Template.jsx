@@ -69,21 +69,20 @@ const Template = () => {
               <p className="tpl-card-title">Contact Information</p>
             </Link>
 
-            {/* <Link to="/form/jobapplication" className="tpl-card">
-
+            <Link to="/form/jobapplication" className="tpl-card">
               <img src={blank4} alt="no-img" className="tpl-card-img" />
               <p className="tpl-card-title">Job Application</p>
-            </Link> */}
+            </Link>
 
-            {/* <Link to="/form/rsvp" className="tpl-card">
+            <Link to="/form/rsvp" className="tpl-card">
               <img src={blank3} alt="no-img" className="tpl-card-img" />
               <p className="tpl-card-title">RSVP</p>
-            </Link> */}
+            </Link>
 
-            {/* <Link to="/form/partyinvite" className="tpl-card">
+            <Link to="/form/partyinvite" className="tpl-card">
               <img src={blank5} alt="no-img" className="tpl-card-img" />
               <p className="tpl-card-title">Party Invite</p>
-            </Link> */}
+            </Link>
           </div>
         </div>
       </div>
