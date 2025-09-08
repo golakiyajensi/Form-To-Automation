@@ -2,6 +2,7 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
+// Images
 import blank from "/img/blank1.png";
 import blank8 from "/img/blank8.png";
 import blank2 from "/img/blank2.png";
@@ -22,168 +23,143 @@ import blank17 from "/img/blank17.png";
 import blank18 from "/img/blank18.png";
 
 const Gallery = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    return (
-        <>
-            <div className="gal-header-wrap">
-                <h2 className="gal-heading">
-                    <ArrowBackIcon
-                        className="gal-back-icon"
-                        onClick={() => navigate("/formgallery")}
-                    />
-                    Template gallery
-                </h2>
-            </div>
+  return (
+    <>
+      <div className="gal-header-wrap">
+        <h2 className="gal-heading">
+          <ArrowBackIcon
+            className="gal-back-icon"
+            onClick={() => navigate("/formgallery")}
+          />
+          Template gallery
+        </h2>
+      </div>
 
-            <div className="gal-container">
-                {/* Recently */}
-                <div className="gal-section">
-                    <h3 className="gal-section-title">Recently used templates</h3>
-                    <div className="gal-card-grid">
+      <div className="gal-container">
+        {/* Recently */}
+        <div className="gal-section">
+          <h3 className="gal-section-title">Recently used templates</h3>
+          <div className="gal-card-grid">
+            <Link to="/question" className="gal-card">
+              <img src={blank} alt="Blank" />
+              <p>Blank form</p>
+            </Link>
+            <Link to="#" className="gal-card">
+              <img src={blank8} alt="Find" />
+              <p>Find a Time</p>
+            </Link>
+            <Link to="#" className="gal-card">
+              <img src={blank2} alt="Contact" />
+              <p>Contact Information</p>
+            </Link>
+            <Link to="/form/jobapplication" className="gal-card">
+              <img src={blank4} alt="Job" />
+              <p>Job Application</p>
+            </Link>
+            <Link to="/form/rsvp" className="gal-card">
+              <img src={blank3} alt="RSVP" />
+              <p>RSVP</p>
+            </Link>
+            <Link to="/partyinvite" className="gal-card">
+              <img src={blank5} alt="Party" />
+              <p>Party Invite</p>
+            </Link>
+          </div>
+        </div>
 
-                        <Link to="#" className="gal-card">
+        {/* Personal */}
+        <div className="gal-section">
+          <h3 className="gal-section-title">Personal</h3>
+          <div className="gal-card-grid">
+            <Link to="#" className="gal-card">
+              <img src={blank2} alt="Contact" />
+              <p>Contact Information</p>
+            </Link>
+            <Link to="#" className="gal-card">
+              <img src={blank8} alt="Find Time" />
+              <p>Find a Time</p>
+            </Link>
+            <Link to="/form/rsvp" className="gal-card">
+              <img src={blank3} alt="RSVP" />
+              <p>RSVP</p>
+            </Link>
+            <Link to="/partyinvite" className="gal-card">
+              <img src={blank5} alt="Party" />
+              <p>Party Invite</p>
+            </Link>
+            <Link to="/form/tshirtform" className="gal-card">
+              <img src={blank6} alt="T-Shirt" />
+              <p>T-Shirt Sign Up</p>
+            </Link>
+            <Link to="/form/eventfeedbackform" className="gal-card">
+              <img src={blank7} alt="Event Registration" />
+              <p>Event Registration</p>
+            </Link>
+          </div>
+        </div>
 
-                        <Link to="/question" className="gal-card">
+        {/* Work */}
+        <div className="gal-section">
+          <h3 className="gal-section-title">Work</h3>
+          <div className="gal-card-grid">
+            <Link to="/form/eventfeedbackform" className="gal-card">
+              <img src={blank9} alt="Event Feedback" />
+              <p>Event Feedback</p>
+            </Link>
+            <Link to="/form/orderform" className="gal-card">
+              <img src={blank10} alt="Order Form" />
+              <p>Order Form</p>
+            </Link>
+            <Link to="/form/jobapplication" className="gal-card">
+              <img src={blank4} alt="Job Application" />
+              <p>Job Application</p>
+            </Link>
+            <Link to="#" className="gal-card">
+              <img src={blank11} alt="Time Off" />
+              <p>Time Off Request</p>
+            </Link>
+            <Link to="#" className="gal-card">
+              <img src={blank12} alt="Work Request" />
+              <p>Work Request</p>
+            </Link>
+            <Link to="/feedback" className="gal-card">
+              <img src={blank13} alt="Customer Feedback" />
+              <p>Customer Feedback</p>
+            </Link>
+          </div>
+        </div>
 
-                            <img src={blank} alt="Blank" />
-                            <p>Blank form</p>
-                        </Link>
-                        <Link to="#" className="gal-card">
-                            <img src={blank8} alt="find" />
-                            <p>Find a Time</p>
-                        </Link>
-                        <Link to="#" className="gal-card">
-                            <img src={blank2} alt="Contact" />
-                            <p>Contact Information</p>
-                        </Link>
-                        <Link to="/form/rsvp" className="gal-card">
-                            <img src={blank4} alt="job" />
-                            <p>Job Application</p>
-                        </Link>
-                        <Link to="#" className="gal-card">
-                            <img src={blank3} alt="rsvp" />
-                            <p>RSVP</p>
-                        </Link>
-
-                        <Link to="#" className="gal-card">
-                            <img src={blank5} alt="party" />
-
-                        <Link to="/form/Partyinvite" className="gal-card">
-                            <img src={blank3} alt="Party" />
-
-                            <p>Party Invite</p>
-                        </Link>
-                    </div>
-                </div>
-
-                {/* Personal */}
-                <div className="gal-section">
-                    <h3 className="gal-section-title">Personal</h3>
-                    <div className="gal-card-grid">
-                        <Link to="#" className="gal-card">
-                            <img src={blank2} alt="Contact" />
-                            <p>Contact Information</p>
-                        </Link>
-                        <Link to="#" className="gal-card">
-                            <img src={blank8} alt="Find Time" />
-                            <p>Find a Time</p>
-                        </Link>
-                        <Link to="#" className="gal-card">
-                            <img src={blank3} alt="RSVP" />
-                            <p>RSVP</p>
-                        </Link>
-
-                        <Link to="#" className="gal-card">
-
-                        <Link to="/form/Partyinvite" className="gal-card">
-
-                            <img src={blank5} alt="Party" />
-                            <p>Party Invite</p>
-                        </Link>
-                        <Link to="#" className="gal-card">
-                            <img src={blank6} alt="T-Shirt" />
-                            <p>T-Shirt Sign Up</p>
-                        </Link>
-                        <Link to="#" className="gal-card">
-                            <img src={blank7} alt="Event" />
-                            <p>Event registration</p>
-                        </Link>
-                    </div>
-                </div>
-
-                {/* Work */}
-                <div className="gal-section">
-                    <h3 className="gal-section-title">Work</h3>
-                    <div className="gal-card-grid">
-                        <Link to="#" className="gal-card">
-                            <img src={blank9} alt="Contact" />
-                            <p>Event Feedback</p>
-                        </Link>
-                        <Link to="#" className="gal-card">
-                            <img src={blank10} alt="Find Time" />
-                            <p>Order Form</p>
-                        </Link>
-
-                        <Link to="#" className="gal-card">
-
-                        <Link to="/form/jobApplication" className="gal-card">
-
-                            <img src={blank4} alt="RSVP" />
-                            <p>Job Application</p>
-                        </Link>
-                        <Link to="#" className="gal-card">
-                            <img src={blank11} alt="Party" />
-                            <p>Time Off Request</p>
-                        </Link>
-                        <Link to="#" className="gal-card">
-                            <img src={blank12} alt="T-Shirt" />
-                            <p>Work Request</p>
-                        </Link>
-
-                        <Link to="/feedback" className="gal-card">
-                            <img src={blank13} alt="Event" />
-                            <p>Customer Feedback</p>
-                        </Link>
-                    </div>
-                </div>
-
-                {/* Education */}
-                <div className="gal-section">
-                    <h3 className="gal-section-title">Education</h3>
-                    <div className="gal-card-grid">
-
-                        <Link to="#" className="gal-card">
-                            <img src={blank14} alt="blankquiz" />
-
-                        <Link to="/quiz" state={{ templateType: "blank-quiz" }} className="gal-card">
-                            <img src={blank14} alt="Contact" />
-
-                            <p>Blank Quiz</p>
-                        </Link>
-
-                        <Link to="/exitticket" className="gal-card">
-                            <img src={blank15} alt="Find Time" />
-                            <p>Exit Ticket</p>
-                        </Link>
-                        <Link to="/assesment" className="gal-card">
-                            <img src={blank16} alt="RSVP" />
-                            <p>Assesment</p>
-
-                        </Link>
-                        <Link to="#" className="gal-card">
-                            <img src={blank17} alt="worksheet" />
-                            <p>Worksheet Title</p>
-                        </Link>
-                        <Link to="#" className="gal-card">
-                            <img src={blank18} alt="course" />
-                            <p>Course Evaluation</p>
-                        </Link>
-                    </div>
-                </div>
-            </div>
-        </>
-    );
+        {/* Education */}
+        <div className="gal-section">
+          <h3 className="gal-section-title">Education</h3>
+          <div className="gal-card-grid">
+            <Link to="/quiz" className="gal-card">
+              <img src={blank14} alt="Blank Quiz" />
+              <p>Blank Quiz</p>
+            </Link>
+            <Link to="/exitticket" className="gal-card">
+              <img src={blank15} alt="Exit Ticket" />
+              <p>Exit Ticket</p>
+            </Link>
+            <Link to="/assesment" className="gal-card">
+              <img src={blank16} alt="Assessment" />
+              <p>Assessment</p>
+            </Link>
+            <Link to="#" className="gal-card">
+              <img src={blank17} alt="Worksheet" />
+              <p>Worksheet Title</p>
+            </Link>
+            <Link to="#" className="gal-card">
+              <img src={blank18} alt="Course Evaluation" />
+              <p>Course Evaluation</p>
+            </Link>
+          </div>
+        </div>
+      </div>
+    </>
+  );
 };
 
 export default Gallery;

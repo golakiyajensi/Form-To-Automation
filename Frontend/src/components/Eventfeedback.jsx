@@ -83,6 +83,7 @@ export default function EventFeedbackForm() {
   };
 
   return (
+    <div className="background01 mt-5" style={{paddingTop:"60px"}}>
     <div className="gform-container">
       {/* Banner */}
       <div className="gform-banner">
@@ -295,6 +296,7 @@ export default function EventFeedbackForm() {
           </Button>
         </Modal.Footer>
       </Modal>
+    </div>
     </div>
   );
 }

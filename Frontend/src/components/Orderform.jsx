@@ -158,7 +158,8 @@ export default function OrderForm() {
   );
 
   return (
-    <div className="gform-container">
+    <div className="order mt-5" style={{backgroundColor:"#fff3eb", paddingTop:"20px"}}>
+    <div className="gform-container mt-5">
       {/* Header Banner */}
       <div className="gform-header-banner">
         <img src="/img/order.jpg" alt="Header" />
@@ -319,6 +320,7 @@ export default function OrderForm() {
           </Button>
         </Modal.Footer>
       </Modal>
+    </div>
     </div>
   );
 }

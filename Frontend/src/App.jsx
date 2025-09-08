@@ -24,14 +24,17 @@ import Docsgallery from "./components/Docsgallery.jsx";
 import JobApplicationForm from "./components/JobApplication.jsx";
 import SlideGallery from "./components/SlideGallery.jsx";
 import Slidetemplate from "./components/Slidetemplate.jsx";
-import RSVP from "./components/RsvpForm.jsx";
+import RsvpForm from "./components/RsvpForm.jsx";
 import Quiz from "./components/Quiz.jsx";
 import PartyInvite from "./components/PartyInvite.jsx";
 import ExitTicket from "./components/ExitTicket.jsx";
 import Feedback from "./components/Feedback.jsx";
 import Assesment from "./components/Assesment.jsx";
+import OrderForm from "./components/Orderform.jsx";
+import TShirtForm from "./components/TShirtForm.jsx";
+import EventFeedbackForm from "./components/Eventfeedback.jsx";
 
-// Temporary components
+// Temporary pages
 const Docs = () => <h2 className="p-3">Docs Page</h2>;
 const Sheets = () => <h2 className="p-3">Sheets Page</h2>;
 const Forms = () => <h2 className="p-3">Forms Page</h2>;
@@ -40,45 +43,97 @@ function AppWrapper() {
   const location = useLocation();
 
   // Hide header on these routes
-  const hideHeaderPaths = ["/question", "/responses", "/settings", "/templategallery", "/slide", "/gallery", "/form/rsvp", "/quiz", "/assesment"];
-  const showHeader = !hideHeaderPaths.includes(location.pathname);
+  const hideHeaderPaths = [
+    "/question",
+    "/responses",
+    "/settings",
+    "/templategallery",
+    "/slide",
+    "/gallery",
+    "/form/rsvp",
+    "/quiz",
+    "/assesment",
+    "/form/orderform",
+    "/form/tshirtform",
+    "/form/eventfeedbackform",
+  ];
+  const showHeader = !hideHeaderPaths.includes(location.pathname.toLowerCase());
 
   return (
     <>
       {showHeader && <Header />}
       <Routes>
-        {/* Main Routes */}
+        {/* Default/Home */}
         <Route path="/" element={<Slidetemplate />} />
         <Route path="/forms" element={<Form />} />
         <Route path="/form/:id" element={<FormPage />} />
 
-        <Route path="/form/jobapplication" element={<><BlankForm /><JobApplicationForm /></>} />
-        {/* <Route path="/form/partyinvite" element={<PartyInviteForm />} /> */}
-        {/* <Route path="/form/rsvpform" element={<RsvpForm />} /> */}
+        {/* Forms */}
+        <Route
+          path="/form/jobapplication"
+          element={
+            <>
+              <BlankForm />
+              <JobApplicationForm />
+            </>
+          }
+        />
+        <Route
+          path="/form/orderform"
+          element={
+            <>
+              <BlankForm />
+              <OrderForm />
+            </>
+          }
+        />
+        <Route
+          path="/form/tshirtform"
+          element={
+            <>
+              <BlankForm />
+              <TShirtForm />
+            </>
+          }
+        />
+        <Route
+          path="/form/eventfeedbackform"
+          element={
+            <>
+              <BlankForm />
+              <EventFeedbackForm />
+            </>
+          }
+        />
+        <Route
+          path="/form/rsvp"
+          element={
+            <>
+              <BlankForm />
+              <RsvpForm />
+            </>
+          }
+        />
 
-        {/* Docs & Sheets */}
-        <Route path="/docs" element={<Docs />} />
-        <Route path="/docstemplate" element={<Docstemplate />} />
-        <Route path="/docsgallery" element={<Docsgallery />} />
-        <Route path="/sheets" element={<Sheets />} />
-        <Route path="/sheetgallery" element={<SheetGallery />} />
-
-        {/* Slides */}
-        <Route path="/slidetemplate" element={<Slidetemplate />} />
-        <Route path="/slidegallery" element={<SlideGallery />} />
-
-        {/* Auth Routes */}
+        {/* Auth */}
         <Route path="/signin" element={<Signin />} />
         <Route path="/useaccount" element={<UseAccount />} />
         <Route path="/password" element={<Password />} />
         <Route path="/forgotpassword" element={<ForgotPassword />} />
 
-        {/* Extra Routes */}
+        {/* Docs, Sheets & Galleries */}
+        <Route path="/docs" element={<Docs />} />
+        <Route path="/docstemplate" element={<Docstemplate />} />
+        <Route path="/docsgallery" element={<Docsgallery />} />
+        <Route path="/sheets" element={<Sheets />} />
+        <Route path="/sheetgallery" element={<SheetGallery />} />
+        <Route path="/slidetemplate" element={<Slidetemplate />} />
+        <Route path="/slidegallery" element={<SlideGallery />} />
         <Route path="/templategallery" element={<TemplateGallery />} />
         <Route path="/formgallery" element={<Template />} />
         <Route path="/gallery" element={<Gallery />} />
 
-        {/* Blank Form with child pages */}
+        {/* BlankForm + Child Routes */}
         <Route
           path="/question"
           element={
@@ -107,18 +162,7 @@ function AppWrapper() {
           }
         />
 
-        {/* RSVP */}
-        <Route
-          path="/form/rsvp"
-          element={
-            <>
-              <BlankForm />
-              <RsvpForm />
-            </>
-          }
-        />
-
-        {/* Quiz */}
+        {/* Other Forms */}
         <Route
           path="/quiz"
           element={
@@ -128,37 +172,42 @@ function AppWrapper() {
             </>
           }
         />
-
         <Route
           path="/partyinvite"
           element={
             <>
-              <BlankForm /><PartyInvite />
-            </>}
-          />
-
-          <Route
+              <BlankForm />
+              <PartyInvite />
+            </>
+          }
+        />
+        <Route
           path="/exitticket"
           element={
             <>
-              <BlankForm /><ExitTicket />
-            </>}
-          />
-          
-          <Route
+              <BlankForm />
+              <ExitTicket />
+            </>
+          }
+        />
+        <Route
           path="/feedback"
           element={
             <>
-              <BlankForm /><Feedback />
-            </>}
-          />
-          <Route
+              <BlankForm />
+              <Feedback />
+            </>
+          }
+        />
+        <Route
           path="/assesment"
           element={
             <>
-              <BlankForm /><Assesment/>
-            </>}
-          />
+              <BlankForm />
+              <Assesment />
+            </>
+          }
+        />
       </Routes>
     </>
   );
@@ -173,4 +222,3 @@ function App() {
 }
 
 export default App;
-

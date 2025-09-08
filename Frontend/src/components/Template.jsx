@@ -37,6 +37,7 @@ const Template = () => {
     <>
       <div className="tpl-container">
         <div className="tpl-wrapper">
+          {/* Header */}
           <div className="tpl-header">
             <div className="tpl-header-left">
               <span className="tpl-heading">Start a new form</span>
@@ -52,48 +53,35 @@ const Template = () => {
             </div>
           </div>
 
-                    {/* Cards Section */}
-                    <div className="tpl-cards">
-                        <Link to="/question" className="tpl-card">
-                            <img src={blank} alt="no-img" className="tpl-card-img" />
-                            <p className="tpl-card-title">Blank</p>
-                        </Link>
-                        <Link to="#" className="tpl-card">
-                            <img src={blank8} alt="no-img" className="tpl-card-img" />
-                            <p className="tpl-card-title">Find a Time</p>
-                        </Link>
-                        <Link to="/form/contact" className="tpl-card">
-                            <img src={blank2} alt="no-img" className="tpl-card-img" />
-                            <p className="tpl-card-title">Contact Information</p>
-                        </Link>
-                        <Link to="#" className="tpl-card">
-                            <img src={blank4} alt="no-img" className="tpl-card-img" />
-                            <p className="tpl-card-title">Job Application</p>
-                        </Link>
-                        <Link to="/form/rsvpform" className="tpl-card">
-                            <img src={blank3} alt="no-img" className="tpl-card-img" />
-                            <p className="tpl-card-title">RSVP</p>
-                        </Link>
-                        <Link to="#" className="tpl-card">
-                            <img src={blank5} alt="no-img" className="tpl-card-img" />
-                            <p className="tpl-card-title">Party Invite</p>
-                        </Link>
-                    </div>
-                </div>
-            </div>
+          {/* Cards Section */}
+          <div className="tpl-cards">
+            <Link to="/question" className="tpl-card">
+              <img src={blank} alt="Blank" className="tpl-card-img" />
+              <p className="tpl-card-title">Blank</p>
+            </Link>
+
+            <Link to="#" className="tpl-card">
+              <img src={blank8} alt="Find a Time" className="tpl-card-img" />
+              <p className="tpl-card-title">Find a Time</p>
+            </Link>
+
+            <Link to="/form/contact" className="tpl-card">
+              <img src={blank2} alt="Contact Information" className="tpl-card-img" />
+              <p className="tpl-card-title">Contact Information</p>
+            </Link>
 
             <Link to="/form/jobapplication" className="tpl-card">
-              <img src={blank4} alt="no-img" className="tpl-card-img" />
+              <img src={blank4} alt="Job Application" className="tpl-card-img" />
               <p className="tpl-card-title">Job Application</p>
             </Link>
 
             <Link to="/form/rsvpform" className="tpl-card">
-              <img src={blank3} alt="no-img" className="tpl-card-img" />
+              <img src={blank3} alt="RSVP" className="tpl-card-img" />
               <p className="tpl-card-title">RSVP</p>
             </Link>
 
             <Link to="/form/partyinvite" className="tpl-card">
-              <img src={blank5} alt="no-img" className="tpl-card-img" />
+              <img src={blank5} alt="Party Invite" className="tpl-card-img" />
               <p className="tpl-card-title">Party Invite</p>
             </Link>
           </div>
