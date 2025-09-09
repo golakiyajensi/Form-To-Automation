@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Search, Edit2, ChevronLeft, ChevronRight, X } from "lucide-react";
-import { FaTrash } from "react-icons/fa";
+import { Search, X } from "lucide-react";
 import { useLocation } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+import Pagination from "../../components/common/Pagination";
 import "react-toastify/dist/ReactToastify.css";
+import ActionButtons from "../../components/common/ActionButtons";
 
 const Users = () => {
   const [users, setUsers] = useState([]);
@@ -13,14 +14,14 @@ const Users = () => {
   const [showEditModal, setShowEditModal] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
   const [role, setRole] = useState("");
+  const [itemsPerPage, setItemsPerPage] = useState(10);
 
-  const itemsPerPage = 10;
   const token = localStorage.getItem("admin_token");
   const API_URL = import.meta.env.VITE_FRONTEND_API_URL;
   const location = useLocation();
   const pathParts = location.pathname.split("/").filter(Boolean);
 
-  // ✅ Common API helper
+  // ✅ API helper
   const apiRequest = async (url, options = {}) => {
     try {
       const config = {
@@ -67,9 +68,13 @@ const Users = () => {
       u?.role?.toLowerCase().includes(term)
     );
   });
-  const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
+
+  const totalItems = filteredUsers.length;
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const currentItems = filteredUsers.slice(startIndex, startIndex + itemsPerPage);
+  const currentItems = filteredUsers.slice(
+    startIndex,
+    startIndex + itemsPerPage
+  );
 
   const formatDate = (date) =>
     date
@@ -80,7 +85,7 @@ const Users = () => {
         })
       : "N/A";
 
-  // ✅ Edit Role
+  // ✅ Edit Modal Logic
   const openEditModal = (user) => {
     setSelectedUser(user);
     setRole(user.role);
@@ -133,75 +138,18 @@ const Users = () => {
     }
   };
 
-  // ✅ Pagination Component
-  const Pagination = () => {
-    const visiblePages = () => {
-      const delta = 2;
-      const pages = [];
-      const start = Math.max(2, currentPage - delta);
-      const end = Math.min(totalPages - 1, currentPage + delta);
-      pages.push(1);
-      if (start > 2) pages.push("...");
-      for (let i = start; i <= end; i++) pages.push(i);
-      if (end < totalPages - 1) pages.push("...");
-      if (totalPages > 1) pages.push(totalPages);
-      return pages;
-    };
-    return (
-      <div className="flex flex-col sm:flex-row items-center justify-between px-6 py-4 border-t border-gray-200">
-        <p className="text-sm text-gray-500">
-          Showing {startIndex + 1} -{" "}
-          {Math.min(startIndex + itemsPerPage, filteredUsers.length)} of{" "}
-          {filteredUsers.length}
-        </p>
-        <div className="flex items-center space-x-1">
-          <button
-            disabled={currentPage === 1}
-            onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
-            className="p-2 text-gray-400 hover:text-gray-600 disabled:opacity-50"
-          >
-            <ChevronLeft className="w-4 h-4" />
-          </button>
-          {visiblePages().map((p, i) => (
-            <button
-              key={i}
-              onClick={() => typeof p === "number" && setCurrentPage(p)}
-              disabled={p === "..."}
-              className={`px-3 py-1 rounded-full text-sm ${
-                currentPage === p
-                  ? "bg-blue-600 text-white"
-                  : p === "..."
-                  ? "text-gray-400"
-                  : "bg-gray-100 hover:bg-gray-200 text-gray-700"
-              }`}
-            >
-              {p}
-            </button>
-          ))}
-          <button
-            disabled={currentPage === totalPages}
-            onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
-            className="p-2 text-gray-400 hover:text-gray-600 disabled:opacity-50"
-          >
-            <ChevronRight className="w-4 h-4" />
-          </button>
-        </div>
-      </div>
-    );
-  };
-
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
+    <div className="min-h-screen bg-gray-50 p-4 sm:p-6">
       <div className="max-w-7xl mx-auto">
         {/* ✅ Header */}
-        <div className="mb-6 flex flex-col sm:flex-row justify-between items-start sm:items-center">
+        <div className="mb-6 flex flex-col sm:flex-row justify-between gap-3">
           <div>
             <h1 className="text-2xl font-bold text-gray-800">Users</h1>
             <p className="text-sm text-gray-500">
               Manage all registered users and their roles
             </p>
           </div>
-          <div className="text-xs text-gray-500">
+          <div className="text-xs text-gray-500 flex flex-wrap gap-1">
             {pathParts.map((part, i) => (
               <span key={i}>
                 {part.charAt(0).toUpperCase() + part.slice(1)}
@@ -212,7 +160,7 @@ const Users = () => {
         </div>
 
         {/* ✅ Search */}
-        <div className="p-4 border-b border-gray-200 flex items-center">
+        <div className="p-3 sm:p-4 border rounded-lg bg-white mb-4 flex items-center">
           <div className="relative w-full sm:w-72">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
             <input
@@ -236,7 +184,7 @@ const Users = () => {
           </div>
         </div>
 
-        {/* ✅ Loading State */}
+        {/* ✅ Loading */}
         {loading && (
           <div className="py-12 text-center">
             <div className="animate-spin h-8 w-8 border-b-2 border-blue-600 rounded-full mx-auto"></div>
@@ -251,20 +199,27 @@ const Users = () => {
               <p className="py-12 text-center text-gray-500">No users found</p>
             ) : (
               <>
+                {/* ✅ Responsive Table */}
                 <div className="overflow-x-auto">
-                  <table className="w-full">
+                  <table className="w-full hidden sm:table">
                     <thead className="bg-gray-50">
                       <tr>
-                        {["ID", "Name", "Email", "Role", "Created", "Updated", "Actions"].map(
-                          (h) => (
-                            <th
-                              key={h}
-                              className="px-6 py-3 text-left text-xs font-bold uppercase text-gray-600"
-                            >
-                              {h}
-                            </th>
-                          )
-                        )}
+                        {[
+                          "ID",
+                          "Name",
+                          "Email",
+                          "Role",
+                          "Created",
+                          "Updated",
+                          "Actions",
+                        ].map((h) => (
+                          <th
+                            key={h}
+                            className="px-6 py-3 text-left text-xs font-bold uppercase text-gray-600"
+                          >
+                            {h}
+                          </th>
+                        ))}
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-200">
@@ -288,40 +243,82 @@ const Users = () => {
                               {u.role}
                             </span>
                           </td>
-                          <td className="px-6 py-4">{formatDate(u.created_at)}</td>
-                          <td className="px-6 py-4">{formatDate(u.updated_at)}</td>
                           <td className="px-6 py-4">
-                            <div className="flex space-x-2">
-                              <button
-                                onClick={() => openEditModal(u)}
-                                className="text-blue-600 hover:text-blue-800"
-                              >
-                                <Edit2 className="w-4 h-4" />
-                              </button>
-                              <button
-                                onClick={() => handleDelete(u.user_id)}
-                                className="text-red-600 hover:text-red-800"
-                              >
-                                <FaTrash className="w-4 h-4" />
-                              </button>
-                            </div>
+                            {formatDate(u.created_at)}
+                          </td>
+                          <td className="px-6 py-4">
+                            {formatDate(u.updated_at)}
+                          </td>
+                          <td className="px-6 py-4">
+                            <ActionButtons
+                              onEdit={() => openEditModal(u)}
+                              onDelete={() => handleDelete(u.user_id)}
+                            />
                           </td>
                         </tr>
                       ))}
                     </tbody>
                   </table>
+
+                  {/* ✅ Mobile List View */}
+                  <div className="sm:hidden divide-y divide-gray-200">
+                    {currentItems.map((u) => (
+                      <div
+                        key={u.user_id}
+                        className="p-4 flex flex-col gap-2 hover:bg-gray-50"
+                      >
+                        <div className="flex justify-between items-center">
+                          <span className="font-bold text-gray-800">
+                            {u.name}
+                          </span>
+                          <ActionButtons
+                            onEdit={() => openEditModal(u)}
+                            onDelete={() => handleDelete(u.user_id)}
+                          />
+                        </div>
+                        <p className="text-sm text-gray-600">{u.email}</p>
+                        <div className="flex justify-between text-sm text-gray-500">
+                          <span
+                            className={`px-2 py-1 text-xs font-semibold rounded-full ${
+                              u.role === "admin"
+                                ? "bg-red-100 text-red-700"
+                                : u.role === "viewer"
+                                ? "bg-green-100 text-green-700"
+                                : "bg-blue-100 text-blue-700"
+                            }`}
+                          >
+                            {u.role}
+                          </span>
+                          <span>{formatDate(u.created_at)}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-                <Pagination />
+
+                {/* ✅ Pagination */}
+                <div className="p-4 border-t border-gray-200">
+                  <Pagination
+                    currentPage={currentPage}
+                    totalItems={totalItems}
+                    itemsPerPage={itemsPerPage}
+                    onPageChange={setCurrentPage}
+                    onItemsPerPageChange={(n) => {
+                      setItemsPerPage(n);
+                      setCurrentPage(1);
+                    }}
+                  />
+                </div>
               </>
             )}
           </div>
         )}
       </div>
 
-      {/* ✅ Edit Role Modal */}
+      {/* ✅ Edit Modal */}
       {showEditModal && selectedUser && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg shadow-lg max-w-md w-full">
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 px-4">
+          <div className="bg-white rounded-lg shadow-lg w-full max-w-md">
             <div className="p-6 border-b">
               <h3 className="text-lg font-semibold">Edit Role</h3>
               <p className="text-sm text-gray-500">

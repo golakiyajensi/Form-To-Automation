@@ -15,9 +15,6 @@ router.get("/:formId", authMiddleware(["admin","creator"]), responseController.g
 // ✅ Get single response by responseId
 router.get("/response/:responseId", authMiddleware(["admin","creator"]), responseController.getResponseById);
 
-// GET Excel-compatible data
-router.get("/excel/:id", authMiddleware(["admin","creator"]), responseController.getResponseForExcel);
-
 // Export CSV
 router.get("/export/csv/:formId", authMiddleware(["admin","creator"]), responseController.exportResponsesCSV);
 

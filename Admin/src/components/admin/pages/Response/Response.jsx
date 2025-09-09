@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { Eye, Edit, Trash2, Search } from "lucide-react";
+import Pagination from "../../components/common/Pagination";
 import "react-toastify/dist/ReactToastify.css";
+import ActionButtons from "../../components/common/ActionButtons";
 
 const FormResponses = () => {
   const [responses, setResponses] = useState([]);
@@ -10,13 +12,12 @@ const FormResponses = () => {
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedItems, setSelectedItems] = useState([]);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
 
   const location = useLocation();
   const navigate = useNavigate();
   const pathParts = location.pathname.split("/").filter(Boolean);
 
-  const itemsPerPage = 10;
   const token = localStorage.getItem("admin_token");
   const API_URL = import.meta.env.VITE_FRONTEND_API_URL;
 
@@ -45,16 +46,6 @@ const FormResponses = () => {
   useEffect(() => {
     fetchResponses();
   }, []);
-
-  // Selection
-  const handleSelectAll = (checked) => {
-    if (checked) setSelectedItems(currentItems.map((r) => r.response_id));
-    else setSelectedItems([]);
-  };
-  const handleSelectItem = (id, checked) => {
-    if (checked) setSelectedItems((prev) => [...prev, id]);
-    else setSelectedItems((prev) => prev.filter((i) => i !== id));
-  };
 
   // Filter responses
   const filteredResponses = responses.filter((resp) => {
@@ -89,66 +80,12 @@ const FormResponses = () => {
     );
   });
 
-  const totalPages = Math.ceil(filteredResponses.length / itemsPerPage);
+  const totalItems = filteredResponses.length;
   const startIndex = (currentPage - 1) * itemsPerPage;
   const currentItems = filteredResponses.slice(
     startIndex,
     startIndex + itemsPerPage
   );
-
-  const Pagination = () => {
-    const pages = [];
-    for (let i = 1; i <= totalPages; i++) pages.push(i);
-
-    return (
-      <div className="flex flex-col sm:flex-row justify-between items-center px-4 py-2 border-t border-gray-200 space-y-2 sm:space-y-0">
-        <span className="text-sm text-gray-500">
-          {window.innerWidth >= 640
-            ? `Showing ${startIndex + 1} to ${Math.min(
-                startIndex + itemsPerPage,
-                filteredResponses.length
-              )} of ${filteredResponses.length} responses`
-            : `Page ${currentPage} / ${totalPages}`}
-        </span>
-
-        <div className="flex items-center space-x-1">
-          <button
-            onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
-            disabled={currentPage === 1}
-            className="px-3 py-1 bg-gray-200 rounded disabled:opacity-50"
-          >
-            Prev
-          </button>
-
-          <div className="hidden sm:flex items-center space-x-1">
-            {pages.map((page) => (
-              <button
-                key={page}
-                onClick={() => setCurrentPage(page)}
-                className={`px-3 py-1 rounded ${
-                  currentPage === page
-                    ? "bg-blue-500 text-white"
-                    : "bg-gray-200 text-gray-700"
-                }`}
-              >
-                {page}
-              </button>
-            ))}
-          </div>
-
-          <button
-            onClick={() =>
-              setCurrentPage(Math.min(totalPages, currentPage + 1))
-            }
-            disabled={currentPage === totalPages}
-            className="px-3 py-1 bg-gray-200 rounded disabled:opacity-50"
-          >
-            Next
-          </button>
-        </div>
-      </div>
-    );
-  };
 
   const MobileCard = ({ resp }) => (
     <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200 mb-4">
@@ -167,20 +104,15 @@ const FormResponses = () => {
             <strong>Date:</strong> {new Date(resp.created_at).toLocaleString()}
           </p>
         </div>
-        <div className="flex space-x-2 mt-1">
-          <button
-            className="text-blue-500 hover:text-blue-700"
-            onClick={() =>
+        <div className="mt-1">
+          <ActionButtons
+            onView={() =>
               navigate(
                 `/admin/dashboard/form-responses/response/${resp.response_id}`
               )
             }
-          >
-            <Eye className="w-4 h-4" />
-          </button>
-          <button className="text-red-500 hover:text-red-700">
-            <Trash2 className="w-4 h-4" />
-          </button>
+            onDelete={() => handleDelete(resp.response_id)}
+          />
         </div>
       </div>
       <div className="text-gray-700 text-xs mt-2">
@@ -268,14 +200,6 @@ const FormResponses = () => {
               <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-gray-50">
                   <tr>
-                    <th className="px-6 py-3">
-                      <input
-                        type="checkbox"
-                        className="rounded border-gray-300"
-                        onChange={(e) => handleSelectAll(e.target.checked)}
-                        checked={selectedItems.length === currentItems.length}
-                      />
-                    </th>
                     <th className="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider">
                       Response ID
                     </th>
@@ -299,16 +223,6 @@ const FormResponses = () => {
                 <tbody className="bg-white divide-y divide-gray-200">
                   {currentItems.map((resp) => (
                     <tr key={resp.response_id} className="hover:bg-gray-50">
-                      <td className="px-6 py-4">
-                        <input
-                          type="checkbox"
-                          className="rounded border-gray-300"
-                          checked={selectedItems.includes(resp.response_id)}
-                          onChange={(e) =>
-                            handleSelectItem(resp.response_id, e.target.checked)
-                          }
-                        />
-                      </td>
                       <td className="px-6 py-4 text-sm font-medium text-gray-900">
                         {resp.response_id}
                       </td>
@@ -331,20 +245,15 @@ const FormResponses = () => {
                           </div>
                         ))}
                       </td>
-                      <td className="px-6 py-4 flex space-x-2">
-                        <button
-                          className="text-blue-500 hover:text-blue-700"
-                          onClick={() =>
+                      <td className="px-6 py-4">
+                        <ActionButtons
+                          onView={() =>
                             navigate(
                               `/admin/dashboard/form-responses/response/${resp.response_id}`
                             )
                           }
-                        >
-                          <Eye className="w-4 h-4" />
-                        </button>
-                        <button className="text-red-500 hover:text-red-700">
-                          <Trash2 className="w-4 h-4" />
-                        </button>
+                          onDelete={() => handleDelete(resp.response_id)}
+                        />
                       </td>
                     </tr>
                   ))}
@@ -360,7 +269,18 @@ const FormResponses = () => {
             </div>
 
             {/* Pagination */}
-            <Pagination />
+            <div className="p-4 border-t border-gray-200">
+              <Pagination
+                currentPage={currentPage}
+                totalItems={totalItems}
+                itemsPerPage={itemsPerPage}
+                onPageChange={setCurrentPage}
+                onItemsPerPageChange={(n) => {
+                  setItemsPerPage(n);
+                  setCurrentPage(1); // reset to page 1 when perPage changes
+                }}
+              />
+            </div>
           </>
         )}
 
