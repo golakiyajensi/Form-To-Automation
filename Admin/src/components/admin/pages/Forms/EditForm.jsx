@@ -115,9 +115,11 @@ const EditForm = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 py-10 px-4">
-      <div className="mx-auto bg-white rounded-2xl shadow-lg border border-gray-200 p-8 max-w-2xl">
-        <h2 className="text-2xl font-bold text-gray-800 mb-6">Edit Form</h2>
+    <div className="min-h-screen bg-gray-100 py-8 px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto bg-white rounded-2xl shadow-lg border border-gray-200 p-6 sm:p-8 max-w-lg sm:max-w-2xl">
+        <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-6">
+          Edit Form
+        </h2>
 
         {/* Title */}
         <label className="block mb-5">
@@ -148,7 +150,7 @@ const EditForm = () => {
             <img
               src={newImage ? headerImage : `${API_URL}/uploads/${headerImage}`}
               alt="Header Preview"
-              className="w-full h-48 rounded-lg border mb-3 shadow-sm object-cover"
+              className="w-full h-40 sm:h-48 rounded-lg border mb-3 shadow-sm object-cover"
             />
           )}
           <input
@@ -160,16 +162,16 @@ const EditForm = () => {
         </label>
 
         {/* Actions */}
-        <div className="flex justify-end space-x-3 pt-4 border-t">
+        <div className="flex flex-col sm:flex-row justify-end gap-3 pt-4 border-t">
           <button
             onClick={() => navigate("/admin/dashboard/forms")}
-            className="px-5 py-2 rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200 transition font-medium"
+            className="px-5 py-2 rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200 transition font-medium w-full sm:w-auto"
           >
             Cancel
           </button>
           <button
             onClick={handleSave}
-            className="px-5 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition font-medium shadow-sm"
+            className="px-5 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition font-medium shadow-sm w-full sm:w-auto"
           >
             Save Changes
           </button>

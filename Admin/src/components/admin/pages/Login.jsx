@@ -126,12 +126,6 @@ export default function Login() {
                 </button>
               </div>
 
-              <div className="text-right">
-                <a href="#" className="text-green-300 hover:text-white text-sm">
-                  Forgot password?
-                </a>
-              </div>
-
               <button
                 type="submit"
                 className="w-full py-3 bg-yellow-400 hover:bg-yellow-500 text-green-900 font-semibold rounded-lg transition duration-200"

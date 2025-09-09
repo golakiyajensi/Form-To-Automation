@@ -26,33 +26,6 @@ const Dashboard = () => {
   const API_URL = import.meta.env.VITE_FRONTEND_API_URL;
   const adminToken = localStorage.getItem("admin_token");
 
-  useEffect(() => {
-    const token = localStorage.getItem("admin_token");
-    if (!token) return;
-
-    try {
-      const decoded = jwtDecode(token);
-      const now = Math.floor(Date.now() / 1000);
-      const remaining = decoded.exp - now;
-
-      if (remaining > 0) {
-        const timer = setTimeout(() => {
-          localStorage.clear();
-          window.location.href = "/login"; // auto logout
-        }, remaining * 1000); // convert to ms
-
-        return () => clearTimeout(timer);
-      } else {
-        localStorage.clear();
-        window.location.href = "/login";
-      }
-    } catch (e) {
-      console.error("Token decode error:", e);
-      localStorage.clear();
-      window.location.href = "/login";
-    }
-  }, []);
-
   // 🔹 decode role + userId
   let role = null;
   let userId = null;
@@ -112,26 +85,25 @@ const Dashboard = () => {
   };
 
   const fetchResponses = async (headers) => {
-    const res = await fetch(`${API_URL}/api/form-responses/all`, { headers });
-    if (!res.ok) throw new Error("Responses API failed");
-    const data = await res.json();
+  const res = await fetch(`${API_URL}/api/form-responses/all`, { headers });
+  if (!res.ok) throw new Error("Responses API failed");
+  const data = await res.json();
 
-    if (role === "creator") {
-      // Pela creator na forms ni id leva
-      const resForms = await fetch(`${API_URL}/api/forms/`, { headers });
-      const formsData = await resForms.json();
-      const myForms =
-        formsData?.data?.filter((f) => f.created_by === userId) || [];
-      const myFormIds = myForms.map((f) => f.form_id);
+  if (role === "creator") {
+    // Pela creator na forms ni id leva
+    const resForms = await fetch(`${API_URL}/api/forms/`, { headers });
+    const formsData = await resForms.json();
+    const myForms = formsData?.data?.filter(f => f.created_by === userId) || [];
+    const myFormIds = myForms.map(f => f.form_id);
 
-      // Responses filter kariye only aa forms na
-      const myResponses =
-        data?.data?.filter((r) => myFormIds.includes(r.form_id)) || [];
-      setResponsesCount(myResponses.length);
-    } else {
-      setResponsesCount(data?.data?.length || 0);
-    }
-  };
+    // Responses filter kariye only aa forms na
+    const myResponses = data?.data?.filter(r => myFormIds.includes(r.form_id)) || [];
+    setResponsesCount(myResponses.length);
+  } else {
+    setResponsesCount(data?.data?.length || 0);
+  }
+};
+
 
   const fetchDashboardData = async () => {
     try {

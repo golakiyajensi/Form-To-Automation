@@ -7,9 +7,11 @@ import {
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+import Pagination from "../../components/common/Pagination";
 import "react-toastify/dist/ReactToastify.css";
+import ActionButtons from "../../components/common/ActionButtons";
 
 const Forms = () => {
   const [forms, setForms] = useState([]);
@@ -19,11 +21,14 @@ const Forms = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedItems, setSelectedItems] = useState([]);
   const [modalImage, setModalImage] = useState(null);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
 
-  const itemsPerPage = 10;
   const token = localStorage.getItem("admin_token");
   const API_URL = import.meta.env.VITE_FRONTEND_API_URL;
   const navigate = useNavigate();
+
+  const location = useLocation();
+  const pathParts = location.pathname.split("/").filter(Boolean);
 
   // -----------------------------
   // Reusable API request function
@@ -35,7 +40,7 @@ const Forms = () => {
         ...(token && { Authorization: `Bearer ${token}` }),
       },
       ...options,
-    }; 
+    };
     const response = await fetch(url, config);
     const data = await response.json();
     if (!response.ok) throw new Error(data.message || "API Error");
@@ -111,7 +116,7 @@ const Forms = () => {
     );
   });
 
-  const totalPages = Math.ceil(filteredForms.length / itemsPerPage);
+  const totalItems = filteredForms.length;
   const startIndex = (currentPage - 1) * itemsPerPage;
   const currentItems = filteredForms.slice(
     startIndex,
@@ -119,15 +124,8 @@ const Forms = () => {
   );
 
   // -----------------------------
-  // Select & Modal handlers
+  // Modal handlers
   // -----------------------------
-  const handleSelectItem = (id, checked) =>
-    setSelectedItems((prev) =>
-      checked ? [...prev, id] : prev.filter((i) => i !== id)
-    );
-
-  const handleSelectAll = (checked) =>
-    setSelectedItems(checked ? currentItems.map((i) => i.id) : []);
 
   const openImageModal = (url) => setModalImage(url);
   const closeImageModal = () => setModalImage(null);
@@ -136,9 +134,21 @@ const Forms = () => {
     <div className="min-h-screen bg-gray-50 p-4 sm:p-6">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="mb-6">
-          <h1 className="text-2xl font-bold text-gray-800">Forms</h1>
-          <p className="text-gray-500 text-sm">Manage all forms</p>
+        <div className="mb-6 sm:mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between space-y-2 sm:space-y-0">
+          <div>
+            <h1 className="text-2xl font-bold text-gray-800">Forms</h1>
+            <p className="text-gray-500 text-sm">Manage all forms</p>
+          </div>
+          <div className="flex items-center text-xs sm:text-sm text-gray-500">
+            {pathParts.map((part, index) => (
+              <span key={index}>
+                {part.charAt(0).toUpperCase() + part.slice(1)}
+                {index < pathParts.length - 1 && (
+                  <span className="mx-2">/</span>
+                )}
+              </span>
+            ))}
+          </div>
         </div>
 
         {/* Search */}
@@ -186,14 +196,6 @@ const Forms = () => {
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50 sticky top-0 z-10">
                 <tr>
-                  <th className="px-6 py-3">
-                    <input
-                      type="checkbox"
-                      checked={selectedItems.length === currentItems.length}
-                      onChange={(e) => handleSelectAll(e.target.checked)}
-                      className="rounded border-gray-300"
-                    />
-                  </th>
                   {[
                     "ID",
                     "Title",
@@ -214,16 +216,6 @@ const Forms = () => {
               <tbody className="bg-white divide-y divide-gray-100">
                 {currentItems.map((form) => (
                   <tr key={form.id} className="hover:bg-gray-50 transition">
-                    <td className="px-6 py-4">
-                      <input
-                        type="checkbox"
-                        checked={selectedItems.includes(form.id)}
-                        onChange={(e) =>
-                          handleSelectItem(form.id, e.target.checked)
-                        }
-                        className="rounded border-gray-300"
-                      />
-                    </td>
                     <td className="px-6 py-4 text-sm font-medium text-gray-900">
                       {form.id}
                     </td>
@@ -252,16 +244,12 @@ const Forms = () => {
                         "N/A"
                       )}
                     </td>
-                    <td className="px-6 py-4 flex space-x-3">
-                      <button onClick={() => navigate(`view/${form.id}`)}>
-                        <Eye className="w-5 h-5 text-blue-600 hover:text-blue-800" />
-                      </button>
-                      <button onClick={() => navigate(`edit/${form.id}`)}>
-                        <Edit className="w-5 h-5 text-green-600 hover:text-green-800" />
-                      </button>
-                      <button onClick={() => handleDelete(form.id)}>
-                        <Trash2 className="w-5 h-5 text-red-600 hover:text-red-800" />
-                      </button>
+                    <td className="px-6 py-4">
+                      <ActionButtons
+                        onView={() => navigate(`view/${form.id}`)}
+                        onEdit={() => navigate(`edit/${form.id}`)}
+                        onDelete={() => handleDelete(form.id)}
+                      />
                     </td>
                   </tr>
                 ))}
@@ -304,27 +292,12 @@ const Forms = () => {
                   )}
                 </div>
                 <div className="flex space-x-3 mt-2">
-                  <button
-                    onClick={() => navigate(`view/${form.id}`)}
-                    className="flex items-center space-x-1 text-blue-600 hover:text-blue-800 text-sm"
-                  >
-                    <Eye className="w-4 h-4" />
-                    <span>View</span>
-                  </button>
-                  <button
-                    onClick={() => navigate(`edit/${form.id}`)}
-                    className="flex items-center space-x-1 text-green-600 hover:text-green-800 text-sm"
-                  >
-                    <Edit className="w-4 h-4" />
-                    <span>Edit</span>
-                  </button>
-                  <button
-                    onClick={() => handleDelete(form.id)}
-                    className="flex items-center space-x-1 text-red-600 hover:text-red-800 text-sm"
-                  >
-                    <Trash2 className="w-4 h-4" />
-                    <span>Delete</span>
-                  </button>
+                  <ActionButtons
+                    onView={() => navigate(`view/${form.id}`)}
+                    onEdit={() => navigate(`edit/${form.id}`)}
+                    onDelete={() => handleDelete(form.id)}
+                    showLabels={true}
+                  />
                 </div>
               </div>
             ))}
@@ -332,36 +305,18 @@ const Forms = () => {
         )}
 
         {/* Pagination */}
-        {!loading && !error && currentItems.length > 0 && (
-          <div className="flex justify-between items-center mt-4 px-4 sm:px-6 py-2 border-t border-gray-200">
-            <span className="text-sm text-gray-500">
-              Showing {startIndex + 1} to{" "}
-              {Math.min(startIndex + itemsPerPage, filteredForms.length)} of{" "}
-              {filteredForms.length}
-            </span>
-            <div className="flex items-center space-x-1">
-              <button
-                onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
-                disabled={currentPage === 1}
-                className="p-2 text-gray-400 hover:text-gray-600 disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                <ChevronLeft className="w-4 h-4" />
-              </button>
-              <span className="px-3 py-1 text-sm text-gray-700">
-                {currentPage} / {totalPages}
-              </span>
-              <button
-                onClick={() =>
-                  setCurrentPage(Math.min(totalPages, currentPage + 1))
-                }
-                disabled={currentPage === totalPages}
-                className="p-2 text-gray-400 hover:text-gray-600 disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                <ChevronRight className="w-4 h-4" />
-              </button>
-            </div>
-          </div>
-        )}
+        <div className="p-4 border-t border-gray-200">
+          <Pagination
+            currentPage={currentPage}
+            totalItems={totalItems}
+            itemsPerPage={itemsPerPage}
+            onPageChange={setCurrentPage}
+            onItemsPerPageChange={(n) => {
+              setItemsPerPage(n);
+              setCurrentPage(1); // reset to page 1 when perPage changes
+            }}
+          />
+        </div>
 
         {/* Image Modal */}
         {modalImage && (

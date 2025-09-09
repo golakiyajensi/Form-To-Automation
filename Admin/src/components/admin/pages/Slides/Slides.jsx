@@ -9,7 +9,9 @@ import {
 } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+import Pagination from "../../components/common/Pagination";
 import "react-toastify/dist/ReactToastify.css";
+import ActionButtons from "../../components/common/ActionButtons";
 
 const Slides = () => {
   const [slides, setSlides] = useState([]);
@@ -17,10 +19,9 @@ const Slides = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [selectedItems, setSelectedItems] = useState([]);
   const [modalImage, setModalImage] = useState(null);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
 
-  const itemsPerPage = 10;
   const token = localStorage.getItem("admin_token");
   const API_URL = import.meta.env.VITE_FRONTEND_API_URL;
 
@@ -56,7 +57,9 @@ const Slides = () => {
       const role = localStorage.getItem("admin_role");
       const userId = localStorage.getItem("admin_id");
       if (role === "creator") {
-        data = data.filter((slide) => String(slide.created_by) === String(userId));
+        data = data.filter(
+          (slide) => String(slide.created_by) === String(userId)
+        );
       }
 
       setSlides(data);
@@ -98,17 +101,6 @@ const Slides = () => {
     }
   };
 
-  // ------------------ Selection ------------------
-  const handleSelectAll = (checked) => {
-    if (checked) setSelectedItems(currentItems.map((item) => item.slide_id));
-    else setSelectedItems([]);
-  };
-
-  const handleSelectItem = (id, checked) => {
-    if (checked) setSelectedItems((prev) => [...prev, id]);
-    else setSelectedItems((prev) => prev.filter((i) => i !== id));
-  };
-
   // ------------------ Filtering & Pagination ------------------
   const filteredItems = slides.filter((slide) => {
     const term = searchTerm.toLowerCase();
@@ -119,9 +111,12 @@ const Slides = () => {
     );
   });
 
-  const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
+  const totalItems = filteredItems.length;
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const currentItems = filteredItems.slice(startIndex, startIndex + itemsPerPage);
+  const currentItems = filteredItems.slice(
+    startIndex,
+    startIndex + itemsPerPage
+  );
 
   // ------------------ Pagination Component ------------------
   const PaginationComponent = () => {
@@ -133,7 +128,8 @@ const Slides = () => {
 
       pages.push(1);
       if (start > 2) pages.push("...");
-      for (let i = start; i <= end; i++) if (i !== 1 && i !== totalPages) pages.push(i);
+      for (let i = start; i <= end; i++)
+        if (i !== 1 && i !== totalPages) pages.push(i);
       if (end < totalPages - 1) pages.push("...");
       if (totalPages > 1) pages.push(totalPages);
       return pages;
@@ -142,7 +138,9 @@ const Slides = () => {
     return (
       <div className="flex flex-col sm:flex-row items-center justify-between space-y-4 sm:space-y-0 px-4 sm:px-6 py-4 border-t border-gray-200">
         <div className="text-sm text-gray-500">
-          Showing {startIndex + 1} to {Math.min(startIndex + itemsPerPage, filteredItems.length)} of {filteredItems.length} slides
+          Showing {startIndex + 1} to{" "}
+          {Math.min(startIndex + itemsPerPage, filteredItems.length)} of{" "}
+          {filteredItems.length} slides
         </div>
         <div className="flex items-center space-x-1">
           <button
@@ -174,7 +172,9 @@ const Slides = () => {
             {currentPage} / {totalPages}
           </div>
           <button
-            onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+            onClick={() =>
+              setCurrentPage(Math.min(totalPages, currentPage + 1))
+            }
             disabled={currentPage === totalPages}
             className="p-2 text-gray-400 hover:text-gray-600 disabled:opacity-50"
           >
@@ -190,32 +190,32 @@ const Slides = () => {
     <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-200 mb-4">
       <div className="flex justify-between items-start mb-2">
         <div>
-          <h3 className="text-gray-900 font-medium text-sm">{slide.slide_title}</h3>
-          <p className="text-gray-500 text-xs line-clamp-2">{slide.slide_description}</p>
+          <h3 className="text-gray-900 font-medium text-sm">
+            {slide.slide_title}
+          </h3>
+          <p className="text-gray-500 text-xs line-clamp-2">
+            {slide.slide_description}
+          </p>
           <p className="text-gray-500 text-xs mt-1">
-            <span className="font-semibold">Form:</span> {slide.form_title || "N/A"}
+            <span className="font-semibold">Form:</span>{" "}
+            {slide.form_title || "N/A"}
           </p>
         </div>
       </div>
       <div className="mt-2 flex space-x-3 text-sm">
-        <button
-          className="flex items-center space-x-1 text-blue-500 hover:underline"
-          onClick={() => navigate(`/admin/dashboard/slides/view/${slide.form_id}`)}
-        >
-          <Eye className="w-4 h-4" /> <span>View</span>
-        </button>
-        <button
-          className="flex items-center space-x-1 text-green-500 hover:underline"
-          onClick={() => navigate(`/admin/dashboard/slides/edit/${slide.slide_id}/${slide.form_id}`)}
-        >
-          <Edit className="w-4 h-4" /> <span>Edit</span>
-        </button>
-        <button
-          className="flex items-center space-x-1 text-red-500 hover:underline"
-          onClick={() => handleDelete(slide.slide_id)}
-        >
-          <Trash2 className="w-4 h-4" /> <span>Delete</span>
-        </button>
+        <ActionButtons
+          onView={() =>
+            navigate(`/admin/dashboard/slides/view/${slide.form_id}`)
+          }
+          onEdit={() =>
+            navigate(
+              `/admin/dashboard/slides/edit/${slide.slide_id}/${slide.form_id}`
+            )
+          }
+          onDelete={() => handleDelete(slide.slide_id)}
+          showLabels={true}
+          variant="underline"
+        />
       </div>
     </div>
   );
@@ -233,7 +233,9 @@ const Slides = () => {
             {pathParts.map((part, index) => (
               <span key={index}>
                 {part.charAt(0).toUpperCase() + part.slice(1)}
-                {index < pathParts.length - 1 && <span className="mx-2">/</span>}
+                {index < pathParts.length - 1 && (
+                  <span className="mx-2">/</span>
+                )}
               </span>
             ))}
           </div>
@@ -270,14 +272,6 @@ const Slides = () => {
               <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-gray-50">
                   <tr>
-                    <th className="px-6 py-3">
-                      <input
-                        type="checkbox"
-                        className="rounded border-gray-300"
-                        onChange={(e) => handleSelectAll(e.target.checked)}
-                        checked={selectedItems.length === currentItems.length}
-                      />
-                    </th>
                     <th className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">
                       Slide ID
                     </th>
@@ -298,41 +292,32 @@ const Slides = () => {
                 <tbody className="bg-white divide-y divide-gray-200">
                   {currentItems.map((slide) => (
                     <tr key={slide.slide_id} className="hover:bg-gray-50">
-                      <td className="px-6 py-4">
-                        <input
-                          type="checkbox"
-                          className="rounded border-gray-300"
-                          checked={selectedItems.includes(slide.slide_id)}
-                          onChange={(e) =>
-                            handleSelectItem(slide.slide_id, e.target.checked)
-                          }
-                        />
-                      </td>
                       <td className="px-6 py-4 text-sm font-medium text-gray-900">
                         {slide.slide_id}
                       </td>
-                      <td className="px-6 py-4 text-sm text-gray-700">{slide.form_title}</td>
-                      <td className="px-6 py-4 text-sm text-gray-700">{slide.slide_title}</td>
-                      <td className="px-6 py-4 text-sm text-gray-700">{slide.slide_description}</td>
-                      <td className="px-6 py-4 flex space-x-2">
-                        <button
-                          className="text-blue-500 hover:text-blue-700"
-                          onClick={() => navigate(`/admin/dashboard/slides/view/${slide.form_id}`)}
-                        >
-                          <Eye className="w-4 h-4" />
-                        </button>
-                        <button
-                          className="text-green-500 hover:text-green-700"
-                          onClick={() => navigate(`/admin/dashboard/slides/edit/${slide.slide_id}/${slide.form_id}`)}
-                        >
-                          <Edit className="w-4 h-4" />
-                        </button>
-                        <button
-                          className="text-red-500 hover:text-red-700"
-                          onClick={() => handleDelete(slide.slide_id)}
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </button>
+                      <td className="px-6 py-4 text-sm text-gray-700">
+                        {slide.form_title}
+                      </td>
+                      <td className="px-6 py-4 text-sm text-gray-700">
+                        {slide.slide_title}
+                      </td>
+                      <td className="px-6 py-4 text-sm text-gray-700">
+                        {slide.slide_description}
+                      </td>
+                      <td className="px-6 py-4">
+                        <ActionButtons
+                          onView={() =>
+                            navigate(
+                              `/admin/dashboard/slides/view/${slide.form_id}`
+                            )
+                          }
+                          onEdit={() =>
+                            navigate(
+                              `/admin/dashboard/slides/edit/${slide.slide_id}/${slide.form_id}`
+                            )
+                          }
+                          onDelete={() => handleDelete(slide.slide_id)}
+                        />
                       </td>
                     </tr>
                   ))}
@@ -348,7 +333,18 @@ const Slides = () => {
             </div>
 
             {/* Pagination */}
-            <PaginationComponent />
+            <div className="p-4 border-t border-gray-200">
+              <Pagination
+                currentPage={currentPage}
+                totalItems={totalItems}
+                itemsPerPage={itemsPerPage}
+                onPageChange={setCurrentPage}
+                onItemsPerPageChange={(n) => {
+                  setItemsPerPage(n);
+                  setCurrentPage(1); // reset to page 1 when perPage changes
+                }}
+              />
+            </div>
           </>
         )}
 

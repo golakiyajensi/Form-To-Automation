@@ -25,7 +25,8 @@ const FormPublic = () => {
         });
 
         const data = await res.json();
-        if (!data.status) throw new Error(data.message || "Failed to fetch form");
+        if (!data.status)
+          throw new Error(data.message || "Failed to fetch form");
         setFormData(data.data);
       } catch (err) {
         toast.error(err.message || "Something went wrong");
@@ -53,47 +54,66 @@ const FormPublic = () => {
     );
   }
 
-  const { form, theme, slides } = formData;
+  const { form, theme, slides, unassignedFields } = formData;
 
   const themeStyles = {
     fontFamily: theme?.body_font_family || "Roboto, Arial, sans-serif",
-    backgroundColor: theme?.background_color || "#f0ebf8", // light google forms bg
+    backgroundColor: theme?.background_color || "#f0ebf8",
     color: theme?.body_color || "#202124",
   };
 
+  // Merge unassigned fields as a pseudo-slide at the beginning
+  const allSlides = [
+    ...(unassignedFields.length > 0
+      ? [{ title: "", description: "", fields: unassignedFields }]
+      : []),
+    ...slides.map((slide) => ({
+      title: slide.title,
+      description: slide.description,
+      fields: slide.fields,
+    })),
+  ];
+
   const renderField = (field) => {
+    const commonProps = {
+      name: `field_${field.field_id}`,
+      placeholder: "Your answer",
+      required: field.is_required,
+      className:
+        "w-full border-b border-gray-300 focus:border-purple-600 outline-none py-2 bg-transparent",
+    };
+
     switch (field.field_type) {
       case "short_text":
-        return (
-          <input
-            type="text"
-            placeholder="Your answer"
-            required={field.is_required}
-            className="w-full border-b border-gray-300 focus:border-purple-600 outline-none py-2 bg-transparent"
-          />
-        );
+        return <input type="text" {...commonProps} />;
       case "paragraph":
-        return (
-          <textarea
-            rows="3"
-            placeholder="Your answer"
-            required={field.is_required}
-            className="w-full border-b border-gray-300 focus:border-purple-600 outline-none py-2 bg-transparent"
-          />
-        );
+        return <textarea rows="3" {...commonProps} />;
       default:
-        return (
-          <input
-            type="text"
-            placeholder="Your answer"
-            className="w-full border-b border-gray-300 focus:border-purple-600 outline-none py-2 bg-transparent"
-          />
-        );
+        return <input type="text" {...commonProps} />;
     }
   };
 
+  const handleSubmit = () => {
+    const formValues = {};
+    allSlides.forEach((slide) => {
+      slide.fields.forEach((field) => {
+        formValues[field.field_id] =
+          document.querySelector(`[name="field_${field.field_id}"]`)?.value ||
+          "";
+      });
+    });
+
+    console.log("Submitting form values:", formValues);
+
+    // TODO: call your API here
+    toast.success("Form submitted successfully!");
+  };
+
   return (
-    <div className="min-h-screen flex justify-center py-10 px-3" style={themeStyles}>
+    <div
+      className="min-h-screen flex justify-center py-10 px-3"
+      style={themeStyles}
+    >
       <div className="w-full max-w-2xl">
         {/* Back to Forms */}
         <button
@@ -110,7 +130,7 @@ const FormPublic = () => {
               <img
                 src={`${API_URL}/uploads/${form.header_image}`}
                 alt="Header"
-                className="w-full h-40 object-cover rounded-lg"
+                className="w-full h-50 rounded-lg"
               />
             </div>
           )}
@@ -127,40 +147,56 @@ const FormPublic = () => {
           <p className="text-gray-600">{form.description}</p>
         </div>
 
-        {/* Current Slide */}
-        {slides.length > 0 && (
-          <div className="bg-white shadow-md rounded-xl p-6 mb-6">
-            <h2
-              className="text-lg font-medium mb-2"
-              style={{
-                fontFamily: theme?.question_font_family || "Roboto",
-                fontSize: theme?.question_font_size || "18px",
-              }}
+        {/* Current Slide Section */}
+        {allSlides.length > 0 && (
+          <>
+            {/* Section 1: Slide Title & Description */}
+            <div
+              className="shadow-md rounded-xl p-6 mb-4"
             >
-              {slides[currentSlide].title}
-            </h2>
-            {slides[currentSlide].description && (
-              <p className="text-gray-600 mb-4">{slides[currentSlide].description}</p>
-            )}
-            <div className="space-y-6">
-              {slides[currentSlide].fields.map((field) => (
-                <div key={field.field_id}>
-                  <label className="block font-medium mb-1 text-gray-800">
-                    {field.label}
-                    {field.is_required ? <span className="text-red-500"> *</span> : ""}
-                  </label>
-                  {field.field_image && (
-                    <img
-                      src={`${API_URL}/uploads/fields/${field.field_image}`}
-                      alt="Field"
-                      className="mb-2 w-32 rounded"
-                    />
-                  )}
-                  {renderField(field)}
-                </div>
-              ))}
+              <h2
+                className="text-lg font-medium mb-2"
+                style={{
+                  fontFamily: theme?.question_font_family || "Roboto",
+                  fontSize: theme?.question_font_size || "18px",
+                  backgroundColor: "#e0f2ff", 
+                }}
+              >
+                {allSlides[currentSlide].title}
+              </h2>
+              {allSlides[currentSlide].description && (
+                <p className="text-gray-700">
+                  {allSlides[currentSlide].description}
+                </p>
+              )}
             </div>
-          </div>
+
+            {/* Section 2: Slide Fields */}
+            <div className="bg-white shadow-md rounded-xl p-6 mb-6">
+              <div className="space-y-6">
+                {allSlides[currentSlide].fields.map((field) => (
+                  <div key={field.field_id}>
+                    <label className="block font-medium mb-1 text-gray-800">
+                      {field.label}
+                      {field.is_required ? (
+                        <span className="text-red-500"> *</span>
+                      ) : (
+                        ""
+                      )}
+                    </label>
+                    {field.field_image && (
+                      <img
+                        src={`${API_URL}/uploads/fields/${field.field_image}`}
+                        alt="Field"
+                        className="mb-2 w-32 rounded"
+                      />
+                    )}
+                    {renderField(field)}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </>
         )}
 
         {/* Navigation Buttons */}
@@ -176,7 +212,7 @@ const FormPublic = () => {
             <div />
           )}
 
-          {currentSlide < slides.length - 1 ? (
+          {currentSlide < allSlides.length - 1 ? (
             <button
               onClick={() => setCurrentSlide(currentSlide + 1)}
               className="ml-auto px-6 py-2 bg-purple-600 text-white rounded-full hover:bg-purple-700 transition"
@@ -184,7 +220,10 @@ const FormPublic = () => {
               Next
             </button>
           ) : (
-            <button className="ml-auto px-6 py-2 bg-purple-600 text-white rounded-full hover:bg-purple-700 transition">
+            <button
+              onClick={handleSubmit}
+              className="ml-auto px-6 py-2 bg-purple-600 text-white rounded-full hover:bg-purple-700 transition"
+            >
               Submit
             </button>
           )}

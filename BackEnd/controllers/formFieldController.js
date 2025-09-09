@@ -20,12 +20,12 @@ exports.createFormField = async (req, res) => {
 
     const fieldImage = req.parsedBody.field_image || null;
 
-    // ✅ Logic: slide_id hoy to form_id null, else form_id use
-    const formId = slide_id ? null : req.params.formId;
+    // ✅ Always use formId from params
+    const formId = req.params.formId;
 
     const result = await formFieldModel.createFormField(
-      formId,
-      slide_id,
+      formId,       // <-- never null
+      slide_id,     // <-- optional
       label,
       label_formatted,
       field_type,
@@ -44,7 +44,6 @@ exports.createFormField = async (req, res) => {
     res.status(500).json(response.error(err.message));
   }
 };
-
 
 // Get fields by formId
 exports.getFieldsByFormId = async (req, res) => {

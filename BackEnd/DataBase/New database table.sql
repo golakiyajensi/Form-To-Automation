@@ -36,9 +36,9 @@ CREATE TABLE `tbl_forms` (
   `update_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `header_image` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`form_id`),
-  KEY `created_by` (`created_by`),
-  CONSTRAINT `tbl_forms_ibfk_1` FOREIGN KEY (`created_by`) REFERENCES `tbl_user` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `tbl_forms_ibfk_1` (`created_by`),
+  CONSTRAINT `tbl_forms_ibfk_1` FOREIGN KEY (`created_by`) REFERENCES `tbl_user` (`user_id`) ON DELETE SET NULL
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- 3. Default Settings
 CREATE TABLE `tbl_form_defaults_setting` (

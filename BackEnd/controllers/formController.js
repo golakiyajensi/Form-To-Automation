@@ -2,6 +2,7 @@ const formModel = require("../models/formModel");
 const formThemeModel = require("../models/formThemeModel");
 const { getUserById } = require("../models/userModel"); // ✅ fetch by user ID
 const response = require("../utils/responseTemplate");
+const formFieldModel = require("../models/formFieldModel");
 const nodemailer = require("nodemailer");
 require("dotenv").config();
 
@@ -12,9 +13,12 @@ const transporter = nodemailer.createTransport({
 
 exports.createForm = async (req, res) => {
   try {
-    const { title, description, title_formatted, description_formatted } = req.body;
+    const { title, description, title_formatted, description_formatted } =
+      req.body;
     const created_by = req.user.userId;
-    const header_image = req.file ? req.file.filename : req.body.header_image || null;
+    const header_image = req.file
+      ? req.file.filename
+      : req.body.header_image || null;
 
     // 1️⃣ Create form
     const result = await formModel.createForm(
@@ -122,21 +126,29 @@ exports.getAllForms = async (req, res) => {
 exports.updateForm = async (req, res) => {
   try {
     const { id } = req.params;
-    const { title, description, title_formatted, description_formatted } = req.body;
+    const { title, description, title_formatted, description_formatted } =
+      req.body;
 
     const currentForm = await formModel.getFormById(id);
-    if (!currentForm) return res.status(404).json(response.error("Form not found"));
+    if (!currentForm)
+      return res.status(404).json(response.error("Form not found"));
 
     // Optional: check if logged-in user is creator/admin
     if (req.user.role !== "admin" && req.user.id !== currentForm.created_by) {
-      return res.status(403).json(response.error("Not authorized to update this form"));
+      return res
+        .status(403)
+        .json(response.error("Not authorized to update this form"));
     }
 
     const updatedTitle = title ?? currentForm.title;
     const updatedDescription = description ?? currentForm.description;
-    const updatedTitleFormatted = title_formatted ?? currentForm.title_formatted;
-    const updatedDescriptionFormatted = description_formatted ?? currentForm.description_formatted;
-    const updatedHeaderImage = req.file ? req.file.filename : currentForm.header_image;
+    const updatedTitleFormatted =
+      title_formatted ?? currentForm.title_formatted;
+    const updatedDescriptionFormatted =
+      description_formatted ?? currentForm.description_formatted;
+    const updatedHeaderImage = req.file
+      ? req.file.filename
+      : currentForm.header_image;
 
     await formModel.updateForm(
       id,
@@ -156,7 +168,7 @@ exports.updateForm = async (req, res) => {
       title_formatted: updatedForm.title_formatted,
       description_formatted: updatedForm.description_formatted,
       created_by: updatedForm.created_by,
-      header_image: updatedForm.header_image
+      header_image: updatedForm.header_image,
     };
 
     res.json(response.success("Form updated successfully", responseData));
@@ -199,12 +211,16 @@ exports.getFormForPublic = async (req, res) => {
       return res.status(404).json(response.notFound("Form not found"));
 
     // Slides + fields fetch karo
-    const slides = await formModel.getSlidesWithFields(formId);
+    const slidesWithFields = await formModel.getSlidesWithFields(formId);
 
     // Theme fetch karo → auto-create default if missing
     const theme = await formThemeModel.getFormTheme(formId);
 
-    // 🔥 share_url generate from ENV (fallback localhost)
+    // Fields without a slide
+    const allFields = await formFieldModel.getFieldsByFormId(formId); // fetch all fields
+    const unassignedFields = allFields.filter((f) => f.slide_id === null);
+
+    // share_url generate from ENV (fallback localhost)
     const BASE_URL = process.env.FRONTEND_URL || "http://localhost:5174";
     result.share_url = `${BASE_URL}/form/${formId}`;
 
@@ -213,7 +229,8 @@ exports.getFormForPublic = async (req, res) => {
       response.success("Public form fetched successfully", {
         form: result,
         theme: theme,
-        slides: slides,
+        slides: slidesWithFields,
+        unassignedFields: unassignedFields,
       })
     );
   } catch (err) {
