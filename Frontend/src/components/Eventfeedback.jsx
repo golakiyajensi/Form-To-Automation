@@ -83,7 +83,7 @@ export default function EventFeedbackForm() {
   };
 
   return (
-    <div className="background01 mt-5" style={{paddingTop:"60px"}}>
+    <div className="background01" style={{paddingTop:"30px"}}>
     <div className="gform-container">
       {/* Banner */}
       <div className="gform-banner">
@@ -239,7 +239,7 @@ export default function EventFeedbackForm() {
       </form>
 
       {/* Floating Toolbar */}
-      <div className="gform-toolbar">
+      <div className="gform-toolbar mt-4 d-flex gap-2">
         <button type="button" onClick={() => addElement("text")}>
           <FontAwesomeIcon icon={faT} />
         </button>

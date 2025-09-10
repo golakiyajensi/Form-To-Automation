@@ -62,7 +62,7 @@ const Gallery = () => {
               <img src={blank3} alt="rsvp" />
               <p>RSVP</p>
             </Link>
-            <Link to="/partyinvite" className="gal-card">
+            <Link to="/form/partyinvite" className="gal-card">
               <img src={blank5} alt="party" />
               <p>Party Invite</p>
             </Link>
@@ -85,11 +85,11 @@ const Gallery = () => {
               <img src={blank3} alt="RSVP" />
               <p>RSVP</p>
             </Link>
-            <Link to="/partyinvite" className="gal-card">
+            <Link to="/form/partyinvite" className="gal-card">
               <img src={blank5} alt="Party" />
               <p>Party Invite</p>
             </Link>
-            <Link to="#" className="gal-card">
+            <Link to="/form/TShirtForm" className="gal-card">
               <img src={blank6} alt="T-Shirt" />
               <p>T-Shirt Sign Up</p>
             </Link>
@@ -104,7 +104,7 @@ const Gallery = () => {
         <div className="gal-section">
           <h3 className="gal-section-title">Work</h3>
           <div className="gal-card-grid">
-            <Link to="/form/eventfeedback" className="gal-card">
+            <Link to="/form/eventfeedbackform" className="gal-card">
               <img src={blank9} alt="Event Feedback" />
               <p>Event Feedback</p>
             </Link>

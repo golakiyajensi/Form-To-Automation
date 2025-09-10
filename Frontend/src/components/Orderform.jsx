@@ -158,8 +158,8 @@ export default function OrderForm() {
   );
 
   return (
-    <div className="order mt-5" style={{backgroundColor:"#fff3eb", paddingTop:"20px"}}>
-    <div className="gform-container mt-5">
+    <div className="order" style={{backgroundColor:"#fff3eb", paddingTop:"30px"}}>
+    <div className="gform-container">
       {/* Header Banner */}
       <div className="gform-header-banner">
         <img src="/img/order.jpg" alt="Header" />

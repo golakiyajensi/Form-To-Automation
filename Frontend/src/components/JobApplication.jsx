@@ -158,7 +158,7 @@ export default function JobApplicationFormBuilder() {
   );
 
   return (
-    <div className="background2" style={{paddingTop:"50px"}}>
+    <div className="background2" style={{paddingTop:"90px"}}>
       <div className="gform-container">
         {/* Header Banner */}
         <div className="gform-header-banner">

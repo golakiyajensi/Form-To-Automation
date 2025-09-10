@@ -20,8 +20,8 @@ import { Form, FormControl, FormCheck, FormSelect, Row, Col, Button, Modal, Drop
 import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function JobApplicationFormBuilder() {
-    const [activeInputId, setActiveInputId] = useState(null);
-  const [formTitle, setFormTitle] = useState("Assessment");
+  const [activeInputId, setActiveInputId] = useState(null);
+  const [formTitle, setFormTitle] = useState("Assesment");
   const [formDescription, setFormDescription] = useState(
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur quis sem odio. Sed commodo vestibulum leo, sit amet tempus odio consectetur in. Mauris dolor elit, dignissim mollis feugiat maximus, faucibus et eros. Pellentesque venenatis odio nec nunc hendrerit commodo."
   );
@@ -985,55 +985,16 @@ export default function JobApplicationFormBuilder() {
           ))}
         </div>
 
-                {/* Resume */}
-                <div className="gform-card border rounded-3">
-                    <input
-                        type="text"
-                        value={questionLabel}
-                        onChange={(e) => setQuestionLabel(e.target.value)}
-                        className="gform-label-input"
-                    />
-
-                    <input
-                        type="text"
-                        className="gform-input"
-                        required
-                        placeholder="Description (optional)"
-                    />
-                    </div>
-
-            {/* Positions */}
-            <div className="gform-card border">
+        {/* Job Application Form */}
+        <form className="gform-form" onSubmit={handleSubmit}>
+          <div className="gform-card border rounded-3">
             <input
               type="text"
               value={thirdQuestion}
               onChange={(e) => setThirdQuestion(e.target.value)}
               className="gform-label-input"
             />
-
-            {formData.positions.map((pos, index) => (
-                <div key={index} className="gform-radio">
-                    <label className="mt-3 flex items-center gap-2">
-                    <input
-                        type="radio"
-                        name="mcq" // ✅ ensures only one can be selected
-                        value={pos}
-                        checked={formData.selected === pos} // ✅ single value, not array
-                        onChange={(e) => handleRadioChange(e, index)}
-                    />
-                    <input
-                        type="text"
-                        value={pos}
-                        onChange={(e) => handleOptionEdit(e, index)}
-                        className="option-input text-box w-75 ms-2 border-0"
-                    />
-                    </label>
-                </div>
-                ))}
-            </div>
-
-            {/* Positions */}
-            <div className="gform-card border">
+            {/* <p className="gform-sub">First and last name</p> */}
             <input
               type="text"
               name="name"
@@ -1056,23 +1017,13 @@ export default function JobApplicationFormBuilder() {
               placeholder="Title"
             />
 
-                <div className="gform-card border rounded-3">
-                    <input
-                    type="text"
-                    name="text"
-                    value={formData.email}
-                    onChange={handleChange}
-                    className="gform-input"
-                    required
-                    placeholder="Title"
-                />
+            <textarea
+              value={labelText}
+              onChange={(e) => setLabelText(e.target.value)}
+              className="gform-label border-0 bg-transparent fw-normal p-3 desc-text mt-3 w-100"
+              rows={7}   // you can adjust height
+            />
 
-                <textarea
-                  value={labelText}
-                  onChange={(e) => setLabelText(e.target.value)}
-                  className="gform-label border-0 bg-transparent fw-normal p-3 desc-text mt-3 w-100"
-                  rows={7}   // you can adjust height
-                />
 
           </div>
 

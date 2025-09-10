@@ -757,7 +757,7 @@ export default function App() {
                     }
                   }}
                   dangerouslySetInnerHTML={{
-                    __html: formTitle || "Blank Quiz", 
+                    __html: formTitle || "Blank Quiz", // ✅ Changed here
                   }}
                   style={{
                     minHeight: "40px",
@@ -794,10 +794,10 @@ export default function App() {
                     minHeight: "40px",
                     whiteSpace: "pre-wrap",
                     overflowWrap: "break-word",
-                    outline: "none",                
-                    border: "none",                 
-                    borderBottom: "1px solid #ccc", 
-                    padding: "4px 0"                
+                    outline: "none",                // remove blue outline
+                    border: "none",                 // remove all borders
+                    borderBottom: "1px solid #ccc", // add only bottom border
+                    padding: "4px 0"                // adjust padding
                   }}
                 ></div>
 
