@@ -129,10 +129,9 @@ const CourseEvaluation = () => {
         <>
             <div className="bg-color">
                 <div className="course-evaluation">
-                    {/* Banner */}
                     <div className="course-bg"></div>
 
-                    {/* Card Content */}
+
                     <div className="courseevaluation-card-content">
                         <h2 className="courseevaluation-title">Course Evaluation</h2>
                         <div className="courseevaluation-divider"></div>
@@ -164,6 +163,9 @@ const CourseEvaluation = () => {
                         ></textarea>
                     </div>
 
+
+
+
                     {/* Class + Instructor */}
                     <div className="courseevaluation-form">
                         <div className="courseevaluation-fieldtop">
@@ -178,7 +180,6 @@ const CourseEvaluation = () => {
                                 onChange={(e) => setClassName(e.target.value)}
                             />
                         </div>
-
                         <div className="courseevaluation-field">
                             <label className="courseevaluation-label">
                                 Instructor <span className="courseevaluation-required">*</span>
@@ -481,6 +482,29 @@ const CourseEvaluation = () => {
                             <FaBars />
                         </button>
                     </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 </div>
             </div>
 

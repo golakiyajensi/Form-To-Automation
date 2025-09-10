@@ -110,10 +110,10 @@ const Findtime = () => {
                             />
                         </div>
                     </div>
+
                     <div className="changing pt-3">
                         <p>
-                            This form is collecting emails.{" "}
-                            <a href="#">Change settings</a>
+                            This form is collecting emails. <a href="#">Change settings</a>
                         </p>
                     </div>
                 </div>
@@ -160,6 +160,12 @@ const Findtime = () => {
                         ))}
                     </div>
                 </div>
+
+
+
+
+
+
 
                 <div className="findtime-wrapper">
                     {/* Items to Discuss */}

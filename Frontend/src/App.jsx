@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "./App.css";
 import "./CSS/index1.css";
- 
+
 // Components
 import Header from "./screen/Header";
 import Signin from "./Components/Signin.jsx";
@@ -24,7 +24,7 @@ import Docsgallery from "./components/Docsgallery.jsx";
 import JobApplicationForm from "./components/JobApplication.jsx";
 import SlideGallery from "./components/SlideGallery.jsx";
 import Slidetemplate from "./components/Slidetemplate.jsx";
- 
+
 import RsvpForm from "./components/RsvpForm.jsx";
 import Quiz from "./components/Quiz.jsx";
 import PartyInviteForm from "./components/PartyInvite.jsx";
@@ -34,22 +34,22 @@ import TShirtForm from "./components/TShirtForm.jsx";
 import EventRegistration from "./components/EventRegistration.jsx";
 import CourseEvaluation from "./components/CourseEvaluation.jsx";
 import Findtime from "./components/Findtime.jsx";
- 
+
 import ExitTicket from "./components/ExitTicket.jsx";
 import Feedback from "./components/Feedback.jsx";
 import Assesment from "./components/Assesment.jsx";
 import TimeOffRequest from "./components/TimeOffRequest.jsx";
 import WorkRequest from "./components/WorkRequest.jsx";
 import Worksheet from "./components/Worksheet.jsx";
- 
+
 // Placeholder components
 const Docs = () => <h2 className="p-3">Docs Page</h2>;
 const Sheets = () => <h2 className="p-3">Sheets Page</h2>;
 const Forms = () => <h2 className="p-3">Forms Page</h2>;
- 
+
 function AppWrapper() {
   const location = useLocation();
- 
+
   // Hide header on these routes
   const hideHeaderPaths = [
     "/question",
@@ -65,9 +65,9 @@ function AppWrapper() {
     "/workrequest",
     "/form/jobapplication",
   ];
- 
+
   const showHeader = !hideHeaderPaths.includes(location.pathname);
- 
+
   return (
     <>
       {showHeader && <Header />}
@@ -84,7 +84,7 @@ function AppWrapper() {
             </>
           }
         />
- 
+
         {/* Form Variants */}
         <Route
           path="/form/jobapplication"
@@ -167,29 +167,29 @@ function AppWrapper() {
             </>
           }
         />
- 
+
         {/* Docs & Sheets */}
         <Route path="/docs" element={<Docs />} />
         <Route path="/docstemplate" element={<Docstemplate />} />
         <Route path="/docsgallery" element={<Docsgallery />} />
         <Route path="/sheets" element={<Sheets />} />
         <Route path="/sheetgallery" element={<SheetGallery />} />
- 
+
         {/* Slides */}
         <Route path="/slidetemplate" element={<Slidetemplate />} />
         <Route path="/slidegallery" element={<SlideGallery />} />
- 
+
         {/* Auth */}
         <Route path="/signin" element={<Signin />} />
         <Route path="/useaccount" element={<UseAccount />} />
         <Route path="/password" element={<Password />} />
         <Route path="/forgotpassword" element={<ForgotPassword />} />
- 
+
         {/* Galleries */}
         <Route path="/templategallery" element={<TemplateGallery />} />
         <Route path="/formgallery" element={<Template />} />
         <Route path="/gallery" element={<Gallery />} />
- 
+
         {/* BlankForm + Child Routes */}
         <Route
           path="/question"
@@ -218,7 +218,7 @@ function AppWrapper() {
             </>
           }
         />
- 
+
         {/* Other Forms */}
         <Route
           path="/quiz"
@@ -287,7 +287,7 @@ function AppWrapper() {
     </>
   );
 }
- 
+
 function App() {
   return (
     <BrowserRouter>
@@ -295,5 +295,5 @@ function App() {
     </BrowserRouter>
   );
 }
- 
+
 export default App;

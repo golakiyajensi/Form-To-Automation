@@ -650,7 +650,6 @@
 
 .question-title-row {
     display: flex;
-    align-items: center;
     justify-content: space-between;
 }
 
@@ -667,11 +666,12 @@
 }
 
 .icon-button {
+    padding-top: 10px;
     background: transparent;
+    padding: 5px;
     border: none;
     font-size: 18px;
     cursor: pointer;
-    padding: 20px;
     border-radius: 50%;
     transition: background 0.2s;
 }
@@ -682,7 +682,6 @@
 
 .toolbar {
     display: flex;
-    gap: 8px;
 }
 
 .toolbar button {
@@ -746,7 +745,6 @@
     color: #202124;
 }
 
-/* Switch (Required Toggle) */
 .switch {
     position: relative;
     display: inline-block;
@@ -792,9 +790,6 @@ input:checked+.slider:before {
     transform: translateX(16px);
 }
 
-
-/* name start  */
-
 .question-block {
     /* width: 60%; */
     background: #fff;
@@ -833,14 +828,6 @@ input:checked+.slider:before {
     padding-bottom: 4px;
 }
 
-.question-type {
-    margin: 12px 0;
-    padding: 6px 60px;
-    border-radius: 6px;
-    font-size: 14px;
-}
-
-/* Editable Description */
 .editable-description {
     font-size: 14px;
     color: #5f6368;
@@ -856,7 +843,6 @@ input:checked+.slider:before {
     margin-top: 12px;
 }
 
-/* Buttons */
 .action-btn {
     background: none;
     border: none;
@@ -921,6 +907,38 @@ input:checked+.slider:before {
     transform: translateX(16px);
 }
 
+
+.floating-toolbar {
+    position: fixed;
+    top: 305px;
+    right: 180px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 0.75rem;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 9999px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    z-index: 1000;
+}
+
+.floating-toolbar button {
+    border: none;
+    background: transparent;
+    color: #5f6368;
+    font-size: 1.5rem;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: background 0.2s;
+}
+
+
+.floating-toolbar button:hover {
+    background: #f1f3f4;
+}
+
 .file-upload-section {
     width: 60%;
     background: #fff;
@@ -980,8 +998,6 @@ input:checked+.slider:before {
 
 /* RSVP FORM CSS  */
 
-
-/* Main Container */
 .rsvp-main-container {
     max-width: 870px;
     margin: 0 auto;
@@ -993,7 +1009,6 @@ input:checked+.slider:before {
     gap: 20px;
 }
 
-/* Banner */
 .rsvp-bgpicture {
     background-image: url(/public/img/rsvp.jpg);
     width: 100%;
@@ -1004,7 +1019,6 @@ input:checked+.slider:before {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
 
-/* Event Section */
 .rsvp-form-section {
     width: 100%;
     border: 1px solid #ddd;
@@ -1039,7 +1053,6 @@ input:checked+.slider:before {
     border-radius: 6px;
 }
 
-/* RSVP Question Card */
 .rsvp-question-card {
     width: 100%;
     border: 1px solid #ddd;
@@ -1049,7 +1062,6 @@ input:checked+.slider:before {
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
 }
 
-/* Header */
 .rsvp-question-header {
     display: flex;
     justify-content: space-between;
@@ -1058,6 +1070,8 @@ input:checked+.slider:before {
     font-weight: 500;
     padding-bottom: 30px;
     cursor: pointer;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 .rsvp-question-title {
@@ -1070,7 +1084,6 @@ input:checked+.slider:before {
     gap: 10px;
 }
 
-/* Question text input */
 .rsvp-question-input {
     flex: 1;
     border: none;
@@ -1079,14 +1092,13 @@ input:checked+.slider:before {
     padding: 4px;
     outline: none;
     background: transparent;
+    width: 100%;
 }
 
 .rsvp-question-input:focus {
     border-bottom: 2px solid #4285f4;
 }
 
-
-/* Toolbar */
 .rsvp-toolbar {
     position: fixed;
     top: 240px;
@@ -1163,7 +1175,6 @@ input:checked+.slider:before {
     }
 }
 
-/* Options */
 .rsvp-options {
     margin: 12px 0;
     display: flex;
@@ -1174,8 +1185,8 @@ input:checked+.slider:before {
 .rsvp-input,
 .rsvp-textarea,
 .rsvp-select {
-    width: 100%;
-    padding: 8px;
+    width: 910px;
+    padding: 20px;
     border: 1px solid #ddd;
     border-radius: 6px;
     font-size: 14px;
@@ -1185,7 +1196,6 @@ input:checked+.slider:before {
     min-height: 80px;
 }
 
-/* Footer */
 .rsvp-actions-footer-unique {
     display: flex;
     align-items: center;
@@ -1193,20 +1203,20 @@ input:checked+.slider:before {
     gap: 12px;
     margin-top: 12px;
     padding-top: 40px;
+    flex-wrap: wrap;
 }
 
 .rsvp-icon {
     font-size: 24px;
     cursor: pointer;
     color: #444;
-    margin-right: 40px;
+    margin-right: 20px;
 }
 
 .rsvp-icon:hover {
     color: #1976d2;
 }
 
-/* Required toggle */
 .rsvp-required-toggle {
     display: inline-flex;
     align-items: center;
@@ -1248,7 +1258,6 @@ input:checked+.slider:before {
     transform: translateX(16px);
 }
 
-/* Long Answer Question */
 .rsvp-long-question-card {
     width: 100%;
     background: #fff;
@@ -1257,7 +1266,6 @@ input:checked+.slider:before {
     padding: 20px;
     margin: 10px auto;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    font-family: Arial, sans-serif;
 }
 
 .rsvp-long-question-label {
@@ -1285,51 +1293,7 @@ input:checked+.slider:before {
     border-bottom: 2px solid #4285f4;
 }
 
-
-/* section mcq  */
-
-.event-mcq-card {
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 20px;
-    margin: 5px auto;
-    width: 100%;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    font-family: Arial, sans-serif;
-}
-
-.event-mcq-label {
-    display: block;
-    font-size: 16px;
-    font-weight: 500;
-    color: #202124;
-    margin-bottom: 16px;
-}
-
-.event-mcq-options {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-.event-mcq-option {
-    display: flex;
-    align-items: center;
-    font-size: 14px;
-    color: #333;
-    cursor: pointer;
-}
-
-
-.event-mcq-option input[type="radio"] {
-    margin-right: 10px;
-    accent-color: #4285f4;
-
-}
-
-/* comment section  */
-
+.event-mcq-card,
 .comment-mcq-card {
     background: #fff;
     border: 1px solid #ddd;
@@ -1338,9 +1302,9 @@ input:checked+.slider:before {
     margin: 5px auto;
     width: 100%;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    font-family: Arial, sans-serif;
 }
 
+.event-mcq-label,
 .comment-mcq-label {
     display: block;
     font-size: 16px;
@@ -1349,14 +1313,14 @@ input:checked+.slider:before {
     margin-bottom: 16px;
 }
 
-
+.event-mcq-options,
 .comment-mcq-options {
     display: flex;
     flex-direction: column;
     gap: 12px;
 }
 
-
+.event-mcq-option,
 .comment-mcq-option {
     display: flex;
     align-items: center;
@@ -1365,21 +1329,42 @@ input:checked+.slider:before {
     cursor: pointer;
 }
 
+.event-mcq-option input[type="radio"],
 .comment-mcq-option input[type="radio"] {
     margin-right: 10px;
     accent-color: #4285f4;
 }
 
-/* Dynamic Field */
-.dynamic-field {
-
-
-    width: 100%;
-    border-radius: 8px;
-
+.rsvp-floating-toolbarend {
+    position: fixed;
+    top: 250px;
+    right: 160px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
 }
 
-/* Video Modal */
+.rsvp-toolbar-btnend {
+    background: #ffffff;
+    border: 1px solid #ffffff;
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    font-size: 18px;
+    color: #444;
+}
+
 .video-modal {
     position: fixed;
     top: 0;
@@ -1391,13 +1376,15 @@ input:checked+.slider:before {
     align-items: center;
     justify-content: center;
     z-index: 2000;
+    padding: 20px;
 }
 
 .video-modal-content {
     background: #fff;
     padding: 20px;
     border-radius: 10px;
-    width: 400px;
+    width: 100%;
+    max-width: 400px;
     text-align: center;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
@@ -1415,6 +1402,8 @@ input:checked+.slider:before {
     display: flex;
     justify-content: space-between;
     margin-top: 10px;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 .modal-actions button {
@@ -1424,11 +1413,91 @@ input:checked+.slider:before {
     cursor: pointer;
     background: #1976d2;
     color: #fff;
+    flex: 1;
+    min-width: 100px;
 }
 
 .modal-actions button:last-child {
     background: #aaa;
 }
+
+@media (max-width: 1200px) {
+    .rsvp-main-container {
+        width: 75%;
+    }
+}
+
+@media (max-width: 992px) {
+    .rsvp-main-container {
+        width: 85%;
+        padding: 40px 0;
+    }
+
+    .rsvp-form-title {
+        font-size: 28px;
+    }
+
+    .rsvp-floating-toolbarend {
+        right: 20px;
+        top: 200px;
+    }
+}
+
+@media (max-width: 768px) {
+    .rsvp-main-container {
+        width: 95%;
+        padding: 30px 0;
+    }
+
+    .rsvp-form-title {
+        font-size: 24px;
+    }
+
+    .rsvp-bgpicture {
+        height: 180px;
+    }
+
+    .rsvp-floating-toolbarend {
+        right: 10px;
+        top: auto;
+        bottom: 20px;
+        flex-direction: row;
+        padding: 8px;
+    }
+
+    .rsvp-toolbar-btnend {
+        width: 38px;
+        height: 38px;
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .rsvp-form-title {
+        font-size: 20px;
+    }
+
+    .rsvp-bgpicture {
+        height: 150px;
+    }
+
+    .rsvp-question-header {
+        font-size: 16px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .modal-actions {
+        flex-direction: column;
+    }
+
+    .modal-actions button {
+        width: 100%;
+    }
+}
+
+
 
 
 
@@ -1439,6 +1508,8 @@ input:checked+.slider:before {
     padding-bottom: 30px;
 }
 
+
+
 .eventregistration {
     max-width: 870px;
     margin: 0 auto;
@@ -1448,9 +1519,9 @@ input:checked+.slider:before {
     align-items: center;
     font-family: "Segoe UI", Arial, sans-serif;
     gap: 20px;
+    box-sizing: border-box;
 }
 
-/* Banner */
 .form-registration {
     width: 100%;
     height: 250px;
@@ -1461,7 +1532,6 @@ input:checked+.slider:before {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
 
-/* Event Card */
 .event-card {
     width: 100%;
     border: 1px solid #ddd;
@@ -1494,9 +1564,9 @@ input:checked+.slider:before {
     margin: 10px 0;
 }
 
-/* Toolbar inside card */
 .event-toolbar {
     display: flex;
+    flex-wrap: wrap;
     gap: 10px;
     margin-bottom: 10px;
 }
@@ -1518,16 +1588,15 @@ input:checked+.slider:before {
 
 .event-description {
     width: 100%;
-    height: 100px;
+    min-height: 100px;
     border: none;
     outline: none;
-    resize: none;
+    resize: vertical;
     font-size: 14px;
     line-height: 1.5;
     color: #333;
 }
 
-/* Input fields */
 .field-card {
     width: 100%;
     border: 1px solid #ddd;
@@ -1580,7 +1649,6 @@ input:checked+.slider:before {
     margin-top: 4px;
 }
 
-/* Email + Org fields */
 .ff-container {
     width: 100%;
     display: flex;
@@ -1629,7 +1697,6 @@ input:checked+.slider:before {
     width: 100%;
 }
 
-/* Attendance + Food */
 .af-container {
     width: 100%;
     display: flex;
@@ -1659,8 +1726,8 @@ input:checked+.slider:before {
 
 .af-options {
     display: flex;
-    flex-direction: column;
-    gap: 8px;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 .af-option {
@@ -1678,7 +1745,6 @@ input:checked+.slider:before {
     cursor: pointer;
 }
 
-/* Payment */
 .payment-checkbox-container {
     width: 100%;
     border: 1px solid #ddd;
@@ -1713,7 +1779,6 @@ input:checked+.slider:before {
     cursor: pointer;
 }
 
-/* Floating Toolbar */
 .eventregistration-floating-toolbar {
     position: fixed;
     top: 240px;
@@ -1782,6 +1847,7 @@ input:checked+.slider:before {
     border: 1px solid #ddd;
     border-radius: 8px;
     background: #fff;
+    padding-bottom: 80px;
 }
 
 .uploaded-image {
@@ -1820,28 +1886,151 @@ input:checked+.slider:before {
     background: #fff;
     padding: 20px;
     border-radius: 8px;
-    width: 400px;
+    width: 90%;
+    max-width: 500px;
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-@media (max-width: 992px) {
+@media(max-width: 1200px) {
     .eventregistration {
-        padding: 15px;
+        width: 70%;
+        padding-top: 50px;
+    }
+
+    .event-title {
+        font-size: 20px;
+    }
+}
+
+@media(max-width: 1024px) {
+    .eventregistration {
+        width: 80%;
+        padding-top: 40px;
+    }
+
+    .form-registration {
+        height: 220px;
+    }
+
+    .event-title {
+        font-size: 18px;
+    }
+
+    .event-description {
+        font-size: 13px;
+        min-height: 90px;
+    }
+
+    .event-toolbar {
+        justify-content: flex-start;
+        gap: 8px;
+    }
+
+    .af-options {
+        gap: 8px;
+    }
+}
+
+@media(max-width: 992px) {
+    .eventregistration {
+        width: 85%;
+        padding-top: 35px;
+    }
+
+    .form-registration {
+        height: 200px;
+    }
+
+    .event-card-content {
+        padding: 14px;
+    }
+}
+
+@media(max-width: 768px) {
+    .eventregistration {
+        width: 90%;
+        padding-top: 30px;
+    }
+
+    .form-registration {
+        height: 180px;
+    }
+
+    .event-title {
+        font-size: 16px;
+    }
+
+    .event-description {
+        font-size: 12px;
+        min-height: 80px;
+    }
+
+    .af-options {
+        flex-direction: column;
+    }
+
+    .eventregistration-floating-toolbar {
+        right: 3px;
+        justify-content: space-between;
+        top: auto;
+        bottom: 20px;
+        width: 100%;
+        flex-direction: row;
+    }
+}
+
+@media(max-width: 480px) {
+    .eventregistration {
+        width: 95%;
+        padding-top: 20px;
     }
 
     .form-registration {
         height: 150px;
     }
+
+    .event-title {
+        font-size: 15px;
+    }
+
+    .event-description {
+        font-size: 12px;
+        min-height: 70px;
+    }
+
+    .field-card,
+    .ff-card,
+    .af-card,
+    .payment-checkbox-container {
+        padding: 12px;
+    }
+
+    .eventregistration-floating-toolbar {
+        width: 100%;
+        bottom: 10px;
+        right: 2px;
+        flex-direction: row;
+        justify-content: space-between;
+    }
 }
+
 
 
 
 /* COURSE EVALUATION FORM CSS */
 
+
+
 .bg-color {
     background-color: rgb(255, 243, 227);
+}
+
+body,
+input,
+textarea {
+    font-family: "Segoe UI", Arial, sans-serif;
 }
 
 .course-evaluation {
@@ -1851,14 +2040,14 @@ input:checked+.slider:before {
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-family: "Segoe UI", Arial, sans-serif;
     gap: 20px;
+    box-sizing: border-box;
 }
 
 .course-bg {
     background-image: url(/img/Courseevaluation.jpg);
     width: 100%;
-    height: 250px;
+    height: 200px;
     background-size: cover;
     background-position: center;
     border-radius: 12px;
@@ -1870,8 +2059,10 @@ input:checked+.slider:before {
     background: #fff;
     border-radius: 10px;
     padding: 20px;
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
     width: 100%;
+    max-width: 1024px;
+    margin: 0 auto;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
 }
 
 .courseevaluation-title {
@@ -1889,6 +2080,7 @@ input:checked+.slider:before {
 
 .courseevaluation-toolbar {
     display: flex;
+    flex-wrap: wrap;
     gap: 8px;
     margin-bottom: 15px;
 }
@@ -1911,30 +2103,25 @@ input:checked+.slider:before {
 
 .courseevaluation-description {
     width: 100%;
-    border: none;
+    border: 1px solid #ddd;
+    border-radius: 6px;
     padding: 10px;
     font-size: 16px;
     color: #333;
     resize: vertical;
+    min-height: 120px;
 }
 
 .courseevaluation-form {
     width: 100%;
-    font-family: "Segoe UI", Arial, sans-serif;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
+.courseevaluation-fieldtop,
 .courseevaluation-field {
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    padding: 25px 20px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-}
-
-.courseevaluation-fieldtop {
     background: #fff;
     border: 1px solid #ddd;
     border-radius: 10px;
@@ -1966,7 +2153,6 @@ input:checked+.slider:before {
 
 .courseevaluation-input:focus {
     border-bottom: 2px solid #4285f4;
-    /* Google blue */
 }
 
 .courseevaluation-input::placeholder {
@@ -1978,10 +2164,9 @@ input:checked+.slider:before {
     background: #fff;
     border: 1px solid #ddd;
     border-radius: 10px;
-    padding: 25px 10px;
+    padding: 25px 20px;
     width: 100%;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-    font-family: "Segoe UI", Arial, sans-serif;
 }
 
 .courseevaluation-effort-label {
@@ -1994,10 +2179,10 @@ input:checked+.slider:before {
 
 .courseevaluation-effort-options {
     display: flex;
-    margin-left: 180px;
     align-items: center;
-    gap: 50px;
+    gap: 40px;
     flex-wrap: wrap;
+    margin-left: 150px;
 }
 
 .courseevaluation-effort-option {
@@ -2012,7 +2197,6 @@ input:checked+.slider:before {
 .courseevaluation-effort-option input[type="radio"] {
     margin-top: 6px;
     accent-color: #4285f4;
-    /* Google blue */
     width: 18px;
     height: 18px;
     cursor: pointer;
@@ -2026,9 +2210,9 @@ input:checked+.slider:before {
     background: #fff;
     border: 1px solid #ddd;
     border-radius: 10px;
-    padding: 20px 20px;
+    padding: 20px;
     width: 100%;
-    font-family: "Segoe UI", Arial, sans-serif;
+    overflow-x: auto;
 }
 
 .ce-title {
@@ -2042,6 +2226,7 @@ input:checked+.slider:before {
     width: 100%;
     border-collapse: collapse;
     text-align: center;
+    min-width: 600px;
 }
 
 .ce-option-header {
@@ -2049,6 +2234,7 @@ input:checked+.slider:before {
     font-weight: 500;
     color: #444;
     padding: 10px;
+    white-space: nowrap;
 }
 
 .ce-question {
@@ -2060,16 +2246,11 @@ input:checked+.slider:before {
     width: 250px;
 }
 
-.ce-cell {
-    padding: 10px;
-}
-
 .ce-cell input[type="radio"] {
     width: 18px;
     height: 18px;
     cursor: pointer;
     accent-color: #4285f4;
-    /* Google blue */
 }
 
 .sr-matrix {
@@ -2078,7 +2259,7 @@ input:checked+.slider:before {
     border-radius: 10px;
     padding: 20px;
     width: 100%;
-    font-family: "Segoe UI", Arial, sans-serif;
+    overflow-x: auto;
 }
 
 .sr-title {
@@ -2092,34 +2273,18 @@ input:checked+.slider:before {
     width: 100%;
     border-collapse: collapse;
     text-align: center;
+    min-width: 600px;
 }
 
-.sr-option {
-    font-size: 14px;
-    font-weight: 500;
-    color: #444;
-    padding: 10px;
-}
-
+.sr-option,
 .sr-question {
-    text-align: left;
     font-size: 14px;
-    color: #333;
-    padding: 10px;
-    font-weight: 500;
-    width: 260px;
-}
-
-.sr-cell {
     padding: 10px;
 }
 
 .sr-cell input[type="radio"] {
     width: 18px;
     height: 18px;
-    cursor: pointer;
-    accent-color: #4285f4;
-    /* Google style blue */
 }
 
 .coursecontent {
@@ -2127,7 +2292,9 @@ input:checked+.slider:before {
     border: 1px solid #e0e0e0;
     border-radius: 8px;
     width: 100%;
+    max-width: 1024px;
     padding: 20px;
+    margin: 0 auto;
 }
 
 .coursecontent-title {
@@ -2135,24 +2302,19 @@ input:checked+.slider:before {
     font-weight: 600;
     margin-bottom: 15px;
     color: #333;
+    text-align: center;
 }
 
 .coursecontent-table {
     width: 100%;
     border-collapse: collapse;
     text-align: center;
-}
-
-.coursecontent-table th,
-.coursecontent-table td {
-    padding: 12px 8px;
+    overflow-x: auto;
+    display: block;
 }
 
 .coursecontent-option {
-    font-size: 14px;
-    font-weight: 500;
-    color: #555;
-    white-space: nowrap;
+    padding: 10px;
 }
 
 .coursecontent-question {
@@ -2161,17 +2323,17 @@ input:checked+.slider:before {
     color: #444;
     padding-right: 10px;
     width: 250px;
+    padding: 10px;
 }
+
 
 .coursecontent-cell input[type="radio"] {
     width: 18px;
     height: 18px;
-    cursor: pointer;
 }
 
 .ec-container {
     width: 100%;
-    font-family: Arial, sans-serif;
 }
 
 .ec-box {
@@ -2183,11 +2345,9 @@ input:checked+.slider:before {
 }
 
 .ec-label {
-    display: block;
     font-size: 15px;
     font-weight: 500;
     margin-bottom: 10px;
-    color: #333;
 }
 
 .ec-textarea {
@@ -2197,12 +2357,6 @@ input:checked+.slider:before {
     border-bottom: 1px solid #bbb;
     font-size: 14px;
     padding: 8px 4px;
-    outline: none;
-    resize: vertical;
-}
-
-.ec-textarea:focus {
-    border-bottom: 2px solid #4285f4;
 }
 
 .ec-options {
@@ -2212,21 +2366,11 @@ input:checked+.slider:before {
     margin-top: 8px;
 }
 
-.ec-option {
-    font-size: 14px;
-    color: #444;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
 .ec-option input[type="radio"] {
     width: 18px;
     height: 18px;
-    cursor: pointer;
 }
 
-/* Floating Toolbar */
 .cour-evulation-floating-toolbar {
     position: fixed;
     top: 250px;
@@ -2238,13 +2382,12 @@ input:checked+.slider:before {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     z-index: 1000;
 }
 
 .cour-evulation-toolbar-btn {
-    background: #ffffff;
-    border: 1px solid #ffffff;
+    background: #fff;
+    border: 1px solid #fff;
     border-radius: 50%;
     width: 42px;
     height: 42px;
@@ -2252,9 +2395,9 @@ input:checked+.slider:before {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: all 0.2s ease-in-out;
     font-size: 18px;
     color: #444;
+    transition: all 0.2s ease-in-out;
 }
 
 .cour-evulation-toolbar-btn:hover {
@@ -2262,8 +2405,6 @@ input:checked+.slider:before {
     transform: scale(1.1);
 }
 
-
-/* Dynamic sections full width */
 .dynamic-sections {
     width: 100%;
     display: flex;
@@ -2281,35 +2422,38 @@ input:checked+.slider:before {
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
-.dynamic-input {
-    width: 100%;
-    border: none;
-    border-bottom: 1px solid #bbb;
-    padding: 8px;
-    font-size: 14px;
-    outline: none;
-}
-
-.dynamic-textarea {
-    width: 100%;
-    min-height: 80px;
-    border: none;
-    border-bottom: 1px solid #bbb;
-    padding: 8px;
-    font-size: 14px;
-    resize: vertical;
-    outline: none;
-}
-
+.dynamic-input,
+.dynamic-textarea,
 .dynamic-file {
     width: 100%;
     font-size: 14px;
+    border: none;
+    border-bottom: 1px solid #bbb;
+    padding: 8px;
+    outline: none;
 }
 
-.dynamic-subsection {
-    font-size: 16px;
-    font-weight: bold;
-    color: #333;
+@media(max-width: 1024px) {
+    .course-evaluation {
+        width: 85%;
+        padding: 50px 15px;
+    }
+
+    .courseevaluation-card-content {
+        padding: 18px;
+    }
+
+    .courseevaluation-title {
+        font-size: 20px;
+    }
+
+    .courseevaluation-description {
+        font-size: 15px;
+    }
+
+    .courseevaluation-input {
+        font-size: 14px;
+    }
 }
 
 /* ---------------- RESPONSIVE ---------------- */
@@ -2378,10 +2522,86 @@ input:checked+.slider:before {
     border-radius: 50%;
 }
 
+    .courseevaluation-title {
+        font-size: 18px;
+    }
+
+    .courseevaluation-toolbar-btn {
+        font-size: 15px;
+        padding: 5px 8px;
+    }
+
+    .courseevaluation-input {
+        font-size: 13px;
+    }
+
+    .courseevaluation-effort-options {
+        margin-left: 80px;
+        gap: 30px;
+    }
+
+
+@media(max-width: 768px) {
+    .course-evaluation {
+        width: 92%;
+        padding: 30px 12px;
+    }
+
+    .courseevaluation-card-content {
+        padding: 15px;
+    }
+
+    .courseevaluation-title {
+        font-size: 16px;
+    }
+
+    .courseevaluation-input {
+        font-size: 12px;
+    }
+
+    .courseevaluation-effort-options {
+        margin-left: 0;
+        justify-content: center;
+        gap: 25px;
+    }
+}
+
+@media(max-width: 480px) {
+    .course-evaluation {
+        width: 95%;
+        padding: 20px 10px;
+    }
+
+    .courseevaluation-title {
+        font-size: 15px;
+    }
+
+    .courseevaluation-input {
+        font-size: 12px;
+        padding: 5px 1px;
+    }
+
+    .courseevaluation-effort-options {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .cour-evulation-floating-toolbar {
+        bottom: 20px;
+        top: auto;
+        left: 10px;
+        width: 96%;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}
 
 
 
 /* FIND TIME FORM CSS  */
+
+
 
 
 .full-bg {
@@ -2409,6 +2629,8 @@ input:checked+.slider:before {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
 
+/* section one  */
+
 .findtime-card-content {
     border-top: 10px solid rgb(17, 11, 11);
     background: #fff;
@@ -2416,6 +2638,8 @@ input:checked+.slider:before {
     padding: 20px;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
     width: 100%;
+    max-width: 1024px;
+    margin: 0 auto;
     border-left: 5px solid rgb(40, 133, 255);
 }
 
@@ -2434,6 +2658,7 @@ input:checked+.slider:before {
 
 .findtime-toolbar {
     display: flex;
+    flex-wrap: wrap;
     gap: 8px;
     margin-bottom: 15px;
 }
@@ -2457,10 +2682,19 @@ input:checked+.slider:before {
 .findtime-description {
     width: 100%;
     border: none;
-    padding: 5px;
+    padding: 10px;
     font-size: 16px;
     color: #333;
     resize: vertical;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    min-height: 100px;
+}
+
+.find-para {
+    margin: 12px 0;
+    font-size: 15px;
+    color: #555;
 }
 
 .email-field {
@@ -2509,13 +2743,97 @@ input:checked+.slider:before {
     font-size: 14px;
 }
 
-/* time box */
+.changing {
+    font-size: 14px;
+    margin-top: 10px;
+    color: #555;
+}
+
+@media (max-width: 1024px) {
+    .findtime-card-content {
+        padding: 18px;
+    }
+
+    .findtime-title {
+        text-align: start;
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 992px) {
+    .findtime-toolbar-btn {
+        padding: 5px 8px;
+        font-size: 15px;
+    }
+
+    .findtime-description {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    .findtime-card-content {
+        padding: 15px;
+    }
+
+    .findtime-title {
+        text-align: start;
+        font-size: 18px;
+    }
+
+    .find-para {
+        font-size: 14px;
+    }
+
+    .email-input {
+        font-size: 14px;
+        padding: 8px 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .findtime-toolbar {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+
+    .findtime-toolbar-btn {
+        flex: 1 1 40px;
+        font-size: 14px;
+        padding: 5px;
+    }
+
+    .findtime-title {
+        font-size: 16px;
+        text-align: start;
+    }
+
+    .findtime-description {
+        font-size: 14px;
+        min-height: 80px;
+    }
+
+    .email-label {
+        font-size: 14px;
+    }
+
+    .changing {
+        font-size: 12px;
+        text-align: center;
+    }
+}
+
+/* section two  */
+
 .find-time-box {
     background: #fff;
     border-radius: 8px;
     padding: 20px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     width: 100%;
+    max-width: 1024px;
+    margin: 0 auto;
     border-left: 5px solid rgb(40, 133, 255);
     font-family: Arial, sans-serif;
 }
@@ -2548,11 +2866,13 @@ input:checked+.slider:before {
     padding: 10px;
     text-align: center;
     vertical-align: middle;
+    border-bottom: 1px solid #eee;
 }
 
 .find-time-box-header .find-time-box-cell {
     font-weight: bold;
     color: #333;
+    background: #f8f9fa;
 }
 
 .day-cell {
@@ -2566,6 +2886,95 @@ input:checked+.slider:before {
     height: 18px;
     cursor: pointer;
 }
+
+
+@media (max-width: 1024px) {
+    .find-time-box {
+        padding: 18px;
+    }
+
+    .find-time-box-title {
+        font-size: 17px;
+    }
+}
+
+@media (max-width: 992px) {
+    .find-time-box-title {
+        font-size: 16px;
+    }
+
+    .find-time-box-cell {
+        padding: 8px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 768px) {
+    .find-time-box-table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    .find-time-box-row {
+        display: inline-flex;
+        min-width: 600px;
+        border-bottom: 1px solid #eee;
+    }
+
+    .find-time-box-cell {
+        flex: 1;
+        padding: 8px 6px;
+    }
+
+    .day-cell {
+        min-width: 100px;
+        font-weight: 600;
+    }
+}
+
+@media (max-width: 480px) {
+    .find-time-box {
+        padding: 12px;
+    }
+
+    .find-time-box-title {
+        font-size: 15px;
+        text-align: center;
+    }
+
+    .find-time-box-subtitle {
+        font-size: 13px;
+        text-align: center;
+    }
+
+    .find-time-box-table {
+        display: block;
+        overflow-x: auto;
+    }
+
+    .find-time-box-row {
+        display: inline-flex;
+        min-width: 480px;
+    }
+
+    .find-time-box-cell {
+        font-size: 12px;
+        padding: 6px 4px;
+    }
+
+    .day-cell {
+        min-width: 80px;
+        font-size: 12px;
+    }
+
+    .find-time-box-checkbox {
+        width: 16px;
+        height: 16px;
+    }
+}
+
+/* section three  */
 
 .findtime-wrapper {
     width: 100%;
@@ -2638,7 +3047,6 @@ input:checked+.slider:before {
     outline: none;
 }
 
-/* Floating Toolbar */
 .custom-floating-toolbar {
     position: fixed;
     top: 240px;
@@ -2669,7 +3077,6 @@ input:checked+.slider:before {
     background: #f1f3f4;
 }
 
-/* Added dynamic fields */
 .custom-added-fields {
     margin-top: 20px;
     width: 100%;
@@ -2726,7 +3133,6 @@ input:checked+.slider:before {
     margin-top: 8px;
 }
 
-/* Modal */
 .modal-overlay {
     position: fixed;
     top: 0;
