@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "./App.css";
-import "./CSS/Index1.css"
+import "./CSS/index1.css";
 
 // Components
 import Header from "./screen/Header";
@@ -25,26 +25,16 @@ import JobApplicationForm from "./components/JobApplication.jsx";
 import SlideGallery from "./components/SlideGallery.jsx";
 import Slidetemplate from "./components/Slidetemplate.jsx";
 
-
 import RsvpForm from "./components/RsvpForm.jsx";
 import Quiz from "./components/Quiz.jsx";
 import PartyInviteForm from "./components/PartyInvite.jsx";
 import OrderForm from "./components/Orderform.jsx";
 import EventFeedbackForm from "./components/Eventfeedback.jsx";
-import TShirtForm from "./components/T-shirtsignup.jsx";
-
-import RSVP from "./components/RsvpForm.jsx";
+import TShirtForm from "./components/TShirtForm.jsx";
 import EventRegistration from "./components/EventRegistration.jsx";
-// import Quiz from "./components/Quiz.jsx";
 import CourseEvaluation from "./components/CourseEvaluation.jsx";
 import Findtime from "./components/Findtime.jsx";
 
-// Placeholder components
-const Docs = () => <h2 className="p-3">Docs Page</h2>;
-const Sheets = () => <h2 className="p-3">Sheets Page</h2>;
-const Forms = () => <h2 className="p-3">Forms Page</h2>;
-
-// import PartyInvite from "./components/PartyInvite.jsx";
 import ExitTicket from "./components/ExitTicket.jsx";
 import Feedback from "./components/Feedback.jsx";
 import Assesment from "./components/Assesment.jsx";
@@ -52,11 +42,29 @@ import TimeOffRequest from "./components/TimeOffRequest.jsx";
 import WorkRequest from "./components/WorkRequest.jsx";
 import Worksheet from "./components/Worksheet.jsx";
 
+// Placeholder components
+const Docs = () => <h2 className="p-3">Docs Page</h2>;
+const Sheets = () => <h2 className="p-3">Sheets Page</h2>;
+const Forms = () => <h2 className="p-3">Forms Page</h2>;
+
 function AppWrapper() {
   const location = useLocation();
 
   // Hide header on these routes
-  const hideHeaderPaths = ["/question", "/responses", "/settings", "/templategallery", "/slide", "/gallery", "/form/rsvp", "/quiz", "/assesment", "/timeoffrequest", "/workrequest", "/form/jobapplication"];
+  const hideHeaderPaths = [
+    "/question",
+    "/responses",
+    "/settings",
+    "/templategallery",
+    "/slide",
+    "/gallery",
+    "/form/rsvp",
+    "/quiz",
+    "/assesment",
+    "/timeoffrequest",
+    "/workrequest",
+    "/form/jobapplication",
+  ];
 
   const showHeader = !hideHeaderPaths.includes(location.pathname);
 
@@ -67,9 +75,17 @@ function AppWrapper() {
         {/* Default/Home */}
         <Route path="/" element={<Slidetemplate />} />
         <Route path="/forms" element={<Form />} />
-        <Route path="/form/:id" element={<FormPage />} />
+        <Route
+          path="/form/:id"
+          element={
+            <>
+              <BlankForm />
+              <FormPage />
+            </>
+          }
+        />
 
-        {/* Forms */}
+        {/* Form Variants */}
         <Route
           path="/form/jobapplication"
           element={
@@ -115,30 +131,42 @@ function AppWrapper() {
             </>
           }
         />
-        {/* Main Routes */}
-        <Route path="/" element={<Template />} />
-        <Route path="/forms" element={<Form />} />
-        <Route path="/form/:id" element={<FormPage />} />
-
-        <Route path="/form/jobapplication" element={<JobApplicationForm />} />
-        <Route path="/form/partyinvite" element={<PartyInviteForm />} />
-        <Route path="/form/eventregistration" element={<EventRegistration />} />
-        <Route path="/form/evaluation" element={<CourseEvaluation />} />
-        <Route path="/form/findtime" element={<Findtime />} />
-
-
-        {/*  Uncomment only if you have this file */}
-        <Route path="/form/Partyinvite" element={<PartyInviteForm />} />
-        <Route path="/form/Orderform" element={<OrderForm />} />
-        <Route path="/form/Eventfeedback" element={<EventFeedbackForm />} />
-        <Route path="/form/T-shirtsignup" element={<TShirtForm />} />
-
-        <Route path="/form/rsvpform" element={<RsvpForm />} />
-
-        <Route path="/form/jobapplication" element={<><BlankForm /><JobApplicationForm /></>} />
-        {/* <Route path="/form/partyinvite" element={<PartyInviteForm />} /> */}
-        {/* <Route path="/form/rsvpform" element={<RsvpForm />} /> */}
-
+        <Route
+          path="/form/partyinvite"
+          element={
+            <>
+              <BlankForm />
+              <PartyInviteForm />
+            </>
+          }
+        />
+        <Route
+          path="/form/eventregistration"
+          element={
+            <>
+              <BlankForm />
+              <EventRegistration />
+            </>
+          }
+        />
+        <Route
+          path="/form/evaluation"
+          element={
+            <>
+              <BlankForm />
+              <CourseEvaluation />
+            </>
+          }
+        />
+        <Route
+          path="/form/findtime"
+          element={
+            <>
+              <BlankForm />
+              <Findtime />
+            </>
+          }
+        />
 
         {/* Docs & Sheets */}
         <Route path="/docs" element={<Docs />} />
@@ -151,7 +179,7 @@ function AppWrapper() {
         <Route path="/slidetemplate" element={<Slidetemplate />} />
         <Route path="/slidegallery" element={<SlideGallery />} />
 
-        {/* Auth Routes */}
+        {/* Auth */}
         <Route path="/signin" element={<Signin />} />
         <Route path="/useaccount" element={<UseAccount />} />
         <Route path="/password" element={<Password />} />
@@ -191,18 +219,7 @@ function AppWrapper() {
           }
         />
 
-        {/* RSVP Form */}
-        <Route
-          path="/form/rsvp"
-          element={
-            <>
-              <BlankForm />
-              <RsvpForm />
-            </>
-          }
-        />
-
-        {/* Quiz */}
+        {/* Other Forms */}
         <Route
           path="/quiz"
           element={
@@ -213,79 +230,58 @@ function AppWrapper() {
           }
         />
         <Route
-          path="/partyinvite"
-          element={
-            <>
-              <BlankForm />
-
-              <PartyInvite />
-            </>
-          }
-        />
-
-              <PartyInviteForm />
-            </>}
-        />
-
-
-        <Route
           path="/exitticket"
           element={
             <>
-
               <BlankForm />
               <ExitTicket />
             </>
           }
         />
-
-              <BlankForm /><ExitTicket />
-            </>}
-        />
-
-
         <Route
           path="/feedback"
           element={
             <>
-
               <BlankForm />
               <Feedback />
             </>
           }
-
-              <BlankForm /><Feedback />
-            </>}
-
         />
         <Route
           path="/assesment"
           element={
             <>
-              <BlankForm /><Assesment />
-            </>}
+              <BlankForm />
+              <Assesment />
+            </>
+          }
         />
         <Route
           path="/timeoffrequest"
           element={
             <>
-              <BlankForm /><TimeOffRequest />
-            </>}
+              <BlankForm />
+              <TimeOffRequest />
+            </>
+          }
         />
         <Route
           path="/workrequest"
           element={
             <>
-              <BlankForm /><WorkRequest />
-            </>}
+              <BlankForm />
+              <WorkRequest />
+            </>
+          }
         />
-
         <Route
           path="/worksheet"
           element={
             <>
-              <BlankForm /><Worksheet />
-            </>}
+              <BlankForm />
+              <Worksheet />
+            </>
+          }
         />
       </Routes>
     </>

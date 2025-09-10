@@ -817,10 +817,10 @@ export default function JobApplicationFormBuilder() {
                 minHeight: "40px",
                 whiteSpace: "pre-wrap",
                 overflowWrap: "break-word",
-                outline: "none",                // remove blue outline
-                border: "none",                 // remove all borders
-                borderBottom: "1px solid #ccc", // add only bottom border
-                padding: "4px 0"                // adjust padding
+                outline: "none", 
+                border: "none",
+                borderBottom: "1px solid #ccc", 
+                padding: "4px 0" 
               }}
             ></div>
 

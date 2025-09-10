@@ -809,7 +809,7 @@ export default function JobApplicationFormBuilder() {
     )};
 
   return (
-    <div className="background2">
+    <div className="background2" style={{paddingTop:"20px"}}>
       <div className="gform-container">
         <div className="gform-header-banner">
           <img src="/img/timeoffrequest.jpg" alt="Header" />
