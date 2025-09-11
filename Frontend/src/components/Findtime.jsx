@@ -324,7 +324,7 @@ const Findtime = () => {
                 {/* Video Modal */}
                 {isVideoModalOpen && (
                     <div className="modal-overlay">
-                        <div className="modal">
+                        <div className="modal01">
                             <h3>Add Video URL</h3>
                             <input
                                 type="text"

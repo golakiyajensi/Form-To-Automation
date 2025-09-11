@@ -731,7 +731,7 @@ const FormElement = ({ element, onRemove }) => {
       {/* <FormHeader/> */}
       <div className="app-container">
         <div className='form-content'>
-          <div className='form w-100'>
+          <div className='w-100'>
             <div className="form-header-bar"></div>
             <div className="card1 shadow mb-4 w-100 border-rounded-0">
               <div className="card-body">

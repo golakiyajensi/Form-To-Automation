@@ -74,7 +74,15 @@ function AppWrapper() {
         {/* Default/Home */}
         <Route path="/" element={<Slidetemplate />} />
         <Route path="/forms" element={<Form />} />
-        <Route path="/form/:id" element={<FormPage />} />
+        <Route
+          path="/form/:id"
+          element={
+            <>
+              <BlankForm />
+              <FormPage />
+            </>
+          }
+        />
 
         {/* Form Variants */}
         <Route
@@ -209,8 +217,6 @@ function AppWrapper() {
             </>
           }
         />
-
-        {/* Quiz */}
         <Route
           path="/quiz"
           element={
@@ -220,8 +226,6 @@ function AppWrapper() {
             </>
           }
         />
-
-        {/* Extra Forms */}
         <Route
           path="/exitticket"
           element={
