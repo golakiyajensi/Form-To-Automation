@@ -318,12 +318,40 @@ CREATE TABLE `tbl_form_publish_status` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- 17. Creator (extra from main)
-CREATE TABLE tbl_creator (
-  creator_id INT AUTO_INCREMENT PRIMARY KEY,
-  user_id INT NOT NULL,
-  organization VARCHAR(100),
-  portfolio_link VARCHAR(255),
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  updated_at datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  create_date timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  update_date timestamp
+CREATE TABLE `tbl_creator` (
+  `creator_id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int NOT NULL,
+  `organization` varchar(100) DEFAULT NULL,
+  `portfolio_link` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `create_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`creator_id`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `tbl_creator_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `tbl_user` (`user_id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- 18. Template
+CREATE TABLE `tbl_templates` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `description` text,
+  `image_url` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- 19. Template fields
+CREATE TABLE `tbl_template_fields` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `template_id` int NOT NULL,
+  `label` varchar(255) NOT NULL,
+  `field_type` enum('text','email','number','textarea','radio','checkbox','date') NOT NULL,
+  `placeholder` varchar(255) DEFAULT NULL,
+  `is_required` tinyint(1) DEFAULT '0',
+  `sort_order` int DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `template_id` (`template_id`),
+  CONSTRAINT `tbl_template_fields_ibfk_1` FOREIGN KEY (`template_id`) REFERENCES `tbl_templates` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;

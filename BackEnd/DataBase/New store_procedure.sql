@@ -962,3 +962,27 @@ BEGIN
     SELECT ROW_COUNT() AS affected_rows;
 END //
 DELIMITER ;
+
+DELIMITER $$
+
+CREATE PROCEDURE sp_create_form_from_template(IN p_templateId INT, IN p_userId INT)
+BEGIN
+    DECLARE newFormId INT;
+
+    -- Create form entry
+    INSERT INTO tbl_forms (title, description, created_by)
+    SELECT name, description, p_userId
+    FROM tbl_templates WHERE id = p_templateId;
+
+    SET newFormId = LAST_INSERT_ID();
+
+    -- Copy fields from template_fields → form_fields
+    INSERT INTO form_fields (form_id, label, field_type, placeholder, is_required, sort_order)
+    SELECT newFormId, label, field_type, placeholder, is_required, sort_order
+    FROM tbl_template_fields WHERE template_id = p_templateId;
+
+    -- Return new form ID
+    SELECT newFormId AS formId;
+END$$
+
+DELIMITER ;
