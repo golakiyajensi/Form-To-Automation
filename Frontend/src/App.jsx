@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "./App.css";
-import "./CSS/index1.css";
+import "./CSS/Index1.css";
 
 // Components
 import Header from "./screen/Header";
@@ -34,7 +34,6 @@ import TShirtForm from "./components/TShirtForm.jsx";
 import EventRegistration from "./components/EventRegistration.jsx";
 import CourseEvaluation from "./components/CourseEvaluation.jsx";
 import Findtime from "./components/Findtime.jsx";
-
 import ExitTicket from "./components/ExitTicket.jsx";
 import Feedback from "./components/Feedback.jsx";
 import Assesment from "./components/Assesment.jsx";
@@ -190,7 +189,7 @@ function AppWrapper() {
         <Route path="/formgallery" element={<Template />} />
         <Route path="/gallery" element={<Gallery />} />
 
-        {/* BlankForm + Child Routes */}
+        {/* Form Sections */}
         <Route
           path="/question"
           element={
@@ -218,8 +217,6 @@ function AppWrapper() {
             </>
           }
         />
-
-        {/* Other Forms */}
         <Route
           path="/quiz"
           element={

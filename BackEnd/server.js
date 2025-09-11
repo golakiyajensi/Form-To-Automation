@@ -22,6 +22,7 @@ const themeRoutes = require('./routes/themeRoutes');
 const responsesetting = require('./routes/responseSettingsRoutes');
 const Presentationsetting = require('./routes/PresentationSettingsRoutes');
 const defaultsetting = require('./routes/defaultSettingsRoutes');
+const templateRoutes = require('./routes/templateRoutes');
 
 const app = express();
 
@@ -52,6 +53,7 @@ app.use('/api/theme', themeRoutes);
 app.use('/api/responsesetting', responsesetting);
 app.use('/api/Presentationsetting', Presentationsetting);
 app.use('/api/defaultsetting', defaultsetting);
+app.use("/api/templates", templateRoutes);
 
 // Server listen
 const PORT = process.env.PORT || 5000;
