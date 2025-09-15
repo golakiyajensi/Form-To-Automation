@@ -13,6 +13,7 @@ export default function Sidebar({ sidebarOpen, toggleSidebar }) {
     { to: "forms", label: "Forms", icon: UserPlus },
     { to: "slides", label: "Slides", icon: UserPlus },
     { to: "response", label: "Response", icon: UserPlus },
+    { to: "template", label: "Template", icon: UserPlus },
   ];
 
   return (
