@@ -41,6 +41,6 @@ router.delete(
 );
 
 // Public form fetch
-router.get("/public/:id", authMiddleware(["admin", "viewer", "creator"]), formController.getFormForPublic);
+  router.get("/public/:id", authMiddleware(["admin", "viewer", "creator"]), formController.getFormForPublic);
 
 module.exports = router;

@@ -21,3 +21,29 @@ exports.useTemplate = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+
+// ✅ Get template fields by templateId
+exports.getTemplateFields = async (req, res) => {
+  const { templateId } = req.params;
+  try {
+    const fields = await Template.getFields(templateId);
+    res.json(fields);
+  } catch (err) {
+    console.error("❌ Error fetching fields:", err);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+exports.getTemplateById = async (req, res) => {
+  const { templateId } = req.params;
+  try {
+    const template = await Template.getById(templateId);
+    if (!template) {
+      return res.status(404).json({ message: "Template not found" });
+    }
+    res.json(template);
+  } catch (err) {
+    console.error("❌ Error fetching template:", err);
+    res.status(500).json({ message: "Server error" });
+  }
+};

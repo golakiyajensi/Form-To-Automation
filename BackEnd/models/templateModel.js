@@ -1,3 +1,4 @@
+// models/templateModel.js
 const db = require("../config/db");
 
 const Template = {
@@ -8,7 +9,7 @@ const Template = {
 
   getById: async (id) => {
     const [rows] = await db.query("SELECT * FROM tbl_templates WHERE id = ?", [id]);
-    return rows[0]; // single template
+    return rows[0];
   },
 
   getFields: async (id) => {
@@ -24,7 +25,7 @@ const Template = {
       templateId,
       userId,
     ]);
-    return rows[0][0]; // assuming stored procedure returns formId in first row
+    return rows[0][0];
   },
 };
 

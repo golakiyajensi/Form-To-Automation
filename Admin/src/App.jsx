@@ -19,6 +19,7 @@ import EditForm from "./components/admin/pages/Forms/EditForm";
 import ViewFormResponse from "./components/admin/pages/Forms/ViewFormResponse";
 import EditSlide from "./components/admin/pages/Slides/EditSlide.JSX";
 import FormPublic from "./components/admin/pages/Forms/FormPublic";
+import Template from "./components/admin/pages/Template/template";
 
 export default function App() {
   return (
@@ -42,6 +43,7 @@ export default function App() {
             path="form-responses/response/:responseId"
             element={<ViewResponse />}
           />
+          <Route path="template" element={<Template />} />
         </Route>
 
         <Route path="*" element={<Navigate to="/admin" replace />} />
