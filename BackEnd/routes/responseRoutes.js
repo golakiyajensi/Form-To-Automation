@@ -2,9 +2,10 @@ const express = require("express");
 const router = express.Router();
 const responseController = require("../controllers/responseController");
 const authMiddleware = require("../middlewares/authMiddleware");
+const { responseUpload } = require("../middlewares/uploadMiddleware");
 
 // Submit new response
-router.post("/:formId", authMiddleware(["admin", "viewer", "creator"]), responseController.submitResponse);
+router.post("/:formId", responseUpload.array("files",10), authMiddleware(["admin", "viewer", "creator"]), responseController.submitResponse);
 
 // Get all responses (admin only)
 router.get("/all", authMiddleware(["admin","creator"]), responseController.getAllResponses);

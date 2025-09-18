@@ -8,36 +8,34 @@ const PDFDocument = require("pdfkit");   // PDF
 exports.submitResponse = async (req, res) => {
   try {
     const { formId } = req.params;
-    const { submitted_by, answers } = req.body;
+    const { submitted_by, answers } = JSON.parse(req.body.data || "{}"); 
     const user_id = req.user ? req.user.userId : null;
 
-    // Insert response
-    const result = await responseModel.createResponse(
-      formId,
-      user_id,
-      submitted_by
-    );
+    // Files uploaded
+    const uploadedFiles = req.files || [];
 
-    // Merge multiple answers for the same field
+    // Insert response
+    const result = await responseModel.createResponse(formId, user_id, submitted_by);
+
+    // Merge answers
     const mergedAnswers = {};
     answers.forEach((ans) => {
-      if (!mergedAnswers[ans.field_id]) {
-        mergedAnswers[ans.field_id] = [];
-      }
-      if (Array.isArray(ans.value)) {
-        mergedAnswers[ans.field_id].push(...ans.value);
+      if (!mergedAnswers[ans.field_id]) mergedAnswers[ans.field_id] = [];
+
+      // If the field is a file type, map file path
+      if (ans.type === "file") {
+        const file = uploadedFiles.find((f) => f.originalname === ans.value);
+        if (file) {
+          mergedAnswers[ans.field_id].push(`/uploads/response/${file.filename}`);
+        }
       } else {
         mergedAnswers[ans.field_id].push(ans.value);
       }
     });
 
-    // Insert answers as JSON array
+    // Save answers
     for (const field_id in mergedAnswers) {
-      await responseModel.addAnswer(
-        result.response_id,
-        field_id,
-        mergedAnswers[field_id]
-      );
+      await responseModel.addAnswer(result.response_id, field_id, mergedAnswers[field_id]);
     }
 
     res.json(
@@ -47,6 +45,7 @@ exports.submitResponse = async (req, res) => {
       })
     );
   } catch (err) {
+    console.error(err);
     res.status(500).json(response.error(err.message));
   }
 };
